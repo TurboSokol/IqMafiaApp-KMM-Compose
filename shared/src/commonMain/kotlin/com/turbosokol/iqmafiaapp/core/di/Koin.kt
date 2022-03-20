@@ -18,7 +18,9 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 val storeModule = module {
     single<Store<AppState, Action, Effect>> {
         ReduxStore(
-            reducer = RootReducer
+            reducer = RootReducer(
+
+            )
         )
     }
 }
