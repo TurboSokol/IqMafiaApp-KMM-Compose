@@ -1,5 +1,7 @@
 package com.turbosokol.iqmafiaapp.core.di
 
+import com.turbosokol.iqmafiaapp.common.app.AppMiddleware
+import com.turbosokol.iqmafiaapp.common.app.AppReducer
 import com.turbosokol.iqmafiaapp.common.app.AppState
 import com.turbosokol.iqmafiaapp.common.app.RootReducer
 import com.turbosokol.iqmafiaapp.core.redux.Action
@@ -19,7 +21,11 @@ val storeModule = module {
     single<Store<AppState, Action, Effect>> {
         ReduxStore(
             reducer = RootReducer(
-
+                appReducer = get()
+            ),
+            AppState(get()),
+            listOf(
+                AppMiddleware()
             )
         )
     }
