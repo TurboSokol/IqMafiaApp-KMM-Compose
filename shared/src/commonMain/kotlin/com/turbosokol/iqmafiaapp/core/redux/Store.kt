@@ -16,7 +16,7 @@ object Empty: Effect
 
 interface Store<S : GeneralState, A : Action, E : Effect> {
     fun observeAsState(): StateFlow<S>
-    fun dispatch(action: A)
+    fun execute(action: A)
     fun getState(): S
     fun observeSideEffect(): Flow<E>
 }
@@ -32,7 +32,7 @@ open class ReduxStore(
 
     override fun observeAsState(): StateFlow<AppState> = observableState
 
-    override fun dispatch(action: Action) {
+    override fun execute(action: Action) {
         val oldState = observableState.value
         val newState = reducer.reduce(oldState, action)
 
@@ -40,7 +40,7 @@ open class ReduxStore(
             val scope = CoroutineScope(Dispatchers.Main + Job())
             scope.launch {
                     middleware.process(newState, action, observableSideEffect).collect {
-                        dispatch(it)
+                        execute(it)
                     }
                 }
             }
