@@ -21,6 +21,7 @@ data class PlayersState(
         fun getDefaultState(): PlayersState {
             return PlayersState(
                 player1 = Player(
+                    playerId = 0,
                     slot = 1,
                     name = "Player 1",
                     falls = 0,
@@ -28,6 +29,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player2 = Player(
+                    playerId = 0,
                     slot = 2,
                     name = "Player 2",
                     falls = 0,
@@ -35,6 +37,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player3 = Player(
+                    playerId = 0,
                     slot = 3,
                     name = "Player 3",
                     falls = 0,
@@ -42,6 +45,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player4 = Player(
+                    playerId = 0,
                     slot = 4,
                     name = "Player 4",
                     falls = 0,
@@ -49,6 +53,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player5 = Player(
+                    playerId = 0,
                     slot = 5,
                     name = "Player 5",
                     falls = 0,
@@ -56,6 +61,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player6 = Player(
+                    playerId = 0,
                     slot = 6,
                     name = "Player 6",
                     falls = 0,
@@ -63,6 +69,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player7 = Player(
+                    playerId = 0,
                     slot = 7,
                     name = "Player 7",
                     falls = 0,
@@ -70,6 +77,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player8 = Player(
+                    playerId = 0,
                     slot = 8,
                     name = "Player 8",
                     falls = 0,
@@ -77,6 +85,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player9 = Player(
+                    playerId = 0,
                     slot = 9,
                     name = "Player 9",
                     falls = 0,
@@ -84,6 +93,7 @@ data class PlayersState(
                     score = 0f
                 ),
                 player10 = Player(
+                    playerId = 0,
                     slot = 10,
                     name = "Player 10",
                     falls = 0,

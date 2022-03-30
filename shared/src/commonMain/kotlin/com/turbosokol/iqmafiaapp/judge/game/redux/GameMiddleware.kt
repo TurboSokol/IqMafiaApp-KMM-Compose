@@ -1,15 +1,14 @@
-package com.turbosokol.iqmafiaapp.common.app
+package com.turbosokol.iqmafiaapp.judge.game.redux
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
 import com.turbosokol.iqmafiaapp.core.redux.Middleware
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.emptyFlow
 
-class AppMiddleware: Middleware<AppState> {
+class GameMiddleware: Middleware<GameState> {
     override suspend fun process(
-        state: AppState,
+        state: GameState,
         action: Action,
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
