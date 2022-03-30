@@ -16,6 +16,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     1 -> {
                         oldState.copy(
                             player1 = Player(
+                                playerId = oldState.player1.playerId,
                                 slot = oldState.player1.slot,
                                 name = action.name,
                                 falls = oldState.player1.falls,
@@ -27,6 +28,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     2 -> {
                         oldState.copy(
                             player2 = Player(
+                                playerId = oldState.player2.playerId,
                                 slot = oldState.player2.slot,
                                 name = action.name,
                                 falls = oldState.player2.falls,
@@ -38,6 +40,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     3 -> {
                         oldState.copy(
                             player3 = Player(
+                                playerId = oldState.player3.playerId,
                                 slot = oldState.player3.slot,
                                 name = action.name,
                                 falls = oldState.player3.falls,
@@ -49,6 +52,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     4 -> {
                         oldState.copy(
                             player4 = Player(
+                                playerId = oldState.player4.playerId,
                                 slot = oldState.player4.slot,
                                 name = action.name,
                                 falls = oldState.player4.falls,
@@ -60,6 +64,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     5 -> {
                         oldState.copy(
                             player5 = Player(
+                                playerId = oldState.player5.playerId,
                                 slot = oldState.player5.slot,
                                 name = action.name,
                                 falls = oldState.player5.falls,
@@ -70,7 +75,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     6 -> {
                         oldState.copy(
-                            player5 = Player(
+                            player6 = Player(
+                                playerId = oldState.player6.playerId,
                                 slot = oldState.player6.slot,
                                 name = action.name,
                                 falls = oldState.player6.falls,
@@ -81,7 +87,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     7 -> {
                         oldState.copy(
-                            player6 = Player(
+                            player7 = Player(
+                                playerId = oldState.player7.playerId,
                                 slot = oldState.player7.slot,
                                 name = action.name,
                                 falls = oldState.player7.falls,
@@ -93,6 +100,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     8 -> {
                         oldState.copy(
                             player8 = Player(
+                                playerId = oldState.player8.playerId,
                                 slot = oldState.player8.slot,
                                 name = action.name,
                                 falls = oldState.player8.falls,
@@ -104,6 +112,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     9 -> {
                         oldState.copy(
                             player9 = Player(
+                                playerId = oldState.player9.playerId,
                                 slot = oldState.player9.slot,
                                 name = action.name,
                                 falls = oldState.player9.falls,
@@ -115,6 +124,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     10 -> {
                         oldState.copy(
                             player10 = Player(
+                                playerId = oldState.player10.playerId,
                                 slot = oldState.player10.slot,
                                 name = action.name,
                                 falls = oldState.player10.falls,
@@ -132,6 +142,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     1 -> {
                         oldState.copy(
                             player1 = Player(
+                                playerId = oldState.player1.playerId,
                                 slot = oldState.player1.slot,
                                 name = oldState.player1.name,
                                 falls = action.falls,
@@ -143,6 +154,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     2 -> {
                         oldState.copy(
                             player2 = Player(
+                                playerId = oldState.player2.playerId,
                                 slot = oldState.player2.slot,
                                 name = oldState.player2.name,
                                 falls = action.falls,
@@ -154,6 +166,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     3 -> {
                         oldState.copy(
                             player3 = Player(
+                                playerId = oldState.player3.playerId,
                                 slot = oldState.player3.slot,
                                 name = oldState.player3.name,
                                 falls = action.falls,
@@ -165,6 +178,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     4 -> {
                         oldState.copy(
                             player4 = Player(
+                                playerId = oldState.player4.playerId,
                                 slot = oldState.player4.slot,
                                 name = oldState.player4.name,
                                 falls = action.falls,
@@ -176,6 +190,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     5 -> {
                         oldState.copy(
                             player5 = Player(
+                                playerId = oldState.player5.playerId,
                                 slot = oldState.player5.slot,
                                 name = oldState.player5.name,
                                 falls = action.falls,
@@ -186,7 +201,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     6 -> {
                         oldState.copy(
-                            player5 = Player(
+                            player6 = Player(
+                                playerId = oldState.player6.playerId,
                                 slot = oldState.player6.slot,
                                 name = oldState.player6.name,
                                 falls = action.falls,
@@ -197,7 +213,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     7 -> {
                         oldState.copy(
-                            player6 = Player(
+                            player7 = Player(
+                                playerId = oldState.player7.playerId,
                                 slot = oldState.player7.slot,
                                 name = oldState.player7.name,
                                 falls = action.falls,
@@ -209,6 +226,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     8 -> {
                         oldState.copy(
                             player8 = Player(
+                                playerId = oldState.player8.playerId,
                                 slot = oldState.player8.slot,
                                 name = oldState.player8.name,
                                 falls = action.falls,
@@ -220,6 +238,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     9 -> {
                         oldState.copy(
                             player9 = Player(
+                                playerId = oldState.player9.playerId,
                                 slot = oldState.player9.slot,
                                 name = oldState.player9.name,
                                 falls = action.falls,
@@ -231,6 +250,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     10 -> {
                         oldState.copy(
                             player10 = Player(
+                                playerId = oldState.player10.playerId,
                                 slot = oldState.player10.slot,
                                 name = oldState.player10.name,
                                 falls = action.falls,
@@ -248,6 +268,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     1 -> {
                         oldState.copy(
                             player1 = Player(
+                                playerId = oldState.player1.playerId,
                                 slot = oldState.player1.slot,
                                 name = oldState.player1.name,
                                 falls = oldState.player1.falls,
@@ -259,6 +280,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     2 -> {
                         oldState.copy(
                             player2 = Player(
+                                playerId = oldState.player2.playerId,
                                 slot = oldState.player2.slot,
                                 name = oldState.player2.name,
                                 falls = oldState.player2.falls,
@@ -270,6 +292,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     3 -> {
                         oldState.copy(
                             player3 = Player(
+                                playerId = oldState.player3.playerId,
                                 slot = oldState.player3.slot,
                                 name = oldState.player3.name,
                                 falls = oldState.player3.falls,
@@ -281,6 +304,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     4 -> {
                         oldState.copy(
                             player4 = Player(
+                                playerId = oldState.player4.playerId,
                                 slot = oldState.player4.slot,
                                 name = oldState.player4.name,
                                 falls = oldState.player4.falls,
@@ -292,6 +316,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     5 -> {
                         oldState.copy(
                             player5 = Player(
+                                playerId = oldState.player5.playerId,
                                 slot = oldState.player5.slot,
                                 name = oldState.player5.name,
                                 falls = oldState.player5.falls,
@@ -302,7 +327,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     6 -> {
                         oldState.copy(
-                            player5 = Player(
+                            player6 = Player(
+                                playerId = oldState.player6.playerId,
                                 slot = oldState.player6.slot,
                                 name = oldState.player6.name,
                                 falls = oldState.player6.falls,
@@ -313,7 +339,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     7 -> {
                         oldState.copy(
-                            player6 = Player(
+                            player7 = Player(
+                                playerId = oldState.player7.playerId,
                                 slot = oldState.player7.slot,
                                 name = oldState.player7.name,
                                 falls = oldState.player7.falls,
@@ -325,6 +352,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     8 -> {
                         oldState.copy(
                             player8 = Player(
+                                playerId = oldState.player8.playerId,
                                 slot = oldState.player8.slot,
                                 name = oldState.player8.name,
                                 falls = oldState.player8.falls,
@@ -336,6 +364,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     9 -> {
                         oldState.copy(
                             player9 = Player(
+                                playerId = oldState.player9.playerId,
                                 slot = oldState.player9.slot,
                                 name = oldState.player9.name,
                                 falls = oldState.player9.falls,
@@ -347,6 +376,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     10 -> {
                         oldState.copy(
                             player10 = Player(
+                                playerId = oldState.player10.playerId,
                                 slot = oldState.player10.slot,
                                 name = oldState.player10.name,
                                 falls = oldState.player10.falls,
@@ -364,6 +394,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     1 -> {
                         oldState.copy(
                             player1 = Player(
+                                playerId = oldState.player1.playerId,
                                 slot = oldState.player1.slot,
                                 name = oldState.player1.name,
                                 falls = oldState.player1.falls,
@@ -375,6 +406,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     2 -> {
                         oldState.copy(
                             player2 = Player(
+                                playerId = oldState.player2.playerId,
                                 slot = oldState.player2.slot,
                                 name = oldState.player2.name,
                                 falls = oldState.player2.falls,
@@ -386,6 +418,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     3 -> {
                         oldState.copy(
                             player3 = Player(
+                                playerId = oldState.player3.playerId,
                                 slot = oldState.player3.slot,
                                 name = oldState.player3.name,
                                 falls = oldState.player3.falls,
@@ -397,6 +430,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     4 -> {
                         oldState.copy(
                             player4 = Player(
+                                playerId = oldState.player4.playerId,
                                 slot = oldState.player4.slot,
                                 name = oldState.player4.name,
                                 falls = oldState.player4.falls,
@@ -408,6 +442,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     5 -> {
                         oldState.copy(
                             player5 = Player(
+                                playerId = oldState.player5.playerId,
                                 slot = oldState.player5.slot,
                                 name = oldState.player5.name,
                                 falls = oldState.player5.falls,
@@ -418,7 +453,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     6 -> {
                         oldState.copy(
-                            player5 = Player(
+                            player6 = Player(
+                                playerId = oldState.player6.playerId,
                                 slot = oldState.player6.slot,
                                 name = oldState.player6.name,
                                 falls = oldState.player6.falls,
@@ -429,7 +465,8 @@ class PlayerReducer : Reducer<PlayersState> {
                     }
                     7 -> {
                         oldState.copy(
-                            player6 = Player(
+                            player7 = Player(
+                                playerId = oldState.player7.playerId,
                                 slot = oldState.player7.slot,
                                 name = oldState.player7.name,
                                 falls = oldState.player7.falls,
@@ -441,6 +478,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     8 -> {
                         oldState.copy(
                             player8 = Player(
+                                playerId = oldState.player8.playerId,
                                 slot = oldState.player8.slot,
                                 name = oldState.player8.name,
                                 falls = oldState.player8.falls,
@@ -452,6 +490,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     9 -> {
                         oldState.copy(
                             player9 = Player(
+                                playerId = oldState.player9.playerId,
                                 slot = oldState.player9.slot,
                                 name = oldState.player9.name,
                                 falls = oldState.player9.falls,
@@ -463,6 +502,7 @@ class PlayerReducer : Reducer<PlayersState> {
                     10 -> {
                         oldState.copy(
                             player10 = Player(
+                                playerId = oldState.player10.playerId,
                                 slot = oldState.player10.slot,
                                 name = oldState.player10.name,
                                 falls = oldState.player10.falls,

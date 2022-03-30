@@ -5,22 +5,29 @@ import com.turbosokol.iqmafiaapp.core.redux.Effect
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
 
 data class GameState(
+    val gameId: Int,
     val gameStarted: Boolean,
     val gameEnded: Boolean,
+    val teamWon: String,
+    val firstKill: Int
 ): GeneralState {
     companion object {
         fun getDefaultState(): GameState {
             return GameState(
+                gameId = 0, //TODO:: wait for firebase db
                 gameStarted = false,
-                gameEnded = false
+                gameEnded = false,
+                teamWon = "",
+                firstKill = 0
             )
         }
     }
 }
 
 sealed class GameAction: Action {
-    data class StartGame(val gameStarted: Boolean): GameAction()
-    data class EndGame(val gameEnded: Boolean): GameAction()
+    object StartGame: GameAction()
+    object EndGame: GameAction()
+    data class AddFirstKill(val firstKill: Int): GameAction()
 }
 
 object GameEndedEffect: Effect
