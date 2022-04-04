@@ -3,6 +3,7 @@
     package="com.turbosokol.iqmafiaapp.android">
 
     <application
+        android:name=".IqMafia"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -13,7 +14,6 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
