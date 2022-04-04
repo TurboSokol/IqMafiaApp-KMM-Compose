@@ -7,12 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlin.time.ExperimentalTime
 
 interface GeneralState
 interface Action
 interface Effect
-object None: Action
-object Empty: Effect
+object None : Action
+object Empty : Effect
 
 interface Store<S : GeneralState, A : Action, E : Effect> {
     fun observeAsState(): StateFlow<S>
@@ -21,13 +22,14 @@ interface Store<S : GeneralState, A : Action, E : Effect> {
     fun observeSideEffect(): Flow<E>
 }
 
+@ExperimentalTime
 open class ReduxStore(
     private val reducer: RootReducer,
-    appState: AppState,
+    defaultState: AppState,
     private val middlewares: List<Middleware<AppState>>
-): Store<AppState, Action, Effect> {
+) : Store<AppState, Action, Effect>, CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
-    private val observableState = MutableStateFlow(appState)
+    private val observableState = MutableStateFlow(defaultState)
     private val observableSideEffect = MutableSharedFlow<Effect>()
 
     override fun observeAsState(): StateFlow<AppState> = observableState
@@ -37,14 +39,13 @@ open class ReduxStore(
         val newState = reducer.reduce(oldState, action)
 
         middlewares.forEach { middleware ->
-            val scope = CoroutineScope(Dispatchers.Main + Job())
-            scope.launch {
-                    middleware.process(newState, action, observableSideEffect).collect {
-                        execute(it)
-                    }
+            launch {
+                middleware.process(newState, action, observableSideEffect).collect {
+                    execute(it)
                 }
             }
         }
+    }
 
 
     override fun getState(): AppState {
