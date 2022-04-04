@@ -88,7 +88,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-permissions:${Versions.accompanist}")
     implementation("com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("androidx.core:core-splashscreen:1.0.0-beta01")
     implementation("com.budiyev.android:code-scanner:2.1.0")
     implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
     implementation("org.burnoutcrew.composereorderable:reorderable:0.7.4")
