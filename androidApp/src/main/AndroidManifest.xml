@@ -5,17 +5,26 @@
     <application
         android:name=".IqMafia"
         android:allowBackup="false"
+        android:label="@string/app_name"
+        android:icon="@mipmap/iq_ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name="com.turbosokol.iqmafiaapp.android.SplashActivity"
+            android:theme="@style/Theme.AppSplash"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
