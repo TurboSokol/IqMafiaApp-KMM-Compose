@@ -1,24 +1,24 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'shared'
-    spec.version                  = '7.2.2'
-    spec.homepage                 = 'Link to the Shared Module homepage'
+    spec.name                     = 'shared_ui'
+    spec.version                  = '1.0'
+    spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Some description for the Shared Module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
+    spec.summary                  = ''
+    spec.vendored_frameworks      = 'build/cocoapods/framework/shared_ui.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '14.1'
+                
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':shared',
-        'PRODUCT_MODULE_NAME' => 'shared',
+        'KOTLIN_PROJECT_PATH' => ':shared-ui',
+        'PRODUCT_MODULE_NAME' => 'shared_ui',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build shared',
+            :name => 'Build shared_ui',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
