@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
+
 class JudgeCardsMiddleware : Middleware<JudgeCardsState> {
     override suspend fun execute(
         state: JudgeCardsState,

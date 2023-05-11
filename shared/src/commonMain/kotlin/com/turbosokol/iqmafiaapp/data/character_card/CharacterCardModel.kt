@@ -5,7 +5,7 @@ package com.turbosokol.iqmafiaapp.data.character_card
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-data class CharacterCard(
+data class CharacterCardModel(
     val type: CharacterCardType
 )
 

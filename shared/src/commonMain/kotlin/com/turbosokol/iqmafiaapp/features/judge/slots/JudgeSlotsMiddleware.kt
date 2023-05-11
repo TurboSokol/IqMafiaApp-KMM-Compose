@@ -17,6 +17,13 @@ class JudgeSlotsMiddleware : Middleware<JudgeSlotsState> {
         action: Action,
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
-        TODO("Not yet implemented")
+        when (action) {
+            is JudgeSlotsAction.InitSlots -> {
+                retrofit.get(action.slotsList)
+            }
+        }
     }
 }
+
+
+viewModel().execute(JudgeSlotsAction.InitSlots(listof(1,2,3,4)))
