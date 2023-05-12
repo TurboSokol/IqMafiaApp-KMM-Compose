@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.slots
+package com.turbosokol.iqmafiaapp.features.judge.screens.cards
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
@@ -11,19 +11,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeSlotsMiddleware : Middleware<JudgeSlotsState> {
+class JudgeCardsScreenMiddleware : Middleware<JudgeCardsScreenState> {
     override suspend fun execute(
-        state: JudgeSlotsState,
+        state: JudgeCardsScreenState,
         action: Action,
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
-        when (action) {
-            is JudgeSlotsAction.InitSlots -> {
-                retrofit.get(action.slotsList)
-            }
-        }
+        TODO("Not yet implemented")
     }
 }
-
-
-viewModel().execute(JudgeSlotsAction.InitSlots(listof(1,2,3,4)))

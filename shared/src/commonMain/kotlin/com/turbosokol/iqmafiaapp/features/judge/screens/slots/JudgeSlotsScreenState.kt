@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.slots
+package com.turbosokol.iqmafiaapp.features.judge.screens.slots
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
@@ -8,7 +8,7 @@ import com.turbosokol.iqmafiaapp.core.redux.GeneralState
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-data class JudgeSlotsState(
+data class JudgeSlotsScreenState(
     val isInit: Boolean,
     val isHidden: Boolean,
     val listIndex: Int,
@@ -16,15 +16,15 @@ data class JudgeSlotsState(
 ): GeneralState {
 
     companion object {
-        fun getInitState(): JudgeSlotsState = JudgeSlotsState(isInit = true, isHidden = true, listIndex = -1, slotsList = listOf(1,2,3,4,5,6,7,8,9,10))
+        fun getInitState(): JudgeSlotsScreenState = JudgeSlotsScreenState(isInit = true, isHidden = true, listIndex = -1, slotsList = listOf(1,2,3,4,5,6,7,8,9,10))
     }
 
 }
 
-sealed class JudgeSlotsAction: Action {
+sealed class JudgeSlotsScreenAction: Action {
     //set isInit = true, set isHidden = true, set new randomised list of slots
-    data class InitSlots(val slotsList: List<Int>): JudgeSlotsAction()
+    data class Init(val slotsList: List<Int>): JudgeSlotsScreenAction()
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
-    object ShowNext: JudgeSlotsAction()
+    object ShowNext: JudgeSlotsScreenAction()
 }

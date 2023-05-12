@@ -14,7 +14,12 @@ data class JudgeGameState(
     val judgeId: Int,
     val typeEnd: JudgeGameEndType?,
     val winnerTeam: JudgeWinnerTeamType?,
-    val isGameIdRecieved: Boolean
+    val isGameIdReceived: Boolean,
+    //position or profileId
+    val playersKilled: List<Int>,
+    //position or profileId
+    val playersVoted: List<Int>,
+    val bestMove: List<Int>
 ) : GeneralState {
     companion object {
         fun getInitState(): JudgeGameState = JudgeGameState(
@@ -23,22 +28,32 @@ data class JudgeGameState(
             judgeId = 0,
             typeEnd = null,
             winnerTeam = null,
-            isGameIdRecieved = false
+            isGameIdReceived = false,
+            playersKilled = emptyList(),
+            playersVoted = emptyList(),
+            bestMove = emptyList()
         )
     }
 }
 
 sealed class JudgeGameAction : Action {
     //clear state to InitState
-    object Init: JudgeGameAction()
+    object Init : JudgeGameAction()
 
-    object GetGameId: JudgeGameAction()
+    object GetGameId : JudgeGameAction()
 
     //read gameId from WEB DB or local db
-    data class StartGame(val gameId: Int, val judgeId: Int): JudgeGameAction()
+    data class StartGame(val gameId: Int, val judgeId: Int) : JudgeGameAction()
 
     //make REST GET to recap gameID
-    data class EndGame(val gameId: Int, val typeEnd: JudgeGameEndType?, val winnerTeam: JudgeWinnerTeamType?): JudgeGameAction()
+    data class EndGame(
+        val gameId: Int,
+        val typeEnd: JudgeGameEndType?,
+        val winnerTeam: JudgeWinnerTeamType?,
+        val playersKilled: List<Int>,
+        val playersVoted: List<Int>,
+        val bestMove: List<Int>
+    ) : JudgeGameAction()
 }
 
 enum class JudgeGameEndType {

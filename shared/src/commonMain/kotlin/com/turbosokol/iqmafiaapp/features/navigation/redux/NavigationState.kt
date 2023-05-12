@@ -2,8 +2,10 @@ package com.turbosokol.iqmafiaapp.features.navigation.redux
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
-import com.turbosokol.iqmafiaapp.features.judge.cards.JudgeCardsState
-import com.turbosokol.iqmafiaapp.features.judge.slots.JudgeSlotsState
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -14,7 +16,8 @@ data class NavigationState(
 ) : GeneralState {
 
     companion object {
-        fun getInitState(): NavigationState = NavigationState(currentScreen = AppScreen.JudgeSlotsScreen(JudgeSlotsState.getInitState()))
+        fun getInitState(): NavigationState = NavigationState(currentScreen = AppScreen.JudgeSlotsScreen(
+            JudgeSlotsScreenState.getInitState()))
     }
 
 }
@@ -24,9 +27,10 @@ sealed class NavigationAction : Action {
 }
 
 sealed class AppScreen {
-    data class JudgeSlotsScreen(val slotsState: JudgeSlotsState): AppScreen()
-    data class JudgeCardsScreen(val cardsState: JudgeCardsState): AppScreen()
-    data class JudgeDayScreen(val datState: JudgeDayState): AppScreen()
-    data class JudgeNightsScreen(val cardsState: JudgeNightState): AppScreen()
-    data class JudgeScoreScreen(val scoreState: JudgeScoreState): AppScreen()
+    data class JudgeSlotsScreen(val slotsScreenState: JudgeSlotsScreenState): AppScreen()
+    data class JudgeCardsScreen(val cardsScreenState: JudgeCardsScreenState): AppScreen()
+    data class JudgeDayScreen(val dayScreenState: JudgeDayScreenState): AppScreen()
+    data class JudgeNightsScreen(val nightScreenState: JudgeNightScreenState): AppScreen()
+    data class JudgeScoreScreen(val scoreScreenState: JudgeScoreScreenState): AppScreen()
+    data class JudgeAchievementScreen(val achievementScreen: JudgeAchievementScreenState): AppScreen()
 }

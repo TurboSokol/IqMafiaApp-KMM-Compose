@@ -1,25 +1,27 @@
-package com.turbosokol.iqmafiaapp.features.judge.slots
+package com.turbosokol.iqmafiaapp.features.judge.screens.cards
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
 
 /***
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-class JudgeSlotsReducer : Reducer<JudgeSlotsState> {
-    override fun reduce(oldState: JudgeSlotsState, action: Action): JudgeSlotsState {
+
+class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
+    override fun reduce(oldState: JudgeCardsScreenState, action: Action): JudgeCardsScreenState {
         return when (action) {
-            is JudgeSlotsAction.InitSlots -> {
+            is JudgeCardsScreenAction.Init -> {
                 oldState.copy(
                     isInit = true,
                     isHidden = true,
                     listIndex = -1,
-                    slotsList = action.slotsList
+                    cardsList = action.cardsList
                 )
             }
 
-            is JudgeSlotsAction.ShowNext -> {
+            is JudgeSlotsScreenAction.ShowNext -> {
                 oldState.copy(
                     isInit = false,
                     isHidden = !oldState.isHidden,

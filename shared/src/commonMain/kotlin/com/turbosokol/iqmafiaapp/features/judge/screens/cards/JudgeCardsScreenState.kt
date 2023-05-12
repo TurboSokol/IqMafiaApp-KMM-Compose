@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.cards
+package com.turbosokol.iqmafiaapp.features.judge.screens.cards
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
@@ -9,7 +9,7 @@ import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-data class JudgeCardsState(
+data class JudgeCardsScreenState(
     val isInit: Boolean,
     val isHidden: Boolean,
     val listIndex: Int,
@@ -17,7 +17,7 @@ data class JudgeCardsState(
 ) : GeneralState {
 
     companion object {
-        fun getInitState(): JudgeCardsState = JudgeCardsState(
+        fun getInitState(): JudgeCardsScreenState = JudgeCardsScreenState(
             isInit = true, isHidden = true, listIndex = -1, cardsList = listOf(
                 CharacterCardModel(type = CharacterCardType.DON),
                 CharacterCardModel(type = CharacterCardType.BLACK),
@@ -35,10 +35,10 @@ data class JudgeCardsState(
 
 }
 
-sealed class JudgeCardsAction : Action {
+sealed class JudgeCardsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of cards
-    data class InitCards(val cardsList: List<CharacterCardModel>) : JudgeCardsAction()
+    data class Init(val cardsList: List<CharacterCardModel>) : JudgeCardsScreenAction()
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
-    object ShowNext : JudgeCardsAction()
+    object ShowNext : JudgeCardsScreenAction()
 }
