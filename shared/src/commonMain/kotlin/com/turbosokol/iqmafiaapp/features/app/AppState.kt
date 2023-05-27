@@ -8,7 +8,9 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenState
 import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameState
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersState
 import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundState
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
 import com.turbosokol.iqmafiaapp.features.navigation.redux.AppScreen
 import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationState
@@ -32,7 +34,7 @@ data class AppState(
     internal val judgeDayScreenState: JudgeDayScreenState = JudgeDayScreenState.getInitState(),
     internal val judgeNightScreenState: JudgeNightScreenState = JudgeNightScreenState.getInitState(),
     internal val judgeScoreScreenState: JudgeScoreScreenState = JudgeScoreScreenState.getInitState(),
-    internal val judgeAchievementScreenState: AppScreen.JudgeAchievementScreenState = JudgeAchievementScreenState.getInitState(),
+    internal val judgeAchievementScreenState: JudgeAchievementScreenState = JudgeAchievementScreenState.getInitState(),
 ) : GeneralState {
 
     fun getAuthState() = authState

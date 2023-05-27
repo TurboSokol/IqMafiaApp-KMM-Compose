@@ -19,6 +19,7 @@ data class JudgeGameState(
     val playersKilled: List<Int>,
     //position or profileId
     val playersVoted: List<Int>,
+    //map to game_profile table
     val bestMove: List<Int>
 ) : GeneralState {
     companion object {

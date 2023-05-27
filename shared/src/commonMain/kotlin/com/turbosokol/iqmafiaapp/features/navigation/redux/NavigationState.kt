@@ -2,9 +2,11 @@ package com.turbosokol.iqmafiaapp.features.navigation.redux
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
 
 /***
@@ -32,5 +34,5 @@ sealed class AppScreen {
     data class JudgeDayScreen(val dayScreenState: JudgeDayScreenState): AppScreen()
     data class JudgeNightsScreen(val nightScreenState: JudgeNightScreenState): AppScreen()
     data class JudgeScoreScreen(val scoreScreenState: JudgeScoreScreenState): AppScreen()
-    data class JudgeAchievementScreen(val achievementScreen: JudgeAchievementScreenState): AppScreen()
+    data class JudgeAchievementScreen(val achievementScreenState: JudgeAchievementScreenState): AppScreen()
 }

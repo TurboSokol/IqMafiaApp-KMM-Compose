@@ -4,12 +4,14 @@
 --     Game (one unique game) { id, game_judge_id, type_end, winner_team }
 --     Round { id, game_id, number (not used in MVP), candidates (listOfNumbers), created_at, updated_at }
 --     GameProfile { id, game_id, profile_id, character_card, slot } pivot table for Game with Profile (many to many)
---     Actions { id, profile_id, round_id ()}
+--     Actions { id, profile_id, round_id ()} votes, nominations
+--     Score { }
 
 
 
 CREATE TABLE users (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+server_id INTEGER, -- if (games.server_id != null) game_id == games.server_id else game_id == games.id
 name TEXT NOT NULL,
 email TEXT NOT NULL,
 role TEXT NOT NULL,
@@ -17,8 +19,10 @@ created_at TEXT,
 updated_at TEXT
 );
 
+
 CREATE TABLE profiles (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+server_id INTEGER, -- if (games.server_id != null) game_id == games.server_id else game_id == games.id
 user_id INTEGER NOT NULL,
 nickname TEXT,
 created_at TEXT,
@@ -27,6 +31,7 @@ updated_at TEXT
 
 CREATE TABLE games (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+server_id INTEGER,
 game_judge_id INTEGER NOT NULL, -- Ведущий
 type_end TEXT NOT NULL, -- Тип победы (Enum { обычная, сухая, ппк }),
 winner_team TEXT NOT NULL, -- Команда победителей (Enum { Red, Black, Draw }),
@@ -38,7 +43,8 @@ updated_at TEXT
 
 CREATE TABLE rounds (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-game_id INTEGER NOT NULL,
+server_id INTEGER,
+game_id INTEGER NOT NULL, -- if (games.server_id != null) game_id == games.server_id else game_id == games.id
 number INTEGER, -- Порядковый номер рауда в игре,
 candidates TEXT, -- Кандидаты на голосование в раунде,
 vote_result INTEGER,
@@ -48,46 +54,28 @@ updated_at TEXT
 
 CREATE TABLE game_profile (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-game_id INTEGER NOT NULL,
+game_id INTEGER NOT NULL, -- if (games.server_id != null) game_id == games.server_id else game_id == games.id
 profile_id INTEGER NOT NULL,
 character_card TEXT NOT NULL, -- Игоровая карточка игрока (Enum),
-slot INTEGER NOT NULL -- Позиция игрока за столом
+slot INTEGER NOT NULL, -- Позиция игрока за столом
+best_move TEXT,
+faults INTEGER NOT NULL
 );
 
 CREATE TABLE actions (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 profile_id TEXT,
-round_id INTEGER,
-type TEXT -- Тип действия (Enum: voting, nomination),
-//action_position integer COMMENT Номер игрока,
-//created_at timestamp,
-//updated_at timestamp
-//);
-//
-//CREATE TABLE profile_scores (
-//id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-//profile_id integer,
-//round_id integer,
-//type_bonus varchar(255) COMMENT Тип бонусного балла (Enum),
-//count integer
-//);
-//
-//ALTER TABLE games ADD FOREIGN KEY (id) REFERENCES game_profile (game_id);
-//
-//ALTER TABLE rounds ADD FOREIGN KEY (game_id) REFERENCES games (id);
-//
-//ALTER TABLE rounds ADD FOREIGN KEY (id) REFERENCES profile_scores (round_id);
-//
-//ALTER TABLE profiles ADD FOREIGN KEY (id) REFERENCES game_profile (profile_id);
-//
-//ALTER TABLE profiles ADD FOREIGN KEY (id) REFERENCES games (game_master_id);
-//
-//ALTER TABLE profiles ADD FOREIGN KEY (id) REFERENCES profile_scores (profile_id);
-//
-//ALTER TABLE game_actions ADD FOREIGN KEY (round_id) REFERENCES rounds (id);
-//
-//ALTER TABLE game_actions ADD FOREIGN KEY (profile_id) REFERENCES profiles (id);
-//
-//ALTER TABLE games ADD FOREIGN KEY (rounds) REFERENCES games (id);
-//
-//ALTER TABLE games ADD FOREIGN KEY (game_master_id) REFERENCES games (id);
+round_id INTEGER, -- if (rounda.server_id != null) round_id = rounds.server_id else round_id == rounds.id
+type TEXT, -- Тип действия (Enum: voting, nomination)
+slot INTEGER, -- Номер игрока которого выставил,
+created_at TEXT,
+updated_at TEXT
+);
+
+CREATE TABLE scores (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+game_id INTEGER NOT NULL, -- if (games.server_id != null) game_id == games.server_id else game_id == games.id
+profile_id INTEGER,
+type_bonus TEXT, -- COMMENT Тип бонусного балла (Enum),
+count INTEGER
+);
