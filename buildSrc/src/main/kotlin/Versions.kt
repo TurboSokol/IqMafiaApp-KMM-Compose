@@ -29,12 +29,19 @@ object Versions {
     const val lifecycle = "2.5.1"
 
     //UI
-    const val constraintLayout = "2.1.4"
+    const val constraintLayoutCompose = "1.0.1"
     const val compose = "1.3.0"
     const val composeCompiler = "1.2.0-dev-k1.7.0-53370d83bb1"
     const val material = "1.6.1"
     const val activityCompose = "1.6.1"
+    const val accompanist = "0.31.3-beta"
+    const val lottie = "6.0.1"
 
     //viewmodel
     const val hyperdrive = "0.1.139"
+
+    //TEST
+    const val test = "1.4.0"
+    const val mockk = "1.12.2"
+    const val jUnit = "4.13.2"
 }

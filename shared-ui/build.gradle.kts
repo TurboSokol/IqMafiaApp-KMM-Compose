@@ -57,9 +57,9 @@ kotlin {
                 api(compose.runtime)
                 api(compose.materialIconsExtended)
 
-
                 //Shared ViewModel
                 api("org.brightify.hyperdrive:multiplatformx-api:${Versions.hyperdrive}")
+//                api("org.brightify.hyperdrive:multiplatformx-compose: ${Versions.hyperdrive}")
 
             }
         }

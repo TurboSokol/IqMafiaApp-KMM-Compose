@@ -2,6 +2,7 @@ package com.turbosokol.iqmafiaapp.features.app
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
+import com.turbosokol.iqmafiaapp.features.account.AccountState
 import com.turbosokol.iqmafiaapp.features.auth.redux.AuthState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenState
@@ -12,7 +13,6 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchieve
 import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
-import com.turbosokol.iqmafiaapp.features.navigation.redux.AppScreen
 import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationState
 
 /***
@@ -21,13 +21,10 @@ import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationState
  ***/
 
 data class AppState(
-    val platform: AppPlatform = AppPlatform.EMPTY,
+    internal val appPlatform: AppPlatform = AppPlatform.EMPTY,
     internal val authState: AuthState = AuthState.getInitState(),
     internal val navigationState: NavigationState = NavigationState.getInitState(),
-
-    internal val judgePlayersState: JudgePlayersState = JudgePlayersState.getInitState(),
-    internal val judgeGameState: JudgeGameState = JudgeGameState.getInitState(),
-    internal val judgeRoundState: JudgeRoundState = JudgeRoundState.getInitState(),
+    internal val accountState: AccountState = AccountState.getInitState(),
 
     internal val judgeSlotsScreenState: JudgeSlotsScreenState = JudgeSlotsScreenState.getInitState(),
     internal val judgeCardsScreenState: JudgeCardsScreenState = JudgeCardsScreenState.getInitState(),
@@ -35,10 +32,16 @@ data class AppState(
     internal val judgeNightScreenState: JudgeNightScreenState = JudgeNightScreenState.getInitState(),
     internal val judgeScoreScreenState: JudgeScoreScreenState = JudgeScoreScreenState.getInitState(),
     internal val judgeAchievementScreenState: JudgeAchievementScreenState = JudgeAchievementScreenState.getInitState(),
+
+    internal val judgePlayersState: JudgePlayersState = JudgePlayersState.getInitState(),
+    internal val judgeGameState: JudgeGameState = JudgeGameState.getInitState(),
+    internal val judgeRoundState: JudgeRoundState = JudgeRoundState.getInitState(),
 ) : GeneralState {
 
+    fun getAppPlatform() = appPlatform
     fun getAuthState() = authState
     fun getNavigationState() = navigationState
+    fun getAccountState() = accountState
 
     fun getJudgePlayersState() = judgePlayersState
     fun getJudgeGameState() = judgeGameState

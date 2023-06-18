@@ -9,19 +9,14 @@ dependencies {
     implementation(project(":shared"))
     implementation(project(":shared-ui"))
 
+    //UI
     implementation("com.google.android.material:material:${Versions.material}")
     implementation("androidx.appcompat:appcompat:${Versions.appCompat}")
-    implementation("androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}")
-
     implementation("androidx.activity:activity-compose:${Versions.activityCompose}")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
 
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
-
-    //Database
-//    implementation ("com.google.firebase:firebase-firestore:${Versions.firebaseFirestore}")
-//    implementation ("com.google.firebase:firebase-core:${Versions.firebaseCore}")
-//    implementation("org.kodein.db:kodein-db-inmemory:${Versions.kodeinDb}")
-
 
     //Lifecycle
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
@@ -34,8 +29,6 @@ dependencies {
 
     //Concurrency
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.3")
 
 
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Versions.compose}")
@@ -95,15 +88,16 @@ dependencies {
     implementation(project(":shared"))
 
     //Core
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+
 
     //UI
-    implementation("androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}")
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayoutCompose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.activity:activity-compose:1.4.0")
@@ -132,7 +126,6 @@ dependencies {
 
     //Network
     implementation("io.ktor:ktor-client-android:${Versions.ktor}")
-    implementation("org.kodein.db:kodein-db-inmemory:${Versions.kodein}")
 
     //DI
     implementation("io.insert-koin:koin-core:${Versions.koin}")

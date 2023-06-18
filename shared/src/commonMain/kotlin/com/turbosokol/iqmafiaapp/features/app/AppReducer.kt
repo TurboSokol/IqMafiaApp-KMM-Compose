@@ -2,6 +2,7 @@ package com.turbosokol.iqmafiaapp.features.app
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
+import com.turbosokol.iqmafiaapp.features.account.AccountReducer
 import com.turbosokol.iqmafiaapp.features.auth.redux.AuthReducer
 import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameReducer
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersReducer
@@ -12,6 +13,7 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenReduce
 import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenReducer
+import com.turbosokol.iqmafiaapp.features.navigation.NavigationReducer
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -22,7 +24,7 @@ class AppReducer : Reducer<AppState> {
     override fun reduce(oldState: AppState, action: Action): AppState {
         return when (action) {
             is AppAction.SetPlatform -> {
-                oldState.copy(platform = action.platform)
+                oldState.copy(appPlatform = action.platform)
             }
 
             else -> oldState
@@ -34,6 +36,8 @@ class AppReducer : Reducer<AppState> {
 class RootReducer(
     private val appReducer: AppReducer,
     private val authReducer: AuthReducer,
+    private val navigationReducer: NavigationReducer,
+    private val accountReducer: AccountReducer,
     private val judgeSlotsScreenReducer: JudgeSlotsScreenReducer,
     private val judgeCardsScreenReducer: JudgeCardsScreenReducer,
     private val judgeDayScreenReducer: JudgeDayScreenReducer,
@@ -48,6 +52,8 @@ class RootReducer(
         .reduce(oldState, action)
         .copy(
             authState = authReducer.reduce(oldState.authState, action),
+            navigationState = navigationReducer.reduce(oldState.navigationState, action),
+            accountState = accountReducer.reduce(oldState.accountState, action),
             judgeSlotsScreenState = judgeSlotsScreenReducer.reduce(oldState.judgeSlotsScreenState, action),
             judgeCardsScreenState = judgeCardsScreenReducer.reduce(oldState.judgeCardsScreenState, action),
             judgeDayScreenState = judgeDayScreenReducer.reduce(oldState.judgeDayScreenState, action),

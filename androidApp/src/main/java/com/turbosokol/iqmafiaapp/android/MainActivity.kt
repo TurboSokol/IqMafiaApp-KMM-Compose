@@ -13,8 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.turbosokol.iqmafiaapp.android.ui.theme.IqMafiaAppTheme
 
 class MainActivity : ComponentActivity() {
+//    val viewModel: ReduxViewModel by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         setContent {
             IqMafiaAppTheme {
                 // A surface container using the 'background' color from the theme

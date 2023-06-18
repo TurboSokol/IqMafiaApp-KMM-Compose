@@ -1,6 +1,6 @@
 package com.turbosokol.iqmafiaapp.android.utils
 
-import com.turbosokol.iqmafiaapp.android.ReduxViewModel
+import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import org.koin.dsl.module
 
 val viewModelsModule = module {

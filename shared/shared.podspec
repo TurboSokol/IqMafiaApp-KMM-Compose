@@ -8,14 +8,14 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Some description for the Shared Module'
     spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '14.1'
-
-
+    spec.ios.deployment_target = '15'
+                
+                
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':shared',
         'PRODUCT_MODULE_NAME' => 'shared',
     }
-
+                
     spec.script_phases = [
         {
             :name => 'Build shared',
@@ -35,5 +35,5 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
-
+                
 end

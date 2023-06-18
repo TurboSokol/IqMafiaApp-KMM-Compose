@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -52,9 +50,9 @@ kotlin {
                 //SERIALIZATION SETTINGS
                 implementation("com.russhwolf:multiplatform-settings:${Versions.russhwolf}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
 
 
@@ -73,8 +71,8 @@ kotlin {
             dependencies{
                 implementation("io.ktor:ktor-client-android:${Versions.ktor}")
                 implementation("io.ktor:ktor-network-tls:${Versions.ktor}")
-                implementation("com.squareup.okhttp3:okhttp:4.9.3")
-                implementation("androidx.core:core:1.9.0")
+                implementation("com.squareup.okhttp3:okhttp:4.10.0")
+                implementation("androidx.core:core:1.10.1")
                 implementation("androidx.compose.ui:ui:${Versions.compose}")
                 implementation("com.squareup.sqldelight:android-driver:${Versions.sqlDelight}")
             }

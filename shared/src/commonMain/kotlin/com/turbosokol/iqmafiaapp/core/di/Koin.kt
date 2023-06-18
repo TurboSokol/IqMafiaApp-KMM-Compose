@@ -1,14 +1,36 @@
-package com.turbosokol.iqmafiaapp.core.di
 
-import com.turbosokol.iqmafiaapp.common.app.*
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
 import com.turbosokol.iqmafiaapp.core.redux.ReduxStore
 import com.turbosokol.iqmafiaapp.core.redux.Store
-import com.turbosokol.iqmafiaapp.judge.game.redux.GameMiddleware
-import com.turbosokol.iqmafiaapp.judge.game.redux.GameReducer
-import com.turbosokol.iqmafiaapp.judge.player.redux.PlayerMiddleware
-import com.turbosokol.iqmafiaapp.judge.player.redux.PlayerReducer
+import com.turbosokol.iqmafiaapp.features.account.AccountMiddleware
+import com.turbosokol.iqmafiaapp.features.account.AccountReducer
+import com.turbosokol.iqmafiaapp.features.app.AppMiddleware
+import com.turbosokol.iqmafiaapp.features.app.AppReducer
+import com.turbosokol.iqmafiaapp.features.app.AppState
+import com.turbosokol.iqmafiaapp.features.app.RootReducer
+import com.turbosokol.iqmafiaapp.features.auth.redux.AuthMiddleware
+import com.turbosokol.iqmafiaapp.features.auth.redux.AuthReducer
+import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameReducer
+import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersReducer
+import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenReducer
+import com.turbosokol.iqmafiaapp.features.navigation.NavigationMiddleware
+import com.turbosokol.iqmafiaapp.features.navigation.NavigationReducer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
@@ -21,7 +43,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalSerializationApi
 @ExperimentalTime
 @InternalSerializationApi
-fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
+fun initSharedKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
     modules(storeModule)
 }
@@ -32,19 +54,49 @@ val storeModule = module {
         ReduxStore(
             reducer = RootReducer(
                 appReducer = get(),
-                gameReducer = get(),
-                playerReducer = get()
+                authReducer = get(),
+                navigationReducer = get(),
+                accountReducer = get(),
+                judgeSlotsScreenReducer = get(),
+                judgeCardsScreenReducer = get(),
+                judgeDayScreenReducer = get(),
+                judgeNightScreenReducer = get(),
+                judgeScoreScreenReducer = get(),
+                judgeAchievementsScreenReducer = get(),
+                judgeGameReducer = get(),
+                judgePlayersReducer = get(),
+                judgeRoundReducer = get()
             ),
-            defaultState = AppState(),
+            defaultValue = AppState(get()),
             middlewares = listOf(
                 AppMiddleware(),
-                GameMiddleware(),
-                PlayerMiddleware()
+                AuthMiddleware(),
+                NavigationMiddleware(),
+                AccountMiddleware(),
+                JudgeSlotsScreenMiddleware(),
+                JudgeCardsScreenMiddleware(),
+                JudgeDayScreenMiddleware(),
+                JudgeNightScreenMiddleware(),
+                JudgeScoreScreenMiddleware(),
+                JudgeAchievementScreenMiddleware(),
+                JudgeGameMiddleware(),
+                JudgePlayersMiddleware(),
+                JudgeRoundMiddleware()
             )
         )
     }
 
     single { AppReducer() }
-    single { GameReducer() }
-    single { PlayerReducer() }
+    single { AuthReducer() }
+    single { NavigationReducer() }
+    single { AccountReducer() }
+    single { JudgeSlotsScreenReducer() }
+    single { JudgeCardsScreenReducer() }
+    single { JudgeDayScreenReducer() }
+    single { JudgeNightScreenReducer() }
+    single { JudgeScoreScreenReducer() }
+    single { JudgeAchievementsScreenReducer() }
+    single { JudgeGameReducer() }
+    single { JudgePlayersReducer() }
+    single { JudgeRoundReducer() }
 }
