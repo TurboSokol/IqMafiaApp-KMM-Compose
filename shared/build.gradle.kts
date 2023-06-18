@@ -20,7 +20,7 @@ kotlin {
         version = Versions.gradle
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = Versions.iOSDeploymentTarget
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
@@ -51,33 +51,68 @@ kotlin {
 
                 //SERIALIZATION SETTINGS
                 implementation("com.russhwolf:multiplatform-settings:${Versions.russhwolf}")
-            }
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
 
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.1")
+
+
+
+
+            }
         }
+
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
+                implementation(kotlin("test"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val androidMain by getting {
-            dependencies {
-                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
-                implementation("androidx.core:core:1.9.0")
 
+        val androidMain by getting {
+            dependencies{
+                implementation("io.ktor:ktor-client-android:${Versions.ktor}")
+                implementation("io.ktor:ktor-network-tls:${Versions.ktor}")
+                implementation("com.squareup.okhttp3:okhttp:4.9.3")
+                implementation("androidx.core:core:1.9.0")
+                implementation("androidx.compose.ui:ui:${Versions.compose}")
                 implementation("com.squareup.sqldelight:android-driver:${Versions.sqlDelight}")
             }
         }
+
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
+                implementation("junit:junit:${Versions.jUnit}")
+//                implementation("org.mockito:mockito-core:${Versions.mockito}")
+//                implementation("org.mockito.kotlin:mockito-kotlin:${Versions.mockito}")
+//                implementation("io.mockk:mockk:${Versions.mockk}")
+//                implementation("io.insert-koin:koin-core:${Versions.koin}")
+//                implementation("io.insert-koin:koin-test-junit4:${Versions.koin}")
+//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}")
+//                implementation("org.kodein.db:kodein-db-inmemory:${Versions.kodein}")
+                implementation("com.russhwolf:multiplatform-settings-test:${Versions.russhwolf}")
             }
         }
 
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+        val iosX64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+            }
+        }
+
+        val iosArm64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+            }
+        }
+
+        val iosSimulatorArm64Main by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+            }
+        }
+
         val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
