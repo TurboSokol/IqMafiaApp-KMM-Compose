@@ -55,10 +55,8 @@ kotlin {
                 api(compose.animation)
                 api(compose.foundation)
                 api(compose.ui)
-
                 api(compose.material)
                 api(compose.runtime)
-
                 api(compose.materialIconsExtended)
 
                 api("androidx.compose.compiler:compiler:1.4.7")

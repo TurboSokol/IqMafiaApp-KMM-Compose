@@ -17,8 +17,8 @@ import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersMiddleware
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersReducer
 import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundMiddleware
 import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenMiddleware
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenMiddleware
@@ -62,12 +62,12 @@ val storeModule = module {
                 judgeDayScreenReducer = get(),
                 judgeNightScreenReducer = get(),
                 judgeScoreScreenReducer = get(),
-                judgeAchievementsScreenReducer = get(),
+                judgeAchievesScreenReducer = get(),
                 judgeGameReducer = get(),
                 judgePlayersReducer = get(),
                 judgeRoundReducer = get()
             ),
-            defaultValue = AppState(get()),
+            defaultValue = AppState(),
             middlewares = listOf(
                 AppMiddleware(),
                 AuthMiddleware(),
@@ -78,7 +78,7 @@ val storeModule = module {
                 JudgeDayScreenMiddleware(),
                 JudgeNightScreenMiddleware(),
                 JudgeScoreScreenMiddleware(),
-                JudgeAchievementScreenMiddleware(),
+                JudgeAchievesScreenMiddleware(),
                 JudgeGameMiddleware(),
                 JudgePlayersMiddleware(),
                 JudgeRoundMiddleware()
@@ -95,7 +95,7 @@ val storeModule = module {
     single { JudgeDayScreenReducer() }
     single { JudgeNightScreenReducer() }
     single { JudgeScoreScreenReducer() }
-    single { JudgeAchievementsScreenReducer() }
+    single { JudgeAchievesScreenReducer() }
     single { JudgeGameReducer() }
     single { JudgePlayersReducer() }
     single { JudgeRoundReducer() }

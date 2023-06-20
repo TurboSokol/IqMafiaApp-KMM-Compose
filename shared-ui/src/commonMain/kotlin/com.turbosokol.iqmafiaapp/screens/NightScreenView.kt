@@ -11,5 +11,5 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 
 @Composable
 fun NightScreenView(viewModel: ReduxViewModel) {
- Text(text = "Night")
+ Text(text = "Night\nNames with roles\nBest Move\nKills and checks")
 }

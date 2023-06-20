@@ -25,4 +25,6 @@ object Colors {
     val lightGrey222 = Color(0xFFDEDEDE)
     val lightGrey250 = Color(0xFFfafafa)
 
+    val white = Color(0xFFFFFFFF)
+
 }
