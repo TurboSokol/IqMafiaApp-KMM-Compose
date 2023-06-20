@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-interface Middleware<G : GeneralState> {
+interface  Middleware<G : GeneralState> {
     suspend fun execute(state: G, action: Action, sideEffect: MutableSharedFlow<Effect>): Flow<Action>
 }
