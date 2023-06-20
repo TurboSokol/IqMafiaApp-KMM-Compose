@@ -10,6 +10,6 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
  ***/
 
 @Composable
-fun AchievementScreenView(viewModel: ReduxViewModel) {
-    Text(text = "Achievement")
+fun AchieveScreenView(viewModel: ReduxViewModel) {
+    Text(text = "Achievement\nList of players balls and game moves")
 }

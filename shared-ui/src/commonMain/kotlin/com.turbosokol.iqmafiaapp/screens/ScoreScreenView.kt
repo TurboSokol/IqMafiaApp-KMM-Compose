@@ -11,5 +11,5 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 
 @Composable
 fun ScoreScreenView(viewModel: ReduxViewModel) {
- Text(text = "Score")
+ Text(text = "Score\nTable Of Current Game\nTable of current user games")
 }

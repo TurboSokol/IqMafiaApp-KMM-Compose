@@ -11,5 +11,5 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 
 @Composable
 fun SlotsScreenView(viewModel: ReduxViewModel) {
-    Text(text = "Slots")
+    Text(text = "Slots\nRandomizer 10 numbers for players position\nRandomizer for tournamets (Multiple games with names)")
 }

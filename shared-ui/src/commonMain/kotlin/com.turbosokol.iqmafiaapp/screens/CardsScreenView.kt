@@ -11,5 +11,5 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 
 @Composable
 fun CardsScreenView(viewModel: ReduxViewModel) {
-    Text(text = "Cards")
+    Text(text = "Cards\nCard roles randomizer\nWith choose of card in stack")
 }

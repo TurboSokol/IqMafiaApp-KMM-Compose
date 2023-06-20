@@ -6,6 +6,7 @@ import com.turbosokol.iqmafiaapp.core.redux.Middleware
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.emptyFlow
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -18,6 +19,6 @@ class JudgePlayersMiddleware : Middleware<AppState> {
         action: Action,
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
-        TODO("Not yet implemented")
+        return emptyFlow()
     }
 }

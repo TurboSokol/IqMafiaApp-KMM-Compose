@@ -11,8 +11,8 @@ data class AchievementModel(
     val comment: String
 )
 
-data class PersonalAchievementsList(
-    val personalAchievementsList: List<AchievementModel>
+data class PersonalAchievesList(
+    val personalAchievesList: List<AchievementModel>
 )
 
 enum class AchievementType {
