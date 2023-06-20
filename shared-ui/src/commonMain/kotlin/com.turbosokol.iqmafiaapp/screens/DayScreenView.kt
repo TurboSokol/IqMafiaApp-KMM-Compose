@@ -11,5 +11,5 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 
 @Composable
 fun DayScreenView(viewModel: ReduxViewModel) {
- Text(text = "Day")
+ Text(text = "Day\nList of players\nVoting\nFaults\nVote Nomination")
 }

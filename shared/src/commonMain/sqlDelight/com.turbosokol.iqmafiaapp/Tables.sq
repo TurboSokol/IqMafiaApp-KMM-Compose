@@ -14,7 +14,7 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 server_id INTEGER, -- if (games.server_id != null) game_id == games.server_id else game_id == games.id
 name TEXT NOT NULL,
 email TEXT NOT NULL,
-role TEXT NOT NULL,
+role TEXT NOT NULL, -- JUDGE, PLAYER, ADMIN
 created_at TEXT,
 updated_at TEXT
 );

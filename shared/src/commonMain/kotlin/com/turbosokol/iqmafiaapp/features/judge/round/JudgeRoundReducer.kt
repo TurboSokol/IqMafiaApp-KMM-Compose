@@ -9,6 +9,6 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  ***/
 class JudgeRoundReducer : Reducer<JudgeRoundState> {
     override fun reduce(oldState: JudgeRoundState, action: Action): JudgeRoundState {
-        TODO("Not yet implemented")
+        return oldState
     }
 }

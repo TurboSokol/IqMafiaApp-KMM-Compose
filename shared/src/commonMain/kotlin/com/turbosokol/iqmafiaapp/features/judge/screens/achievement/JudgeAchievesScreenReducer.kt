@@ -7,21 +7,21 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-class JudgeAchievementsScreenReducer : Reducer<JudgeAchievementScreenState> {
+class JudgeAchievesScreenReducer : Reducer<JudgeAchievesScreenState> {
     override fun reduce(
-        oldState: JudgeAchievementScreenState,
+        oldState: JudgeAchievesScreenState,
         action: Action
-    ): JudgeAchievementScreenState {
+    ): JudgeAchievesScreenState {
         return when (action) {
-            is JudgeAchievementScreenAction.Init -> {
-                JudgeAchievementScreenState.getInitState()
+            is JudgeAchievesScreenAction.Init -> {
+                JudgeAchievesScreenState.getInitState()
             }
 
-            is JudgeAchievementScreenAction.AddPersonalAchievement -> {
+            is JudgeAchievesScreenAction.AddPersonalAchieves -> {
                 val newPlayersSummList = emptyList<Double>()
-                action.playersAchievements.forEach { personalAchievementsList ->
+                action.playersAchieves.forEach { personalAchievementsList ->
                     val personalAchSumm = 0.0
-                    newPlayersSummList.plus(personalAchievementsList.personalAchievementsList.forEach {
+                    newPlayersSummList.plus(personalAchievementsList.personalAchievesList.forEach {
                         personalAchSumm.plus(it.price)
                     })
 
@@ -29,8 +29,8 @@ class JudgeAchievementsScreenReducer : Reducer<JudgeAchievementScreenState> {
                 }
 
                 oldState.copy(
-                    playersAchievements = action.playersAchievements,
-                    playersAchievementsSumm = newPlayersSummList
+                    playersAchieves = action.playersAchieves,
+                    playersAchievesSumm = newPlayersSummList
                 )
             }
 

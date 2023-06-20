@@ -7,7 +7,7 @@ import com.turbosokol.iqmafiaapp.features.auth.redux.AuthReducer
 import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameReducer
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersReducer
 import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievementsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenReducer
 import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenReducer
@@ -43,7 +43,7 @@ class RootReducer(
     private val judgeDayScreenReducer: JudgeDayScreenReducer,
     private val judgeNightScreenReducer: JudgeNightScreenReducer,
     private val judgeScoreScreenReducer: JudgeScoreScreenReducer,
-    private val judgeAchievementsScreenReducer: JudgeAchievementsScreenReducer,
+    private val judgeAchievesScreenReducer: JudgeAchievesScreenReducer,
     private val judgeGameReducer: JudgeGameReducer,
     private val judgePlayersReducer: JudgePlayersReducer,
     private val judgeRoundReducer: JudgeRoundReducer
@@ -59,7 +59,7 @@ class RootReducer(
             judgeDayScreenState = judgeDayScreenReducer.reduce(oldState.judgeDayScreenState, action),
             judgeNightScreenState = judgeNightScreenReducer.reduce(oldState.judgeNightScreenState, action),
             judgeScoreScreenState = judgeScoreScreenReducer.reduce(oldState.judgeScoreScreenState, action),
-            judgeAchievementScreenState = judgeAchievementsScreenReducer.reduce(oldState.judgeAchievementScreenState, action),
+            judgeAchievesScreenState = judgeAchievesScreenReducer.reduce(oldState.judgeAchievesScreenState, action),
             judgeGameState = judgeGameReducer.reduce(oldState.judgeGameState, action),
             judgePlayersState = judgePlayersReducer.reduce(oldState.judgePlayersState, action),
             judgeRoundState = judgeRoundReducer.reduce(oldState.judgeRoundState, action)

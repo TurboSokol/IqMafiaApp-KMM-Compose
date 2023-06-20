@@ -9,6 +9,6 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  ***/
 class JudgePlayersReducer : Reducer<JudgePlayersState> {
     override fun reduce(oldState: JudgePlayersState, action: Action): JudgePlayersState {
-        TODO("Not yet implemented")
+        return oldState
     }
 }
