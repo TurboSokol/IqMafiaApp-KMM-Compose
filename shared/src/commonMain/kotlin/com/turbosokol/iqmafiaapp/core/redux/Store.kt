@@ -29,7 +29,7 @@ interface Store<S : GeneralState, A : Action, E : Effect> {
     fun observeSideEffect(): Flow<E>
 }
 
-class ReduxStore(
+open class ReduxStore(
     private val reducer: RootReducer,
     defaultValue: AppState,
     private val middlewares: List<Middleware<AppState>>

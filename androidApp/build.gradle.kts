@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     kotlin("android")
-    id("org.jetbrains.compose") version Versions.compose
+//    id("org.jetbrains.compose") version Versions.compose
 }
 
 dependencies {

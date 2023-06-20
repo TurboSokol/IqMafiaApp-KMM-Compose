@@ -13,6 +13,7 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenSt
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
+
 data class NavigationState(
     val currentScreenState: GeneralState
 ) : GeneralState {
