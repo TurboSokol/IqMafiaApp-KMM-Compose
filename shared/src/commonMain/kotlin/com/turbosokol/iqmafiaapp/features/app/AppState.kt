@@ -21,7 +21,7 @@ import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationState
  ***/
 
 data class AppState(
-    internal val appPlatform: AppPlatform = AppPlatform.EMPTY,
+    val appPlatform: AppPlatform = AppPlatform.EMPTY,
     internal val authState: AuthState = AuthState.getInitState(),
     internal val navigationState: NavigationState = NavigationState.getInitState(),
     internal val accountState: AccountState = AccountState.getInitState(),
@@ -38,7 +38,6 @@ data class AppState(
     internal val judgeRoundState: JudgeRoundState = JudgeRoundState.getInitState(),
 ) : GeneralState {
 
-    fun getAppPlatform() = appPlatform
     fun getAuthState() = authState
     fun getNavigationState() = navigationState
     fun getAccountState() = accountState

@@ -19,11 +19,12 @@ android {
 
     version = "1.0"
 
-    compose {
-        android {
-            useAndroidX = true
-            androidxVersion = "1.3.0"
-        }
+    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.4.7"
+    }
+
+    buildFeatures {
+        compose = true
     }
 }
 
@@ -51,11 +52,19 @@ kotlin {
 //
 //                implementation(libs.stately.common)
 
-                api(compose.ui)
+                api(compose.animation)
                 api(compose.foundation)
+                api(compose.ui)
+
                 api(compose.material)
                 api(compose.runtime)
+
                 api(compose.materialIconsExtended)
+
+                api("androidx.compose.compiler:compiler:1.4.7")
+
+                api("io.insert-koin:koin-core:${Versions.koin}")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
 
                 //Shared ViewModel
                 api("org.brightify.hyperdrive:multiplatformx-api:${Versions.hyperdrive}")
