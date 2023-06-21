@@ -11,12 +11,7 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
     override fun reduce(oldState: JudgeSlotsScreenState, action: Action): JudgeSlotsScreenState {
         return when (action) {
             is JudgeSlotsScreenAction.Init -> {
-                oldState.copy(
-                    isInit = true,
-                    isHidden = true,
-                    listIndex = -1,
-                    slotsList = action.slotsList
-                )
+                JudgeSlotsScreenState.getInitState()
             }
 
             is JudgeSlotsScreenAction.ShowNext -> {
@@ -25,6 +20,22 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
                     isHidden = !oldState.isHidden,
                     listIndex = if (oldState.isHidden) oldState.listIndex + 1 else oldState.listIndex
                 )
+            }
+
+            is JudgeSlotsScreenAction.SetIsExtendedMode -> {
+                oldState.copy(isTourMode = !oldState.isTourMode)
+            }
+
+            is JudgeSlotsScreenAction.SetTourPlayers -> {
+                oldState.copy(tourPlayersNames = action.tourPlayersNames)
+            }
+
+            is JudgeSlotsScreenAction.SetTourGamesCount -> {
+                oldState.copy(tourGamesCount = action.tourGamesCount)
+            }
+
+            is JudgeSlotsScreenAction.SetTourSlotsList -> {
+                oldState.copy(tourSlotsList = action.tourSlotsList)
             }
 
             else -> oldState
