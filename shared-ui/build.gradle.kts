@@ -20,7 +20,7 @@ android {
     version = "1.0"
 
     composeOptions {
-//        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
 
     buildFeatures {
