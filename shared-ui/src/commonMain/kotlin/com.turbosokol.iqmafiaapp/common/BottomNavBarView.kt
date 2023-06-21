@@ -2,14 +2,15 @@ package com.turbosokol.iqmafiaapp.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BarChart
 import androidx.compose.material.icons.outlined.Chair
+import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material.icons.outlined.NightsStay
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material.icons.outlined.WorkspacePremium
@@ -49,8 +50,8 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 fun BottomNavBarView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
-    val state by stateFlow.collectAsState(Dispatchers.Main)
-    val navigationState: NavigationState = state.getNavigationState()
+    val appState by stateFlow.collectAsState(Dispatchers.Main)
+    val navigationState: NavigationState = appState.getNavigationState()
 
     val selectedTab = when (navigationState.currentScreenState) {
         is JudgeSlotsScreenState -> NavigationTabs.SLOTS
@@ -65,39 +66,44 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
     IqMafiaAppTheme {
         Scaffold(
             bottomBar = {
-                BottomNavigation(elevation = 0.dp, backgroundColor = Colors.primary) {
-                    val tabsList = listOf<NavigationTabs>(
-                        NavigationTabs.SLOTS,
-                        NavigationTabs.CARDS,
-                        NavigationTabs.ACHIEVEMENT,
-                        NavigationTabs.DAY,
-                        NavigationTabs.NIGHT,
-                        NavigationTabs.SCORE
-                    )
-
-                    tabsList.forEach { tab ->
-                        val (title, icon, action) = when (tab) {
-                            NavigationTabs.SLOTS -> Triple("Slots", Icons.Outlined.Chair, NavigationAction.JudgeSlotsScreen(state.getJudgeSlotsState()))
-                            NavigationTabs.CARDS -> Triple("Cards", Icons.Outlined.PlayingCardsIcon, NavigationAction.JudgeCardsScreen(state.getJudgeCardsState()))
-                            NavigationTabs.ACHIEVEMENT -> Triple("Achieve", Icons.Outlined.WorkspacePremium, NavigationAction.JudgeAchievementScreen(state.getJudgeAchievementScreenState()))
-                            NavigationTabs.DAY -> Triple("Day", Icons.Outlined.WbSunny, NavigationAction.JudgeDayScreen(state.getJudgeDayState()))
-                            NavigationTabs.NIGHT -> Triple("Night", Icons.Outlined.NightsStay, NavigationAction.JudgeNightsScreen(state.getJudgeNightState()))
-                            NavigationTabs.SCORE -> Triple("Score", Icons.Outlined.BarChart, NavigationAction.JudgeScoreScreen(state.getJudgeScoreState()))
-                    }
-
-                        CustomBottomNavItemView(
-                            modifier = Modifier.padding(top = 0.dp),
-                            icon = { Icon(imageVector = icon, contentDescription = null) },
-                            label = { Text(text = title) },
-                            selected = selectedTab == tab,
-                            alwaysShowLabel = true,
-                            onClick = { viewModel.execute(action) },
-                            selectedContentColor = Colors.secondary,
-                            unselectedContentColor = Colors.darkBlue,
+                Surface(
+                    shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
+                    elevation = 16.dp
+                )  {
+                    BottomNavigation(elevation = 0.dp, backgroundColor = Colors.skyBlue) {
+                        val tabsList = listOf<NavigationTabs>(
+                            NavigationTabs.SLOTS,
+                            NavigationTabs.CARDS,
+                            NavigationTabs.ACHIEVEMENT,
+                            NavigationTabs.DAY,
+                            NavigationTabs.NIGHT,
+                            NavigationTabs.SCORE
                         )
-                    }
 
+                        tabsList.forEach { tab ->
+                            val (title, icon, action) = when (tab) {
+                                NavigationTabs.SLOTS -> Triple("Slots", Icons.Outlined.Chair, NavigationAction.JudgeSlotsScreen(appState.getJudgeSlotsState()))
+                                NavigationTabs.CARDS -> Triple("Cards", Icons.Outlined.PlayingCardsIcon, NavigationAction.JudgeCardsScreen(appState.getJudgeCardsState()))
+                                NavigationTabs.ACHIEVEMENT -> Triple("Achieve", Icons.Outlined.WorkspacePremium, NavigationAction.JudgeAchievementScreen(appState.getJudgeAchievementScreenState()))
+                                NavigationTabs.DAY -> Triple("Day", Icons.Outlined.WbSunny, NavigationAction.JudgeDayScreen(appState.getJudgeDayState()))
+                                NavigationTabs.NIGHT -> Triple("Night", Icons.Outlined.NightsStay, NavigationAction.JudgeNightsScreen(appState.getJudgeNightState()))
+                                NavigationTabs.SCORE -> Triple("Score", Icons.Outlined.Insights, NavigationAction.JudgeScoreScreen(appState.getJudgeScoreState()))
+                            }
+
+                            CustomBottomNavItemView(
+                                modifier = Modifier,
+                                icon = { Icon(imageVector = icon, contentDescription = null) },
+                                label = { Text(text = title) },
+                                selected = selectedTab == tab,
+                                alwaysShowLabel = true,
+                                onClick = { viewModel.execute(action) },
+                                selectedContentColor = Colors.red,
+                                unselectedContentColor = Colors.darkGrey51,
+                            )
+                        }
+                    }
                 }
+
             }
         ) { paddingValues ->
             Box(modifier = Modifier.padding(paddingValues)) {
