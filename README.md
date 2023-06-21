@@ -1,4 +1,5 @@
-Hello stranger! We are IQ Mafia.
+<b>Hello stranger! We are IQ Mafia.</b>
+
 
 You have came accross to a unique project. It was created for those who love the sports mafia. With this application, any paper, cards and other paraphernalia no longer required. Just a phone.
 
