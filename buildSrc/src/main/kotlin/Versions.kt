@@ -31,7 +31,7 @@ object Versions {
     //UI
     const val constraintLayoutCompose = "1.0.1"
     const val compose = "1.4.0"
-    const val composeCompiler = "1.2.0-dev-k1.7.0-53370d83bb1"
+    const val composeCompiler = "1.4.7"
     const val material = "1.6.1"
     const val activityCompose = "1.6.1"
     const val accompanist = "0.31.3-beta"
@@ -39,6 +39,7 @@ object Versions {
 
     //viewmodel
     const val hyperdrive = "0.1.139"
+    const val multiplatfomSettings = "0.9"
 
     //TEST
     const val test = "1.4.0"

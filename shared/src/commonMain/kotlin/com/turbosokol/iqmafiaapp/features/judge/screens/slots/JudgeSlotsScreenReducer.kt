@@ -22,7 +22,7 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
                 )
             }
 
-            is JudgeSlotsScreenAction.SetIsExtendedMode -> {
+            is JudgeSlotsScreenAction.SetIsTourMode -> {
                 oldState.copy(isTourMode = !oldState.isTourMode)
             }
 
@@ -36,6 +36,10 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
 
             is JudgeSlotsScreenAction.SetTourSlotsList -> {
                 oldState.copy(tourSlotsList = action.tourSlotsList)
+            }
+
+            is JudgeSlotsScreenAction.SetResetDialogVisible -> {
+                oldState.copy(isResetDialogVisible = !oldState.isResetDialogVisible)
             }
 
             else -> oldState

@@ -26,6 +26,19 @@ android {
     buildFeatures {
         compose = true
     }
+
+    sourceSets {
+        val main by getting
+        main.java.setSrcDirs(listOf("src/androidMain/kotlin"))
+        main.res.setSrcDirs(listOf("src/androidMain/res"))
+        main.resources.setSrcDirs(
+            listOf(
+                "src/androidMain/resources",
+                "src/commonMain/resources",
+            )
+        )
+        main.manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
 }
 
 kotlin {
@@ -59,6 +72,8 @@ kotlin {
                 api(compose.runtime)
                 api(compose.materialIconsExtended)
 
+                implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
+
                 api("androidx.compose.compiler:compiler:1.4.7")
 
                 api("io.insert-koin:koin-core:${Versions.koin}")
@@ -66,7 +81,7 @@ kotlin {
 
                 //Shared ViewModel
                 api("org.brightify.hyperdrive:multiplatformx-api:${Versions.hyperdrive}")
-//                api("org.brightify.hyperdrive:multiplatformx-compose: ${Versions.hyperdrive}")
+                api("com.russhwolf:multiplatform-settings:${Versions.multiplatfomSettings}")
 
             }
         }
@@ -79,22 +94,21 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-//                implementation(libs.accompanist.coil)
             }
         }
         val androidTest by getting {
             dependencies {
-//                implementation(libs.test.junit)
-//                implementation(libs.test.junitKtx)
-//                implementation(libs.test.coroutines)
+
             }
         }
         val iosMain by getting {
             dependencies {
-//                implementation(libs.imageLoader)
             }
         }
         val iosTest by getting {}
+
+        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
+        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
     }
 }
 
