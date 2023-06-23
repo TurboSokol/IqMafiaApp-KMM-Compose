@@ -49,7 +49,7 @@ private val BottomNavigationAnimationSpec = TweenSpec<Float>(
 private val CombinedItemTextBaseline = 12.dp
 
 @Composable
-fun RowScope.CustomBottomNavItemView(
+fun RowScope.IQBottomNavItemView(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,

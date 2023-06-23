@@ -19,7 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.turbosokol.iqmafiaapp.components.CustomBottomNavItemView
+import com.turbosokol.iqmafiaapp.components.IQBottomNavItemView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
@@ -90,7 +90,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                                 NavigationTabs.SCORE -> Triple("Score", Icons.Outlined.Insights, NavigationAction.JudgeScoreScreen(appState.getJudgeScoreState()))
                             }
 
-                            CustomBottomNavItemView(
+                            IQBottomNavItemView(
                                 modifier = Modifier,
                                 icon = { Icon(imageVector = icon, contentDescription = null) },
                                 label = { Text(text = title) },
