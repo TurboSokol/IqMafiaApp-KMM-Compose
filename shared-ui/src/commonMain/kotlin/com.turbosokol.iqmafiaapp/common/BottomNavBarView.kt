@@ -37,6 +37,7 @@ import com.turbosokol.iqmafiaapp.screens.NightScreenView
 import com.turbosokol.iqmafiaapp.screens.ScoreScreenView
 import com.turbosokol.iqmafiaapp.screens.SlotsScreenView
 import com.turbosokol.iqmafiaapp.theme.Colors
+import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.IqMafiaAppTheme
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
@@ -67,10 +68,10 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
         Scaffold(
             bottomBar = {
                 Surface(
-                    shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp),
-                    elevation = 16.dp
+                    shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
+                    elevation = Dimensions.Elevation.medium
                 )  {
-                    BottomNavigation(elevation = 0.dp, backgroundColor = Colors.skyBlue) {
+                    BottomNavigation(backgroundColor = Colors.skyBlue) {
                         val tabsList = listOf<NavigationTabs>(
                             NavigationTabs.SLOTS,
                             NavigationTabs.CARDS,

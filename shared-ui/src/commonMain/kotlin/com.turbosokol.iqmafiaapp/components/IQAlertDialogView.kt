@@ -3,14 +3,23 @@ package com.turbosokol.iqmafiaapp.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
@@ -33,20 +42,48 @@ fun IQAlertDialogView(
         enter = slideInVertically(),
         exit = fadeOut()
     ) {
-        Card(elevation = 8.dp, backgroundColor = Colors.primary, modifier = modifier) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = label, fontSize = Dimensions.TextSize.huge, color = Colors.secondary)
-                Row {
-                    Button(onClick = onConfirm) {
-                        Text(text = "Yes", color = Colors.secondary)
-                    }
+        IQDialog(dismiss = onCancel) {
+            Surface(
+                shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
+                elevation = Dimensions.Elevation.xlarge,
+                modifier = Modifier
+                    .background(Color.Transparent)
+                    .padding(Dimensions.Padding.large),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(Dimensions.Padding.medium)
+                ) {
+                    Text(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        text = label,
+                        color = MaterialTheme.colors.onBackground,
+                        style = MaterialTheme.typography.subtitle1,
+                        overflow = TextOverflow.Ellipsis
+                    )
 
-                    Button(onClick = onCancel) {
-                        Text(text = "No", color = Colors.secondary)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                    ) {
+                        TextButton(onClick = onCancel) {
+                            Text(
+                                text = "NO",
+                                color = Colors.secondary,
+                                fontSize = Dimensions.TextSize.medium
+                            )
+                        }
+
+                        TextButton(onClick = onConfirm) {
+                            Text(
+                                text = "YES",
+                                color = Colors.primary,
+                                fontSize = Dimensions.TextSize.medium
+                            )
+                        }
                     }
                 }
             }
         }
-
     }
 }

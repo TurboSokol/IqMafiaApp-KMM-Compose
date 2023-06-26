@@ -19,7 +19,13 @@ class JudgeSlotsScreenMiddleware : Middleware<AppState> {
         action: Action,
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
-       return emptyFlow()
+        return when (action) {
+            is JudgeSlotsScreenAction.SetTourSlotsList -> {
+                emptyFlow()
+            }
+            else -> emptyFlow()
+        }
+
     }
 }
 

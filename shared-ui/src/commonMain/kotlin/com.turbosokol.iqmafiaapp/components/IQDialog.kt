@@ -9,4 +9,4 @@ import androidx.compose.runtime.Composable
 
 
 @Composable
-internal expect fun IQDialog(dismiss: () -> Unit, content: @Composable () -> Unit)
+expect fun IQDialog(dismiss: () -> Unit, content: @Composable () -> Unit)

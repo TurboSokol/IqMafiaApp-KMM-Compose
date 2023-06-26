@@ -4,11 +4,11 @@ object Versions {
     const val targetSdk = 33
     const val minSdk = 26
     const val iOSDeploymentTarget = "15"
-    const val gradle = "7.2.2"
+    const val gradle = "7.4.2"
     const val kotlin = "1.8.0"
     const val appCompat = "1.4.2"
     const val detekt = "1.21.0-RC1"
-    const val russhwolf = "0.8.1"
+    const val russhwolf = "0.9"
 
     //Multithreading
     const val coroutines = "1.6.4"

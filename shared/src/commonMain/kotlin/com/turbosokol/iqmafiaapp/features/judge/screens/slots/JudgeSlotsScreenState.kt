@@ -18,7 +18,8 @@ data class JudgeSlotsScreenState(
     val tourPlayersNames: List<String>,
     val tourGamesCount: Int,
     val tourSlotsList: List<List<String>>,
-    val isResetDialogVisible: Boolean
+    val isResetDialogVisible: Boolean,
+    val inProgress: Boolean
 ) : GeneralState {
 
     companion object {
@@ -28,10 +29,11 @@ data class JudgeSlotsScreenState(
             listIndex = -1,
             slotsList = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10).shuffled(),
             isTourMode = false,
-            tourPlayersNames = listOf("", "", "", "", "", "", "", "", "", ""),
+            tourPlayersNames = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "10"),
             tourGamesCount = 10,
-            tourSlotsList = listOf(),
-            isResetDialogVisible = false
+            tourSlotsList = emptyList(),
+            isResetDialogVisible = false,
+            inProgress = false
         )
     }
 

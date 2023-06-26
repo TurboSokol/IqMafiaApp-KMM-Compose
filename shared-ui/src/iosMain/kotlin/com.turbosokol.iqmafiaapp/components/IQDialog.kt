@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 
 
 @Composable
-internal actual fun IQDialog(dismiss: () -> Unit, content: @Composable () -> Unit) {
+actual fun IQDialog(dismiss: () -> Unit, content: @Composable () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()

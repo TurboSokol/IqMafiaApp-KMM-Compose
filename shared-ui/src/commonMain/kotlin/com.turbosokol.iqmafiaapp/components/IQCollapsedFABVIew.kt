@@ -7,6 +7,7 @@ import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.VisibilityThreshold
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
 import androidx.compose.material.ExtendedFloatingActionButton
@@ -21,6 +22,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
 import com.turbosokol.iqmafiaapp.theme.Colors
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -36,7 +41,7 @@ fun IQCollapsedSwitchFABView(
     isToogled: Boolean,
     onToogleClick: () -> Unit
 ) {
-    var mToogled by remember { mutableStateOf(isToogled) }
+    var mToggled by remember { mutableStateOf(isToogled) }
     var isCollapsed by remember { mutableStateOf(true) }
     AnimatedVisibility(
         visible = isCollapsed,
@@ -46,14 +51,14 @@ fun IQCollapsedSwitchFABView(
         FloatingActionButton(
             onClick = { isCollapsed = false },
             modifier = modifier,
-            content = { Text( if(mToogled) activeCollapsedText else collapsedText) },
-            backgroundColor = if (mToogled) Colors.secondary else Colors.primary
+            content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
+            backgroundColor = if (mToggled) Colors.secondary else Colors.primary
         )
     }
 
     AnimatedVisibility(
         visible = !isCollapsed,
-        exit = slideOutHor(),
+        exit = slideOutHor() + fadeOut(),
         modifier = modifier
     ) {
         ExtendedFloatingActionButton(
@@ -61,12 +66,16 @@ fun IQCollapsedSwitchFABView(
             modifier = modifier,
             text = { Text(expandedText) },
             icon = {
-                Switch(checked = mToogled, onCheckedChange = {
+                Switch(checked = mToggled, onCheckedChange = {
                     onToogleClick()
-                    mToogled = !mToogled
+                    mToggled = !mToggled
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(1200)
+                        isCollapsed = true
+                    }
                 })
             },
-            backgroundColor =  if (mToogled) Colors.secondary else Colors.primary
+            backgroundColor =  if (mToggled) Colors.secondary else Colors.primary
         )
     }
 
