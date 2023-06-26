@@ -1,5 +1,5 @@
 PODS:
-  - shared (7.2.2)
+  - shared (7.4.2)
 
 DEPENDENCIES:
   - shared (from `../shared`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../shared"
 
 SPEC CHECKSUMS:
-  shared: 271015ddfd80eb75bd6890a4fcf5136f94f987de
+  shared: 38d8713acd87f8a553800b54859c01d562b15376
 
 PODFILE CHECKSUM: f282da88f39e69507b0a255187c8a6b644477756
 

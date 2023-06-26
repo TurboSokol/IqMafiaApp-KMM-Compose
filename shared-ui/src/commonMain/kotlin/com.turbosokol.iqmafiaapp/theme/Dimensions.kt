@@ -12,11 +12,30 @@ object Dimensions {
     object Padding {
         val xsmall = 4.dp
         val small = 8.dp
+        val xmedium = 10.dp
         val medium = 16.dp
+        val large = 32.dp
     }
 
     object TextSize {
-        val huge = 70.sp
+        val xmedium = 18.sp
         val medium = 25.sp
+        val large = 32.sp
+        val huge = 70.sp
+        val xhuge = 220.sp
+    }
+
+    object Elevation {
+        val small = 4.dp
+        val medium = 8.dp
+        val large = 16.dp
+        val xlarge = 24.dp
+    }
+
+    object CornerRadius {
+        val small = 4.dp
+        val medium = 8.dp
+        val large = 16.dp
+        val xlarge = 24.dp
     }
 }
