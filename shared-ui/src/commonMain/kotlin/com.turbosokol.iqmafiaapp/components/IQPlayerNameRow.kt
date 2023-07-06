@@ -3,7 +3,6 @@ package com.turbosokol.iqmafiaapp.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -14,7 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -32,7 +30,7 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
  ***/
 
 @Composable
-fun IQTableRow(
+fun IQPlayerNameRow(
     index: Int,
     text: String,
     isInputEnabled: Boolean,

@@ -11,7 +11,7 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
     override fun reduce(oldState: JudgeSlotsScreenState, action: Action): JudgeSlotsScreenState {
         return when (action) {
             is JudgeSlotsScreenAction.Init -> {
-                JudgeSlotsScreenState.getInitState()
+                if (action.isTourMode) JudgeSlotsScreenState.getInitState().copy(isTourMode = true) else JudgeSlotsScreenState.getInitState()
             }
 
             is JudgeSlotsScreenAction.ShowNext -> {
@@ -35,7 +35,11 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
             }
 
             is JudgeSlotsScreenAction.SetTourSlotsList -> {
-                oldState.copy(tourSlotsList = action.tourSlotsList)
+                oldState.copy(tourSlotsList = action.tourSlotsList, inProgress = false)
+            }
+
+            is JudgeSlotsScreenAction.SetProgress -> {
+                oldState.copy(inProgress = action.inProgress)
             }
 
             is JudgeSlotsScreenAction.SetResetDialogVisible -> {

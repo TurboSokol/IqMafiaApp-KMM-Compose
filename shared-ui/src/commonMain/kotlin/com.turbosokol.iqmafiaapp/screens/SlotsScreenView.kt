@@ -1,6 +1,6 @@
 package com.turbosokol.iqmafiaapp.screens
 
-import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -14,15 +14,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Shapes
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,9 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +44,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.components.IQCollapsedSwitchFABView
-import com.turbosokol.iqmafiaapp.components.IQTableRow
+import com.turbosokol.iqmafiaapp.components.IQDialog
+import com.turbosokol.iqmafiaapp.components.IQLoaderView
+import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
@@ -56,17 +57,15 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 /***
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
 
+@Stable
 @Composable
 fun SlotsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
@@ -81,7 +80,7 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
             label = "Are you sure you want to reset?",
             onConfirm = {
                 viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible)
-                viewModel.execute(JudgeSlotsScreenAction.Init)
+                viewModel.execute(JudgeSlotsScreenAction.Init(slotsState.isTourMode))
             },
             onCancel = { viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible) }
         )
@@ -189,14 +188,13 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
         Card(elevation = Dimensions.Elevation.medium) {
             Column {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
-                    IQTableRow(
+                    IQPlayerNameRow(
                         index = index, text = name, isInputEnabled = true,
                         colorIndex = Colors.secondary.copy(alpha = 0.7f),
                         colorName = Colors.orange.copy(alpha = 0.1f)
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
-                        newNames.removeAt(index)
-                        newNames.add(index, changedText)
+                        newNames[index] = changedText
                         viewModel.execute(JudgeSlotsScreenAction.SetTourPlayers(newNames))
                     }
                 }
@@ -206,6 +204,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
         Spacer(modifier = Modifier.height(1.dp))
 
         var gamesCount by remember { mutableStateOf(slotsState.tourGamesCount.toString()) }
+        var localProgress by remember { mutableStateOf(false) }
 
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -234,32 +233,33 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 ),
                 trailingIcon = {
                     TextButton(modifier = Modifier, onClick = {
-                        runBlocking {
-                            println("Starting calculations...")
-                            val deferred = async(Dispatchers.Default) {
-                                tournamentShuffleSlots(players, games)
-                            }
 
-                            // Do other things on the main thread while the calculations are running
-                            // ...
+                                keyboard?.hide()
+                                localProgress = true
 
-                            // When you need the results, call await() to get them. This will suspend the coroutine until the results are ready
-                            val results = deferred.await()
-                            println("Calculations done!")
-                            println(results)
-                        }
-                        runBlocking(Dispatchers.Main) {
-                            viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(emptyList()))
-                            val job = MainScope().launch {
-                                viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(tournamentShuffleSlots(slotsState.tourPlayersNames, slotsState.tourGamesCount)))
+                        CoroutineScope(Dispatchers.Main + Job()).async {
+                            tournamentShuffleSlots(
+                                slotsState.tourPlayersNames,
+                                slotsState.tourGamesCount
+                            ) {
+                                viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(it))
+                                localProgress = false
                             }
-                            job.join()
-                            keyboard?.hide()
                         }
                     }) {
                         Text(text = "Generate Tournament", color = Colors.secondary)
                     }
                 })
+        }
+
+        if (localProgress) {
+            IQDialog(dismiss = { /* no-op */ }) {
+                IQLoaderView(
+                    modifier = Modifier.padding(100.dp),
+                    strokeColor = Colors.secondary,
+                    strokeSize = 7.dp
+                ) { /* no-op */ }
+            }
         }
 
         if (slotsState.tourSlotsList.isNotEmpty()) {
@@ -292,7 +292,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                             }
 
                             gameSlotsList.forEachIndexed { index, name ->
-                                IQTableRow(
+                                IQPlayerNameRow(
                                     index = index,
                                     text = name,
                                     isInputEnabled = false
@@ -306,10 +306,19 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         }
                     }
                 }
+
+                TextButton(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), onClick = {
+                    viewModel.execute(
+                        JudgeSlotsScreenAction.SetResetDialogVisible
+                    )
+                },
+                    shape = Shapes().medium,
+                    border = BorderStroke(1.dp, Color.Black)
+                ) {
+                    Text(modifier = Modifier, text = "Reset Slots")
+                }
             }
         }
-
-
 
 
     }
