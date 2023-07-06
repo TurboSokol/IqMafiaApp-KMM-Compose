@@ -41,13 +41,15 @@ data class JudgeSlotsScreenState(
 
 sealed class JudgeSlotsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of slots
-    object Init : JudgeSlotsScreenAction()
+    data class Init(val isTourMode: Boolean) : JudgeSlotsScreenAction()
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
     object ShowNext : JudgeSlotsScreenAction()
     object SetIsTourMode : JudgeSlotsScreenAction()
     data class SetTourPlayers(val tourPlayersNames: List<String>) : JudgeSlotsScreenAction()
     data class SetTourGamesCount(val tourGamesCount: Int) : JudgeSlotsScreenAction()
+
+    data class SetProgress(val inProgress: Boolean) : JudgeSlotsScreenAction()
     data class SetTourSlotsList(val tourSlotsList: List<List<String>>) : JudgeSlotsScreenAction()
     object SetResetDialogVisible : JudgeSlotsScreenAction()
 }

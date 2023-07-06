@@ -10,7 +10,7 @@ import kotlin.math.max
 const val NEIGHBOR_MAX_ATTEMPTS = 3
 const val BLOCK_SIZE = 10
 
-fun tournamentShuffleSlots(players: List<String>, games: Int): List<List<String>> {
+fun tournamentShuffleSlots(players: List<String>, games: Int, onDone:(List<List<String>>) -> Unit) {
     val results = mutableListOf<List<String>>()
     val numberOfBlocks = (games + BLOCK_SIZE - 1) / BLOCK_SIZE
 
@@ -28,12 +28,16 @@ fun tournamentShuffleSlots(players: List<String>, games: Int): List<List<String>
             }
 
             results.add(shuffledPlayers)
-            if (results.size == games) break // stop when we reach the required number of games
+            if (results.size == games) {
+                onDone(results)
+                break
+            }
         }
-        if (results.size == games) break // stop when we reach the required number of games
+        if (results.size == games) {
+            onDone(results)
+            break
+        }
     }
-
-    return results
 }
 
 fun uniquePositionCheck(

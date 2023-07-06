@@ -147,6 +147,6 @@ android {
 
 sqldelight {
     database("SqlDatabase") {
-        packageName = "com.turbosokol.locikmm"
+        packageName = "com.turbosokol.iqmafia"
     }
 }

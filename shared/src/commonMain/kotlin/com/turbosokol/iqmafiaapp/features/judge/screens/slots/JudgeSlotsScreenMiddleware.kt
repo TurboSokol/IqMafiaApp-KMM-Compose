@@ -7,6 +7,7 @@ import com.turbosokol.iqmafiaapp.features.app.AppState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flow
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -20,13 +21,10 @@ class JudgeSlotsScreenMiddleware : Middleware<AppState> {
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
         return when (action) {
-            is JudgeSlotsScreenAction.SetTourSlotsList -> {
-                emptyFlow()
-            }
             else -> emptyFlow()
         }
-
     }
 }
+
 
 
