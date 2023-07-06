@@ -52,6 +52,7 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAc
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
+import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -93,9 +94,9 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
 
         IQCollapsedSwitchFABView(
             modifier = Modifier.align(Alignment.BottomEnd).padding(Dimensions.Padding.small),
-            collapsedText = "Game",
-            activeCollapsedText = "Tour",
-            expandedText = "Tournament Mode",
+            collapsedText = Strings.slotsSwitchModeButtonSingeLabel,
+            activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
+            expandedText = Strings.slotsSwitchModeButtonLabel,
             isToogled = slotsState.isTourMode,
             onToogleClick = { viewModel.execute(JudgeSlotsScreenAction.SetIsTourMode) }
         )
@@ -155,7 +156,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
             }
         }) {
             Text(
-                text = if (slotsState.isHidden) "Get Slot" else slotsState.slotsList[slotsState.listIndex].toString(),
+                text = if (slotsState.isHidden) Strings.singleSlotsHiddenLabel else slotsState.slotsList[slotsState.listIndex].toString(),
                 fontSize = if (slotsState.isHidden) Dimensions.TextSize.huge else Dimensions.TextSize.xhuge,
                 color = Colors.primary
             )
@@ -179,7 +180,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             .padding(Dimensions.Padding.medium)
     ) {
         Text(
-            text = "SET PLAYERS",
+            text = Strings.tourSlotsNamesHeader,
             fontSize = Dimensions.TextSize.large,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)
@@ -189,8 +190,8 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             Column {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
                     IQPlayerNameRow(
-                        index = index, text = name, isInputEnabled = true,
-                        colorIndex = Colors.secondary.copy(alpha = 0.7f),
+                        slot = index, text = name, isInputEnabled = true,
+                        colorSlotInactive = Colors.secondary.copy(alpha = 0.7f),
                         colorName = Colors.orange.copy(alpha = 0.1f)
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
@@ -226,7 +227,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Done
                 ),
-                label = { Text(text = "How many games in tournament?") },
+                label = { Text(text = Strings.tourSlotsGamesCountLabel) },
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Colors.primary,
                     unfocusedBorderColor = Colors.darkGrey32
@@ -247,7 +248,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                             }
                         }
                     }) {
-                        Text(text = "Generate Tournament", color = Colors.secondary)
+                        Text(text = Strings.tourSlotsGenerateButton, color = Colors.secondary)
                     }
                 })
         }
@@ -264,7 +265,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
         if (slotsState.tourSlotsList.isNotEmpty()) {
             Text(
-                text = "TOURNAMENT SLOTS",
+                text = Strings.tourSlotsGamesListHeader,
                 fontSize = Dimensions.TextSize.large,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)
@@ -293,7 +294,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
                             gameSlotsList.forEachIndexed { index, name ->
                                 IQPlayerNameRow(
-                                    index = index,
+                                    slot = index,
                                     text = name,
                                     isInputEnabled = false
                                 ) { changedText ->

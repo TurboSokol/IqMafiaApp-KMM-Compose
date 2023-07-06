@@ -14,7 +14,8 @@ data class JudgePlayersState(
     val nickNames: List<String>,
     val profileIds: List<Int>,
     val userIds: List<Int>,
-    val characterCards: List<CharacterCardModel>
+    val characterCards: List<CharacterCardModel>,
+    val voteNomination: List<Boolean>
 ) : GeneralState {
     companion object {
 
@@ -45,7 +46,8 @@ data class JudgePlayersState(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
-            )
+            ),
+            voteNomination = listOf(false, false, false, false, false, false, false, false, false, false)
         )
 
     }
@@ -53,10 +55,12 @@ data class JudgePlayersState(
 
 sealed class JudgePlayersAction: Action {
     object Init: JudgePlayersAction()
-    data class UpdateNicks(val nickNames: List<String>): JudgePlayersAction()
+    data class UpdateNickNames(val nickNames: List<String>): JudgePlayersAction()
 
     //PROFILE IDs used for hold nickname, USER IDs used for hold auth info and admins permissions
     data class UpdateProfilesInfo(val profileIds: List<Int>, val userIds: List<Int>): JudgePlayersAction()
     data class UpdateCharacterCards(val characterCards: List<CharacterCardModel>): JudgePlayersAction()
+
+    data class UpdateVoteNominations(val voteNomination: List<Boolean>): JudgePlayersAction()
 
 }
