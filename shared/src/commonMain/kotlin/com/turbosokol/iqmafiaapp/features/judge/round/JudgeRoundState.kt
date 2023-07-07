@@ -20,7 +20,7 @@ data class JudgeRoundState(
             roundId = 0,
             gameId = 0,
             roundCount = 0,
-            voteOrder = listOf<Int>(),
+            voteOrder = listOf(),
             voteResult = 0
         )
     }

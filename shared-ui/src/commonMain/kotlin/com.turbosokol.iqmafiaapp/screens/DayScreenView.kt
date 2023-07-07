@@ -56,15 +56,16 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 Row(modifier = Modifier.fillMaxWidth().wrapContentHeight()) {
                     Text(
                         text = Strings.dayNamesHeader,
-                        fontSize = Dimensions.TextSize.large,
+                        fontSize = Dimensions.TextSize.medium,
                         textAlign = TextAlign.Center,
-//                        modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(bottom = Dimensions.Padding.medium)
                     )
                     Text(
                         text = Strings.dayFaultsHeader,
-                        fontSize = Dimensions.TextSize.large,
+                        fontSize = Dimensions.TextSize.medium,
                         textAlign = TextAlign.Center,
-//                        modifier = Modifier.weight(0.2f).padding(bottom = Dimensions.Padding.medium)
+                        modifier = Modifier.weight(0.2f).padding(bottom = Dimensions.Padding.medium)
                     )
                 }
 
@@ -80,30 +81,26 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 colorName = Colors.orange.copy(alpha = 0.1f),
                                 isSlotActive = judgePlayersState.voteNomination[playerIndex],
                                 onSlotClick = {
-
                                     //vote order for judge
                                     viewModel.execute(
                                         JudgeRoundAction.UpdateVoteOrder(
                                             judgeRoundState.voteOrder.toMutableList().apply {
                                                 if (judgePlayersState.voteNomination[playerIndex]) {
-                                                    removeAll { it == playerIndex+1 }
+                                                    removeAll { it == playerIndex + 1 }
                                                 } else {
-                                                    add(playerIndex+1)
+                                                    add(playerIndex + 1)
                                                 }
-                                            })
+                                            }
+                                        )
                                     )
 
                                     //vote indicator
                                     viewModel.execute(
                                         JudgePlayersAction.UpdateVoteNominations(
-                                            judgePlayersState.voteNomination
-                                                .toMutableList().apply {
-                                                    removeAt(playerIndex)
-                                                    add(
-                                                        playerIndex,
-                                                        !judgePlayersState.voteNomination[playerIndex]
-                                                    )
-                                                })
+                                            judgePlayersState.voteNomination.mapIndexed { index, value ->
+                                                if (index == playerIndex) !judgePlayersState.voteNomination[playerIndex] else value
+                                            }
+                                        )
                                     )
 
                                 }

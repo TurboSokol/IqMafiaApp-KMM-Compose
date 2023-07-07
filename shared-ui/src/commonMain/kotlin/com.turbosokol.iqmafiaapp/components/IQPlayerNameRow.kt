@@ -60,7 +60,8 @@ fun IQPlayerNameRow(
             Text(
                 text = (slot + 1).toString(), textAlign = TextAlign.Center,
                 fontSize = Dimensions.TextSize.xmedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
             )
         }
 
