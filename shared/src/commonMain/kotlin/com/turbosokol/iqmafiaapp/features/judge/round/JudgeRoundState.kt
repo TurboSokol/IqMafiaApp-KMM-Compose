@@ -12,7 +12,7 @@ data class JudgeRoundState(
     val roundId: Int,
     val gameId: Int,
     val roundCount: Int,
-    val voteCandidates: List<Int>,
+    val voteOrder: List<Int>,
     val voteResult: Int
 ) : GeneralState {
     companion object {
@@ -20,7 +20,7 @@ data class JudgeRoundState(
             roundId = 0,
             gameId = 0,
             roundCount = 0,
-            voteCandidates = listOf<Int>(),
+            voteOrder = listOf(),
             voteResult = 0
         )
     }
@@ -30,6 +30,7 @@ sealed class JudgeRoundAction : Action {
     //Init clear
     object Init : JudgeRoundAction()
 
+    data class UpdateVoteOrder(val voteOrder: List<Int>): JudgeRoundAction()
     //write in local DB
     object RoundCompleted : JudgeRoundAction()
 
