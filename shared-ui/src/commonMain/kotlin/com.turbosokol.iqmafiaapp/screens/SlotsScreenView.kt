@@ -309,16 +309,18 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     }
                 }
 
-                TextButton(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), onClick = {
-                    viewModel.execute(
-                        JudgeSlotsScreenAction.SetResetDialogVisible
-                    )
-                },
-                    shape = Shapes().medium,
-                    border = BorderStroke(1.dp, Color.Black)
-                ) {
-                    Text(modifier = Modifier, text = Strings.resetDialogLabel)
+                Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = Dimensions.Elevation.small, border = BorderStroke(1.dp, Colors.gray), shape = Shapes().medium) {
+                    TextButton( onClick = {
+                        viewModel.execute(
+                            JudgeSlotsScreenAction.SetResetDialogVisible
+                        )
+                    },
+                        shape = Shapes().medium
+                    ) {
+                        Text(modifier = Modifier, text = Strings.resetDialogLabel, color = Colors.secondary, fontSize = Dimensions.TextSize.smedium)
+                    }
                 }
+
             }
         }
 
