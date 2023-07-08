@@ -124,7 +124,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
                 showingNumbers.forEach { item ->
                     Box(
                         modifier = Modifier
-                            .padding(Dimensions.Padding.xmedium)
+                            .padding(Dimensions.Padding.smedium)
                             .background(color = Colors.imageBackground)
                     ) {
                         Text(
@@ -189,9 +189,9 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
         Card(elevation = Dimensions.Elevation.medium) {
             Column {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
-                    IQPlayerNameRow(
-                        slot = index, text = name, isInputEnabled = true,
-                        colorSlotInactive = Colors.secondary.copy(alpha = 0.7f),
+                    IQPlayerNameRow(modifier = Modifier,
+                        slot = index, textName = name, isInputEnabled = true,
+                        colorSlot = Colors.secondary.copy(alpha = 0.7f),
                         colorName = Colors.orange.copy(alpha = 0.1f)
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
@@ -294,8 +294,9 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
                             gameSlotsList.forEachIndexed { index, name ->
                                 IQPlayerNameRow(
+                                    modifier = Modifier,
                                     slot = index,
-                                    text = name,
+                                    textName = name,
                                     isInputEnabled = false
                                 ) { changedText ->
                                     val newNames = slotsState.tourPlayersNames.toMutableList()
@@ -316,7 +317,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     shape = Shapes().medium,
                     border = BorderStroke(1.dp, Color.Black)
                 ) {
-                    Text(modifier = Modifier, text = "Reset Slots")
+                    Text(modifier = Modifier, text = Strings.resetDialogLabel)
                 }
             }
         }

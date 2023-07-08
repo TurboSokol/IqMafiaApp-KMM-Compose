@@ -11,6 +11,7 @@ object Strings {
     const val slotsSwitchModeButtonLabel = "Tournament Mode"
     const val slotsSwitchModeButtonTourLabel = "Tour"
     const val slotsSwitchModeButtonSingeLabel = "Game"
+    const val resetDialogLabel = "Reset Slots"
 
     const val tourSlotsGamesCountLabel = "How many games in tournament?"
     const val tourSlotsGenerateButton = "Generate Tournament"
@@ -19,8 +20,9 @@ object Strings {
     const val singleSlotsHiddenLabel = "Get Slot"
 
     //day
-    const val dayNamesHeader = "PLAYER NAMES"
-    const val dayFaultsHeader = "FAULTS"
+    const val dayNamesHeader = "Names"
+    const val dayFaultsHeader = "Faults"
+    const val daySlotsHeader = "Slots"
 
 
 }

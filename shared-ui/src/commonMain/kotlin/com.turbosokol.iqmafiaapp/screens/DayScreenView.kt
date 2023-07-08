@@ -1,26 +1,26 @@
 package com.turbosokol.iqmafiaapp.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
+import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersAction
 import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundAction
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenAction
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
@@ -38,11 +38,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val dayState = appState.getJudgeDayState()
-    val judgePlayersState = appState.getJudgePlayersState()
-    val judgeRoundState = appState.getJudgeRoundState()
+    val playersState = appState.getJudgePlayersState()
+    val roundState = appState.getJudgeRoundState()
 
 
-    //parent
+    //scrollable parent
     Column(
         modifier = Modifier.fillMaxSize()
             .background(color = Colors.orange.copy(alpha = 0.1f))
@@ -50,79 +50,100 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             .verticalScroll(rememberScrollState())
     ) {
 
-
+        //card with slots, names, faults
         Card(elevation = Dimensions.Elevation.medium) {
-            Column {
-                Row(modifier = Modifier.fillMaxWidth().wrapContentHeight()) {
-                    Text(
-                        text = Strings.dayNamesHeader,
-                        fontSize = Dimensions.TextSize.medium,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(bottom = Dimensions.Padding.medium)
-                    )
-                    Text(
-                        text = Strings.dayFaultsHeader,
-                        fontSize = Dimensions.TextSize.medium,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.weight(0.2f).padding(bottom = Dimensions.Padding.medium)
-                    )
-                }
 
                 //players info column
-                Column {
-                    judgePlayersState.nickNames.forEachIndexed { playerIndex, name ->
-                        //each player info row
-                        Row {
-                            IQPlayerNameRow(
-                                slot = playerIndex, text = name, isInputEnabled = true,
-                                colorSlotInactive = Colors.secondary.copy(alpha = 0.7f),
-                                colorSlotActive = Colors.primary.copy(alpha = 0.7f),
-                                colorName = Colors.orange.copy(alpha = 0.1f),
-                                isSlotActive = judgePlayersState.voteNomination[playerIndex],
-                                onSlotClick = {
-                                    //vote order for judge
-                                    viewModel.execute(
-                                        JudgeRoundAction.UpdateVoteOrder(
-                                            judgeRoundState.voteOrder.toMutableList().apply {
-                                                if (judgePlayersState.voteNomination[playerIndex]) {
-                                                    removeAll { it == playerIndex + 1 }
-                                                } else {
-                                                    add(playerIndex + 1)
-                                                }
-                                            }
-                                        )
-                                    )
+                Column(modifier = Modifier.background(color = Colors.orange.copy(alpha = 0.1f)).padding(Dimensions.Padding.xsmall)) {
 
-                                    //vote indicator
-                                    viewModel.execute(
-                                        JudgePlayersAction.UpdateVoteNominations(
-                                            judgePlayersState.voteNomination.mapIndexed { index, value ->
-                                                if (index == playerIndex) !judgePlayersState.voteNomination[playerIndex] else value
-                                            }
-                                        )
-                                    )
+                    //headers
+                    Row(modifier = Modifier.fillMaxWidth().padding(start = Dimensions.Padding.medium, end = Dimensions.Padding.small), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(
+                            text = Strings.daySlotsHeader,
+                            fontSize = Dimensions.TextSize.small,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                        )
 
+                        Text(
+                            text = Strings.dayNamesHeader,
+                            fontSize = Dimensions.TextSize.small,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                        )
+
+                        Text(
+                            text = Strings.dayFaultsHeader,
+                            fontSize = Dimensions.TextSize.small,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                        )
+                    }
+
+
+                    playersState.nickNames.forEachIndexed { playerIndex, name ->
+
+                        IQDayPlayersRow(
+                            slot = playerIndex,
+                            colorSlot = if(playersState.voteNomination[playerIndex]) Colors.primary.copy(alpha = 0.75f) else Colors.secondary.copy(alpha = 0.75f),
+                            onSlotClick = {
+                                //vote order for judge
+                                viewModel.execute(
+                                    JudgeRoundAction.UpdateVoteOrder(
+                                        roundState.voteOrder.toMutableList().apply {
+                                            if (playersState.voteNomination[playerIndex]) {
+                                                removeAll { it == playerIndex + 1 }
+                                            } else {
+                                                add(playerIndex + 1)
+                                            }
+                                        }
+                                    )
+                                )
+
+                                //vote indicator
+                                viewModel.execute(
+                                    JudgePlayersAction.UpdateVoteNominations(
+                                        playersState.voteNomination.mapIndexed { index, oldNomination ->
+                                            if (index == playerIndex) !playersState.voteNomination[playerIndex] else oldNomination
+                                        }
+                                    )
+                                )
+                            },
+                            colorName = Colors.orange.copy(alpha = 0.1f),
+                            textName = name, isNameInputEnabled = true,
+                            onFaultClick = { viewModel.execute(JudgeDayScreenAction.UpdateFaults(
+                                dayState.playersFaults.mapIndexed { index, oldFault ->
+                                    if (index == playerIndex) {
+                                        if (oldFault < 4) dayState.playersFaults[playerIndex] + 1 else 0
+                                    } else oldFault
                                 }
-                            ) { changedText ->
-//                        val newNames = slotsState.tourPlayersNames.toMutableList()
-//                        newNames[playerIndex] = changedText
-//                        viewModel.execute(JudgeSlotsScreenAction.SetTourPlayers(newNames))
-                            }
-                            TextButton(onClick = {}) {
-                                Text(text = dayState.playersFaults[playerIndex].toString())
-                            }
+                            )) },
+                            colorFault = when(dayState.playersFaults[playerIndex]) {
+                                3 -> Colors.secondary
+                                4 -> Colors.gray
+                                else -> Colors.orange },
+                            textFault = dayState.playersFaults[playerIndex].toString()
+                        ) { changedText ->
+                            viewModel.execute(
+                                JudgePlayersAction.UpdateNickNames(
+                                    playersState.nickNames.mapIndexed { index, nick ->
+                                        if (index == playerIndex) changedText else nick
+                                    })
+                            )
                         }
 
+
+
+
                     }
-                }
-            }
-            //headers row
-
-        }
-
-        Text(text = judgeRoundState.voteOrder.toString())
-    }
 
 //    Text(text = "Day\nList of players\nVoting\nFaults\nVote Nomination")
+
+                }
+        } //END card with slots, nicks, faults
+
+        Text(text = roundState.voteOrder.toString())
+
+
+    }
 }
