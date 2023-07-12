@@ -35,17 +35,19 @@ data class JudgePlayersState(
             ),
             profileIds = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
             userIds = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            //RED - Красный Фон //BLACK - Черный Фон
+            //Don - D на чёрном Фоне //Sherif - S на красном фоне
             characterCards = listOf(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.DON),
+                CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.BLACK),
+                CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.BLACK),
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.SHERIFF),
             ),
             voteNomination = listOf(false, false, false, false, false, false, false, false, false, false)
         )

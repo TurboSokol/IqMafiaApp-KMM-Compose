@@ -74,7 +74,7 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
     val slotsState: JudgeSlotsScreenState = appState.getJudgeSlotsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        IQAlertDialogView(
+        IQAlertDialogView( //когда раздача слотов закончилась - предлагается reset
             modifier = Modifier.align(Alignment.Center)
                 .matchParentSize(),
             isVisible = slotsState.isResetDialogVisible,
@@ -84,19 +84,19 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
                 viewModel.execute(JudgeSlotsScreenAction.Init(slotsState.isTourMode))
             },
             onCancel = { viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible) }
-        )
+        ) //Конец окна reset
 
-        if (slotsState.isTourMode) {
+        if (slotsState.isTourMode) { // Tournament mode
             SlotsTourView(viewModel)
         } else {
             SlotsSingleGameView(viewModel)
         }
 
-        IQCollapsedSwitchFABView(
+        IQCollapsedSwitchFABView(//Плавающая кнопка, сворачивается-разворачивается
             modifier = Modifier.align(Alignment.BottomEnd).padding(Dimensions.Padding.small),
-            collapsedText = Strings.slotsSwitchModeButtonSingeLabel,
-            activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
-            expandedText = Strings.slotsSwitchModeButtonLabel,
+            collapsedText = Strings.slotsSwitchModeButtonSingeLabel, //Game
+            activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel, //Tour
+            expandedText = Strings.slotsSwitchModeButtonLabel, // Tournament mode
             isToogled = slotsState.isTourMode,
             onToogleClick = { viewModel.execute(JudgeSlotsScreenAction.SetIsTourMode) }
         )
