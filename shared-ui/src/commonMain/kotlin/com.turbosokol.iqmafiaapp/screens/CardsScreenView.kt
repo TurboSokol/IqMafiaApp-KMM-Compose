@@ -14,10 +14,13 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import com.turbosokol.iqmafiaapp.components.IQAlertDialogView
+import com.turbosokol.iqmafiaapp.components.IQCollapsedSwitchFABView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
@@ -40,10 +43,11 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 fun CardsScreenView(viewModel: ReduxViewModel) {
     Text(text = "Cards\nCard roles randomizer\nWith choose of card in stack")
+    CardsSingleScreenView(viewModel)
 }
 
 
-//SINGLE - в этом консте - ОДНА (не турнамент) а НЕ одиночная игра.
+//SINGLE - в этом контексте - ОДНА (не турнамент) а НЕ одиночная игра.
 @Composable
 fun CardsSingleScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
