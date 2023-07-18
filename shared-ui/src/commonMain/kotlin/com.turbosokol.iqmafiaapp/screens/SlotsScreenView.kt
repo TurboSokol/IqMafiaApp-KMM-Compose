@@ -69,8 +69,11 @@ import kotlinx.coroutines.flow.StateFlow
 @Stable
 @Composable
 fun SlotsScreenView(viewModel: ReduxViewModel) {
+    //StateFlow вроде как для сохранения во вью модели всяких данных
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
+    //Сам appState содержет кучу состояний, примеры: navigationState, judgeDayScreenState, judgeRoundState
     val appState by stateFlow.collectAsState(Dispatchers.Main)
+    //SlotsState тоже куча состояний, например - isHidden, tourPlayersNames, inProgress
     val slotsState: JudgeSlotsScreenState = appState.getJudgeSlotsState()
 
     Box(modifier = Modifier.fillMaxSize()) {

@@ -50,8 +50,11 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
 //SINGLE - в этом контексте - ОДНА (не турнамент) а НЕ одиночная игра.
 @Composable
 fun CardsSingleScreenView(viewModel: ReduxViewModel) {
+    //StateFlow вроде как для сохранения во вью модели всяких данных
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
+    //Сам appState содержет кучу состояний, примеры: navigationState, judgeDayScreenState, judgeRoundState
     val appState by stateFlow.collectAsState(Dispatchers.Main)
+    //CardsState это уже я добавил
     val CardsState: JudgeCardsScreenState = appState.getJudgeCardsState() //тут смены нэйминга со Slots на Cards
 
     Column(modifier = Modifier.fillMaxSize()) {
