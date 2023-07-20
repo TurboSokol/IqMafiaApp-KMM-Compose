@@ -33,12 +33,13 @@ data class JudgeCardsScreenState(
         )
     }
 
-}
+}//конец JudgeCardsScreenState
 
 sealed class JudgeCardsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of cards
-    data class Init(val cardsList: List<CharacterCardModel>) : JudgeCardsScreenAction()
+    data class Init(val cardsList: List<CharacterCardModel>) : JudgeCardsScreenAction()//Init тут - название
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
     object ShowNext : JudgeCardsScreenAction()
 }
+

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
@@ -58,9 +59,10 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                     )
                 })
             }, onClick = {
-            if (сardsState.cardsList.lastIndex != сardsState.listIndex) {
+            if (сardsState.cardsList.lastIndex != сardsState.listIndex) {//если карта которая сейчас
+                //не последняя в списке
                 viewModel.execute(JudgeCardsScreenAction.ShowNext)
-            } else {
+            } else {//если последняя
                 viewModel.execute(JudgeCardsScreenAction.ShowNext)
             }
         }) {
