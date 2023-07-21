@@ -29,7 +29,7 @@ data class JudgeCardsScreenState(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED)
-            )
+            ).shuffled()
         )
     }
 
