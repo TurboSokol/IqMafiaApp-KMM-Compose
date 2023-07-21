@@ -60,6 +60,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -205,7 +206,6 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
         Spacer(modifier = Modifier.height(1.dp))
 
         var gamesCount by remember { mutableStateOf(slotsState.tourGamesCount.toString()) }
-        var localProgress by remember { mutableStateOf(false) }
 
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -234,26 +234,34 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 ),
                 trailingIcon = {
                     TextButton(modifier = Modifier, onClick = {
+                        keyboard?.hide()
 
-                                keyboard?.hide()
-                                localProgress = true
+                        if (slotsState.tourGamesCount <= 100) {
+                            viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(emptyList()))
+                            CoroutineScope(Dispatchers.Main + Job()).launch {
 
-                        CoroutineScope(Dispatchers.Main + Job()).async {
-                            tournamentShuffleSlots(
-                                slotsState.tourPlayersNames,
-                                slotsState.tourGamesCount
-                            ) {
-                                viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(it))
-                                localProgress = false
+                                val shuffled = async { tournamentShuffleSlots(
+                                    slotsState.tourPlayersNames,
+                                    slotsState.tourGamesCount
+                                )}
+
+                                viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(shuffled.await()))
                             }
+
+                            }
+
+                        else {
+                            gamesCount = "100"
+                            JudgeSlotsScreenAction.SetTourGamesCount(100)
                         }
+
                     }) {
                         Text(text = Strings.tourSlotsGenerateButton, color = Colors.secondary)
                     }
                 })
         }
 
-        if (localProgress) {
+        if (slotsState.inProgress) {
             IQDialog(dismiss = { /* no-op */ }) {
                 IQLoaderView(
                     modifier = Modifier.padding(100.dp),

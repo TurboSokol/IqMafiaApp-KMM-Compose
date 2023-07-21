@@ -13,12 +13,7 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
     override fun reduce(oldState: JudgeCardsScreenState, action: Action): JudgeCardsScreenState {
         return when (action) {
             is JudgeCardsScreenAction.Init -> {
-                oldState.copy(
-                    isInit = true,
-                    isHidden = true,
-                    listIndex = -1,
-                    cardsList = action.cardsList
-                )
+                JudgeCardsScreenState.getInitState()
             }
 
             is JudgeSlotsScreenAction.ShowNext -> {

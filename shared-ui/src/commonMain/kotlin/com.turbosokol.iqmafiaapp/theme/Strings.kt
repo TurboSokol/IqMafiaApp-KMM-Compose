@@ -13,7 +13,7 @@ object Strings {
     const val slotsSwitchModeButtonSingeLabel = "Game"
     const val resetDialogLabel = "Reset Slots"
 
-    const val tourSlotsGamesCountLabel = "How many games in tournament?"
+    const val tourSlotsGamesCountLabel = "How many games in tournament? (max 100)"
     const val tourSlotsGenerateButton = "Generate Tournament"
     const val tourSlotsGamesListHeader = "TOURNAMENT SLOTS"
     const val tourSlotsNamesHeader = "SET PLAYERS"

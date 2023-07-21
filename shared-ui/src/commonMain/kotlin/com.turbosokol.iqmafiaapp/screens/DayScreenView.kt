@@ -1,6 +1,8 @@
 package com.turbosokol.iqmafiaapp.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,14 +10,28 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersAction
@@ -33,6 +49,7 @@ import kotlinx.coroutines.flow.StateFlow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
@@ -40,6 +57,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     val dayState = appState.getJudgeDayState()
     val playersState = appState.getJudgePlayersState()
     val roundState = appState.getJudgeRoundState()
+    val keyBoard = LocalSoftwareKeyboardController.current
 
 
     //scrollable parent
@@ -131,19 +149,53 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                     })
                             )
                         }
-
-
-
-
                     }
-
-//    Text(text = "Day\nList of players\nVoting\nFaults\nVote Nomination")
-
                 }
         } //END card with slots, nicks, faults
 
-        Text(text = roundState.voteOrder.toString())
+        Card(modifier = Modifier.padding(top = Dimensions.Padding.medium).border(BorderStroke(1.dp, Colors.gray)), elevation = Dimensions.Elevation.medium) {
+            Column(
+                verticalArrangement = Arrangement.Top) {
+                roundState.voteOrder.forEachIndexed { index, voteNomination ->
+                    Row(modifier = Modifier.fillMaxSize().border(BorderStroke(1.dp, Colors.gray))) {
+                        TextButton(onClick = {
+                            /* no-op */
+                        }) {
+                            Text(text = voteNomination.toString())
+                        }
+
+                        TextField(value = roundState.voteResult.getOrElse(voteNomination){ "" }.toString(), onValueChange = { changedValue ->
+                            if (changedValue.isNotEmpty()) {
+                                viewModel.execute(
+                                    JudgeRoundAction.UpdateVoteResults(
+                                        roundState.voteResult.plus(
+                                            Pair(voteNomination, changedValue.toInt())
+                                        )
+                                    )
+                                )
+                            } else {
+                                viewModel.execute(
+                                    JudgeRoundAction.UpdateVoteResults(
+                                        roundState.voteResult.minus(
+                                           voteNomination)
+                                    )
+                                )
+                            }
+                        }, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
+
+                        IconButton(onClick = {
+                            keyBoard?.hide()
+                        }) {
+                            Icon(imageVector = Icons.Outlined.Done, contentDescription = null)
+                        }
+                    }
+
+                }
+             }
+        }
 
 
-    }
+    } //END Scrollable column
 }
+
+//    Text(text = "Day\nList of players\nVoting\nFaults\nVote Nomination")

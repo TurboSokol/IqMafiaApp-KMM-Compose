@@ -13,7 +13,7 @@ data class JudgeRoundState(
     val gameId: Int,
     val roundCount: Int,
     val voteOrder: List<Int>,
-    val voteResult: Int
+    val voteResult: Map<Int, Int>
 ) : GeneralState {
     companion object {
         fun getInitState(): JudgeRoundState = JudgeRoundState(
@@ -21,7 +21,7 @@ data class JudgeRoundState(
             gameId = 0,
             roundCount = 0,
             voteOrder = listOf(),
-            voteResult = 0
+            voteResult = hashMapOf()
         )
     }
 }
@@ -31,6 +31,9 @@ sealed class JudgeRoundAction : Action {
     object Init : JudgeRoundAction()
 
     data class UpdateVoteOrder(val voteOrder: List<Int>): JudgeRoundAction()
+
+    data class UpdateVoteResults(val voteResult: Map<Int, Int>): JudgeRoundAction()
+
     //write in local DB
     object RoundCompleted : JudgeRoundAction()
 
