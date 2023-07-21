@@ -18,7 +18,8 @@ data class JudgeCardsScreenState(
 
     companion object {
         fun getInitState(): JudgeCardsScreenState = JudgeCardsScreenState(
-            isInit = true, isHidden = true, listIndex = -1, cardsList = listOf(
+            isInit = true, isHidden = true, listIndex = -1,
+            cardsList = listOf(
                 CharacterCardModel(type = CharacterCardType.DON),
                 CharacterCardModel(type = CharacterCardType.BLACK),
                 CharacterCardModel(type = CharacterCardType.BLACK),
@@ -37,7 +38,7 @@ data class JudgeCardsScreenState(
 
 sealed class JudgeCardsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of cards
-    data class Init(val cardsList: List<CharacterCardModel>) : JudgeCardsScreenAction()//Init тут - название
+    object Init : JudgeCardsScreenAction()//Init тут - название
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
     object ShowNext : JudgeCardsScreenAction()

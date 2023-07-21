@@ -2,6 +2,8 @@ package com.turbosokol.iqmafiaapp.features.judge.screens.cards
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
 
 /***
@@ -17,8 +19,25 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
                     isInit = true,
                     isHidden = true,
                     listIndex = -1,
-                    cardsList = action.cardsList
+//                    cardsList = action.cardsList
                 )
+
+                JudgeCardsScreenState(
+                    isInit = true, isHidden = true, listIndex = -1,
+                    cardsList = listOf(
+                        CharacterCardModel(type = CharacterCardType.DON),
+                        CharacterCardModel(type = CharacterCardType.BLACK),
+                        CharacterCardModel(type = CharacterCardType.BLACK),
+                        CharacterCardModel(type = CharacterCardType.SHERIFF),
+                        CharacterCardModel(type = CharacterCardType.RED),
+                        CharacterCardModel(type = CharacterCardType.RED),
+                        CharacterCardModel(type = CharacterCardType.RED),
+                        CharacterCardModel(type = CharacterCardType.RED),
+                        CharacterCardModel(type = CharacterCardType.RED),
+                        CharacterCardModel(type = CharacterCardType.RED)
+                    )
+                )
+
             }
 
             is JudgeSlotsScreenAction.ShowNext -> {
