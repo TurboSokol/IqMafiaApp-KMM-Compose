@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -39,8 +40,7 @@ import kotlinx.coroutines.flow.StateFlow
 //list игроков будет взят с JudgePlayersState
 @Composable
 fun CardsScreenView(viewModel: ReduxViewModel) {
-    Text(text = "Cards\nCard roles randomizer\nWith choose of card in stack")
-
+//    Text(text = "Cards\nCard roles randomizer\nWith choose of card in stack")
     //StateFlow вроде как для сохранения во вью модели всяких данных
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()//observable
     //Сам appState содержет кучу состояний, примеры: navigationState, judgeDayScreenState, judgeRoundState
@@ -52,22 +52,19 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
 
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color = Colors.orange.copy(alpha = 0.1f))
-            .pointerInput(Unit) {
-                detectTapGestures(onLongPress = {
-                    viewModel.execute(
-                        JudgeCardsScreenAction.ShowNext
-                    )
-                })
-            }, onClick = {
+            , onClick = {
             if (сardsState.cardsList.lastIndex != сardsState.listIndex) {//если карта которая сейчас
                 //не последняя в списке
+                сardsState.isHidden = false
                 viewModel.execute(JudgeCardsScreenAction.ShowNext)
+                сardsState.listIndex++
+
             } else {//если последняя
-                viewModel.execute(JudgeCardsScreenAction.ShowNext)
+                viewModel.execute(JudgeCardsScreenAction.Init)
             }
         }) {
             Text(
-                text = if (сardsState.isHidden) Strings.singleSlotsHiddenLabel else сardsState.cardsList[сardsState.listIndex].toString(),
+                text = if (сardsState.isHidden) Strings.getCard else сardsState.cardsList[сardsState.listIndex].toString(),
                 fontSize = if (сardsState.isHidden) Dimensions.TextSize.huge else Dimensions.TextSize.xhuge,
                 color = Colors.primary
             )
