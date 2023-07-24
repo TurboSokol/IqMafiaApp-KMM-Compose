@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -143,13 +142,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
 
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color = Colors.orange.copy(alpha = 0.1f))
-            .pointerInput(Unit) {
-                detectTapGestures(onLongPress = {
-                    viewModel.execute(
-                        JudgeSlotsScreenAction.SetResetDialogVisible
-                    )
-                })
-            }, onClick = {
+            , onClick = {
             if (slotsState.slotsList.lastIndex != slotsState.listIndex) {
                 viewModel.execute(JudgeSlotsScreenAction.ShowNext)
             } else {
