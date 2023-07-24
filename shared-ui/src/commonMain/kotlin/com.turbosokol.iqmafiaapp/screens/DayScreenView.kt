@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -26,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -154,10 +156,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         } //END card with slots, nicks, faults
 
         Card(modifier = Modifier.padding(top = Dimensions.Padding.medium).border(BorderStroke(1.dp, Colors.gray)), elevation = Dimensions.Elevation.medium) {
-            Column(
-                verticalArrangement = Arrangement.Top) {
+            Column(verticalArrangement = Arrangement.Top) {
                 roundState.voteOrder.forEachIndexed { index, voteNomination ->
-                    Row(modifier = Modifier.fillMaxSize().border(BorderStroke(1.dp, Colors.gray))) {
+                    Row(modifier = Modifier.fillMaxSize().border(BorderStroke(1.dp, Colors.gray)).background(Colors.primary.copy(alpha = 0.3f)), verticalAlignment = Alignment.CenterVertically) {
                         TextButton(onClick = {
                             /* no-op */
                         }) {
@@ -189,9 +190,16 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             Icon(imageVector = Icons.Outlined.Done, contentDescription = null)
                         }
                     }
-
                 }
              }
+        }
+
+        Row(horizontalArrangement = Arrangement.Center) {
+            TextButton(onClick = {
+                viewModel.execute(JudgeRoundAction.RoundCompleted)
+            }) {
+                Text("End Vote")
+            }
         }
 
 

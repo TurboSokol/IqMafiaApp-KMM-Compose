@@ -35,6 +35,6 @@ sealed class JudgeRoundAction : Action {
     data class UpdateVoteResults(val voteResult: Map<Int, Int>): JudgeRoundAction()
 
     //write in local DB
-    object RoundCompleted : JudgeRoundAction()
+    data class RoundCompleted(val roundCount: Int) : JudgeRoundAction()
 
 }
