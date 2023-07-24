@@ -14,48 +14,9 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAc
 class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
     override fun reduce(oldState: JudgeCardsScreenState, action: Action): JudgeCardsScreenState {
         return when (action) {
-            is JudgeCardsScreenAction.Init -> {
-//<<<<<<< HEAD
-                JudgeCardsScreenState.getInitState()
-//                oldState.copy(
-//                    isInit = true,
-//                    isHidden = true,
-//                    listIndex = -1,
-//                    cardsList = action.cardsList
-//                )
-//=======
-                oldState.copy(
-                    isInit = true,
-                    isHidden = true,
-                    listIndex = -1,
-//                    cardsList = action.cardsList
-                )
-
-                JudgeCardsScreenState(
-                    isInit = true, isHidden = true, listIndex = -1,
-                    cardsList = listOf(
-                        CharacterCardModel(type = CharacterCardType.DON),
-                        CharacterCardModel(type = CharacterCardType.BLACK),
-                        CharacterCardModel(type = CharacterCardType.BLACK),
-                        CharacterCardModel(type = CharacterCardType.SHERIFF),
-                        CharacterCardModel(type = CharacterCardType.RED),
-                        CharacterCardModel(type = CharacterCardType.RED),
-                        CharacterCardModel(type = CharacterCardType.RED),
-                        CharacterCardModel(type = CharacterCardType.RED),
-                        CharacterCardModel(type = CharacterCardType.RED),
-                        CharacterCardModel(type = CharacterCardType.RED)
-                    )
-                )
-
-//>>>>>>> 5896e45ba994fe23576fb26cb5fa4fc0651997b3
-            }
-
-            is JudgeSlotsScreenAction.ShowNext -> {
-                oldState.copy(
-                    isInit = false,
-                    isHidden = !oldState.isHidden,
-                    listIndex = if (oldState.isHidden) oldState.listIndex + 1 else oldState.listIndex
-                )
+            is JudgeCardsScreenAction.ShowNext -> {
+                JudgeCardsScreenState.getInitState() //подтягиваем список карт
+                oldState.copy(isHidden = false, listIndex = +1)
             }
 
             else -> oldState

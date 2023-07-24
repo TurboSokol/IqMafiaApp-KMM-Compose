@@ -65,7 +65,7 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
         }) {
             Text(
                 text = if (сardsState.isHidden) Strings.getCard else сardsState.cardsList[сardsState.listIndex].toString(),
-                fontSize = if (сardsState.isHidden) Dimensions.TextSize.huge else Dimensions.TextSize.xhuge,
+                fontSize = if (сardsState.isHidden) Dimensions.TextSize.large else Dimensions.TextSize.medium,
                 color = Colors.primary
             )
         }
