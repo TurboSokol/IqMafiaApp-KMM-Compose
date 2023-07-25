@@ -29,11 +29,13 @@ import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import org.koin.core.component.getScopeName
 
 /***
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
+
 
 
 //Будет делаться по аналогии со SlotsScreenView
@@ -54,18 +56,21 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
             .background(color = Colors.orange.copy(alpha = 0.1f))
             , onClick = {
             if (сardsState.cardsList.lastIndex != сardsState.listIndex) {//если карта которая сейчас
-                //не последняя в списке
-                сardsState.isHidden = false
                 viewModel.execute(JudgeCardsScreenAction.ShowNext)
-                сardsState.listIndex++
-
             } else {//если последняя
                 viewModel.execute(JudgeCardsScreenAction.Init)
             }
         }) {
             Text(
-                text = if (сardsState.isHidden) Strings.getCard else сardsState.cardsList[сardsState.listIndex].toString(),
-                fontSize = if (сardsState.isHidden) Dimensions.TextSize.large else Dimensions.TextSize.medium,
+                text = if (сardsState.isHidden)
+                    Strings.getCard
+
+                else сardsState.cardsList[сardsState.listIndex].type.toString() + " "
+                        + сardsState.listIndex.toString(),
+                fontSize = if (сardsState.isHidden) Dimensions.TextSize.large //если скрыта карта
+
+                else Dimensions.TextSize.huge,
+
                 color = Colors.primary
             )
         }
