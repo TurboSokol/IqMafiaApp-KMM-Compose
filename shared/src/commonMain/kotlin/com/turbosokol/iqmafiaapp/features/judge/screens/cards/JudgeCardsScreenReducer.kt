@@ -13,10 +13,12 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAc
 
 class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
     override fun reduce(oldState: JudgeCardsScreenState, action: Action): JudgeCardsScreenState {
+
+
         return when (action) {
             is JudgeCardsScreenAction.ShowNext -> {
-                JudgeCardsScreenState.getInitState() //подтягиваем список карт
-                oldState.copy(isHidden = false, listIndex = +1)
+                JudgeCardsScreenState.getInitState()
+                oldState.copy(isHidden = !oldState.isHidden, listIndex = oldState.listIndex++)
             }
 
             else -> oldState
@@ -24,3 +26,8 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
     }
 
 }
+
+//val isInit: Boolean,
+//var isHidden: Boolean,
+//var listIndex: Int,
+//val cardsList: List<CharacterCardModel>
