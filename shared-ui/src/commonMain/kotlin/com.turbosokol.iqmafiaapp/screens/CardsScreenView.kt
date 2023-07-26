@@ -67,11 +67,20 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
 
                 else сardsState.cardsList[сardsState.listIndex].type.toString() + " "
                         + сardsState.listIndex.toString(),
-                fontSize = if (сardsState.isHidden) Dimensions.TextSize.large //если скрыта карта
 
+
+
+                fontSize = if (сardsState.isHidden) Dimensions.TextSize.large //если скрыта карта
                 else Dimensions.TextSize.huge,
 
-                color = Colors.primary
+                color =
+                when(сardsState.cardsList[сardsState.listIndex].type.toString()) {
+                "SHERIF" -> Colors.gray
+                "DON" -> Colors.red
+                    else -> {Colors.primary}
+                }
+
+
             )
         }
 
@@ -79,3 +88,17 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
 
 
 }
+
+
+//Text(
+//text = if (сardsState.isHidden)
+//Strings.getCard
+//
+//else сardsState.cardsList[сardsState.listIndex].type.toString() + " "
+//+ сardsState.listIndex.toString()
+//,
+//fontSize = if (сardsState.isHidden) Dimensions.TextSize.large //если скрыта карта
+//else Dimensions.TextSize.huge,
+//
+//color = Colors.red
+//)
