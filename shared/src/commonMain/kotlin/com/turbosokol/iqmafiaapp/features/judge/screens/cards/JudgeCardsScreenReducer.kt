@@ -22,8 +22,7 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
                     isHidden =
                     !oldState.isHidden,
                     listIndex =
-                     if(oldState.isHidden && oldState.listIndex == 0) {oldState.listIndex}
-                     else   if(oldState.isHidden) {oldState.listIndex +1}
+                     if(oldState.isHidden) {oldState.listIndex +1}
                     else{oldState.listIndex}
                     )
             }

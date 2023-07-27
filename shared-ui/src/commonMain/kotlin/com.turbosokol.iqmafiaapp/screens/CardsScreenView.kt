@@ -53,8 +53,15 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
 
         TextButton(modifier = Modifier.fillMaxSize()
-            .background(color = Colors.orange.copy(alpha = 0.1f))
-            , onClick = {
+            .background(color =
+            when(сardsState.cardsList[сardsState.listIndex].type.toString()) {
+                "SHERIFF" -> Colors.red
+                "DON" -> Colors.darkGrey51
+                "RED" -> Colors.red
+                "BLACK" -> Colors.darkGrey32
+                else -> {Colors.orange.copy(alpha = 0.1f)}
+            })
+            ,onClick = {
             if (сardsState.cardsList.lastIndex != сardsState.listIndex) {//если карта которая сейчас
                 viewModel.execute(JudgeCardsScreenAction.ShowNext)
             } else {//если последняя
@@ -70,16 +77,23 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
 
 
 
-                fontSize = if (сardsState.isHidden) Dimensions.TextSize.large //если скрыта карта
+                fontSize = if (сardsState.isHidden) Dimensions.TextSize.huge //если скрыта карта
                 else Dimensions.TextSize.huge,
 
-                color =
-                when(сardsState.cardsList[сardsState.listIndex].type.toString()) {
-                "SHERIF" -> Colors.gray
-                "DON" -> Colors.red
-                    else -> {Colors.primary}
-                }
+                color = if (!сardsState.isHidden) {
+                    when (сardsState.cardsList[сardsState.listIndex].type.toString()) {
+                        "SHERIFF" -> Colors.darkGrey32
+                        "DON" -> Colors.red
+                        "RED" -> Colors.red
+                        "BLACK" -> Colors.darkGrey32
+                        else -> {
+                            Colors.primary
+                        }
+                    }
 
+                } else {
+                    Colors.primary
+                }
 
             )
         }
