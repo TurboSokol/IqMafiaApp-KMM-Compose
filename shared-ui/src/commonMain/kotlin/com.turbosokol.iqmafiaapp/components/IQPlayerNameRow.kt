@@ -4,9 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,31 +35,43 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 @Composable
 fun IQPlayerNameRow(
-    index: Int,
-    text: String,
+    modifier: Modifier,
+    slot: Int,
+    textName: String,
     isInputEnabled: Boolean,
-    colorIndex: Color = Colors.primary.copy(alpha = 0.65f),
+    colorSlot: Color = Colors.primary.copy(alpha = 0.65f),
     colorName: Color = Colors.orange.copy(alpha = 0.1f),
+    onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
-            .border(1.dp, Colors.darkBlue)
-            .background(color = colorIndex)
+        modifier = modifier
+            .border(0.5.dp, Colors.gray)
+            .background(color = Color.White)
+            .background(color = colorSlot)
     ) {
-        Text(
-            text = (index + 1).toString(),
-            modifier = Modifier.weight(0.15f).align(Alignment.CenterVertically),
-            textAlign = TextAlign.Center,
-            fontSize = Dimensions.TextSize.xmedium,
-            fontWeight = FontWeight.Bold,
-        )
+        TextButton(
+            onClick = {
+                if (onSlotClick != null) {
+                    onSlotClick()
+                }
+            },
+            modifier = Modifier.align(Alignment.CenterVertically).wrapContentWidth(),
+            enabled = onSlotClick != null
+        ) {
+            Text(
+                text = (slot + 1).toString(), textAlign = TextAlign.Center,
+                fontSize = Dimensions.TextSize.smedium,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+        }
 
-        var playerName by remember { mutableStateOf(text) }
+        var playerName by remember { mutableStateOf(textName) }
 
         OutlinedTextField(
             value = playerName,
-            modifier = Modifier.weight(0.85f)
+            modifier = Modifier.fillMaxWidth()
                 .background(Colors.white)
                 .background(color = colorName),
             onValueChange = { changedValue: String ->
@@ -65,12 +81,13 @@ fun IQPlayerNameRow(
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = if (index == 9) ImeAction.Done else ImeAction.Next,
+                imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
                 keyboardType = KeyboardType.Text
             ),
-            textStyle = TextStyle(fontSize = Dimensions.TextSize.xmedium),
+            textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
             singleLine = true,
             readOnly = !isInputEnabled,
-        )
+            shape = MaterialTheme.shapes.large,
+            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent))
     }
 }

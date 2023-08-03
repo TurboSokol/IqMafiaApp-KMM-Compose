@@ -9,6 +9,24 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  ***/
 class JudgeRoundReducer : Reducer<JudgeRoundState> {
     override fun reduce(oldState: JudgeRoundState, action: Action): JudgeRoundState {
-        return oldState
+        return when (action) {
+            is JudgeRoundAction.Init -> {
+                JudgeRoundState.getInitState()
+            }
+
+            is JudgeRoundAction.UpdateVoteOrder -> {
+                oldState.copy(voteOrder = action.voteOrder)
+            }
+
+            is JudgeRoundAction.UpdateVoteResults -> {
+                oldState.copy(voteResult = action.voteResult)
+            }
+
+            is JudgeRoundAction.RoundCompleted -> {
+                oldState.copy(roundCount = action.roundCount)
+            }
+
+            else -> oldState
+        }
     }
 }

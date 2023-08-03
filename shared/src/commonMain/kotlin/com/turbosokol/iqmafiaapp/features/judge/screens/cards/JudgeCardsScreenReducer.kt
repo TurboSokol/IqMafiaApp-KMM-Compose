@@ -2,6 +2,8 @@ package com.turbosokol.iqmafiaapp.features.judge.screens.cards
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
 
 /***
@@ -13,21 +15,15 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
     override fun reduce(oldState: JudgeCardsScreenState, action: Action): JudgeCardsScreenState {
         return when (action) {
             is JudgeCardsScreenAction.Init -> {
-                oldState.copy(
-                    isInit = true,
-                    isHidden = true,
-                    listIndex = -1,
-                    cardsList = action.cardsList
-                )
+                JudgeCardsScreenState.getInitState()
             }
 
-            is JudgeSlotsScreenAction.ShowNext -> {
-                oldState.copy(
-                    isInit = false,
-                    isHidden = !oldState.isHidden,
-                    listIndex = if (oldState.isHidden) oldState.listIndex + 1 else oldState.listIndex
-                )
+            is JudgeCardsScreenAction.ShowNext -> {
+                oldState.copy(isHidden = !oldState.isHidden, listIndex = if (oldState.isHidden) oldState.listIndex+1 else oldState.listIndex)
             }
+
+
+
 
             else -> oldState
         }

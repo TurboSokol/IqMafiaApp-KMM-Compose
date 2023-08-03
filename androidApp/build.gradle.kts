@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     kotlin("android")
-//    id("org.jetbrains.compose") version Versions.compose
+    id("org.jetbrains.compose") version Versions.compose
 }
 
 dependencies {
@@ -35,6 +35,8 @@ dependencies {
 }
 
 android {
+    namespace = "com.turbosokol.iqmafiaapp"
+
     compileSdk = Versions.targetSdk
     defaultConfig {
 
@@ -69,7 +71,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
+        kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packagingOptions {
         resources {

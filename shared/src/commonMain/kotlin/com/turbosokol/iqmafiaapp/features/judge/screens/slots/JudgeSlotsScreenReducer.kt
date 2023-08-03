@@ -35,7 +35,7 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
             }
 
             is JudgeSlotsScreenAction.SetTourSlotsList -> {
-                oldState.copy(tourSlotsList = action.tourSlotsList, inProgress = false)
+                oldState.copy(tourSlotsList = action.tourSlotsList, inProgress = if (action.tourSlotsList.isEmpty()) true else false)
             }
 
             is JudgeSlotsScreenAction.SetProgress -> {
