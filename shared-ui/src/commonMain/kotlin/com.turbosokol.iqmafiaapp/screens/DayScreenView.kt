@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -63,8 +62,6 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     val dayState = appState.getJudgeDayState()
     val playersState = appState.getJudgePlayersState()
     val roundState = appState.getJudgeRoundState()
-
-    val keyBoard = LocalSoftwareKeyboardController.current
 
     var voteCountDialogVisible by remember { mutableStateOf(false) }
     val voteNominantSlot = remember { mutableStateOf(-1) }
@@ -403,5 +400,3 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         }
     } //END SCROLLABLE
 }
-
-//    Text(text = "Day\nList of players\nVoting\nFaults\nVote Nomination")
