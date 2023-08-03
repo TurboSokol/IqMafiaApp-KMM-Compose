@@ -36,6 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
 import com.turbosokol.iqmafiaapp.components.IQDialog
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersAction
@@ -43,6 +44,7 @@ import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenAction
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
+import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -125,7 +127,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             //vote order for judge
                             viewModel.execute(
                                 JudgeRoundAction.UpdateVoteOrder(
-                                    roundState.voteOrder.toMutableList().apply {
+                                    roundState.voteCandidates.toMutableList().apply {
                                         if (playersState.voteNomination[playerIndex]) {
                                             removeAll { it == playerIndex + 1 }
                                         } else {
@@ -184,9 +186,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     modifier = Modifier.background(Color.Transparent),
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    roundState.voteOrder.forEach { voteNominant ->
+                    roundState.voteCandidates.forEach { voteNominant ->
                         var voteButtonColor by remember { mutableStateOf(Colors.orange.copy(alpha = 0.6f)) }
-                        Card(modifier = if (roundState.voteOrder.size < 6) Modifier else Modifier.weight(1f)) {
+                        Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                             TextButton(modifier = Modifier.border(
                                 BorderStroke(
                                     1.dp,
@@ -213,8 +215,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 Row(modifier = Modifier.background(Color.Transparent),
                 horizontalArrangement = Arrangement.Start
                 ) {
-                roundState.voteOrder.forEach{ voteNomination ->
-                    Card(modifier = if (roundState.voteOrder.size < 6) Modifier else Modifier.weight(1f)) {
+                roundState.voteCandidates.forEach{ voteNomination ->
+                    Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                         TextButton(modifier = Modifier.border(
                             BorderStroke(
                                 1.dp,

@@ -86,15 +86,10 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                             Colors.primary
                         }
                     }
-
                 } else {
                     Colors.primary
                 }
-
             )
         }
-
     }
-
-
 }

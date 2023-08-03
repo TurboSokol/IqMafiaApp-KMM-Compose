@@ -32,7 +32,7 @@ sealed class JudgeRoundAction : Action {
 
     data class UpdateVoteOrder(val voteOrder: List<Int>): JudgeRoundAction()
 
-    data class UpdateVoteResults(val voteResult: Map<Int, Int>): JudgeRoundAction()
+    data class UpdateVoteResults(val voteCandidates: Map<Int, Int>): JudgeRoundAction()
 
     //write in local DB
     object RoundCompleted : JudgeRoundAction()

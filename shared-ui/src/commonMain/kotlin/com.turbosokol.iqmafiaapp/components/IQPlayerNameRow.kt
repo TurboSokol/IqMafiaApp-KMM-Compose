@@ -81,7 +81,7 @@ fun IQPlayerNameRow(
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = if (index == 9) ImeAction.Done else ImeAction.Next,
+                imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
                 keyboardType = KeyboardType.Text
             ),
             textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
