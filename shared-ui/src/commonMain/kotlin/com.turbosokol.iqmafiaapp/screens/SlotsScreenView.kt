@@ -230,7 +230,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
                         if (slotsState.tourGamesCount <= 100) {
                             viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(emptyList()))
-                            CoroutineScope(Dispatchers.Main + Job()).launch {
+                            CoroutineScope(Dispatchers.Default + Job()).launch {
 
                                 val shuffled = async { tournamentShuffleSlots(
                                     slotsState.tourPlayersNames,
