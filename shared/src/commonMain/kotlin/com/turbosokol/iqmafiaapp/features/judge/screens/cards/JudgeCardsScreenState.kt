@@ -20,7 +20,7 @@ data class JudgeCardsScreenState(
         fun getInitState(): JudgeCardsScreenState = JudgeCardsScreenState(
             isInit = true,
             isHidden = true,
-            listIndex = -1,
+            listIndex = 0,
             cardsList = listOf(
                 CharacterCardModel(type = CharacterCardType.DON),
                 CharacterCardModel(type = CharacterCardType.BLACK),
