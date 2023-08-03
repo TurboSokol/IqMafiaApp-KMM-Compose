@@ -19,6 +19,14 @@ class JudgeRoundReducer : Reducer<JudgeRoundState> {
                 oldState.copy(voteOrder = action.voteOrder)
             }
 
+            is JudgeRoundAction.UpdateVoteResults -> {
+                oldState.copy(voteResult = action.voteResult)
+            }
+
+            is JudgeRoundAction.RoundCompleted -> {
+                oldState.copy(roundCount = oldState.roundCount+1, voteOrder = emptyList(), voteResult = emptyMap())
+            }
+
             else -> oldState
         }
     }

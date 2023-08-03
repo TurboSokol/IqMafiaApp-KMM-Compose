@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,20 +35,20 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 @Composable
 fun IQPlayerNameRow(
+    modifier: Modifier,
     slot: Int,
-    text: String,
+    textName: String,
     isInputEnabled: Boolean,
-    colorSlotInactive: Color = Colors.primary.copy(alpha = 0.65f),
-    colorSlotActive: Color = Colors.secondary.copy(alpha = 0.65f),
-    isSlotActive: Boolean = false,
+    colorSlot: Color = Colors.primary.copy(alpha = 0.65f),
     colorName: Color = Colors.orange.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
-            .border(1.dp, Colors.darkBlue)
-            .background(color = if (isSlotActive) colorSlotActive else colorSlotInactive)
+        modifier = modifier
+            .border(0.5.dp, Colors.gray)
+            .background(color = Color.White)
+            .background(color = colorSlot)
     ) {
         TextButton(
             onClick = {
@@ -59,17 +61,17 @@ fun IQPlayerNameRow(
         ) {
             Text(
                 text = (slot + 1).toString(), textAlign = TextAlign.Center,
-                fontSize = Dimensions.TextSize.xmedium,
+                fontSize = Dimensions.TextSize.smedium,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
         }
 
-        var playerName by remember { mutableStateOf(text) }
+        var playerName by remember { mutableStateOf(textName) }
 
         OutlinedTextField(
             value = playerName,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.weight(0.85f)
                 .background(Colors.white)
                 .background(color = colorName),
             onValueChange = { changedValue: String ->
@@ -79,12 +81,13 @@ fun IQPlayerNameRow(
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
+                imeAction = if (index == 9) ImeAction.Done else ImeAction.Next,
                 keyboardType = KeyboardType.Text
             ),
-            textStyle = TextStyle(fontSize = Dimensions.TextSize.xmedium),
+            textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
             singleLine = true,
             readOnly = !isInputEnabled,
-        )
+            shape = MaterialTheme.shapes.large,
+            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent))
     }
 }

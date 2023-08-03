@@ -1,6 +1,7 @@
 package com.turbosokol.iqmafiaapp.util
 
 import kotlin.math.max
+import kotlin.random.Random
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -10,51 +11,56 @@ import kotlin.math.max
 const val NEIGHBOR_MAX_ATTEMPTS = 3
 const val BLOCK_SIZE = 10
 
-fun tournamentShuffleSlots(players: List<String>, games: Int, onDone:(List<List<String>>) -> Unit) {
+fun tournamentShuffleSlots(players: List<String>, games: Int): List<List<String>> {
     val results = mutableListOf<List<String>>()
     val numberOfBlocks = (games + BLOCK_SIZE - 1) / BLOCK_SIZE
 
     for (block in 0 until numberOfBlocks) {
         for (gameIndex in 0 until BLOCK_SIZE) {
             var shuffledPlayers = players.shuffled()
-            while (!uniquePositionCheck(shuffledPlayers, gameIndex, results)) {
-                shuffledPlayers = players.shuffled()
+            var attemptCounter = 0
+            val unUniquePosition = uniquePositionCheck(shuffledPlayers, results)
+            while (uniquePositionCheck(shuffledPlayers, results) != -1 && attemptCounter < 10) {
+                val firstSub = if (unUniquePosition < 5) shuffledPlayers.subList(0, 5).shuffled() else shuffledPlayers.subList(0, 5)
+                val secondSub = if (unUniquePosition > 4) shuffledPlayers.subList(5, shuffledPlayers.lastIndex+1).shuffled() else shuffledPlayers.subList(5, shuffledPlayers.lastIndex+1)
+                shuffledPlayers = firstSub.plus(secondSub)
+                attemptCounter++
             }
 
-            var neighborAttemptCounter = 0
-            while (neighborAttemptCounter < NEIGHBOR_MAX_ATTEMPTS && !uniqueNeighborCheck(shuffledPlayers, results)) {
-                shuffledPlayers = players.shuffled()
-                neighborAttemptCounter++
+            if (games <= 20) {
+                var neighborAttemptCounter = 0
+                while (neighborAttemptCounter < NEIGHBOR_MAX_ATTEMPTS && !uniqueNeighborCheck(shuffledPlayers, results)) {
+                    shuffledPlayers = players.shuffled()
+                    neighborAttemptCounter++
+                }
             }
 
             results.add(shuffledPlayers)
             if (results.size == games) {
-                onDone(results)
                 break
             }
         }
         if (results.size == games) {
-            onDone(results)
             break
         }
     }
+    return results
 }
 
 fun uniquePositionCheck(
     currentGame: List<String>,
-    gameIndex: Int,
     previousGames: List<List<String>>
-): Boolean {
+): Int {
     val startIndex = max(0, previousGames.size - BLOCK_SIZE)
     val subList = previousGames.subList(startIndex, previousGames.size)
 
     subList.forEach { game ->
         game.forEachIndexed { position, player ->
-            if (currentGame[position] == player) return false
+            if (currentGame[position] == player) return position
         }
     }
 
-    return true
+    return -1
 }
 
 fun uniqueNeighborCheck(currentGame: List<String>, previousGames: List<List<String>>): Boolean {

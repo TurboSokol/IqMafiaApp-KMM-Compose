@@ -1,6 +1,15 @@
 package com.turbosokol.iqmafiaapp.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
@@ -9,6 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import com.turbosokol.iqmafiaapp.core.redux.Action
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
@@ -26,12 +42,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun CardsScreenView(viewModel: ReduxViewModel) {
-//    Text(text = "Cards\nCard roles randomizer\nWith choose of card in stack")
-
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
-
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-
     val сardsState: JudgeCardsScreenState = appState.getJudgeCardsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -86,5 +98,3 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
 
 
 }
-
-
