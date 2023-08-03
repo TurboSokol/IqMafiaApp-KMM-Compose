@@ -2,7 +2,6 @@ package com.turbosokol.iqmafiaapp.features.judge.round
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
-import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersAction
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -17,6 +16,14 @@ class JudgeRoundReducer : Reducer<JudgeRoundState> {
 
             is JudgeRoundAction.UpdateVoteOrder -> {
                 oldState.copy(voteOrder = action.voteOrder)
+            }
+
+            is JudgeRoundAction.UpdateVoteResults -> {
+                oldState.copy(voteResult = action.voteResult)
+            }
+
+            is JudgeRoundAction.RoundCompleted -> {
+                oldState.copy(roundCount = action.roundCount)
             }
 
             else -> oldState

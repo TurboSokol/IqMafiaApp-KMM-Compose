@@ -11,8 +11,8 @@ import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
  ***/
 data class JudgeCardsScreenState(
     val isInit: Boolean,
-    var isHidden: Boolean,
-    var listIndex: Int,
+    val isHidden: Boolean,
+    val listIndex: Int,
     val cardsList: List<CharacterCardModel>
 ) : GeneralState {
 
@@ -34,7 +34,7 @@ data class JudgeCardsScreenState(
         )
     }
 
-}//конец JudgeCardsScreenState
+}
 
 sealed class JudgeCardsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of cards
