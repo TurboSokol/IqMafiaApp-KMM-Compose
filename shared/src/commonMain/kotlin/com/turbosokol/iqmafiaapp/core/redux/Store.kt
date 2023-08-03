@@ -23,7 +23,6 @@ object None : Action
 object Empty : Effect
 
 interface Store<S : GeneralState, A : Action, E : Effect> {
-    //Дженерики тут использованы ТОЛЬКО для краткости записи, чтобы писать не generalStateParam - а просто S
     fun observeState(): StateFlow<S>
     fun dispatch(action: A)
     fun getState(): S
