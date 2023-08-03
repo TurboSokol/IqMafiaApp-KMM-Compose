@@ -9,6 +9,8 @@ plugins {
 version = "1.0"
 
 android {
+    namespace = "com.turbosokol.iqmafiaapp"
+
     compileSdk = Versions.targetSdk
 
     defaultConfig {
@@ -20,7 +22,7 @@ android {
     version = "1.0"
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
 
     buildFeatures {
@@ -71,6 +73,7 @@ kotlin {
                 api(compose.material)
                 api(compose.runtime)
                 api(compose.materialIconsExtended)
+                api(compose.material3)
 
                 implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
 
@@ -96,7 +99,7 @@ kotlin {
             dependencies {
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
 
             }
@@ -123,7 +126,7 @@ android {
 
 compose {
     android {
-        useAndroidX = true
-        androidxVersion = "1.3.0"
+//        useAndroidX = true
+//        androidxVersion = "1.3.0"
     }
 }

@@ -54,11 +54,7 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
             .background(color = Colors.orange.copy(alpha = 0.1f))
             , onClick = {
             if (сardsState.cardsList.lastIndex != сardsState.listIndex) {//если карта которая сейчас
-                //не последняя в списке
-                сardsState.isHidden = false
                 viewModel.execute(JudgeCardsScreenAction.ShowNext)
-                сardsState.listIndex++
-
             } else {//если последняя
                 viewModel.execute(JudgeCardsScreenAction.Init)
             }
