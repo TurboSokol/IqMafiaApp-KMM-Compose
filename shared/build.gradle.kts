@@ -9,7 +9,7 @@ plugins {
 version = "1.0"
 
 kotlin {
-    android()
+    androidTarget()
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -54,9 +54,6 @@ kotlin {
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
-
-
-
             }
         }
 
@@ -78,7 +75,7 @@ kotlin {
             }
         }
 
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:${Versions.jUnit}")
@@ -130,13 +127,13 @@ kotlin {
 
     //Allow code comments visibility in Swift
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        // Для включения документации
         compilations["main"].kotlinOptions.freeCompilerArgs += "-Xexport-kdoc"
     }
 
 }
 
 android {
+    namespace = "com.turbosokol.iqmafiaapp"
     compileSdk = Versions.targetSdk
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {

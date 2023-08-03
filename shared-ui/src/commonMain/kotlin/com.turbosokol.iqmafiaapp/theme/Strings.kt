@@ -19,6 +19,9 @@ object Strings {
     const val tourSlotsNamesHeader = "SET PLAYERS"
     const val singleSlotsHiddenLabel = "Get Slot"
 
+    //cards
+    const val getCard = "Get a Card"
+
     //day
     const val dayNamesHeader = "Names"
     const val dayFaultsHeader = "Faults"

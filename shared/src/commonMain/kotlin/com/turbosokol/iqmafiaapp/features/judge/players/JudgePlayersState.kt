@@ -45,7 +45,7 @@ data class JudgePlayersState(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.RED)
             ),
             voteNomination = listOf(false, false, false, false, false, false, false, false, false, false)
         )

@@ -18,7 +18,8 @@ data class JudgeCardsScreenState(
 
     companion object {
         fun getInitState(): JudgeCardsScreenState = JudgeCardsScreenState(
-            isInit = true, isHidden = true, listIndex = -1, cardsList = listOf(
+            isInit = true, isHidden = true, listIndex = -1,
+            cardsList = listOf(
                 CharacterCardModel(type = CharacterCardType.DON),
                 CharacterCardModel(type = CharacterCardType.BLACK),
                 CharacterCardModel(type = CharacterCardType.BLACK),
@@ -32,6 +33,7 @@ data class JudgeCardsScreenState(
             ).shuffled()
         )
     }
+
 }
 
 sealed class JudgeCardsScreenAction : Action {
