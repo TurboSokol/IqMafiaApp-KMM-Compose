@@ -71,7 +71,7 @@ fun IQPlayerNameRow(
 
         OutlinedTextField(
             value = playerName,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.weight(0.85f)
                 .background(Colors.white)
                 .background(color = colorName),
             onValueChange = { changedValue: String ->

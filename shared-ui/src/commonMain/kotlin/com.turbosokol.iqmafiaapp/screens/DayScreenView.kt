@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -124,7 +127,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             //vote order for judge
                             viewModel.execute(
                                 JudgeRoundAction.UpdateVoteOrder(
-                                    roundState.voteOrder.toMutableList().apply {
+                                    roundState.voteCandidates.toMutableList().apply {
                                         if (playersState.voteNomination[playerIndex]) {
                                             removeAll { it == playerIndex + 1 }
                                         } else {
@@ -183,9 +186,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     modifier = Modifier.background(Color.Transparent),
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    roundState.voteOrder.forEach { voteNominant ->
+                    roundState.voteCandidates.forEach { voteNominant ->
                         var voteButtonColor by remember { mutableStateOf(Colors.orange.copy(alpha = 0.6f)) }
-                        Card(modifier = if (roundState.voteOrder.size < 6) Modifier else Modifier.weight(1f)) {
+                        Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                             TextButton(modifier = Modifier.border(
                                 BorderStroke(
                                     1.dp,
@@ -212,8 +215,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 Row(modifier = Modifier.background(Color.Transparent),
                 horizontalArrangement = Arrangement.Start
                 ) {
-                roundState.voteOrder.forEach{ voteNomination ->
-                    Card(modifier = if (roundState.voteOrder.size < 6) Modifier else Modifier.weight(1f)) {
+                roundState.voteCandidates.forEach{ voteNomination ->
+                    Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                         TextButton(modifier = Modifier.border(
                             BorderStroke(
                                 1.dp,

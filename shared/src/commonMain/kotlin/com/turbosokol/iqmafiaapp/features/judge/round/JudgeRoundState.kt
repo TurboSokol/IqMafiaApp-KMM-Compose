@@ -2,7 +2,6 @@ package com.turbosokol.iqmafiaapp.features.judge.round
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
-import io.ktor.util.collections.ConcurrentMap
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -13,7 +12,7 @@ data class JudgeRoundState(
     val roundId: Int,
     val gameId: Int,
     val roundCount: Int,
-    val voteOrder: List<Int>,
+    val voteCandidates: List<Int>,
     val voteResult: Map<Int, Int>
 ) : GeneralState {
     companion object {
@@ -21,7 +20,7 @@ data class JudgeRoundState(
             roundId = 0,
             gameId = 0,
             roundCount = 0,
-            voteOrder = listOf(),
+            voteCandidates = listOf(),
             voteResult = emptyMap<Int, Int>()
         )
     }
@@ -33,7 +32,7 @@ sealed class JudgeRoundAction : Action {
 
     data class UpdateVoteOrder(val voteOrder: List<Int>): JudgeRoundAction()
 
-    data class UpdateVoteResults(val voteResult: Map<Int, Int>): JudgeRoundAction()
+    data class UpdateVoteResults(val voteCandidates: Map<Int, Int>): JudgeRoundAction()
 
     //write in local DB
     object RoundCompleted : JudgeRoundAction()

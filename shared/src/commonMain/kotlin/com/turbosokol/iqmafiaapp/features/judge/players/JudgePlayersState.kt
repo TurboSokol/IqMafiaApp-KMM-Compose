@@ -38,14 +38,14 @@ data class JudgePlayersState(
             characterCards = listOf(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.DON),
+                CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.BLACK),
+                CharacterCardModel(type = CharacterCardType.RED),
+                CharacterCardModel(type = CharacterCardType.BLACK),
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED),
-                CharacterCardModel(type = CharacterCardType.RED)
+                CharacterCardModel(type = CharacterCardType.SHERIFF),
             ),
             voteNomination = listOf(false, false, false, false, false, false, false, false, false, false)
         )
