@@ -77,6 +77,8 @@ kotlin {
 
                 implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
 
+                implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
+
                 api("androidx.compose.compiler:compiler:1.4.7")
 
                 api("io.insert-koin:koin-core:${Versions.koin}")

@@ -26,6 +26,7 @@ object Strings {
     const val dayNamesHeader = "Names"
     const val dayFaultsHeader = "Faults"
     const val daySlotsHeader = "Slots"
+    const val voteCountDialogLabel = "How many people voted?"
 
 
 }

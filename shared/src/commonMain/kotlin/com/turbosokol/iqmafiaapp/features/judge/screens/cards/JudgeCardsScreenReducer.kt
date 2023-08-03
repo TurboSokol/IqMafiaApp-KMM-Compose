@@ -2,9 +2,6 @@ package com.turbosokol.iqmafiaapp.features.judge.screens.cards
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
-import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
-import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
 
 /***
  *If this code runs it created by Evgenii Sokol.

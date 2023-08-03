@@ -69,15 +69,12 @@ import kotlinx.coroutines.launch
 @Stable
 @Composable
 fun SlotsScreenView(viewModel: ReduxViewModel) {
-    //StateFlow вроде как для сохранения во вью модели всяких данных
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
-    //Сам appState содержет кучу состояний, примеры: navigationState, judgeDayScreenState, judgeRoundState
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    //SlotsState тоже куча состояний, например - isHidden, tourPlayersNames, inProgress
     val slotsState: JudgeSlotsScreenState = appState.getJudgeSlotsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        IQAlertDialogView( //когда раздача слотов закончилась - предлагается reset
+        IQAlertDialogView(
             modifier = Modifier.align(Alignment.Center)
                 .matchParentSize(),
             isVisible = slotsState.isResetDialogVisible,
@@ -87,19 +84,19 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
                 viewModel.execute(JudgeSlotsScreenAction.Init(slotsState.isTourMode))
             },
             onCancel = { viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible) }
-        ) //Конец окна reset
+        )
 
-        if (slotsState.isTourMode) { // Tournament mode
+        if (slotsState.isTourMode) {
             SlotsTourView(viewModel)
         } else {
             SlotsSingleGameView(viewModel)
         }
 
-        IQCollapsedSwitchFABView(//Плавающая кнопка, сворачивается-разворачивается
+        IQCollapsedSwitchFABView(
             modifier = Modifier.align(Alignment.BottomEnd).padding(Dimensions.Padding.small),
-            collapsedText = Strings.slotsSwitchModeButtonSingeLabel, //Game
-            activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel, //Tour
-            expandedText = Strings.slotsSwitchModeButtonLabel, // Tournament mode
+            collapsedText = Strings.slotsSwitchModeButtonSingeLabel,
+            activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
+            expandedText = Strings.slotsSwitchModeButtonLabel,
             isToogled = slotsState.isTourMode,
             onToogleClick = { viewModel.execute(JudgeSlotsScreenAction.SetIsTourMode) }
         )
