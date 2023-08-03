@@ -1,15 +1,6 @@
 package com.turbosokol.iqmafiaapp.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
@@ -18,13 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
-import com.turbosokol.iqmafiaapp.core.redux.Action
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
@@ -44,47 +31,47 @@ import kotlinx.coroutines.flow.StateFlow
 fun CardsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val сardsState: JudgeCardsScreenState = appState.getJudgeCardsState()
+    val cardsState: JudgeCardsScreenState = appState.getJudgeCardsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
-
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color =
-            when(сardsState.cardsList[сardsState.listIndex].type.toString()) {
-                "SHERIFF" -> Colors.red
-                "DON" -> Colors.darkGrey51
-                "RED" -> Colors.red
-                "BLACK" -> Colors.darkGrey32
-                else -> {Colors.orange.copy(alpha = 0.1f)}
+            if (cardsState.isHidden) {
+                Colors.orange.copy(alpha = 0.1f)
+            } else {
+                when(cardsState.cardsList[cardsState.listIndex].type) {
+                    CharacterCardType.SHERIFF -> Colors.red
+                    CharacterCardType.DON -> Colors.darkGrey51
+                    CharacterCardType.RED -> Colors.red
+                    CharacterCardType.BLACK -> Colors.darkGrey51
+                }
             })
             ,onClick = {
-            if (сardsState.cardsList.lastIndex != сardsState.listIndex) {
-                viewModel.execute(JudgeCardsScreenAction.ShowNext)
-            } else {
-                viewModel.execute(JudgeCardsScreenAction.Init)
+                if (cardsState.listIndex == cardsState.cardsList.lastIndex) {
+                    viewModel.execute(JudgeCardsScreenAction.Init)
+                } else {
+                    viewModel.execute(JudgeCardsScreenAction.ShowNext)
             }
         }) {
             Text(
-                text = if (сardsState.isHidden)
+                text = if (cardsState.isHidden) {
                     Strings.getCard
-
-                else сardsState.cardsList[сardsState.listIndex].type.toString() + " "
-                        + сardsState.listIndex.toString(),
-
-
-
-                fontSize = if (сardsState.isHidden) Dimensions.TextSize.huge
-                else Dimensions.TextSize.huge,
-
-                color = if (!сardsState.isHidden) {
-                    when (сardsState.cardsList[сardsState.listIndex].type.toString()) {
-                        "SHERIFF" -> Colors.darkGrey32
-                        "DON" -> Colors.red
-                        "RED" -> Colors.red
-                        "BLACK" -> Colors.darkGrey32
-                        else -> {
-                            Colors.primary
-                        }
+                } else {
+                    when (cardsState.cardsList[cardsState.listIndex].type) {
+                        CharacterCardType.DON -> "D"
+                        CharacterCardType.SHERIFF -> "S"
+                        else -> ""
+                    }
+                },
+                fontSize = if (cardsState.isHidden) Dimensions.TextSize.huge
+                else Dimensions.TextSize.xhuge,
+                fontWeight = FontWeight.Bold,
+                color = if (!cardsState.isHidden) {
+                    when (cardsState.cardsList[cardsState.listIndex].type) {
+                        CharacterCardType.SHERIFF -> Colors.darkGrey32
+                        CharacterCardType.DON -> Colors.red
+                        CharacterCardType.RED -> Colors.red
+                        CharacterCardType.BLACK -> Colors.darkGrey32
                     }
                 } else {
                     Colors.primary

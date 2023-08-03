@@ -16,21 +16,14 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
             }
 
             is JudgeCardsScreenAction.ShowNext -> {
-
                 oldState.copy(
                     isInit = false,
                     isHidden = !oldState.isHidden,
-                    listIndex =
-                    if (oldState.isHidden) {
-                        oldState.listIndex + 1
-                    } else {
-                        oldState.listIndex
-                    }
+                    listIndex = if (oldState.isHidden) { oldState.listIndex + 1 } else { oldState.listIndex }
                 )
             }
 
             else -> oldState
         }
     }
-
 }

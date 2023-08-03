@@ -30,7 +30,7 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
  ***/
 
 @Composable
-fun IQAlertDialogView( //когда раздача слотов закончилась - предлагается reset
+fun IQAlertDialogView(
     modifier: Modifier,
     isVisible: Boolean,
     label: String,
