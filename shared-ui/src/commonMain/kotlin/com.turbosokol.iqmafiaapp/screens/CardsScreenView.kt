@@ -1,6 +1,7 @@
 package com.turbosokol.iqmafiaapp.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
@@ -8,9 +9,10 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import com.turbosokol.iqmafiaapp.components.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenAction
@@ -32,6 +34,16 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val cardsState: JudgeCardsScreenState = appState.getJudgeCardsState()
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        IQAlertDialogView(
+            modifier = Modifier.align(Alignment.Center).matchParentSize(),
+            isVisible = cardsState.isResetDialogVisible,
+            label = "Are you sure you want to reset?",
+            onConfirm = { viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible) },
+            onCancel = { viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible) }
+        )
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         TextButton(modifier = Modifier.fillMaxSize()
