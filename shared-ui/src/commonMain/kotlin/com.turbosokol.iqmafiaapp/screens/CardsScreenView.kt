@@ -40,7 +40,10 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
             modifier = Modifier.align(Alignment.Center).matchParentSize(),
             isVisible = cardsState.isResetDialogVisible,
             label = "Are you sure you want to reset?",
-            onConfirm = { viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible) },
+            onConfirm = {
+                viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible)
+                viewModel.execute(JudgeCardsScreenAction.Init)
+                        },
             onCancel = { viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible) }
         )
     }
@@ -60,7 +63,8 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
             })
             ,onClick = {
                 if (cardsState.listIndex == cardsState.cardsList.lastIndex) {
-                    viewModel.execute(JudgeCardsScreenAction.Init)
+//                    viewModel.execute(JudgeCardsScreenAction.Init)
+                    viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible)
                 } else {
                     viewModel.execute(JudgeCardsScreenAction.ShowNext)
             }
