@@ -7,17 +7,17 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-class JudgeAchievesScreenReducer : Reducer<JudgeAchievesScreenState> {
+class AchievesScreenReducer : Reducer<AchievesScreenState> {
     override fun reduce(
-        oldState: JudgeAchievesScreenState,
+        oldState: AchievesScreenState,
         action: Action
-    ): JudgeAchievesScreenState {
+    ): AchievesScreenState {
         return when (action) {
-            is JudgeAchievesScreenAction.Init -> {
-                JudgeAchievesScreenState.getInitState()
+            is AchievesScreenAction.Init -> {
+                AchievesScreenState.getInitState()
             }
 
-            is JudgeAchievesScreenAction.AddPersonalAchieves -> {
+            is AchievesScreenAction.AddPersonalAchieves -> {
                 val newPlayersSummList = emptyList<Double>()
                 action.playersAchieves.forEach { personalAchievementsList ->
                     val personalAchSumm = 0.0

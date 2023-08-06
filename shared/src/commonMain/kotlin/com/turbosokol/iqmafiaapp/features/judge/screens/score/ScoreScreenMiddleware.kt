@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.screens.cards
+package com.turbosokol.iqmafiaapp.features.judge.screens.score
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.emptyFlow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeCardsScreenMiddleware : Middleware<AppState> {
+class ScoreScreenMiddleware : Middleware<AppState> {
     override suspend fun execute(
         state: AppState,
         action: Action,

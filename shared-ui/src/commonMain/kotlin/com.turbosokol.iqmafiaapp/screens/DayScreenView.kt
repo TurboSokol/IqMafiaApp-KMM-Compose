@@ -10,12 +10,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -31,17 +28,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
 import com.turbosokol.iqmafiaapp.components.IQDialog
+import com.turbosokol.iqmafiaapp.components.IQVoteDialogType
+import com.turbosokol.iqmafiaapp.components.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
-import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersAction
-import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenAction
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
+import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenAction
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
@@ -62,13 +60,13 @@ import kotlinx.coroutines.launch
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val dayState = appState.getJudgeDayState()
-    val playersState = appState.getJudgePlayersState()
-    val roundState = appState.getJudgeRoundState()
+    val dayState = appState.getDayState()
+    val playersState = appState.getPlayersState()
+    val roundState = appState.getRoundState()
 
     var voteCountDialogVisible by remember { mutableStateOf(false) }
+    var voteResultsDialogVisible by remember { mutableStateOf(false) }
     val voteNominantSlot = remember { mutableStateOf(-1) }
-
 
     //scrollable parent
     Column(
@@ -126,7 +124,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
-                                JudgeRoundAction.UpdateVoteOrder(
+                                RoundAction.UpdateVoteOrder(
                                     roundState.voteCandidates.toMutableList().apply {
                                         if (playersState.voteNomination[playerIndex]) {
                                             removeAll { it == playerIndex + 1 }
@@ -139,7 +137,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
                             //vote indicator
                             viewModel.execute(
-                                JudgePlayersAction.UpdateVoteNominations(
+                                PlayersAction.UpdateVoteNominations(
                                     playersState.voteNomination.mapIndexed { index, oldNomination ->
                                         if (index == playerIndex) !playersState.voteNomination[playerIndex] else oldNomination
                                     }
@@ -149,7 +147,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         colorName = Colors.orange.copy(alpha = 0.1f),
                         textName = name, isNameInputEnabled = true,
                         onFaultClick = {
-                            viewModel.execute(JudgeDayScreenAction.UpdateFaults(
+                            viewModel.execute(DayScreenAction.UpdateFaults(
                                 dayState.playersFaults.mapIndexed { index, oldFault ->
                                     if (index == playerIndex) {
                                         if (oldFault < 4) dayState.playersFaults[playerIndex] + 1 else 0
@@ -158,14 +156,14 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             ))
                         },
                         colorFault = when (dayState.playersFaults[playerIndex]) {
-                            3 -> Colors.secondary
-                            4 -> Colors.gray
+                            3 -> Colors.primary
+                            4 -> Colors.secondary
                             else -> Colors.orange
                         },
                         textFault = dayState.playersFaults[playerIndex].toString()
                     ) { changedText ->
                         viewModel.execute(
-                            JudgePlayersAction.UpdateNickNames(
+                            PlayersAction.UpdateNickNames(
                                 playersState.nickNames.mapIndexed { index, nick ->
                                     if (index == playerIndex) changedText else nick
                                 })
@@ -215,7 +213,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 Row(modifier = Modifier.background(Color.Transparent),
                 horizontalArrangement = Arrangement.Start
                 ) {
-                roundState.voteCandidates.forEach{ voteNomination ->
+                roundState.voteCandidates.forEach { voteNomination ->
                     Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                         TextButton(modifier = Modifier.border(
                             BorderStroke(
@@ -224,7 +222,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             )
                         ).background(Color.Transparent),
                             onClick = {/* no-op */ }) {
-                            val countVoting = roundState.voteResult.get(voteNomination).toString()
+                            val countVoting = roundState.voteResult[voteNomination].toString()
                             Text(text = if (countVoting == "null") "-" else countVoting, color = Colors.darkGrey51, fontWeight = FontWeight.ExtraBold)
                         }
                     }
@@ -234,169 +232,38 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         } //END VOTE CARD
 
         //VOTE COUNT DIALOG
-        AnimatedVisibility(visible = voteCountDialogVisible) {
-            IQDialog(dismiss = {
+        IQVoteDialogView(
+            modifier = Modifier,
+            isVisible = voteCountDialogVisible,
+            label = Strings.voteCountDialogLabel,
+            type = IQVoteDialogType.VOTE_RESULTS,
+            onConfirm = { index ->
+                viewModel.execute(RoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to index)))
                 voteCountDialogVisible = false
-            }) {
-                Surface(
-                    shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
-                    elevation = Dimensions.Elevation.xlarge,
-                    modifier = Modifier
-                        .background(Color.Transparent)
-                        .padding(Dimensions.Padding.large),
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(Dimensions.Padding.medium)
-                    ) {
-                        Text(
-                            modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = Dimensions.Padding.medium),
-                            text = Strings.voteCountDialogLabel,
-                            color = MaterialTheme.colors.onBackground,
-                            style = MaterialTheme.typography.subtitle1,
-                            overflow = TextOverflow.Ellipsis
-                        )
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                        ) {
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 1)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "1",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
+            },
+            onCancel = {voteCountDialogVisible = false}
+        )
 
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 2)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "2",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
+        IQVoteDialogView(
+            modifier = Modifier,
+            isVisible = voteResultsDialogVisible,
+            label = Strings.voteResultDialogLabel,
+            type = IQVoteDialogType.ROUND_RESULTS,
+            onConfirm = { index ->
+                viewModel.execute(RoundAction.RoundCompleted(index))
+                voteResultsDialogVisible = false
+            },
+            onCancel = { voteResultsDialogVisible = false }
+        )
 
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 3)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "3",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                        ) {
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 4)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "4",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 5)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "5",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 6)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "6",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                        ) {
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 7)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "7",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 8)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "8",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 9)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "9",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.Center,
-                        ) {
-                            TextButton(onClick = {
-                                viewModel.execute(JudgeRoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to 0)))
-                                voteCountDialogVisible = false
-                            }) {
-                                Text(
-                                    text = "0",
-                                    color = Colors.secondary,
-                                    fontSize = Dimensions.TextSize.medium
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         Row(
             modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
             horizontalArrangement = Arrangement.Center
         ) {
             TextButton(modifier = Modifier.border(BorderStroke(1.dp, Colors.gray)), onClick = {
-                viewModel.execute(JudgeRoundAction.RoundCompleted)
+                voteResultsDialogVisible = true
             }) {
                 Text("End Vote")
             }

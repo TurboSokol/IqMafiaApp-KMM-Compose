@@ -8,34 +8,34 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeNightScreenReducer : Reducer<JudgeNightScreenState> {
-    override fun reduce(oldState: JudgeNightScreenState, action: Action): JudgeNightScreenState {
+class NightScreenReducer : Reducer<NightScreenState> {
+    override fun reduce(oldState: NightScreenState, action: Action): NightScreenState {
         return when (action) {
 
-            is JudgeNightScreenAction.Init -> {
-                JudgeNightScreenState.getInitState()
+            is NightScreenAction.Init -> {
+                NightScreenState.getInitState()
             }
 
             // WHEN isCharacterShown -> ROLE with same index IS NOT HIDDEN,
             // button edit character is VISIBLE and role CAN be reassigned by user
-            is JudgeNightScreenAction.ShowCharacterCard -> {
+            is NightScreenAction.ShowCharacterCard -> {
                 oldState.copy(isCharacterShown = action.isCharacterShown)
             }
 
             //listOf slots killed player, FIRST of them enable to SetBestVote
-            is JudgeNightScreenAction.KillSomeone -> {
+            is NightScreenAction.KillSomeone -> {
                 oldState.copy(playersKilled = action.playersKilled)
             }
 
             //AFTER first night kill implement UI response for SetBestMove
             //define 3 black characters
-            is JudgeNightScreenAction.SetBestVote -> {
+            is NightScreenAction.SetBestVote -> {
                 oldState.copy(bestVote = action.bestVote)
             }
 
             // WHEN isFirstNight -> button edit character is VISIBLE and role can be reassigned
             // HINT FOR ROLE EDITING IS SHOWN
-            is JudgeNightScreenAction.SwitchFirstNightFlag -> {
+            is NightScreenAction.SwitchFirstNightFlag -> {
                 oldState.copy(isFirstNight = false)
             }
 

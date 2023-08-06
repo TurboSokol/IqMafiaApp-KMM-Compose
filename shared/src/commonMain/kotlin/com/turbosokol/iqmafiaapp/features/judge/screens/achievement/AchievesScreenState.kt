@@ -10,7 +10,7 @@ import com.turbosokol.iqmafiaapp.data.achievement.PersonalAchievesList
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-data class JudgeAchievesScreenState(
+data class AchievesScreenState(
     //list of ten players,
     //each player may have several achievements
     val playersAchieves: List<PersonalAchievesList>,
@@ -19,7 +19,7 @@ data class JudgeAchievesScreenState(
 ) : GeneralState {
     companion object {
 
-        fun getInitState(): JudgeAchievesScreenState = JudgeAchievesScreenState(
+        fun getInitState(): AchievesScreenState = AchievesScreenState(
 
             //list index == player slot
             //each player can have few bonus
@@ -135,10 +135,9 @@ data class JudgeAchievesScreenState(
     }
 }
 
-sealed class JudgeAchievesScreenAction : Action {
-    object Init : JudgeAchievesScreenAction()
-    data class AddPersonalAchieves(val playersAchieves: List<PersonalAchievesList>) :
-        JudgeAchievesScreenAction()
+sealed class AchievesScreenAction : Action {
+    object Init : AchievesScreenAction()
+    data class AddPersonalAchieves(val playersAchieves: List<PersonalAchievesList>) : AchievesScreenAction()
 }
 
 

@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.round
+package com.turbosokol.iqmafiaapp.features.judge.analytics.round
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
@@ -8,7 +8,7 @@ import com.turbosokol.iqmafiaapp.core.redux.GeneralState
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-data class JudgeRoundState(
+data class RoundState(
     val roundId: Int,
     val gameId: Int,
     val roundCount: Int,
@@ -16,7 +16,7 @@ data class JudgeRoundState(
     val voteResult: Map<Int, Int>
 ) : GeneralState {
     companion object {
-        fun getInitState(): JudgeRoundState = JudgeRoundState(
+        fun getInitState(): RoundState = RoundState(
             roundId = 0,
             gameId = 0,
             roundCount = 0,
@@ -26,15 +26,15 @@ data class JudgeRoundState(
     }
 }
 
-sealed class JudgeRoundAction : Action {
+sealed class RoundAction : Action {
     //Init clear
-    object Init : JudgeRoundAction()
+    object Init : RoundAction()
 
-    data class UpdateVoteOrder(val voteOrder: List<Int>): JudgeRoundAction()
+    data class UpdateVoteOrder(val voteOrder: List<Int>): RoundAction()
 
-    data class UpdateVoteResults(val voteCandidates: Map<Int, Int>): JudgeRoundAction()
+    data class UpdateVoteResults(val voteCandidates: Map<Int, Int>): RoundAction()
 
     //write in local DB
-    object RoundCompleted : JudgeRoundAction()
+    data class RoundCompleted(val votedPlayer: Int) : RoundAction()
 
 }

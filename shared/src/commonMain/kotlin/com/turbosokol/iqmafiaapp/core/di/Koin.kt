@@ -11,24 +11,24 @@ import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.app.RootReducer
 import com.turbosokol.iqmafiaapp.features.auth.redux.AuthMiddleware
 import com.turbosokol.iqmafiaapp.features.auth.redux.AuthReducer
-import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameReducer
-import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersReducer
-import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenMiddleware
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameReducer
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersReducer
+import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.AchievesScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.AchievesScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.night.NightScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.night.NightScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.ScoreScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.ScoreScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenMiddleware
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenReducer
 import com.turbosokol.iqmafiaapp.features.navigation.NavigationMiddleware
 import com.turbosokol.iqmafiaapp.features.navigation.NavigationReducer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,15 +57,15 @@ val storeModule = module {
                 authReducer = get(),
                 navigationReducer = get(),
                 accountReducer = get(),
-                judgeSlotsScreenReducer = get(),
-                judgeCardsScreenReducer = get(),
-                judgeDayScreenReducer = get(),
-                judgeNightScreenReducer = get(),
-                judgeScoreScreenReducer = get(),
-                judgeAchievesScreenReducer = get(),
-                judgeGameReducer = get(),
-                judgePlayersReducer = get(),
-                judgeRoundReducer = get()
+                slotsScreenReducer = get(),
+                cardsScreenReducer = get(),
+                dayScreenReducer = get(),
+                nightScreenReducer = get(),
+                scoreScreenReducer = get(),
+                achievesScreenReducer = get(),
+                gameReducer = get(),
+                playersReducer = get(),
+                roundReducer = get()
             ),
             defaultValue = AppState(),
             middlewares = listOf(
@@ -73,15 +73,15 @@ val storeModule = module {
                 AuthMiddleware(),
                 NavigationMiddleware(),
                 AccountMiddleware(),
-                JudgeSlotsScreenMiddleware(),
-                JudgeCardsScreenMiddleware(),
-                JudgeDayScreenMiddleware(),
-                JudgeNightScreenMiddleware(),
-                JudgeScoreScreenMiddleware(),
-                JudgeAchievesScreenMiddleware(),
-                JudgeGameMiddleware(),
-                JudgePlayersMiddleware(),
-                JudgeRoundMiddleware()
+                SlotsScreenMiddleware(),
+                CardsScreenMiddleware(),
+                DayScreenMiddleware(),
+                NightScreenMiddleware(),
+                ScoreScreenMiddleware(),
+                AchievesScreenMiddleware(),
+                GameMiddleware(),
+                PlayersMiddleware(),
+                RoundMiddleware()
             )
         )
     }
@@ -90,13 +90,13 @@ val storeModule = module {
     single { AuthReducer() }
     single { NavigationReducer() }
     single { AccountReducer() }
-    single { JudgeSlotsScreenReducer() }
-    single { JudgeCardsScreenReducer() }
-    single { JudgeDayScreenReducer() }
-    single { JudgeNightScreenReducer() }
-    single { JudgeScoreScreenReducer() }
-    single { JudgeAchievesScreenReducer() }
-    single { JudgeGameReducer() }
-    single { JudgePlayersReducer() }
-    single { JudgeRoundReducer() }
+    single { SlotsScreenReducer() }
+    single { CardsScreenReducer() }
+    single { DayScreenReducer() }
+    single { NightScreenReducer() }
+    single { ScoreScreenReducer() }
+    single { AchievesScreenReducer() }
+    single { GameReducer() }
+    single { PlayersReducer() }
+    single { RoundReducer() }
 }

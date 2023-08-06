@@ -1,13 +1,13 @@
-package com.turbosokol.iqmafiaapp.features.judge.round
+package com.turbosokol.iqmafiaapp.features.judge.analytics.round
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
 import com.turbosokol.iqmafiaapp.core.redux.Middleware
 import com.turbosokol.iqmafiaapp.features.app.AppState
-import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersAction
+import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
 
 /***
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.flow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeRoundMiddleware : Middleware<AppState> {
+class RoundMiddleware : Middleware<AppState> {
     override suspend fun execute(
         state: AppState,
         action: Action,
@@ -23,9 +23,9 @@ class JudgeRoundMiddleware : Middleware<AppState> {
     ): Flow<Action> = flow {
         run {
             when (action) {
-                is JudgeRoundAction.RoundCompleted -> {
+                is RoundAction.RoundCompleted -> {
                     emit(
-                        JudgePlayersAction.UpdateVoteNominations(
+                        PlayersAction.UpdateVoteNominations(
                             listOf(
                                 false,
                                 false,
@@ -40,6 +40,7 @@ class JudgeRoundMiddleware : Middleware<AppState> {
                             )
                         )
                     )
+                    emit(GameAction.EndOfRound(action.votedPlayer))
                 }
 
                 else -> return@flow
