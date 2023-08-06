@@ -15,8 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import com.turbosokol.iqmafiaapp.components.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
-import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenAction
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenState
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
@@ -33,7 +33,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun CardsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val cardsState: JudgeCardsScreenState = appState.getJudgeCardsState()
+    val cardsState: CardsScreenState = appState.getCardsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         IQAlertDialogView(
@@ -41,10 +41,10 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
             isVisible = cardsState.isResetDialogVisible,
             label = "Are you sure you want to reset?",
             onConfirm = {
-                viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible)
-                viewModel.execute(JudgeCardsScreenAction.Init)
+                viewModel.execute(CardsScreenAction.SetResetDialogVisible)
+                viewModel.execute(CardsScreenAction.Init)
                         },
-            onCancel = { viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible) }
+            onCancel = { viewModel.execute(CardsScreenAction.SetResetDialogVisible) }
         )
     }
 
@@ -63,9 +63,9 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
             })
             ,onClick = {
                 if (cardsState.listIndex == cardsState.cardsList.lastIndex && cardsState.isHidden) {
-                    viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible)
+                    viewModel.execute(CardsScreenAction.SetResetDialogVisible)
                 } else {
-                    viewModel.execute(JudgeCardsScreenAction.ShowNext)
+                    viewModel.execute(CardsScreenAction.ShowNext)
             }
         }) {
             Text(

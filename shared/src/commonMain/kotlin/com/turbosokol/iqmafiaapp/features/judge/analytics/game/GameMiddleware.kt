@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.screens.day
+package com.turbosokol.iqmafiaapp.features.judge.analytics.game
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
@@ -12,8 +12,7 @@ import kotlinx.coroutines.flow.emptyFlow
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-
-class JudgeDayScreenMiddleware : Middleware<AppState> {
+class GameMiddleware: Middleware<AppState> {
     override suspend fun execute(
         state: AppState,
         action: Action,

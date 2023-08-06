@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.game
+package com.turbosokol.iqmafiaapp.features.judge.analytics.game
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
@@ -8,22 +8,24 @@ import com.turbosokol.iqmafiaapp.core.redux.GeneralState
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-data class JudgeGameState(
+data class GameState(
     val localGameId: Int,
     val gameId: Int,
     val judgeId: Int,
-    val typeEnd: JudgeGameEndType?,
-    val winnerTeam: JudgeWinnerTeamType?,
+    val typeEnd: GameEndType?,
+    val winnerTeam: WinnerTeamType?,
     val isGameIdReceived: Boolean,
     //position or profileId
     val playersKilled: List<Int>,
     //position or profileId
     val playersVoted: List<Int>,
     //map to game_profile table
-    val bestMove: List<Int>
+    val bestMove: List<Int>,
+    //count of rounds in the game
+    val roundCount: Int
 ) : GeneralState {
     companion object {
-        fun getInitState(): JudgeGameState = JudgeGameState(
+        fun getInitState(): GameState = GameState(
             localGameId = 0,
             gameId = 0,
             judgeId = 0,
@@ -32,35 +34,38 @@ data class JudgeGameState(
             isGameIdReceived = false,
             playersKilled = emptyList(),
             playersVoted = emptyList(),
-            bestMove = emptyList()
+            bestMove = emptyList(),
+            roundCount = 0
         )
     }
 }
 
-sealed class JudgeGameAction : Action {
+sealed class GameAction : Action {
     //clear state to InitState
-    object Init : JudgeGameAction()
+    object Init : GameAction()
 
-    object GetGameId : JudgeGameAction()
+    object GetGameId : GameAction()
 
     //read gameId from WEB DB or local db
-    data class StartGame(val gameId: Int, val judgeId: Int) : JudgeGameAction()
+    data class StartGame(val gameId: Int, val judgeId: Int) : GameAction()
+
+    data class EndOfRound(val votedPlayer: Int): GameAction()
 
     //make REST GET to recap gameID
     data class EndGame(
         val gameId: Int,
-        val typeEnd: JudgeGameEndType?,
-        val winnerTeam: JudgeWinnerTeamType?,
+        val typeEnd: GameEndType?,
+        val winnerTeam: WinnerTeamType?,
         val playersKilled: List<Int>,
         val playersVoted: List<Int>,
         val bestMove: List<Int>
-    ) : JudgeGameAction()
+    ) : GameAction()
 }
 
-enum class JudgeGameEndType {
+enum class GameEndType {
     DEFAULT, CLEAR, PPK
 }
 
-enum class JudgeWinnerTeamType {
+enum class WinnerTeamType {
     RED, BLACk, DRAW
 }

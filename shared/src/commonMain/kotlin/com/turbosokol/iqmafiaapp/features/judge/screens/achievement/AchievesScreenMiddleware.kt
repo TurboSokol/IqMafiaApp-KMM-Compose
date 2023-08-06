@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.emptyFlow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeAchievesScreenMiddleware : Middleware<AppState> {
+class AchievesScreenMiddleware : Middleware<AppState> {
     override suspend fun execute(
         state: AppState,
         action: Action,

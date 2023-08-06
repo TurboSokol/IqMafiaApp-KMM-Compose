@@ -7,18 +7,18 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-class JudgeScoreScreenReducer : Reducer<JudgeScoreScreenState> {
-    override fun reduce(oldState: JudgeScoreScreenState, action: Action): JudgeScoreScreenState {
+class ScoreScreenReducer : Reducer<ScoreScreenState> {
+    override fun reduce(oldState: ScoreScreenState, action: Action): ScoreScreenState {
         return when (action) {
-            is JudgeScoreScreenAction.Init -> {
-                JudgeScoreScreenState.getInitState()
+            is ScoreScreenAction.Init -> {
+                ScoreScreenState.getInitState()
             }
 
-            is JudgeScoreScreenAction.EditTotalScore -> {
+            is ScoreScreenAction.EditTotalScore -> {
                 oldState.copy(playersTotalScore = action.playersTotalScore)
             }
 
-            is JudgeScoreScreenAction.EditBonusScore -> {
+            is ScoreScreenAction.EditBonusScore -> {
                 oldState.copy(playerBonusScore = action.playerBonusScore)
             }
 

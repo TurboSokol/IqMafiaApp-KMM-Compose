@@ -9,7 +9,7 @@ import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-data class JudgeCardsScreenState(
+data class CardsScreenState(
     val isInit: Boolean,
     val isHidden: Boolean,
     val listIndex: Int,
@@ -18,7 +18,7 @@ data class JudgeCardsScreenState(
 ) : GeneralState {
 
     companion object {
-        fun getInitState(): JudgeCardsScreenState = JudgeCardsScreenState(
+        fun getInitState(): CardsScreenState = CardsScreenState(
             isInit = true, isHidden = true, listIndex = -1, isResetDialogVisible = false,
             cardsList = listOf(
                 CharacterCardModel(type = CharacterCardType.DON),
@@ -37,12 +37,12 @@ data class JudgeCardsScreenState(
 
 }
 
-sealed class JudgeCardsScreenAction : Action {
+sealed class CardsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of cards
-    object Init : JudgeCardsScreenAction()
+    object Init : CardsScreenAction()
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
-    object ShowNext : JudgeCardsScreenAction()
+    object ShowNext : CardsScreenAction()
 
-    object SetResetDialogVisible : JudgeCardsScreenAction()
+    object SetResetDialogVisible : CardsScreenAction()
 }

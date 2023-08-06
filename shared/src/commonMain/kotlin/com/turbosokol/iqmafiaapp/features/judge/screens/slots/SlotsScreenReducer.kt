@@ -8,14 +8,14 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
-    override fun reduce(oldState: JudgeSlotsScreenState, action: Action): JudgeSlotsScreenState {
+class SlotsScreenReducer : Reducer<SlotsScreenState> {
+    override fun reduce(oldState: SlotsScreenState, action: Action): SlotsScreenState {
         return when (action) {
-            is JudgeSlotsScreenAction.Init -> {
-                if (action.isTourMode) JudgeSlotsScreenState.getInitState().copy(isTourMode = true) else JudgeSlotsScreenState.getInitState()
+            is SlotsScreenAction.Init -> {
+                if (action.isTourMode) SlotsScreenState.getInitState().copy(isTourMode = true) else SlotsScreenState.getInitState()
             }
 
-            is JudgeSlotsScreenAction.ShowNext -> {
+            is SlotsScreenAction.ShowNext -> {
                 oldState.copy(
                     isInit = false,
                     isHidden = !oldState.isHidden,
@@ -23,27 +23,27 @@ class JudgeSlotsScreenReducer : Reducer<JudgeSlotsScreenState> {
                 )
             }
 
-            is JudgeSlotsScreenAction.SetIsTourMode -> {
+            is SlotsScreenAction.SetIsTourMode -> {
                 oldState.copy(isTourMode = !oldState.isTourMode)
             }
 
-            is JudgeSlotsScreenAction.SetTourPlayers -> {
+            is SlotsScreenAction.SetTourPlayers -> {
                 oldState.copy(tourPlayersNames = action.tourPlayersNames)
             }
 
-            is JudgeSlotsScreenAction.SetTourGamesCount -> {
+            is SlotsScreenAction.SetTourGamesCount -> {
                 oldState.copy(tourGamesCount = action.tourGamesCount)
             }
 
-            is JudgeSlotsScreenAction.SetTourSlotsList -> {
+            is SlotsScreenAction.SetTourSlotsList -> {
                 oldState.copy(tourSlotsList = action.tourSlotsList, inProgress = if (action.tourSlotsList.isEmpty()) true else false)
             }
 
-            is JudgeSlotsScreenAction.SetProgress -> {
+            is SlotsScreenAction.SetProgress -> {
                 oldState.copy(inProgress = action.inProgress)
             }
 
-            is JudgeSlotsScreenAction.SetResetDialogVisible -> {
+            is SlotsScreenAction.SetResetDialogVisible -> {
                 oldState.copy(isResetDialogVisible = !oldState.isResetDialogVisible)
             }
 

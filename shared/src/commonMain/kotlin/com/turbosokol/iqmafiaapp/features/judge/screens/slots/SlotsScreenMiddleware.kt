@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.screens.night
+package com.turbosokol.iqmafiaapp.features.judge.screens.slots
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
@@ -13,12 +13,17 @@ import kotlinx.coroutines.flow.emptyFlow
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeNightScreenMiddleware : Middleware<AppState> {
+class SlotsScreenMiddleware : Middleware<AppState> {
     override suspend fun execute(
         state: AppState,
         action: Action,
         sideEffect: MutableSharedFlow<Effect>
     ): Flow<Action> {
-        return emptyFlow()
+        return when (action) {
+            else -> emptyFlow()
+        }
     }
 }
+
+
+

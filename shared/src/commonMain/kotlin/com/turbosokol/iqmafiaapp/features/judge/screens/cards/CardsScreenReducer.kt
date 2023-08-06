@@ -8,14 +8,14 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
-    override fun reduce(oldState: JudgeCardsScreenState, action: Action): JudgeCardsScreenState {
+class CardsScreenReducer : Reducer<CardsScreenState> {
+    override fun reduce(oldState: CardsScreenState, action: Action): CardsScreenState {
         return when (action) {
-            is JudgeCardsScreenAction.Init -> {
-                JudgeCardsScreenState.getInitState()
+            is CardsScreenAction.Init -> {
+                CardsScreenState.getInitState()
             }
 
-            is JudgeCardsScreenAction.ShowNext -> {
+            is CardsScreenAction.ShowNext -> {
                 oldState.copy(
                     isInit = false,
                     isHidden = !oldState.isHidden,
@@ -23,7 +23,7 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
                 )
             }
 
-            is JudgeCardsScreenAction.SetResetDialogVisible -> {
+            is CardsScreenAction.SetResetDialogVisible -> {
                 oldState.copy(isResetDialogVisible = !oldState.isResetDialogVisible)
             }
 

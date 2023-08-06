@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.players
+package com.turbosokol.iqmafiaapp.features.judge.analytics.players
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
@@ -7,22 +7,22 @@ import com.turbosokol.iqmafiaapp.core.redux.Reducer
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-class JudgePlayersReducer : Reducer<JudgePlayersState> {
-    override fun reduce(oldState: JudgePlayersState, action: Action): JudgePlayersState {
+class PlayersReducer : Reducer<PlayersState> {
+    override fun reduce(oldState: PlayersState, action: Action): PlayersState {
         return when (action) {
-            is JudgePlayersAction.Init -> {
-                JudgePlayersState.getInitState()
+            is PlayersAction.Init -> {
+                PlayersState.getInitState()
             }
 
-            is JudgePlayersAction.UpdateNickNames -> {
+            is PlayersAction.UpdateNickNames -> {
                 oldState.copy(nickNames = action.nickNames)
             }
 
-            is JudgePlayersAction.UpdateCharacterCards -> {
+            is PlayersAction.UpdateCharacterCards -> {
                 oldState.copy(characterCards = action.characterCards)
             }
 
-            is JudgePlayersAction.UpdateVoteNominations -> {
+            is PlayersAction.UpdateVoteNominations -> {
                 oldState.copy(voteNomination = action.voteNomination)
             }
 

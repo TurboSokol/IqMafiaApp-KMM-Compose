@@ -4,15 +4,15 @@ import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Reducer
 import com.turbosokol.iqmafiaapp.features.account.AccountReducer
 import com.turbosokol.iqmafiaapp.features.auth.redux.AuthReducer
-import com.turbosokol.iqmafiaapp.features.judge.game.JudgeGameReducer
-import com.turbosokol.iqmafiaapp.features.judge.players.JudgePlayersReducer
-import com.turbosokol.iqmafiaapp.features.judge.round.JudgeRoundReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.JudgeAchievesScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.cards.JudgeCardsScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.day.JudgeDayScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.night.JudgeNightScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.score.JudgeScoreScreenReducer
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameReducer
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersReducer
+import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.AchievesScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.night.NightScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.score.ScoreScreenReducer
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenReducer
 import com.turbosokol.iqmafiaapp.features.navigation.NavigationReducer
 
 /***
@@ -38,15 +38,15 @@ class RootReducer(
     private val authReducer: AuthReducer,
     private val navigationReducer: NavigationReducer,
     private val accountReducer: AccountReducer,
-    private val judgeSlotsScreenReducer: JudgeSlotsScreenReducer,
-    private val judgeCardsScreenReducer: JudgeCardsScreenReducer,
-    private val judgeDayScreenReducer: JudgeDayScreenReducer,
-    private val judgeNightScreenReducer: JudgeNightScreenReducer,
-    private val judgeScoreScreenReducer: JudgeScoreScreenReducer,
-    private val judgeAchievesScreenReducer: JudgeAchievesScreenReducer,
-    private val judgeGameReducer: JudgeGameReducer,
-    private val judgePlayersReducer: JudgePlayersReducer,
-    private val judgeRoundReducer: JudgeRoundReducer
+    private val slotsScreenReducer: SlotsScreenReducer,
+    private val cardsScreenReducer: CardsScreenReducer,
+    private val dayScreenReducer: DayScreenReducer,
+    private val nightScreenReducer: NightScreenReducer,
+    private val scoreScreenReducer: ScoreScreenReducer,
+    private val achievesScreenReducer: AchievesScreenReducer,
+    private val gameReducer: GameReducer,
+    private val playersReducer: PlayersReducer,
+    private val roundReducer: RoundReducer
 ) : Reducer<AppState> {
     override fun reduce(oldState: AppState, action: Action): AppState = appReducer
         .reduce(oldState, action)
@@ -54,14 +54,14 @@ class RootReducer(
             authState = authReducer.reduce(oldState.authState, action),
             navigationState = navigationReducer.reduce(oldState.navigationState, action),
             accountState = accountReducer.reduce(oldState.accountState, action),
-            judgeSlotsScreenState = judgeSlotsScreenReducer.reduce(oldState.judgeSlotsScreenState, action),
-            judgeCardsScreenState = judgeCardsScreenReducer.reduce(oldState.judgeCardsScreenState, action),
-            judgeDayScreenState = judgeDayScreenReducer.reduce(oldState.judgeDayScreenState, action),
-            judgeNightScreenState = judgeNightScreenReducer.reduce(oldState.judgeNightScreenState, action),
-            judgeScoreScreenState = judgeScoreScreenReducer.reduce(oldState.judgeScoreScreenState, action),
-            judgeAchievesScreenState = judgeAchievesScreenReducer.reduce(oldState.judgeAchievesScreenState, action),
-            judgeGameState = judgeGameReducer.reduce(oldState.judgeGameState, action),
-            judgePlayersState = judgePlayersReducer.reduce(oldState.judgePlayersState, action),
-            judgeRoundState = judgeRoundReducer.reduce(oldState.judgeRoundState, action)
+            slotsScreenState = slotsScreenReducer.reduce(oldState.slotsScreenState, action),
+            cardsScreenState = cardsScreenReducer.reduce(oldState.cardsScreenState, action),
+            dayScreenState = dayScreenReducer.reduce(oldState.dayScreenState, action),
+            nightScreenState = nightScreenReducer.reduce(oldState.nightScreenState, action),
+            scoreScreenState = scoreScreenReducer.reduce(oldState.scoreScreenState, action),
+            achievesScreenState = achievesScreenReducer.reduce(oldState.achievesScreenState, action),
+            gameState = gameReducer.reduce(oldState.gameState, action),
+            playersState = playersReducer.reduce(oldState.playersState, action),
+            roundState = roundReducer.reduce(oldState.roundState, action)
         )
 }

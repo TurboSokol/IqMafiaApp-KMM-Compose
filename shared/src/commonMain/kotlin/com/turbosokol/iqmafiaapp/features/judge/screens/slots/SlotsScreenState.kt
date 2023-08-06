@@ -8,7 +8,7 @@ import com.turbosokol.iqmafiaapp.core.redux.GeneralState
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-data class JudgeSlotsScreenState(
+data class SlotsScreenState(
     val isInit: Boolean,
     val isHidden: Boolean,
     val listIndex: Int,
@@ -23,7 +23,7 @@ data class JudgeSlotsScreenState(
 ) : GeneralState {
 
     companion object {
-        fun getInitState(): JudgeSlotsScreenState = JudgeSlotsScreenState(
+        fun getInitState(): SlotsScreenState = SlotsScreenState(
             isInit = true,
             isHidden = true,
             listIndex = -1,
@@ -39,15 +39,15 @@ data class JudgeSlotsScreenState(
 
 }
 
-sealed class JudgeSlotsScreenAction : Action {
+sealed class SlotsScreenAction : Action {
     //set isInit = true, set isHidden = true, set new randomised list of slots
-    data class Init(val isTourMode: Boolean) : JudgeSlotsScreenAction()
+    data class Init(val isTourMode: Boolean) : SlotsScreenAction()
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
-    object ShowNext : JudgeSlotsScreenAction()
-    object SetIsTourMode : JudgeSlotsScreenAction()
-    data class SetTourPlayers(val tourPlayersNames: List<String>) : JudgeSlotsScreenAction()
-    data class SetTourGamesCount(val tourGamesCount: Int) : JudgeSlotsScreenAction()
-    data class SetProgress(val inProgress: Boolean) : JudgeSlotsScreenAction()
-    data class SetTourSlotsList(val tourSlotsList: List<List<String>>) : JudgeSlotsScreenAction()
-    object SetResetDialogVisible : JudgeSlotsScreenAction()
+    object ShowNext : SlotsScreenAction()
+    object SetIsTourMode : SlotsScreenAction()
+    data class SetTourPlayers(val tourPlayersNames: List<String>) : SlotsScreenAction()
+    data class SetTourGamesCount(val tourGamesCount: Int) : SlotsScreenAction()
+    data class SetProgress(val inProgress: Boolean) : SlotsScreenAction()
+    data class SetTourSlotsList(val tourSlotsList: List<List<String>>) : SlotsScreenAction()
+    object SetResetDialogVisible : SlotsScreenAction()
 }

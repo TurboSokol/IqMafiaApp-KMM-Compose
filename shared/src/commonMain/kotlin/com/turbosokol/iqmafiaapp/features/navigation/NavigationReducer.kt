@@ -13,27 +13,27 @@ import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationState
 class NavigationReducer : Reducer<NavigationState> {
     override fun reduce(oldState: NavigationState, action: Action): NavigationState {
         return when (action) {
-            is NavigationAction.JudgeSlotsScreen -> {
+            is NavigationAction.SlotsScreen -> {
                 oldState.copy(currentScreenState = action.slotsScreenState)
             }
 
-            is NavigationAction.JudgeCardsScreen -> {
+            is NavigationAction.CardsScreen -> {
                 oldState.copy(currentScreenState = action.cardsScreenState)
             }
 
-            is NavigationAction.JudgeDayScreen -> {
+            is NavigationAction.DayScreen -> {
                 oldState.copy(currentScreenState = action.dayScreenState)
             }
 
-            is NavigationAction.JudgeNightsScreen -> {
+            is NavigationAction.NightsScreen -> {
                 oldState.copy(currentScreenState = action.nightScreenState)
             }
 
-            is NavigationAction.JudgeScoreScreen -> {
+            is NavigationAction.ScoreScreen -> {
                 oldState.copy(currentScreenState = action.scoreScreenState)
             }
 
-            is NavigationAction.JudgeAchievementScreen -> {
+            is NavigationAction.AchievementScreen -> {
                 oldState.copy(currentScreenState = action.achievementScreenState)
             }
 

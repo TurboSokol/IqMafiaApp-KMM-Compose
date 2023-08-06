@@ -46,8 +46,8 @@ import com.turbosokol.iqmafiaapp.components.IQDialog
 import com.turbosokol.iqmafiaapp.components.IQLoaderView
 import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
 import com.turbosokol.iqmafiaapp.features.app.AppState
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.JudgeSlotsScreenState
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenAction
+import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
@@ -70,7 +70,7 @@ import kotlinx.coroutines.launch
 fun SlotsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val slotsState: JudgeSlotsScreenState = appState.getJudgeSlotsState()
+    val slotsState: SlotsScreenState = appState.getSlotsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         IQAlertDialogView(
@@ -79,10 +79,10 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
             isVisible = slotsState.isResetDialogVisible,
             label = "Are you sure you want to reset?",
             onConfirm = {
-                viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible)
-                viewModel.execute(JudgeSlotsScreenAction.Init(slotsState.isTourMode))
+                viewModel.execute(SlotsScreenAction.SetResetDialogVisible)
+                viewModel.execute(SlotsScreenAction.Init(slotsState.isTourMode))
             },
-            onCancel = { viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible) }
+            onCancel = { viewModel.execute(SlotsScreenAction.SetResetDialogVisible) }
         )
 
         if (slotsState.isTourMode) {
@@ -97,7 +97,7 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
             activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
             expandedText = Strings.slotsSwitchModeButtonLabel,
             isToogled = slotsState.isTourMode,
-            onToogleClick = { viewModel.execute(JudgeSlotsScreenAction.SetIsTourMode) }
+            onToogleClick = { viewModel.execute(SlotsScreenAction.SetIsTourMode) }
         )
     }
 }
@@ -106,7 +106,7 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
 fun SlotsSingleGameView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val slotsState = appState.getJudgeSlotsState()
+    val slotsState = appState.getSlotsState()
 
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -143,9 +143,9 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
             .background(color = Colors.orange.copy(alpha = 0.1f))
             , onClick = {
             if (slotsState.slotsList.lastIndex != slotsState.listIndex) {
-                viewModel.execute(JudgeSlotsScreenAction.ShowNext)
+                viewModel.execute(SlotsScreenAction.ShowNext)
             } else {
-                viewModel.execute(JudgeSlotsScreenAction.SetResetDialogVisible)
+                viewModel.execute(SlotsScreenAction.SetResetDialogVisible)
             }
         }) {
             Text(
@@ -163,7 +163,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
 fun SlotsTourView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val slotsState = appState.getJudgeSlotsState()
+    val slotsState = appState.getSlotsState()
     val keyboard = LocalSoftwareKeyboardController.current
 
 
@@ -189,7 +189,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
                         newNames[index] = changedText
-                        viewModel.execute(JudgeSlotsScreenAction.SetTourPlayers(newNames))
+                        viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
                     }
                 }
             }
@@ -208,7 +208,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 onValueChange = { changedText ->
                     gamesCount = changedText
                     if (changedText.isNotBlank()) viewModel.execute(
-                        JudgeSlotsScreenAction.SetTourGamesCount(
+                        SlotsScreenAction.SetTourGamesCount(
                             gamesCount.toInt()
                         )
                     )
@@ -229,7 +229,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         keyboard?.hide()
 
                         if (slotsState.tourGamesCount <= 100) {
-                            viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(emptyList()))
+                            viewModel.execute(SlotsScreenAction.SetTourSlotsList(emptyList()))
                             CoroutineScope(Dispatchers.Default + Job()).launch {
 
                                 val shuffled = async { tournamentShuffleSlots(
@@ -237,14 +237,14 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                     slotsState.tourGamesCount
                                 )}
 
-                                viewModel.execute(JudgeSlotsScreenAction.SetTourSlotsList(shuffled.await()))
+                                viewModel.execute(SlotsScreenAction.SetTourSlotsList(shuffled.await()))
                             }
 
                             }
 
                         else {
                             gamesCount = "100"
-                            JudgeSlotsScreenAction.SetTourGamesCount(100)
+                            SlotsScreenAction.SetTourGamesCount(100)
                         }
 
                     }) {
@@ -302,7 +302,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                     val newNames = slotsState.tourPlayersNames.toMutableList()
                                     newNames.removeAt(index)
                                     newNames.add(index, changedText)
-                                    viewModel.execute(JudgeSlotsScreenAction.SetTourPlayers(newNames))
+                                    viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
                                 }
                             }
                         }
@@ -312,7 +312,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = Dimensions.Elevation.small, border = BorderStroke(1.dp, Colors.gray), shape = Shapes().medium) {
                     TextButton( onClick = {
                         viewModel.execute(
-                            JudgeSlotsScreenAction.SetResetDialogVisible
+                            SlotsScreenAction.SetResetDialogVisible
                         )
                     },
                         shape = Shapes().medium

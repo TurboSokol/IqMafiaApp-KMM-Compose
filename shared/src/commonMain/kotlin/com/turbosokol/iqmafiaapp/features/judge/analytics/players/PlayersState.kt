@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.features.judge.players
+package com.turbosokol.iqmafiaapp.features.judge.analytics.players
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
@@ -10,7 +10,7 @@ import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-data class JudgePlayersState(
+data class PlayersState(
     val nickNames: List<String>,
     val profileIds: List<Int>,
     val userIds: List<Int>,
@@ -20,7 +20,7 @@ data class JudgePlayersState(
     companion object {
 
         // by default we have 10 red players, player slot = list.index+1
-        fun getInitState(): JudgePlayersState = JudgePlayersState(
+        fun getInitState(): PlayersState = PlayersState(
             nickNames = listOf(
                 "Player 1",
                 "Player 2",
@@ -53,14 +53,14 @@ data class JudgePlayersState(
     }
 }
 
-sealed class JudgePlayersAction: Action {
-    object Init: JudgePlayersAction()
-    data class UpdateNickNames(val nickNames: List<String>): JudgePlayersAction()
+sealed class PlayersAction: Action {
+    object Init: PlayersAction()
+    data class UpdateNickNames(val nickNames: List<String>): PlayersAction()
 
     //PROFILE IDs used for hold nickname, USER IDs used for hold auth info and admins permissions
-    data class UpdateProfilesInfo(val profileIds: List<Int>, val userIds: List<Int>): JudgePlayersAction()
-    data class UpdateCharacterCards(val characterCards: List<CharacterCardModel>): JudgePlayersAction()
+    data class UpdateProfilesInfo(val profileIds: List<Int>, val userIds: List<Int>): PlayersAction()
+    data class UpdateCharacterCards(val characterCards: List<CharacterCardModel>): PlayersAction()
 
-    data class UpdateVoteNominations(val voteNomination: List<Boolean>): JudgePlayersAction()
+    data class UpdateVoteNominations(val voteNomination: List<Boolean>): PlayersAction()
 
 }
