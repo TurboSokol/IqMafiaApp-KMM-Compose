@@ -13,12 +13,13 @@ data class JudgeCardsScreenState(
     val isInit: Boolean,
     val isHidden: Boolean,
     val listIndex: Int,
+    val isResetDialogVisible: Boolean,
     val cardsList: List<CharacterCardModel>
 ) : GeneralState {
 
     companion object {
         fun getInitState(): JudgeCardsScreenState = JudgeCardsScreenState(
-            isInit = true, isHidden = true, listIndex = -1,
+            isInit = true, isHidden = true, listIndex = -1, isResetDialogVisible = false,
             cardsList = listOf(
                 CharacterCardModel(type = CharacterCardType.DON),
                 CharacterCardModel(type = CharacterCardType.BLACK),
@@ -42,4 +43,6 @@ sealed class JudgeCardsScreenAction : Action {
 
     //set isInit = false, set isHidden = !oldstate.isHidden, set listIndex = if(oldstate.isHidden) olstate.count+1
     object ShowNext : JudgeCardsScreenAction()
+
+    object SetResetDialogVisible : JudgeCardsScreenAction()
 }

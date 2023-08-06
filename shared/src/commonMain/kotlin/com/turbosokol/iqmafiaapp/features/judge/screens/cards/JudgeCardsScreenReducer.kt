@@ -23,6 +23,10 @@ class JudgeCardsScreenReducer : Reducer<JudgeCardsScreenState> {
                 )
             }
 
+            is JudgeCardsScreenAction.SetResetDialogVisible -> {
+                oldState.copy(isResetDialogVisible = !oldState.isResetDialogVisible)
+            }
+
             else -> oldState
         }
     }
