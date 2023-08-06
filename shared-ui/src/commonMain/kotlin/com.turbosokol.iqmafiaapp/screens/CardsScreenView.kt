@@ -62,8 +62,7 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                 }
             })
             ,onClick = {
-                if (cardsState.listIndex == cardsState.cardsList.lastIndex) {
-//                    viewModel.execute(JudgeCardsScreenAction.Init)
+                if (cardsState.listIndex == cardsState.cardsList.lastIndex && cardsState.isHidden) {
                     viewModel.execute(JudgeCardsScreenAction.SetResetDialogVisible)
                 } else {
                     viewModel.execute(JudgeCardsScreenAction.ShowNext)

@@ -20,7 +20,7 @@ object Strings {
     const val singleSlotsHiddenLabel = "Get Slot"
 
     //cards
-    const val getCard = "Get a Card"
+    const val getCard = "Get Card"
 
     //day
     const val dayNamesHeader = "Names"
