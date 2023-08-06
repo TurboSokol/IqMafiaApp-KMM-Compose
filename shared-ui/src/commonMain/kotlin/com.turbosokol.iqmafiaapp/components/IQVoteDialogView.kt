@@ -54,7 +54,7 @@ fun IQVoteDialogView(
                             .padding(bottom = Dimensions.Padding.medium),
                         text = label,
                         color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.subtitle1,
+                        style = MaterialTheme.typography.h5,
                         overflow = TextOverflow.Ellipsis
                     )
 
@@ -180,6 +180,19 @@ fun IQVoteDialogView(
                                 },
                                 color = Colors.secondary,
                                 fontSize = Dimensions.TextSize.medium
+                            )
+                        }
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
+                        TextButton(onClick = onCancel) {
+                            Text(
+                                text = "Tap By Mistake?",
+                                color = Colors.gray,
+                                fontSize = Dimensions.TextSize.smedium
                             )
                         }
                     }
