@@ -17,7 +17,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalSerializationApi
 @InternalSerializationApi
 @ExperimentalTime
-open class IqMafia: Application(), Application.ActivityLifecycleCallbacks, KoinComponent {
+class IqMafiaApp: Application(), Application.ActivityLifecycleCallbacks, KoinComponent {
 
     override fun onCreate() {
         super.onCreate()
@@ -42,14 +42,14 @@ open class IqMafia: Application(), Application.ActivityLifecycleCallbacks, KoinC
 
     private fun initKoin() {
         initSharedKoin {
-            androidContext(this@IqMafia)
+            androidContext(this@IqMafiaApp)
             modules(viewModelsModule)
             modules(uiModule)
         }
     }
 
     companion object {
-        lateinit var instance: IqMafia
+        lateinit var instance: IqMafiaApp
             private set
     }
 }

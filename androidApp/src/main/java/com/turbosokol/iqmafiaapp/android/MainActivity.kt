@@ -3,7 +3,6 @@ package com.turbosokol.iqmafiaapp.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.turbosokol.iqmafiaapp.common.BottomNavBarView

@@ -9,6 +9,7 @@ object Versions {
     const val appCompat = "1.6.1"
     const val detekt = "1.21.0-RC1"
     const val russhwolf = "0.9"
+    const val legacySupport = "1.0.0"
 
     //Multithreading
     const val coroutines = "1.6.4"
@@ -27,6 +28,7 @@ object Versions {
 
     //Lifecycle
     const val lifecycle = "2.6.1"
+    const val lifecycleExtensions = "2.2.0"
 
     //UI
     const val constraintLayoutCompose = "1.0.1"
@@ -36,6 +38,8 @@ object Versions {
     const val activityCompose = "1.7.2"
     const val accompanist = "0.31.3-beta"
     const val lottie = "6.0.1"
+    const val uiTooling = "1.4.3"
+    const val composeMaterial3 = "1.1.1"
 
     //viewmodel
     const val hyperdrive = "0.1.139"

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -11,15 +13,17 @@ dependencies {
 
     //UI
     implementation("com.google.android.material:material:${Versions.material}")
+    implementation("androidx.compose.material3:material3:${Versions.composeMaterial3}")
+
     implementation("androidx.appcompat:appcompat:${Versions.appCompat}")
     implementation("androidx.activity:activity-compose:${Versions.activityCompose}")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.4.3")
+    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.uiTooling}")
+    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.uiTooling}")
 
-    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation ("androidx.legacy:legacy-support-v4:${Versions.legacySupport}")
 
     //Lifecycle
-    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
@@ -73,7 +77,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -102,16 +106,11 @@ dependencies {
     //UI
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayoutCompose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.activity:activity-compose:${Versions.activityCompose}")
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
     implementation("androidx.compose.ui:ui-util:${Versions.compose}")
-    implementation("com.google.android.material:material:1.5.0")
-
-    //Navigation
-    implementation("androidx.navigation:navigation-compose:2.4.1")
-    implementation("com.google.accompanist:accompanist-navigation-animation:0.21.4-beta")
 
     //Components
     implementation("com.google.accompanist:accompanist-pager:0.20.0")
