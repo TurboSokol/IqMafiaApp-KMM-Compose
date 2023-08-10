@@ -1,10 +1,10 @@
 package com.turbosokol.iqmafiaapp.common
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Chair
 import androidx.compose.material.icons.outlined.Insights
@@ -14,10 +14,12 @@ import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import com.turbosokol.iqmafiaapp.components.IQBottomNavItemView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.AchievesScreenState
@@ -70,7 +72,9 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                     shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
                     tonalElevation = Dimensions.Elevation.medium
                 )  {
-                    NavigationBar(containerColor = Colors.skyBlue) {
+                    NavigationBar(containerColor = Colors.skyBlue, windowInsets = WindowInsets(30, 10, 10, 40)
+                    ) {
+
                         val tabsList = listOf<NavigationTabs>(
                             NavigationTabs.SLOTS,
                             NavigationTabs.CARDS,
@@ -93,7 +97,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             IQBottomNavItemView(
                                 modifier = Modifier,
                                 icon = { Icon(imageVector = icon, contentDescription = null) },
-                                label = { Text(text = title) },
+                                label = { Text(text = title, fontSize = 15.sp ) },
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
