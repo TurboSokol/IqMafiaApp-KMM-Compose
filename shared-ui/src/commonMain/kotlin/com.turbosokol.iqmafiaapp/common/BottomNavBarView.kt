@@ -97,7 +97,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             IQBottomNavItemView(
                                 modifier = Modifier,
                                 icon = { Icon(imageVector = icon, contentDescription = null) },
-                                label = { Text(text = title, fontSize = 15.sp ) },
+                                label = { Text(text = title, fontSize = 14.sp ) },
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
