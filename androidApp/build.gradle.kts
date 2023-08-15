@@ -1,5 +1,3 @@
-import com.android.build.api.dsl.Packaging
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -21,6 +19,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling:${Versions.uiTooling}")
 
     implementation ("androidx.legacy:legacy-support-v4:${Versions.legacySupport}")
+
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06") //for Splash Screen
 
     //Lifecycle
     implementation ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}")
