@@ -13,11 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.CardDefaults
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -77,7 +78,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     ) {
 
         //card with slots, names, faults
-        Card(elevation = Dimensions.Elevation.medium) {
+        Card(elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)) {
 
             //players info column
             Column(
@@ -176,7 +177,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         //VOTE CARD
         Card(
             modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                .border(BorderStroke(1.dp, Colors.gray)), elevation = Dimensions.Elevation.medium
+                .border(BorderStroke(1.dp, Colors.gray)), elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
         ) {
             Column(modifier = Modifier.background(Color.Transparent)) {
                 //NOMINATED PLAYERS

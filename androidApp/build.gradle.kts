@@ -12,6 +12,9 @@ dependencies {
 
 
     //UI
+    implementation("com.google.android.material:material:${Versions.material}")
+    implementation("androidx.compose.material3:material3:${Versions.composeMaterial3}")
+
     implementation("androidx.appcompat:appcompat:${Versions.appCompat}")
     implementation("androidx.activity:activity-compose:${Versions.activityCompose}")
     implementation("androidx.compose.ui:ui:${Versions.compose}")
@@ -21,10 +24,12 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayoutCompose}")
 
 
-    implementation ("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation ("androidx.legacy:legacy-support-v4:${Versions.legacySupport}")
+
+//    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06") //for Splash Screen
 
     //Lifecycle
-    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycle}")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
@@ -36,7 +41,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.4.1")
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.21.4-beta")
 
     //Components
@@ -112,7 +117,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }

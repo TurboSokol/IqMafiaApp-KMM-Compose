@@ -1,5 +1,6 @@
 package com.turbosokol.iqmafiaapp.screens
 
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -15,12 +16,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Shapes
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.material.TextFieldDefaults
+
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
@@ -158,7 +163,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
 }
 
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SlotsTourView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
@@ -179,7 +184,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)
         )
 
-        Card(elevation = Dimensions.Elevation.medium) {
+        Card(elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)) {
             Column {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
                     IQPlayerNameRow(modifier = Modifier,
@@ -220,9 +225,9 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     imeAction = ImeAction.Done
                 ),
                 label = { Text(text = Strings.tourSlotsGamesCountLabel) },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Colors.primary,
-                    unfocusedBorderColor = Colors.darkGrey32
+                    unfocusedBorderColor = Colors.darkGrey32,
                 ),
                 trailingIcon = {
                     TextButton(modifier = Modifier, onClick = {
@@ -277,7 +282,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         modifier = Modifier.padding(top = Dimensions.Padding.medium)
                             .background(color = Colors.white)
                             .border(width = 1.dp, color = Color.LightGray),
-                        elevation = Dimensions.Elevation.medium
+                        elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
                     ) {
                         Column {
                             Row(
@@ -309,7 +314,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     }
                 }
 
-                Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = Dimensions.Elevation.small, border = BorderStroke(1.dp, Colors.gray), shape = Shapes().medium) {
+                Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = CardDefaults.cardElevation(Dimensions.Elevation.small), border = BorderStroke(1.dp, Colors.gray), shape = Shapes().medium) {
                     TextButton( onClick = {
                         viewModel.execute(
                             SlotsScreenAction.SetResetDialogVisible
