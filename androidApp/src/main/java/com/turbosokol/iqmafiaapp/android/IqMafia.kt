@@ -7,15 +7,13 @@ import com.turbosokol.iqmafiaapp.android.utils.viewModelsModule
 import com.turbosokol.iqmafiaapp.di.uiModule
 import initSharedKoin
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import kotlin.time.ExperimentalTime
 
+@OptIn(InternalSerializationApi::class)
 @ExperimentalCoroutinesApi
-@ExperimentalSerializationApi
-@InternalSerializationApi
 @ExperimentalTime
 open class IqMafia: Application(), Application.ActivityLifecycleCallbacks, KoinComponent {
 
