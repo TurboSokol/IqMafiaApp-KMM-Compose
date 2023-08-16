@@ -26,7 +26,7 @@ dependencies {
 
     implementation ("androidx.legacy:legacy-support-v4:${Versions.legacySupport}")
 
-    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06") //for Splash Screen
+//    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06") //for Splash Screen
 
     //Lifecycle
     implementation ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}")
@@ -41,7 +41,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.4.1")
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("com.google.accompanist:accompanist-navigation-animation:0.21.4-beta")
 
     //Components
