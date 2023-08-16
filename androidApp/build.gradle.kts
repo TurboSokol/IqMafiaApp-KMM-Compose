@@ -26,6 +26,8 @@ dependencies {
 
     implementation ("androidx.legacy:legacy-support-v4:${Versions.legacySupport}")
 
+    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06") //for Splash Screen
+
     //Lifecycle
     implementation ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
