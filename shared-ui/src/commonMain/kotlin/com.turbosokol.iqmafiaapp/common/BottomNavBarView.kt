@@ -88,7 +88,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             val (title, icon, action) = when (tab) {
                                 NavigationTabs.SLOTS -> Triple("Slots", Icons.Outlined.Chair, NavigationAction.SlotsScreen(appState.getSlotsState()))
                                 NavigationTabs.CARDS -> Triple("Cards", Icons.Outlined.PlayingCardsIcon, NavigationAction.CardsScreen(appState.getCardsState()))
-                                NavigationTabs.ACHIEVEMENT -> Triple("Achieve", Icons.Outlined.WorkspacePremium, NavigationAction.AchievementScreen(appState.getAchievementScreenState()))
+                                NavigationTabs.ACHIEVEMENT -> Triple("Dops", Icons.Outlined.WorkspacePremium, NavigationAction.AchievementScreen(appState.getAchievementScreenState()))
                                 NavigationTabs.DAY -> Triple("Day", Icons.Outlined.WbSunny, NavigationAction.DayScreen(appState.getDayState()))
                                 NavigationTabs.NIGHT -> Triple("Night", Icons.Outlined.NightsStay, NavigationAction.NightsScreen(appState.getNightState()))
                                 NavigationTabs.SCORE -> Triple("Score", Icons.Outlined.Insights, NavigationAction.ScoreScreen(appState.getScoreState()))
@@ -97,7 +97,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             IQBottomNavItemView(
                                 modifier = Modifier,
                                 icon = { Icon(imageVector = icon, contentDescription = null) },
-                                label = { Text(text = title, fontSize = 14.sp ) },
+                                label = { Text(text = title, fontSize = 16.sp ) },
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
