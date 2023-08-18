@@ -1,5 +1,8 @@
 package com.turbosokol.iqmafiaapp.components
 
+//import androidx.compose.material3.ContentAlpha
+//import androidx.compose.material3.LocalContentAlpha
+//import androidx.compose.material.MaterialTheme
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
@@ -8,11 +11,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.layout.Layout
@@ -30,10 +32,8 @@ import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import org.brightify.hyperdrive.utils.toOptional
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -60,11 +60,11 @@ fun RowScope.IQBottomNavItemView(
     alwaysShowLabel: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     selectedContentColor: Color = LocalContentColor.current,
-    unselectedContentColor: Color = selectedContentColor.copy(alpha = ContentAlpha.medium)
+    unselectedContentColor: Color = selectedContentColor.copy(alpha = DefaultAlpha ) //TODO: Maybe it's wrong // ContentAlpha.medium
 ) {
     val styledLabel: @Composable (() -> Unit) =
         @Composable {
-            val style = MaterialTheme.typography.caption.copy(textAlign = TextAlign.Center)
+            val style = MaterialTheme.typography.bodyMedium //TODO: Maybe it's wrong // caption.copy(textAlign = TextAlign.Center)
             ProvideTextStyle(style, content = label)
     }
     // The color of the Ripple should always the selected color, as we want to show the color
@@ -153,7 +153,7 @@ private fun BottomNavigationTransition(
 
     CompositionLocalProvider(
         LocalContentColor provides color.copy(alpha = 1f),
-        LocalContentAlpha provides color.alpha,
+        //LocalContentAlpha provides color.alpha, //TODO: Maybe it's wrong
     ) {
         content(animationProgress)
     }

@@ -70,7 +70,7 @@ kotlin {
                 api(compose.animation)
                 api(compose.foundation)
                 api(compose.ui)
-                api(compose.material)
+//                api(compose.material)
                 api(compose.runtime)
                 api(compose.materialIconsExtended)
                 api(compose.material3)

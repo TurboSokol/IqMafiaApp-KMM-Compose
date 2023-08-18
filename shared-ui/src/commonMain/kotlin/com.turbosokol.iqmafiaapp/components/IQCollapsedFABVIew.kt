@@ -10,10 +10,10 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
-import androidx.compose.material.ExtendedFloatingActionButton
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -52,7 +52,7 @@ fun IQCollapsedSwitchFABView(
             onClick = { isCollapsed = false },
             modifier = modifier,
             content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
-            backgroundColor = if (mToggled) Colors.secondary else Colors.primary
+            containerColor = if (mToggled) Colors.secondary else Colors.primary //TODO: Maybe it's wrong
         )
     }
 
@@ -75,7 +75,7 @@ fun IQCollapsedSwitchFABView(
                     }
                 })
             },
-            backgroundColor =  if (mToggled) Colors.secondary else Colors.primary
+            containerColor =  if (mToggled) Colors.secondary else Colors.primary //TODO: Maybe it's wrong
         )
     }
 

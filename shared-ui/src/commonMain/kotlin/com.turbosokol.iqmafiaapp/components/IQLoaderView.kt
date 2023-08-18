@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -301,7 +301,7 @@ fun IQLoaderView(
         ) {
             Text(
                 text = "please wait",
-                style = typography.caption,
+                style = typography.bodyMedium, //TODO: Maybe it's wrong
                 color = strokeColor,
                 modifier = Modifier
                     .graphicsLayer {

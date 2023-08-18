@@ -8,19 +8,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
-import com.turbosokol.iqmafiaapp.theme.Strings
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -40,7 +38,7 @@ fun IQVoteDialogView(
         IQDialog(dismiss = onCancel) {
             Surface(
                 shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
-                elevation = Dimensions.Elevation.xlarge,
+                shadowElevation = Dimensions.Elevation.xlarge, //TODO: Maybe it's wrong
                 modifier = Modifier
                     .background(Color.Transparent)
                     .padding(Dimensions.Padding.large),
@@ -53,8 +51,8 @@ fun IQVoteDialogView(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                             .padding(bottom = Dimensions.Padding.medium),
                         text = label,
-                        color = MaterialTheme.colors.onBackground,
-                        style = MaterialTheme.typography.h5,
+                        color = MaterialTheme.colorScheme.background,
+                        style = MaterialTheme.typography.labelSmall, //TODO: Maybe it's wrong
                         overflow = TextOverflow.Ellipsis
                     )
 
