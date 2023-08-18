@@ -2,6 +2,7 @@ package com.turbosokol.iqmafiaapp.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -72,7 +73,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                     shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
                     tonalElevation = Dimensions.Elevation.medium
                 )  {
-                    NavigationBar(containerColor = Colors.skyBlue, windowInsets = WindowInsets(30, 10, 10, 40)
+                    NavigationBar(containerColor = Colors.skyBlue, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.navBarHeight)
                     ) {
 
                         val tabsList = listOf<NavigationTabs>(

@@ -40,4 +40,8 @@ object Dimensions {
         val large = 16.dp
         val xlarge = 24.dp
     }
+
+    object Components {
+        val navBarHeight = 60.dp
+    }
 }

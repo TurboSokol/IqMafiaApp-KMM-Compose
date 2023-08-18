@@ -125,6 +125,9 @@ android {
         targetSdk = Versions.targetSdk
     }
 }
+dependencies {
+    implementation("androidx.leanback:leanback:1.0.0")
+}
 
 compose {
     android {
