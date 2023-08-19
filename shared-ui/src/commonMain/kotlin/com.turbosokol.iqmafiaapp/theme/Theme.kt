@@ -12,37 +12,37 @@ import androidx.compose.runtime.Composable
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
  ***/
-//
-//private val DarkColorPalette = darkColors(
-//    primary = Colors.primary,
-//    primaryVariant = Colors.primaryVariant,
-//    secondary = Colors.secondaryLighter,
-//    secondaryVariant = Colors.secondaryLighter,
-//    surface = Colors.darkGrey51,
-//    background = Colors.darkGrey32,
-//    error = Colors.orange,
-//    onPrimary = Colors.secondary,
-//    onSecondary = Color.White,
-//    onSurface = Color.White,
-//    onBackground = Color.White,
-//)
-//
-//private val LightColorPalette = lightColors(
-//    primary = Colors.primary,
-//    primaryVariant = Colors.primaryVariant,
-//    secondary = Colors.secondary,
-//    // color of the switch (checked)
-//    secondaryVariant = Colors.secondaryVariant,
-//    // color of the switch (unchecked)
-//    surface = Colors.lightGray,
-//    background = Colors.white,
-//    error = Colors.orange,
-//    onPrimary = Colors.secondary,
-//    onSecondary = Color.White,
-//    onSurface = Color.Black,
-//    onBackground = Colors.darkBlue,
-//)
-//
+
+private val DarkColorPalette = darkColorScheme(
+    primary = Colors.primary,
+    primaryContainer = Colors.primaryVariant,
+    secondary = Colors.secondaryLighter,
+    secondaryContainer = Colors.secondaryLighter,
+    surface = Colors.darkGrey51,
+    background = Colors.darkGrey32,
+    error = Colors.orange,
+    onPrimary = Colors.secondary,
+    onSecondary = Colors.white,
+    onSurface = Colors.white,
+    onBackground = Colors.white,
+)
+
+private val LightColorPalette = lightColorScheme(
+    primary = Colors.primary,
+    primaryContainer = Colors.primaryVariant,
+    secondary = Colors.secondary,
+    // color of the switch (checked)
+    secondaryContainer = Colors.secondaryVariant,
+    // color of the switch (unchecked)
+    surface = Colors.lightGray,
+    background = Colors.white,
+    error = Colors.orange,
+    onPrimary = Colors.secondary,
+    onSecondary = Colors.white,
+    onSurface = Colors.darkGrey51,
+    onBackground = Colors.darkBlue,
+)
+
 //val secLightPallete = lightColors(
 //    primary = Color(0xFFB0BEC5), // Светло-синий цвет
 //    primaryVariant = Color(0xFF90A4AE), // Светлый серо-синий цвет
@@ -52,9 +52,9 @@ import androidx.compose.runtime.Composable
 //    background = Color(0xFFFFFFFF), // Чистый белый цвет
 //    error = Color(0xFFEF5350), // Красный цвет
 //    onPrimary = Color(0xFF757575), // Средне-серый цвет
-//    onSecondary = Color.White,
-//    onSurface = Color.Black,
-//    onBackground = Color.Black, // Темно-синий цвет
+//    onSecondary = Colors.white,
+//    onSurface = Colors.darkGrey51,
+//    onBackground = Colors.darkGrey51, // Темно-синий цвет
 //)
 
 @Composable
@@ -63,9 +63,9 @@ internal fun IqMafiaAppTheme(
     content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
-        darkColorScheme()    //DarkColorPalette
+        DarkColorPalette    //DarkColorPalette
     } else {
-        lightColorScheme()  //secLightPallete
+        LightColorPalette  //secLightPallete
     }
 
     MaterialTheme(
