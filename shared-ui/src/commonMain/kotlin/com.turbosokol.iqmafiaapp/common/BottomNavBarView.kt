@@ -102,7 +102,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
-                                selectedContentColor = Colors.red,
+                                selectedContentColor = Colors.red, //MaterialTheme.colorScheme.onBackground
                                 unselectedContentColor = Colors.darkGrey51,
                             )
                         }

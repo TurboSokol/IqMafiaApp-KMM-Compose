@@ -13,49 +13,6 @@ import androidx.compose.runtime.Composable
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-private val DarkColorPalette = darkColorScheme(
-    primary = Colors.primary,
-    primaryContainer = Colors.primaryVariant,
-    secondary = Colors.secondaryLighter,
-    secondaryContainer = Colors.secondaryLighter,
-    surface = Colors.darkGrey51,
-    background = Colors.darkGrey32,
-    error = Colors.orange,
-    onPrimary = Colors.secondary,
-    onSecondary = Colors.white,
-    onSurface = Colors.white,
-    onBackground = Colors.white,
-)
-
-private val LightColorPalette = lightColorScheme(
-    primary = Colors.primary,
-    primaryContainer = Colors.primaryVariant,
-    secondary = Colors.secondary,
-    // color of the switch (checked)
-    secondaryContainer = Colors.secondaryVariant,
-    // color of the switch (unchecked)
-    surface = Colors.lightGray,
-    background = Colors.white,
-    error = Colors.orange,
-    onPrimary = Colors.secondary,
-    onSecondary = Colors.white,
-    onSurface = Colors.darkGrey51,
-    onBackground = Colors.darkBlue,
-)
-
-//val secLightPallete = lightColors(
-//    primary = Color(0xFFB0BEC5), // Светло-синий цвет
-//    primaryVariant = Color(0xFF90A4AE), // Светлый серо-синий цвет
-//    secondary = Color(0xFFA5D6A7), // Светло-зеленый цвет
-//    secondaryVariant = Color(0xFF81C784), // Зеленый цвет
-//    surface = Color(0xFFF5F5F5), // Белый цвет с небольшим оттенком серого
-//    background = Color(0xFFFFFFFF), // Чистый белый цвет
-//    error = Color(0xFFEF5350), // Красный цвет
-//    onPrimary = Color(0xFF757575), // Средне-серый цвет
-//    onSecondary = Colors.white,
-//    onSurface = Colors.darkGrey51,
-//    onBackground = Colors.darkGrey51, // Темно-синий цвет
-//)
 
 @Composable
 internal fun IqMafiaAppTheme(
@@ -63,9 +20,9 @@ internal fun IqMafiaAppTheme(
     content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
-        DarkColorPalette    //DarkColorPalette
+        DarkColors //DarkColorPalette
     } else {
-        LightColorPalette  //secLightPallete
+        LightColors //secLightPallete
     }
 
     MaterialTheme(
@@ -142,3 +99,47 @@ private val DarkColors = darkColorScheme(
     outlineVariant = md_theme_dark_outlineVariant,
     scrim = md_theme_dark_scrim,
 )
+
+//private val DarkColorPalette = darkColorScheme(
+//    primary = Colors.primary,
+//    primaryContainer = Colors.primaryVariant,
+//    secondary = Colors.secondaryLighter,
+//    secondaryContainer = Colors.secondaryLighter,
+//    surface = Colors.darkGrey51,
+//    background = Colors.darkGrey32,
+//    error = Colors.orange,
+//    onPrimary = Colors.secondary,
+//    onSecondary = Colors.white,
+//    onSurface = Colors.white,
+//    onBackground = Colors.white,
+//)
+//
+//private val LightColorPalette = lightColorScheme(
+//    primary = Colors.primary,
+//    primaryContainer = Colors.primaryVariant,
+//    secondary = Colors.secondary,
+//    // color of the switch (checked)
+//    secondaryContainer = Colors.secondaryVariant,
+//    // color of the switch (unchecked)
+//    surface = Colors.lightGray,
+//    background = Colors.white,
+//    error = Colors.orange,
+//    onPrimary = Colors.secondary,
+//    onSecondary = Colors.white,
+//    onSurface = Colors.darkGrey51,
+//    onBackground = Colors.darkBlue,
+//)
+
+//val secLightPallete = lightColors(
+//    primary = Color(0xFFB0BEC5), // Светло-синий цвет
+//    primaryVariant = Color(0xFF90A4AE), // Светлый серо-синий цвет
+//    secondary = Color(0xFFA5D6A7), // Светло-зеленый цвет
+//    secondaryVariant = Color(0xFF81C784), // Зеленый цвет
+//    surface = Color(0xFFF5F5F5), // Белый цвет с небольшим оттенком серого
+//    background = Color(0xFFFFFFFF), // Чистый белый цвет
+//    error = Color(0xFFEF5350), // Красный цвет
+//    onPrimary = Color(0xFF757575), // Средне-серый цвет
+//    onSecondary = Colors.white,
+//    onSurface = Colors.darkGrey51,
+//    onBackground = Colors.darkGrey51, // Темно-синий цвет
+//) IqMafiaAppTheme
