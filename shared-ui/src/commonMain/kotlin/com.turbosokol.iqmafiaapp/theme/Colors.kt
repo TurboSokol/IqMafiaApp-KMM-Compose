@@ -47,22 +47,23 @@ object Colors {
     val white = Color(0xFFFFFFFF)
     val red = Color(0xFFEF5350)
     val gray = Color (0xFF757575)
+    val test = Color(0xFF22)
 
     val darkGrey51 = Color(0xFF333333)
     val darkGrey32 = Color(0xFF202020)
 }
 
 
-val md_theme_light_primary = Color(0xFF6750A4)
-val md_theme_light_onPrimary = Color(0xFFFFFFFF)
-val md_theme_light_primaryContainer = Color(0xFFEADDFF)
-val md_theme_light_onPrimaryContainer = Color(0xFF21005D)
-val md_theme_light_secondary = Color(0xFF625B71)
+val md_theme_light_primary = Color(0xFFCFD8DC) //зелёные цифры в слотах, плавающие кнопки, основной текст
+val md_theme_light_onPrimary = Color(0xFFECFFF3)
+val md_theme_light_primaryContainer =  Color(0xff2dd7e0) //основной контейнер - голубого цвета, по логике боттом бара
+val md_theme_light_onPrimaryContainer =  Color(0xFF202020)//цвет текста на голубом, основном контейнере
+val md_theme_light_secondary = Color(0xFF333333) //
 val md_theme_light_onSecondary = Color(0xFFFFFFFF)
 val md_theme_light_secondaryContainer = Color(0xFFE8DEF8)
 val md_theme_light_onSecondaryContainer = Color(0xFF1D192B)
-val md_theme_light_tertiary = Color(0xFF7D5260)
-val md_theme_light_onTertiary = Color(0xFFFFFFFF)
+val md_theme_light_tertiary = Color(0xFF202020)
+val md_theme_light_onTertiary = Color(0xFFEF5350)//контрастный, т.е. для выделения красным при навигации в экране
 val md_theme_light_tertiaryContainer = Color(0xFFFFD8E4)
 val md_theme_light_onTertiaryContainer = Color(0xFF31111D)
 val md_theme_light_error = Color(0xFFB3261E)
@@ -70,9 +71,9 @@ val md_theme_light_onError = Color(0xFFFFFFFF)
 val md_theme_light_errorContainer = Color(0xFFF9DEDC)
 val md_theme_light_onErrorContainer = Color(0xFF410E0B)
 val md_theme_light_outline = Color(0xFF79747E)
-val md_theme_light_background = Color(0xFFFFFBFE)
+val md_theme_light_background = Color(0xFCFFFF)
 val md_theme_light_onBackground = Color(0xFF1C1B1F)
-val md_theme_light_surface = Color(0xFFFFFBFE)
+val md_theme_light_surface = Color(0xffe0d438)  //Цвета бэкграундов, их в % больше всего на светлой теме
 val md_theme_light_onSurface = Color(0xFF1C1B1F)
 val md_theme_light_surfaceVariant = Color(0xFFE7E0EC)
 val md_theme_light_onSurfaceVariant = Color(0xFF49454F)
