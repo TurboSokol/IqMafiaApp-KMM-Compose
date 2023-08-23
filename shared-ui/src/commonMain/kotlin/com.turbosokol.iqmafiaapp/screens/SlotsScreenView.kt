@@ -16,16 +16,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
@@ -36,7 +35,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -53,7 +51,6 @@ import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
@@ -121,7 +118,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = Colors.orange.copy(alpha = 0.1f))
+                    .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))  //((alpha = 0.1f)
                     .padding(start = Dimensions.Padding.medium, end = Dimensions.Padding.medium),
                 horizontalArrangement = if (showingNumbers.count() > 8) Arrangement.SpaceEvenly else Arrangement.Start
             ) {
@@ -129,12 +126,12 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
                     Box(
                         modifier = Modifier
                             .padding(Dimensions.Padding.smedium)
-                            .background(color = Colors.imageBackground)
+                            .background(color = MaterialTheme.colorScheme.surfaceTint)//surface.copy(alpha = 0.1f))
                     ) {
                         Text(
                             text = item.toString(),
                             fontSize = Dimensions.TextSize.large,
-                            color = Colors.primary,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             textDecoration = TextDecoration.LineThrough,
                             fontWeight = FontWeight.Bold
                         )
@@ -145,7 +142,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
 
 
         TextButton(modifier = Modifier.fillMaxSize()
-            .background(color = Colors.orange.copy(alpha = 0.1f))
+            .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
             , onClick = {
             if (slotsState.slotsList.lastIndex != slotsState.listIndex) {
                 viewModel.execute(SlotsScreenAction.ShowNext)
@@ -156,7 +153,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
             Text(
                 text = if (slotsState.isHidden) Strings.singleSlotsHiddenLabel else slotsState.slotsList[slotsState.listIndex].toString(),
                 fontSize = if (slotsState.isHidden) Dimensions.TextSize.huge else Dimensions.TextSize.xhuge,
-                color = Colors.primary
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
@@ -174,7 +171,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .background(Colors.skyBlue.copy(alpha = 0.1f))
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
             .padding(Dimensions.Padding.medium)
     ) {
         Text(
@@ -189,8 +186,8 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
                     IQPlayerNameRow(modifier = Modifier,
                         slot = index, textName = name, isInputEnabled = true,
-                        colorSlot = Colors.secondary.copy(alpha = 0.7f),
-                        colorName = Colors.orange.copy(alpha = 0.1f)
+                        colorSlot = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
+                        colorName = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f)
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
                         newNames[index] = changedText
@@ -226,8 +223,8 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 ),
                 label = { Text(text = Strings.tourSlotsGamesCountLabel) },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Colors.primary,
-                    unfocusedBorderColor = Colors.darkGrey32,
+                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 ),
                 trailingIcon = {
                     TextButton(modifier = Modifier, onClick = {
@@ -253,7 +250,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         }
 
                     }) {
-                        Text(text = Strings.tourSlotsGenerateButton, color = Colors.secondary)
+                        Text(text = Strings.tourSlotsGenerateButton, color = MaterialTheme.colorScheme.onTertiary)
                     }
                 })
         }
@@ -262,7 +259,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             IQDialog(dismiss = { /* no-op */ }) {
                 IQLoaderView(
                     modifier = Modifier.padding(100.dp),
-                    strokeColor = Colors.secondary,
+                    strokeColor = MaterialTheme.colorScheme.onTertiary,
                     strokeSize = 7.dp
                 ) { /* no-op */ }
             }
@@ -280,14 +277,14 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 slotsState.tourSlotsList.forEachIndexed { index, gameSlotsList ->
                     Card(
                         modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                            .background(color = Colors.white)
-                            .border(width = 1.dp, color = Color.LightGray),
+                            .background(color = MaterialTheme.colorScheme.background)
+                            .border(width = 1.dp, color = MaterialTheme.colorScheme.outlineVariant),
                         elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
                     ) {
                         Column {
                             Row(
                                 modifier = Modifier.fillMaxSize()
-                                    .background(color = Color.Transparent),
+                                    .background(color = MaterialTheme.colorScheme.onError),
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
@@ -314,7 +311,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     }
                 }
 
-                Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = CardDefaults.cardElevation(Dimensions.Elevation.small), border = BorderStroke(1.dp, Colors.gray), shape = Shapes().medium) {
+                Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = CardDefaults.cardElevation(Dimensions.Elevation.small), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline), shape = Shapes().medium) {
                     TextButton( onClick = {
                         viewModel.execute(
                             SlotsScreenAction.SetResetDialogVisible
@@ -322,7 +319,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     },
                         shape = Shapes().medium
                     ) {
-                        Text(modifier = Modifier, text = Strings.resetDialogLabel, color = Colors.secondary, fontSize = Dimensions.TextSize.smedium)
+                        Text(modifier = Modifier, text = Strings.resetDialogLabel, color = MaterialTheme.colorScheme.onTertiary, fontSize = Dimensions.TextSize.smedium)
                     }
                 }
             }

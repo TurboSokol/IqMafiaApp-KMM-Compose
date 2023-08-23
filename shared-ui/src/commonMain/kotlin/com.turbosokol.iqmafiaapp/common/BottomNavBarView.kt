@@ -12,6 +12,7 @@ import androidx.compose.material.icons.outlined.NightsStay
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -38,7 +39,6 @@ import com.turbosokol.iqmafiaapp.screens.DayScreenView
 import com.turbosokol.iqmafiaapp.screens.NightScreenView
 import com.turbosokol.iqmafiaapp.screens.ScoreScreenView
 import com.turbosokol.iqmafiaapp.screens.SlotsScreenView
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.IqMafiaAppTheme
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -73,7 +73,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                     shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
                     tonalElevation = Dimensions.Elevation.medium
                 )  {
-                    NavigationBar(containerColor = Colors.skyBlue, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.navBarHeight)
+                    NavigationBar(containerColor = MaterialTheme.colorScheme.primaryContainer, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.navBarHeight)
                     ) {
 
                         val tabsList = listOf<NavigationTabs>(
@@ -102,8 +102,8 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
-                                selectedContentColor = Colors.red, //MaterialTheme.colorScheme.onBackground
-                                unselectedContentColor = Colors.darkGrey51,
+                                selectedContentColor = MaterialTheme.colorScheme.onTertiary , // Colors.red
+                                unselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer  //Colors.darkGrey51,
                             )
                         }
                     }
