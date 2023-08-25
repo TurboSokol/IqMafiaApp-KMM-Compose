@@ -75,12 +75,13 @@ kotlin {
                 api(compose.materialIconsExtended)
                 api(compose.material3)
 
+
                 implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
 
                 implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
 
                 api("androidx.compose.compiler:compiler:1.4.7")
-
+                api(platform("androidx.compose:compose-bom:2023.05.01"))
                 api("io.insert-koin:koin-core:${Versions.koin}")
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
 
@@ -125,9 +126,7 @@ android {
         targetSdk = Versions.targetSdk
     }
 }
-dependencies {
-    implementation("androidx.leanback:leanback:1.0.0")
-}
+
 
 compose {
     android {

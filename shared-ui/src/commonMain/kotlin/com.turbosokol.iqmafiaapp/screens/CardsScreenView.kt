@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -52,7 +53,7 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color =
             if (cardsState.isHidden) {
-                Colors.orange.copy(alpha = 0.1f)
+                MaterialTheme.colorScheme.surface.copy(alpha = 0.1f)
             } else {
                 when(cardsState.cardsList[cardsState.listIndex].type) {
                     CharacterCardType.SHERIFF -> Colors.red
@@ -89,7 +90,7 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                         CharacterCardType.BLACK -> Colors.darkGrey32
                     }
                 } else {
-                    Colors.primary
+                    MaterialTheme.colorScheme.onPrimary
                 }
             )
         }
