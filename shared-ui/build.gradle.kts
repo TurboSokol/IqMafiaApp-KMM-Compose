@@ -80,6 +80,9 @@ kotlin {
 
                 implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
 
+//                implementation ("com.google.accompanist:accompanist-systemuicontroller:0.27.0") //Ahtung!
+
+
                 api("androidx.compose.compiler:compiler:1.4.7")
                 api(platform("androidx.compose:compose-bom:2023.05.01"))
                 api("io.insert-koin:koin-core:${Versions.koin}")
