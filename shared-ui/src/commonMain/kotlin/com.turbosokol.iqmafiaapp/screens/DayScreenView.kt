@@ -1,6 +1,5 @@
 package com.turbosokol.iqmafiaapp.screens
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,31 +11,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.shape.RoundedCornerShape
-
 import androidx.compose.material3.Card
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
-import com.turbosokol.iqmafiaapp.components.IQDialog
 import com.turbosokol.iqmafiaapp.components.IQVoteDialogType
 import com.turbosokol.iqmafiaapp.components.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
@@ -52,7 +43,6 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.brightify.hyperdrive.utils.toOptional
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -188,7 +178,16 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     horizontalArrangement = Arrangement.Start
                 ) {
                     roundState.voteCandidates.forEach { voteNominant ->
+
+
                         var voteButtonColor by remember { mutableStateOf(Colors.orange.copy(alpha = 0.6f)) } //MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
+                        var voteButtonColorState = voteButtonColorStateEnum.SURFACE
+                        when(voteButtonColorState) {
+                            voteButtonColorStateEnum.ONTERTIARY -> voteButtonColor = MaterialTheme.colorScheme.onTertiary
+                            voteButtonColorStateEnum.ONPRIMARY -> voteButtonColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f)
+                            voteButtonColorStateEnum.SURFACE -> voteButtonColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
+                        }
+
                         Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                             TextButton(modifier = Modifier.border(
                                 BorderStroke(
@@ -198,9 +197,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             ).background(voteButtonColor),
                                 onClick = {
                                     MainScope().launch {
-                                        voteButtonColor = Colors.secondary // MaterialTheme.colorScheme.onTertiary //
+                                        voteButtonColorState = voteButtonColorStateEnum.ONTERTIARY
+//                                        voteButtonColor = Colors.secondary // MaterialTheme.colorScheme.onTertiary //
                                         delay(1500)
-                                        voteButtonColor = Colors.primary.copy(alpha = 0.4f)  //MaterialTheme.colorScheme.onPrimary
+                                        voteButtonColorState = voteButtonColorStateEnum.ONPRIMARY
+//                                        voteButtonColor = Colors.primary.copy(alpha = 0.4f)  //MaterialTheme.colorScheme.onPrimary
                                         voteNominantSlot.value = voteNominant
                                         voteCountDialogVisible = true
                                     }
@@ -273,3 +274,12 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         }
     } //END SCROLLABLE
 }
+
+
+    enum class voteButtonColorStateEnum {
+        ONTERTIARY, ONPRIMARY, SURFACE
+    }
+
+//voteButtonColorStateEnum.ONTERTIARY -> voteButtonColor = MaterialTheme.colorScheme.onTertiary
+//voteButtonColorStateEnum.ONPRIMARY -> voteButtonColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f)
+//voteButtonColorStateEnum.SURFACE -> voteButtonColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
