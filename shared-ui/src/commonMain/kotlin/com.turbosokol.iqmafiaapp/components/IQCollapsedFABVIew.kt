@@ -12,6 +12,7 @@ import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
-import com.turbosokol.iqmafiaapp.theme.Colors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -52,7 +52,7 @@ fun IQCollapsedSwitchFABView(
             onClick = { isCollapsed = false },
             modifier = modifier,
             content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
-            containerColor = if (mToggled) Colors.secondary else Colors.primary //TODO: Maybe it's wrong
+            containerColor = if (mToggled) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onPrimary //TODO: Maybe it's wrong
         )
     }
 
@@ -75,7 +75,7 @@ fun IQCollapsedSwitchFABView(
                     }
                 })
             },
-            containerColor =  if (mToggled) Colors.secondary else Colors.primary //TODO: Maybe it's wrong
+            containerColor =  if (mToggled) MaterialTheme.colorScheme.onTertiary else MaterialTheme.colorScheme.onPrimary //TODO: Maybe it's wrong
         )
     }
 

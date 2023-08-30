@@ -17,9 +17,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 /***
@@ -45,7 +43,7 @@ fun IQAlertDialogView(
                 shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
                 shadowElevation = Dimensions.Elevation.xlarge,
                 modifier = Modifier
-                    .background(Color.Transparent)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(Dimensions.Padding.large),
             ) {
                 Column(
@@ -68,7 +66,7 @@ fun IQAlertDialogView(
                         TextButton(onClick = onCancel) {
                             Text(
                                 text = "NO",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -76,7 +74,7 @@ fun IQAlertDialogView(
                         TextButton(onClick = onConfirm) {
                             Text(
                                 text = "YES",
-                                color = Colors.primary,
+                                color = MaterialTheme.colorScheme.onPrimary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }

@@ -15,9 +15,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 /***
@@ -40,7 +38,7 @@ fun IQVoteDialogView(
                 shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
                 shadowElevation = Dimensions.Elevation.xlarge, //TODO: Maybe it's wrong
                 modifier = Modifier
-                    .background(Color.Transparent)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(Dimensions.Padding.large),
             ) {
                 Column(
@@ -65,7 +63,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "1",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -75,7 +73,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "2",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -85,7 +83,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "3",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -100,7 +98,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "4",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -110,7 +108,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "5",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -120,7 +118,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "6",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -135,7 +133,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "7",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -145,7 +143,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "8",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -155,7 +153,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "9",
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -176,7 +174,7 @@ fun IQVoteDialogView(
                                     IQVoteDialogType.VOTE_RESULTS -> "0"
                                     IQVoteDialogType.ROUND_RESULTS -> "10"
                                 },
-                                color = Colors.secondary,
+                                color = MaterialTheme.colorScheme.onTertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
@@ -189,7 +187,7 @@ fun IQVoteDialogView(
                         TextButton(onClick = onCancel) {
                             Text(
                                 text = "Tap By Mistake?",
-                                color = Colors.gray,
+                                color = MaterialTheme.colorScheme.outline,
                                 fontSize = Dimensions.TextSize.smedium
                             )
                         }

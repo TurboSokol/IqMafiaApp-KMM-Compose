@@ -25,7 +25,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 /***
@@ -40,15 +39,15 @@ fun IQPlayerNameRow(
     slot: Int,
     textName: String,
     isInputEnabled: Boolean,
-    colorSlot: Color = Colors.primary.copy(alpha = 0.65f),
-    colorName: Color = Colors.orange.copy(alpha = 0.1f),
+    colorSlot: Color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.65f),
+    colorName: Color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit
 ) {
     Row(
         modifier = modifier
-            .border(0.5.dp, Colors.gray)
-            .background(color = Color.White)
+            .border(0.5.dp, MaterialTheme.colorScheme.outline)
+            .background(color = MaterialTheme.colorScheme.onBackground)
             .background(color = colorSlot)
     ) {
         TextButton(
@@ -64,7 +63,7 @@ fun IQPlayerNameRow(
                 text = (slot + 1).toString(), textAlign = TextAlign.Center,
                 fontSize = Dimensions.TextSize.smedium,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
 
@@ -73,7 +72,7 @@ fun IQPlayerNameRow(
         OutlinedTextField(
             value = playerName,
             modifier = Modifier.weight(0.85f)
-                .background(Colors.white)
+                .background(MaterialTheme.colorScheme.onBackground)
                 .background(color = colorName),
             onValueChange = { changedValue: String ->
                 playerName = changedValue
@@ -89,6 +88,6 @@ fun IQPlayerNameRow(
             singleLine = true,
             readOnly = !isInputEnabled,
             shape = MaterialTheme.shapes.large,
-            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent))
+            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = MaterialTheme.colorScheme.background, unfocusedBorderColor = MaterialTheme.colorScheme.background))
     }
 }
