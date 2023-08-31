@@ -88,6 +88,6 @@ fun IQPlayerNameRow(
             singleLine = true,
             readOnly = !isInputEnabled,
             shape = MaterialTheme.shapes.large,
-            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = MaterialTheme.colorScheme.background, unfocusedBorderColor = MaterialTheme.colorScheme.background))
+            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent))
     }
 }

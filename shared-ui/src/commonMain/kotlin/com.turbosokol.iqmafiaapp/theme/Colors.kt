@@ -47,25 +47,25 @@ object Colors {
     val white = Color(0xFFFFFFFF)
     val red = Color(0xFFEF5350)
     val gray = Color (0xFF757575)
-    val test = Color(0xFF22)
+//    val test = Color(0xFF22)
 
-    val darkGrey51 = Color(0xFF333333)
-    val darkGrey32 = Color(0xFF202020)
+    val darkGrey51 = Color(0xFF333333) //Material Secondary
+    val darkGrey32 = Color(0xFF202020) // Material tertiary (без on!) не используется
 }
 
 //Color(0x00000000) - transparent
 
 
-val md_theme_light_primary = Color(0xFFCFD8DC) //зелёные цифры в слотах, плавающие кнопки, основной текст
-val md_theme_light_onPrimary = Color(0xFF81C784) //основной текст на вьюшках
-val md_theme_light_primaryContainer =  Color(0xff2dd7e0) //основной контейнер - голубого цвета, по логике боттом бара
-val md_theme_light_onPrimaryContainer =  Color(0xFF202020)//цвет текста на голубом, основном контейнере
-val md_theme_light_secondary = Color(0xFF333333)
-val md_theme_light_onSecondary = Color(0xFCFFFF)
+val md_theme_light_primary = Color(0xFFCFD8DC) //зелёные цифры в слотах, плавающие кнопки, основной текст *Нет в первичном наборе //Шиммер
+val md_theme_light_onPrimary = Color(0xFF81C784) //основной текст на вьюшках *Назывался primary и secondaryVariant
+val md_theme_light_primaryContainer =  Color(0xff2dd7e0) //основной контейнер - голубого цвета, по логике боттом бара *Назывался skyBlue
+val md_theme_light_onPrimaryContainer =  Color(0xFF202020)//цвет текста на голубом, основном контейнере *darkGrey32 в первичном наблоре
+val md_theme_light_secondary = Color(0xFF333333) // *darkGrey51 в первичном наборе
+val md_theme_light_onSecondary = Color(0xFCFFFF) //*imageBackground в первичном наборе
 val md_theme_light_secondaryContainer = Color(0xFFE8DEF8)
 val md_theme_light_onSecondaryContainer = Color(0xFF1D192B)
 val md_theme_light_tertiary = Color(0xFF202020)
-val md_theme_light_onTertiary = Color(0xFFEF5350)//контрастный, т.е. для выделения красным при навигации в экране
+val md_theme_light_onTertiary = Color(0xFFEF5350)//контрастный, т.е. для выделения красным при навигации в экране *secondary и Red в первичном
 val md_theme_light_tertiaryContainer = Color(0xFFFFD8E4)
 val md_theme_light_onTertiaryContainer = Color(0xFF31111D)
 val md_theme_light_error = Color(0xFFB3261E)

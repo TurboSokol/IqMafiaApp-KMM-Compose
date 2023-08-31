@@ -15,6 +15,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
@@ -38,7 +39,7 @@ fun IQVoteDialogView(
                 shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
                 shadowElevation = Dimensions.Elevation.xlarge, //TODO: Maybe it's wrong
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(Color.Transparent)
                     .padding(Dimensions.Padding.large),
             ) {
                 Column(
@@ -49,7 +50,7 @@ fun IQVoteDialogView(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                             .padding(bottom = Dimensions.Padding.medium),
                         text = label,
-                        color = MaterialTheme.colorScheme.background,
+                        color = Color.Transparent,
                         style = MaterialTheme.typography.labelSmall, //TODO: Maybe it's wrong
                         overflow = TextOverflow.Ellipsis
                     )
@@ -63,7 +64,7 @@ fun IQVoteDialogView(
                         }) {
                             Text(
                                 text = "1",
-                                color = MaterialTheme.colorScheme.onTertiary,
+                                color = Color.Transparent,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }

@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -277,7 +278,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 slotsState.tourSlotsList.forEachIndexed { index, gameSlotsList ->
                     Card(
                         modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                            .background(color = MaterialTheme.colorScheme.background)
+                            .background(color = Color.Transparent)
                             .border(width = 1.dp, color = MaterialTheme.colorScheme.outlineVariant),
                         elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
                     ) {

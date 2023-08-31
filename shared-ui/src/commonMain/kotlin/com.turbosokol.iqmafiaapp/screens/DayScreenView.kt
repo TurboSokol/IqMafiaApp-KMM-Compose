@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -171,10 +172,10 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             modifier = Modifier.padding(top = Dimensions.Padding.medium)
                 .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)), elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
         ) {
-            Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+            Column(modifier = Modifier.background(Color.Transparent)) {
                 //NOMINATED PLAYERS
                 Row(
-                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                    modifier = Modifier.background(Color.Transparent),
                     horizontalArrangement = Arrangement.Start
                 ) {
                     roundState.voteCandidates.forEach { voteNominant ->
@@ -214,7 +215,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
                 //VOTE COUNT
-                Row(modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                Row(modifier = Modifier.background(Color.Transparent),
                 horizontalArrangement = Arrangement.Start
                 ) {
                 roundState.voteCandidates.forEach { voteNomination ->
@@ -224,7 +225,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 1.dp,
                                 MaterialTheme.colorScheme.outline
                             )
-                        ).background(MaterialTheme.colorScheme.background),
+                        ).background(Color.Transparent),
                             onClick = {/* no-op */ }) {
                             val countVoting = roundState.voteResult[voteNomination].toString()
                             Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.secondary, fontWeight = FontWeight.ExtraBold)
