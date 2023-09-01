@@ -53,7 +53,7 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color =
             if (cardsState.isHidden) {
-                MaterialTheme.colorScheme.surface.copy(alpha = 0.1f)
+                MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
             } else {
                 when(cardsState.cardsList[cardsState.listIndex].type) {
                     CharacterCardType.SHERIFF -> Colors.red

@@ -50,7 +50,7 @@ fun IQAlertDialogView(
                 Column(
                     modifier = Modifier
                         .padding(Dimensions.Padding.medium)
-                        .background(MaterialTheme.colorScheme.tertiaryContainer)
+                        .background(Color.Transparent)//.background(MaterialTheme.colorScheme.tertiaryContainer)
                 ) {
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),

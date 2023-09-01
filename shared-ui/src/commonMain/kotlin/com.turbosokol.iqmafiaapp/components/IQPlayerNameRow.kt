@@ -40,7 +40,7 @@ fun IQPlayerNameRow(
     textName: String,
     isInputEnabled: Boolean,
     colorSlot: Color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.65f),
-    colorName: Color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f),
+    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit
 ) {

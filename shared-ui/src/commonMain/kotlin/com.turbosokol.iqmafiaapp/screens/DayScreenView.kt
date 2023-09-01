@@ -66,7 +66,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     //scrollable parent
     Column(
         modifier = Modifier.fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
+            .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
             .padding(Dimensions.Padding.medium)
             .verticalScroll(rememberScrollState())
     ) {
@@ -76,7 +76,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
             //players info column
             Column(
-                modifier = Modifier.background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
+                modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
                     .padding(Dimensions.Padding.xsmall)
             ) {
 
@@ -138,7 +138,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 )
                             )
                         },
-                        colorName = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f),
+                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
                         textName = name, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
@@ -152,7 +152,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         colorFault = when (dayState.playersFaults[playerIndex]) {
                             3 -> MaterialTheme.colorScheme.onPrimary
                             4 -> MaterialTheme.colorScheme.onTertiary
-                            else -> MaterialTheme.colorScheme.surface
+                            else -> MaterialTheme.colorScheme.secondary
                         },
                         textFault = dayState.playersFaults[playerIndex].toString()
                     ) { changedText ->

@@ -17,10 +17,10 @@ object Strings {
     const val tourSlotsGenerateButton = "Generate Tournament"
     const val tourSlotsGamesListHeader = "TOURNAMENT SLOTS"
     const val tourSlotsNamesHeader = "SET PLAYERS"
-    const val singleSlotsHiddenLabel = "Get Slot"
+    const val singleSlotsHiddenLabel = "New Slot"
 
     //cards
-    const val getCard = "Get Card"
+    const val getCard = "New Card"
 
     //day
     const val dayNamesHeader = "Names"

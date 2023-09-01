@@ -119,7 +119,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))  //((alpha = 0.1f)
+                    .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))  //Used slots top line
                     .padding(start = Dimensions.Padding.medium, end = Dimensions.Padding.medium),
                 horizontalArrangement = if (showingNumbers.count() > 8) Arrangement.SpaceEvenly else Arrangement.Start
             ) {
@@ -143,7 +143,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
 
 
         TextButton(modifier = Modifier.fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
+            .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
             , onClick = {
             if (slotsState.slotsList.lastIndex != slotsState.listIndex) {
                 viewModel.execute(SlotsScreenAction.ShowNext)
