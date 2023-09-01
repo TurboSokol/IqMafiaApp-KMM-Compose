@@ -35,7 +35,6 @@ import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenAction
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -113,8 +112,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.75f)
-                        else MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.75f),
+                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
+                        else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
@@ -150,8 +149,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             ))
                         },
                         colorFault = when (dayState.playersFaults[playerIndex]) {
-                            3 -> MaterialTheme.colorScheme.onPrimary
-                            4 -> MaterialTheme.colorScheme.onTertiary
+                            3 -> MaterialTheme.colorScheme.inversePrimary
+                            4 -> MaterialTheme.colorScheme.tertiary
                             else -> MaterialTheme.colorScheme.secondary
                         },
                         textFault = dayState.playersFaults[playerIndex].toString()
@@ -179,15 +178,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     horizontalArrangement = Arrangement.Start
                 ) {
                     roundState.voteCandidates.forEach { voteNominant ->
-
-
-                        var voteButtonColor by remember { mutableStateOf(Colors.orange.copy(alpha = 0.6f)) } //MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
-                        var voteButtonColorState = voteButtonColorStateEnum.SURFACE
-                        when(voteButtonColorState) {
-                            voteButtonColorStateEnum.ONTERTIARY -> voteButtonColor = MaterialTheme.colorScheme.onTertiary
-                            voteButtonColorStateEnum.ONPRIMARY -> voteButtonColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f)
-                            voteButtonColorStateEnum.SURFACE -> voteButtonColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
-                        }
+                        var votingState by remember { mutableStateOf(VotingState.INIT) }
 
                         Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                             TextButton(modifier = Modifier.border(
@@ -195,19 +186,21 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                     1.dp,
                                     MaterialTheme.colorScheme.outline
                                 )
-                            ).background(voteButtonColor),
+                            ).background(color = when(votingState) {
+                                VotingState.INIT -> MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f)
+                                VotingState.VOTE_IN_PROGRESS -> MaterialTheme.colorScheme.tertiary
+                                VotingState.VOTE_FINISHED -> MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.4f)
+                            }),
                                 onClick = {
                                     MainScope().launch {
-                                        voteButtonColorState = voteButtonColorStateEnum.ONTERTIARY
-//                                        voteButtonColor = Colors.secondary // MaterialTheme.colorScheme.onTertiary //
+                                        votingState = VotingState.VOTE_IN_PROGRESS
                                         delay(1500)
-                                        voteButtonColorState = voteButtonColorStateEnum.ONPRIMARY
-//                                        voteButtonColor = Colors.primary.copy(alpha = 0.4f)  //MaterialTheme.colorScheme.onPrimary
+                                        votingState = VotingState.VOTE_FINISHED
                                         voteNominantSlot.value = voteNominant
                                         voteCountDialogVisible = true
                                     }
                                 }) {
-                                Text(text = voteNominant.toString(), color = MaterialTheme.colorScheme.secondary, fontWeight = FontWeight.ExtraBold)
+                                Text(text = voteNominant.toString(), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
                             }
                         }
 
@@ -228,7 +221,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         ).background(Color.Transparent),
                             onClick = {/* no-op */ }) {
                             val countVoting = roundState.voteResult[voteNomination].toString()
-                            Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.secondary, fontWeight = FontWeight.ExtraBold)
+                            Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
                         }
                     }
                 }
@@ -277,10 +270,6 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 }
 
 
-    enum class voteButtonColorStateEnum {
-        ONTERTIARY, ONPRIMARY, SURFACE
+    enum class VotingState {
+        INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
     }
-
-//voteButtonColorStateEnum.ONTERTIARY -> voteButtonColor = MaterialTheme.colorScheme.onTertiary
-//voteButtonColorStateEnum.ONPRIMARY -> voteButtonColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.4f)
-//voteButtonColorStateEnum.SURFACE -> voteButtonColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)

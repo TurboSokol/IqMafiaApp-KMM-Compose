@@ -73,7 +73,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                     shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
                     tonalElevation = Dimensions.Elevation.medium
                 )  {
-                    NavigationBar(containerColor = MaterialTheme.colorScheme.primaryContainer, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.navBarHeight)
+                    NavigationBar(containerColor = MaterialTheme.colorScheme.primaryContainer, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.NavBar.barHeight)
                     ) {
 
                         val tabsList = listOf<NavigationTabs>(
@@ -98,12 +98,12 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             IQBottomNavItemView(
                                 modifier = Modifier,
                                 icon = { Icon(imageVector = icon, contentDescription = null) },
-                                label = { Text(text = title, fontSize = 16.sp ) },
+                                label = { Text(text = title, fontSize = Dimensions.Components.NavBar.labelFontSize ) },
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
-                                selectedContentColor = MaterialTheme.colorScheme.onTertiary , // Colors.red
-                                unselectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer  //Colors.darkGrey51,
+                                selectedContentColor = MaterialTheme.colorScheme.tertiary,
+                                unselectedContentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         }
                     }

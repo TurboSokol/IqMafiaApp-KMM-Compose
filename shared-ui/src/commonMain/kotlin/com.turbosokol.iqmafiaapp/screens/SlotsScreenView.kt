@@ -132,7 +132,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
                         Text(
                             text = item.toString(),
                             fontSize = Dimensions.TextSize.large,
-                            color = MaterialTheme.colorScheme.onPrimary,
+                            color = MaterialTheme.colorScheme.inversePrimary,
                             textDecoration = TextDecoration.LineThrough,
                             fontWeight = FontWeight.Bold
                         )
@@ -154,7 +154,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
             Text(
                 text = if (slotsState.isHidden) Strings.singleSlotsHiddenLabel else slotsState.slotsList[slotsState.listIndex].toString(),
                 fontSize = if (slotsState.isHidden) Dimensions.TextSize.huge else Dimensions.TextSize.xhuge,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.inversePrimary
             )
         }
     }
@@ -187,7 +187,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
                     IQPlayerNameRow(modifier = Modifier,
                         slot = index, textName = name, isInputEnabled = true,
-                        colorSlot = MaterialTheme.colorScheme.onTertiary.copy(alpha = 0.7f),
+                        colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
                         colorName = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f)
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
@@ -224,8 +224,8 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 ),
                 label = { Text(text = Strings.tourSlotsGamesCountLabel) },
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    focusedBorderColor = MaterialTheme.colorScheme.inversePrimary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
                 ),
                 trailingIcon = {
                     TextButton(modifier = Modifier, onClick = {
@@ -251,7 +251,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         }
 
                     }) {
-                        Text(text = Strings.tourSlotsGenerateButton, color = MaterialTheme.colorScheme.onTertiary)
+                        Text(text = Strings.tourSlotsGenerateButton, color = MaterialTheme.colorScheme.tertiary)
                     }
                 })
         }
@@ -260,7 +260,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             IQDialog(dismiss = { /* no-op */ }) {
                 IQLoaderView(
                     modifier = Modifier.padding(100.dp),
-                    strokeColor = MaterialTheme.colorScheme.onTertiary,
+                    strokeColor = MaterialTheme.colorScheme.tertiary,
                     strokeSize = 7.dp
                 ) { /* no-op */ }
             }
@@ -320,7 +320,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     },
                         shape = Shapes().medium
                     ) {
-                        Text(modifier = Modifier, text = Strings.resetDialogLabel, color = MaterialTheme.colorScheme.onTertiary, fontSize = Dimensions.TextSize.smedium)
+                        Text(modifier = Modifier, text = Strings.resetDialogLabel, color = MaterialTheme.colorScheme.tertiary, fontSize = Dimensions.TextSize.smedium)
                     }
                 }
             }

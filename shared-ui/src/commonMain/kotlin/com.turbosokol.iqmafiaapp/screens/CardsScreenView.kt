@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import com.turbosokol.iqmafiaapp.components.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
@@ -84,13 +85,12 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                 fontWeight = FontWeight.Bold,
                 color = if (!cardsState.isHidden) {
                     when (cardsState.cardsList[cardsState.listIndex].type) {
-                        CharacterCardType.SHERIFF -> Colors.darkGrey32
+                        CharacterCardType.SHERIFF -> Colors.darkGrey51
                         CharacterCardType.DON -> Colors.red
-                        CharacterCardType.RED -> Colors.red
-                        CharacterCardType.BLACK -> Colors.darkGrey32
+                        else -> Color.Transparent
                     }
                 } else {
-                    MaterialTheme.colorScheme.onPrimary
+                    MaterialTheme.colorScheme.inversePrimary
                 }
             )
         }

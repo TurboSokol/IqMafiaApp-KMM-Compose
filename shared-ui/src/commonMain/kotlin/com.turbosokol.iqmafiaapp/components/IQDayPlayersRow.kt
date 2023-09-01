@@ -27,7 +27,7 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
 fun IQDayPlayersRow(
     slot: Int,
     onSlotClick: (() -> Unit?)? = null,
-    colorSlot: Color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.65f),
+    colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
     textName: String,
     isNameInputEnabled: Boolean,
     colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
@@ -50,7 +50,7 @@ fun IQDayPlayersRow(
                 textAlign = TextAlign.Center,
                 fontSize = Dimensions.TextSize.smedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }

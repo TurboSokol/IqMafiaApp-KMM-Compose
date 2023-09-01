@@ -27,7 +27,7 @@ fun IQRoundProgressView(
     modifier: Modifier = Modifier,
     animProgress: Float,
     diameter: Dp = 40.dp,
-    color: Color = MaterialTheme.colorScheme.onTertiary,
+    color: Color = MaterialTheme.colorScheme.tertiary,
     strokeWidth: Dp = 3.dp
 ) {
 

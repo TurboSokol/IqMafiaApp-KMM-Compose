@@ -8,6 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
@@ -39,7 +40,7 @@ fun IQPlayerNameRow(
     slot: Int,
     textName: String,
     isInputEnabled: Boolean,
-    colorSlot: Color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.65f),
+    colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
     colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit
@@ -63,7 +64,7 @@ fun IQPlayerNameRow(
                 text = (slot + 1).toString(), textAlign = TextAlign.Center,
                 fontSize = Dimensions.TextSize.smedium,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
 
@@ -88,6 +89,10 @@ fun IQPlayerNameRow(
             singleLine = true,
             readOnly = !isInputEnabled,
             shape = MaterialTheme.shapes.large,
-            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color.Transparent, unfocusedBorderColor = Color.Transparent))
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent,
+            )
+        )
     }
 }

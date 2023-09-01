@@ -68,7 +68,7 @@ fun IQAlertDialogView(
                         TextButton(onClick = onCancel) {
                             Text(
                                 text = "NO",
-                                color = MaterialTheme.colorScheme.onTertiary,
+                                color = MaterialTheme.colorScheme.tertiary,
                                 fontSize = Dimensions.TextSize.medium
                             )
                         }
