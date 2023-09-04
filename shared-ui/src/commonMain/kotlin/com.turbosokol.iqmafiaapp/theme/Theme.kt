@@ -49,6 +49,7 @@ private val LightColors = lightColorScheme(
     tertiary = Colors.md_theme_light_tertiary,
     background = Colors.md_theme_light_background,
     onBackground = Colors.md_theme_light_onBackground,
+    outline = Colors.md_theme_light_outline
 )
 
 
