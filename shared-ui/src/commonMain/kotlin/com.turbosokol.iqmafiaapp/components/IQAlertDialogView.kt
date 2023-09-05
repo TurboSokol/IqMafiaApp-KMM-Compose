@@ -50,14 +50,13 @@ fun IQAlertDialogView(
                 Column(
                     modifier = Modifier
                         .padding(Dimensions.Padding.medium)
-                        .background(Color.Transparent)//.background(MaterialTheme.colorScheme.tertiaryContainer)
+                        //          .background(Color.Transparent)//.background(MaterialTheme.colorScheme.tertiaryContainer)
                 ) {
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         text = label,
-                        color = MaterialTheme.colorScheme.inverseSurface,
-//                        style = MaterialTheme.typography.subtitle1,
-                        style = MaterialTheme.typography.titleSmall,//TODO: Delete if OK
+                        color = MaterialTheme.colorScheme.onPrimary, //TODO: Maybe it needs more light color
+                        style = MaterialTheme.typography.titleSmall,
                         overflow = TextOverflow.Ellipsis
                     )
 

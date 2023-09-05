@@ -41,8 +41,8 @@ object Colors {
     val md_theme_light_secondary = Color(0xffe0d438) //оранжевый цвет, фон
     val md_theme_light_secondaryContainer = Color(0xF3F3F3) //светло-серый
     val md_theme_light_tertiary = Color(0xFFEF5350)//красный, фон, текст
-    val md_theme_light_background = Color(0x00000000) //белый
-    val md_theme_light_onBackground = Color(0xFFFFFFFF) //черный
+    val md_theme_light_background = Color(0x00000000) //транспарент
+    val md_theme_light_onBackground = Color(0xFFFFFFFF) //белый
     val md_theme_light_outline = Color(0xFF757575) //серый
 }
 

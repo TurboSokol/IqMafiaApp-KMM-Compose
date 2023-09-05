@@ -127,7 +127,7 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
                     Box(
                         modifier = Modifier
                             .padding(Dimensions.Padding.smedium)
-                            .background(color = MaterialTheme.colorScheme.surfaceTint)//surface.copy(alpha = 0.1f))
+                            .background(color = MaterialTheme.colorScheme.secondaryContainer)//surface.copy(alpha = 0.1f))
                     ) {
                         Text(
                             text = item.toString(),
@@ -172,7 +172,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.1f))
+            .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
             .padding(Dimensions.Padding.medium)
     ) {
         Text(
@@ -188,7 +188,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     IQPlayerNameRow(modifier = Modifier,
                         slot = index, textName = name, isInputEnabled = true,
                         colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
-                        colorName = MaterialTheme.colorScheme.surface.copy(alpha = 0.1f)
+                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
                     ) { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
                         newNames[index] = changedText
@@ -278,14 +278,14 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 slotsState.tourSlotsList.forEachIndexed { index, gameSlotsList ->
                     Card(
                         modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                            .background(color = Color.Transparent)
-                            .border(width = 1.dp, color = MaterialTheme.colorScheme.outlineVariant),
+                            .background(color = MaterialTheme.colorScheme.onBackground)
+                            .border(width = 1.dp, color = MaterialTheme.colorScheme.secondaryContainer),
                         elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
                     ) {
                         Column {
                             Row(
                                 modifier = Modifier.fillMaxSize()
-                                    .background(color = MaterialTheme.colorScheme.onError),
+                                    .background(color = Color.Transparent),
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
