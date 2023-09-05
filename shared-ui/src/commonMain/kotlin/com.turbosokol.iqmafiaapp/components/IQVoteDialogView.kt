@@ -37,7 +37,7 @@ fun IQVoteDialogView(
         IQDialog(dismiss = onCancel) {
             Surface(
                 shape = RoundedCornerShape(Dimensions.CornerRadius.xlarge),
-                shadowElevation = Dimensions.Elevation.xlarge, //TODO: Maybe it's wrong
+                shadowElevation = Dimensions.Elevation.xlarge,
                 modifier = Modifier
                     .background(Color.Transparent)
                     .padding(Dimensions.Padding.large),
@@ -50,8 +50,8 @@ fun IQVoteDialogView(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                             .padding(bottom = Dimensions.Padding.medium),
                         text = label,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.labelSmall, //TODO: Maybe it's wrong
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.labelSmall,
                         overflow = TextOverflow.Ellipsis
                     )
 
