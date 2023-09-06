@@ -301,7 +301,7 @@ fun IQLoaderView(
         ) {
             Text(
                 text = "please wait",
-                style = typography.bodyMedium, //TODO: Maybe it's wrong
+                style = typography.bodyMedium,
                 color = strokeColor,
                 modifier = Modifier
                     .graphicsLayer {

@@ -1,8 +1,5 @@
 package com.turbosokol.iqmafiaapp.components
 
-//import androidx.compose.material3.ContentAlpha
-//import androidx.compose.material3.LocalContentAlpha
-//import androidx.compose.material.MaterialTheme
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
@@ -23,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.layout.Layout
@@ -33,7 +29,6 @@ import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -152,7 +147,7 @@ private fun BottomNavigationTransition(
 
     CompositionLocalProvider(
         LocalContentColor provides color.copy(alpha = 1f),
-        //LocalContentAlpha provides color.alpha, //TODO: Maybe it's wrong
+      //  LocalContentAlpha provides color.alpha, //TODO: Maybe it's wrong
     ) {
         content(animationProgress)
     }

@@ -52,7 +52,7 @@ fun IQCollapsedSwitchFABView(
             onClick = { isCollapsed = false },
             modifier = modifier,
             content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
-            containerColor = if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary //TODO: Maybe it's wrong
+            containerColor = if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
         )
     }
 
@@ -75,7 +75,7 @@ fun IQCollapsedSwitchFABView(
                     }
                 })
             },
-            containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary //TODO: Maybe it's wrong
+            containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
         )
     }
 

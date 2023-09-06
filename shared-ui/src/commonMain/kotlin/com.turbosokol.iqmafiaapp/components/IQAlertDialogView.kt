@@ -55,7 +55,7 @@ fun IQAlertDialogView(
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         text = label,
-                        color = MaterialTheme.colorScheme.onPrimary, //TODO: Maybe it needs more light color
+                        color = MaterialTheme.colorScheme.onPrimary,
                         style = MaterialTheme.typography.titleSmall,
                         overflow = TextOverflow.Ellipsis
                     )
