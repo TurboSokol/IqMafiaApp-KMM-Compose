@@ -172,11 +172,12 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.1f))
+            .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.05f))
             .padding(Dimensions.Padding.medium)
     ) {
         Text(
             text = Strings.tourSlotsNamesHeader,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontSize = Dimensions.TextSize.large,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)

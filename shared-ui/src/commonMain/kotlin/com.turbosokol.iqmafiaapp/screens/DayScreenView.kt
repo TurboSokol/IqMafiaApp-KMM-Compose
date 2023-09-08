@@ -3,6 +3,7 @@ package com.turbosokol.iqmafiaapp.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -49,7 +52,7 @@ import kotlinx.coroutines.launch
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
@@ -260,10 +263,13 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
             horizontalArrangement = Arrangement.Center
         ) {
-            TextButton(modifier = Modifier.border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)), onClick = {
+            Card(modifier = Modifier.background(
+                Color.Transparent).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)).clickable {
                 voteResultsDialogVisible = true
-            }) {
-                Text("End Vote")
+            },
+                elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
+               ) {
+                Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(Color.Transparent))
             }
         }
     } //END SCROLLABLE
