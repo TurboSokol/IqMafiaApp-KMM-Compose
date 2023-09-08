@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -30,10 +28,8 @@ import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.dp
-import org.brightify.hyperdrive.utils.toOptional
+import com.turbosokol.iqmafiaapp.theme.Dimensions
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -42,12 +38,10 @@ import kotlin.math.roundToInt
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-private val ItemHorizontalPadding = 1.dp
 private val BottomNavigationAnimationSpec = TweenSpec<Float>(
     durationMillis = 300,
     easing = FastOutSlowInEasing
 )
-private val CombinedItemTextBaseline = 12.dp
 
 @Composable
 fun RowScope.IQBottomNavItemView(
@@ -59,12 +53,12 @@ fun RowScope.IQBottomNavItemView(
     label: @Composable (() -> Unit),
     alwaysShowLabel: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    selectedContentColor: Color = LocalContentColor.current,
-    unselectedContentColor: Color = selectedContentColor.copy(alpha = ContentAlpha.medium)
+    selectedContentColor: Color,
+    unselectedContentColor: Color
 ) {
     val styledLabel: @Composable (() -> Unit) =
         @Composable {
-            val style = MaterialTheme.typography.caption.copy(textAlign = TextAlign.Center)
+            val style = MaterialTheme.typography.bodyMedium
             ProvideTextStyle(style, content = label)
     }
     // The color of the Ripple should always the selected color, as we want to show the color
@@ -115,13 +109,13 @@ private fun BottomNavigationItemBaselineLayout(
                 Modifier
                     .layoutId("label")
                     .alpha(iconPositionAnimationProgress)
-                    .padding(horizontal = ItemHorizontalPadding)
+                    .padding(horizontal = Dimensions.Components.NavBar.itemHorizontalPadding)
             ) { label() }
         }
     ) { measurables, constraints ->
         val iconPlaceable = measurables.first { it.layoutId == "icon" }.measure(constraints)
 
-        val labelPlaceable = label?.let {
+        val labelPlaceable = label.let {
             measurables.first { it.layoutId == "label" }.measure(
                 // Measure with loose constraints for height as we don't want the label to take up more
                 // space than it needs
@@ -129,7 +123,7 @@ private fun BottomNavigationItemBaselineLayout(
             )
         }
         placeLabelAndIcon(
-            labelPlaceable!!,
+            labelPlaceable,
             iconPlaceable,
             constraints,
             iconPositionAnimationProgress
@@ -153,7 +147,6 @@ private fun BottomNavigationTransition(
 
     CompositionLocalProvider(
         LocalContentColor provides color.copy(alpha = 1f),
-        LocalContentAlpha provides color.alpha,
     ) {
         content(animationProgress)
     }
@@ -172,7 +165,7 @@ private fun MeasureScope.placeLabelAndIcon(
     // have a better strategy than overlapping the icon and label
     val baseline = labelPlaceable[LastBaseline]
 
-    val baselineOffset = CombinedItemTextBaseline.roundToPx()
+    val baselineOffset = Dimensions.Components.NavBar.combinedItemTextBaseline.roundToPx()
 
     // Label should be [baselineOffset] from the bottom
     val labelY = height - baseline - baselineOffset

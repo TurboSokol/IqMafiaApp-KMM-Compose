@@ -10,10 +10,11 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
-import androidx.compose.material.ExtendedFloatingActionButton
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.IntOffset
-import com.turbosokol.iqmafiaapp.theme.Colors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -52,7 +52,7 @@ fun IQCollapsedSwitchFABView(
             onClick = { isCollapsed = false },
             modifier = modifier,
             content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
-            backgroundColor = if (mToggled) Colors.secondary else Colors.primary
+            containerColor = if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
         )
     }
 
@@ -75,7 +75,7 @@ fun IQCollapsedSwitchFABView(
                     }
                 })
             },
-            backgroundColor =  if (mToggled) Colors.secondary else Colors.primary
+            containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
         )
     }
 

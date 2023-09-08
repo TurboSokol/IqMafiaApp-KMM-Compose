@@ -5,9 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 /***
@@ -23,22 +22,22 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-@OptIn(ExperimentalMaterialApi::class)
+
 @Composable
 fun IQDayPlayersRow(
     slot: Int,
     onSlotClick: (() -> Unit?)? = null,
-    colorSlot: Color = Colors.primary.copy(alpha = 0.65f),
+    colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
     textName: String,
     isNameInputEnabled: Boolean,
-    colorName: Color = Colors.orange.copy(alpha = 0.1f),
+    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     colorFault: Color,
     textFault: String,
     onFaultClick: () -> Unit,
     onNameChanged: (String) -> Unit
 ) {
     Row(modifier = Modifier.background(color = colorFault).border(
-        BorderStroke(0.5.dp, color = Colors.gray)
+        BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
     )) {
         IQPlayerNameRow(modifier = Modifier.weight(0.85f), slot, textName, isNameInputEnabled, colorSlot, colorName, onSlotClick, onNameChanged)
         TextButton(
@@ -51,7 +50,7 @@ fun IQDayPlayersRow(
                 textAlign = TextAlign.Center,
                 fontSize = Dimensions.TextSize.smedium,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }

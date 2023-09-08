@@ -2,6 +2,7 @@ package com.turbosokol.iqmafiaapp.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.outlined.NightsStay
 import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -37,7 +39,6 @@ import com.turbosokol.iqmafiaapp.screens.DayScreenView
 import com.turbosokol.iqmafiaapp.screens.NightScreenView
 import com.turbosokol.iqmafiaapp.screens.ScoreScreenView
 import com.turbosokol.iqmafiaapp.screens.SlotsScreenView
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.IqMafiaAppTheme
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -72,7 +73,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                     shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
                     tonalElevation = Dimensions.Elevation.medium
                 )  {
-                    NavigationBar(containerColor = Colors.skyBlue, windowInsets = WindowInsets(30, 10, 10, 40)
+                    NavigationBar(containerColor = MaterialTheme.colorScheme.primaryContainer, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.NavBar.barHeight)
                     ) {
 
                         val tabsList = listOf<NavigationTabs>(
@@ -88,7 +89,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             val (title, icon, action) = when (tab) {
                                 NavigationTabs.SLOTS -> Triple("Slots", Icons.Outlined.Chair, NavigationAction.SlotsScreen(appState.getSlotsState()))
                                 NavigationTabs.CARDS -> Triple("Cards", Icons.Outlined.PlayingCardsIcon, NavigationAction.CardsScreen(appState.getCardsState()))
-                                NavigationTabs.ACHIEVEMENT -> Triple("Achieve", Icons.Outlined.WorkspacePremium, NavigationAction.AchievementScreen(appState.getAchievementScreenState()))
+                                NavigationTabs.ACHIEVEMENT -> Triple("Dops", Icons.Outlined.WorkspacePremium, NavigationAction.AchievementScreen(appState.getAchievementScreenState()))
                                 NavigationTabs.DAY -> Triple("Day", Icons.Outlined.WbSunny, NavigationAction.DayScreen(appState.getDayState()))
                                 NavigationTabs.NIGHT -> Triple("Night", Icons.Outlined.NightsStay, NavigationAction.NightsScreen(appState.getNightState()))
                                 NavigationTabs.SCORE -> Triple("Score", Icons.Outlined.Insights, NavigationAction.ScoreScreen(appState.getScoreState()))
@@ -97,12 +98,12 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             IQBottomNavItemView(
                                 modifier = Modifier,
                                 icon = { Icon(imageVector = icon, contentDescription = null) },
-                                label = { Text(text = title, fontSize = 14.sp ) },
+                                label = { Text(text = title, fontSize = Dimensions.Components.NavBar.labelFontSize ) },
                                 selected = selectedTab == tab,
                                 alwaysShowLabel = true,
                                 onClick = { viewModel.execute(action) },
-                                selectedContentColor = Colors.red,
-                                unselectedContentColor = Colors.darkGrey51,
+                                selectedContentColor = MaterialTheme.colorScheme.tertiary,
+                                unselectedContentColor = MaterialTheme.colorScheme.onPrimary
                             )
                         }
                     }

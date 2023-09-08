@@ -1,9 +1,9 @@
 package com.turbosokol.iqmafiaapp.screens
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,36 +12,32 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.shape.RoundedCornerShape
-
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.CardDefaults
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
-import com.turbosokol.iqmafiaapp.components.IQDialog
 import com.turbosokol.iqmafiaapp.components.IQVoteDialogType
 import com.turbosokol.iqmafiaapp.components.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenAction
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -56,7 +52,7 @@ import kotlinx.coroutines.launch
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
@@ -72,7 +68,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     //scrollable parent
     Column(
         modifier = Modifier.fillMaxSize()
-            .background(color = Colors.orange.copy(alpha = 0.1f))
+            .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
             .padding(Dimensions.Padding.medium)
             .verticalScroll(rememberScrollState())
     ) {
@@ -82,7 +78,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
             //players info column
             Column(
-                modifier = Modifier.background(color = Colors.orange.copy(alpha = 0.1f))
+                modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
                     .padding(Dimensions.Padding.xsmall)
             ) {
 
@@ -119,9 +115,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.voteNomination[playerIndex]) Colors.primary.copy(
-                            alpha = 0.75f
-                        ) else Colors.secondary.copy(alpha = 0.75f),
+                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
+                        else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
@@ -145,7 +140,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 )
                             )
                         },
-                        colorName = Colors.orange.copy(alpha = 0.1f),
+                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
                         textName = name, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
@@ -157,9 +152,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             ))
                         },
                         colorFault = when (dayState.playersFaults[playerIndex]) {
-                            3 -> Colors.primary
-                            4 -> Colors.secondary
-                            else -> Colors.orange
+                            3 -> MaterialTheme.colorScheme.inversePrimary
+                            4 -> MaterialTheme.colorScheme.tertiary
+                            else -> MaterialTheme.colorScheme.secondary
                         },
                         textFault = dayState.playersFaults[playerIndex].toString()
                     ) { changedText ->
@@ -177,7 +172,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         //VOTE CARD
         Card(
             modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                .border(BorderStroke(1.dp, Colors.gray)), elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
+                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)), elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
         ) {
             Column(modifier = Modifier.background(Color.Transparent)) {
                 //NOMINATED PLAYERS
@@ -186,24 +181,29 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     horizontalArrangement = Arrangement.Start
                 ) {
                     roundState.voteCandidates.forEach { voteNominant ->
-                        var voteButtonColor by remember { mutableStateOf(Colors.orange.copy(alpha = 0.6f)) }
+                        var votingState by remember { mutableStateOf(VotingState.INIT) }
+
                         Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
                             TextButton(modifier = Modifier.border(
                                 BorderStroke(
                                     1.dp,
-                                    Colors.gray
+                                    MaterialTheme.colorScheme.outline
                                 )
-                            ).background(voteButtonColor),
+                            ).background(color = when(votingState) {
+                                VotingState.INIT -> MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f)
+                                VotingState.VOTE_IN_PROGRESS -> MaterialTheme.colorScheme.tertiary
+                                VotingState.VOTE_FINISHED -> MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.4f)
+                            }),
                                 onClick = {
                                     MainScope().launch {
-                                        voteButtonColor = Colors.secondary
+                                        votingState = VotingState.VOTE_IN_PROGRESS
                                         delay(1500)
-                                        voteButtonColor = Colors.primary.copy(alpha = 0.4f)
+                                        votingState = VotingState.VOTE_FINISHED
                                         voteNominantSlot.value = voteNominant
                                         voteCountDialogVisible = true
                                     }
                                 }) {
-                                Text(text = voteNominant.toString(), color = Colors.darkGrey51, fontWeight = FontWeight.ExtraBold)
+                                Text(text = voteNominant.toString(), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
                             }
                         }
 
@@ -219,12 +219,12 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         TextButton(modifier = Modifier.border(
                             BorderStroke(
                                 1.dp,
-                                Colors.gray
+                                MaterialTheme.colorScheme.outline
                             )
                         ).background(Color.Transparent),
                             onClick = {/* no-op */ }) {
                             val countVoting = roundState.voteResult[voteNomination].toString()
-                            Text(text = if (countVoting == "null") "-" else countVoting, color = Colors.darkGrey51, fontWeight = FontWeight.ExtraBold)
+                            Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
                         }
                     }
                 }
@@ -263,11 +263,19 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
             horizontalArrangement = Arrangement.Center
         ) {
-            TextButton(modifier = Modifier.border(BorderStroke(1.dp, Colors.gray)), onClick = {
+            Card(modifier = Modifier.background(
+                Color.Transparent).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)).clickable {
                 voteResultsDialogVisible = true
-            }) {
-                Text("End Vote")
+            },
+                elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
+               ) {
+                Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(Color.Transparent))
             }
         }
     } //END SCROLLABLE
 }
+
+
+    enum class VotingState {
+        INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
+    }

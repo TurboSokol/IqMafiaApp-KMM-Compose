@@ -31,24 +31,18 @@ import androidx.compose.ui.graphics.Color
 //}
 
 object Colors {
-
-    val primary = Color(0xFF81C784) // Зеленый цвет
-    val primaryVariant = Color(0xFFECFFF3)
-    val secondary = Color(0xFFEF5350) // Бирюзовый цвет
-    val secondaryVariant = Color(0xFF81C784)
-    val secondaryLighter = Color(0xFFB0BEC5) // Светлый бирюзовый цвет
-
-    val imageBackground = Color(0xFCFFFF) // Очень светло-серый цвет
-    val darkBlue = Color(0xff4bcbe0) // Темно-бирюзовый цвет
-    val skyBlue = Color(0xff2dd7e0) // Светло-голубой цвет
-    val orange = Color(0xffe0d438) // Светло-коралловый цвет
-
-    val lightGray = Color(0xFF81C784)
-    val white = Color(0xFFFFFFFF)
     val red = Color(0xFFEF5350)
-    val gray = Color (0xFF757575)
-
     val darkGrey51 = Color(0xFF333333)
-    val darkGrey32 = Color(0xFF202020)
+
+    val md_theme_light_primary = Color(0xFFCFD8DC) //Шиммер
+    val md_theme_light_onPrimary = Color(0xFF202020) //темно-серый, основной цвет шрифта
+    val md_theme_light_inversePrimary = Color(0xFF81C784) //зеленый цвет, фон, текст
+    val md_theme_light_primaryContainer =  Color(0xff2dd7e0) //голубой цвет, контейнер боттом бара
+    val md_theme_light_secondary = Color(0xffe0d438) //оранжевый цвет, фон
+    val md_theme_light_secondaryContainer = Color(0xF3F3F3) //светло-серый
+    val md_theme_light_tertiary = Color(0xFFEF5350)//красный, фон, текст
+    val md_theme_light_background = Color(0x00000000) //транспарент
+    val md_theme_light_onBackground = Color(0xFFFFFFFF) //белый
+    val md_theme_light_outline = Color(0xFF757575) //серый
 }
 

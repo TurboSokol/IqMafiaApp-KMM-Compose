@@ -40,4 +40,14 @@ object Dimensions {
         val large = 16.dp
         val xlarge = 24.dp
     }
+
+    object Components {
+        object NavBar {
+            val barHeight = 60.dp
+            val itemHorizontalPadding = 1.dp
+            val combinedItemTextBaseline = 12.dp
+            val labelFontSize = 16.sp
+        }
+    }
+
 }
