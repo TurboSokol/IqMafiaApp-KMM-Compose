@@ -270,19 +270,13 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium).background(Color.Transparent),
             horizontalArrangement = Arrangement.Center
         ) {
-         //   Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.Transparent),
-           //     modifier = Modifier.background(Color.Transparent).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
-             //       .padding(Dimensions.Padding.xsmall), //elevation = ButtonDefaults.buttonElevation(Dimensions.Elevation.small)
-           // ){
-             //   Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
-               // voteResultsDialogVisible = true
-            //}
-           Card(modifier = Modifier.fillMaxHeight().wrapContentWidth().border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)).padding(Dimensions.Padding.smedium).background(
+           Card(modifier = Modifier.fillMaxHeight().wrapContentWidth()
+               .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
+               .padding(Dimensions.Padding.smedium).background(
                Color.Transparent).clickable {
                voteResultsDialogVisible = true
-           },
-              // elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
-              ) {
+           }, colors = CardDefaults.cardColors(Color.Transparent)
+             ) {
                Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)))
            }
         }
@@ -293,10 +287,3 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     enum class VotingState {
         INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
     }
-
-fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
-    clickable(indication = null,
-        interactionSource = remember { MutableInteractionSource() }) {
-        onClick()
-    }
-}
