@@ -4,14 +4,19 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
@@ -27,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -221,7 +227,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 1.dp,
                                 MaterialTheme.colorScheme.outline
                             )
-                        ).background(Color.Transparent),
+                        ).background(Color.Transparent)
+                            .padding(15.dp),
                             onClick = {/* no-op */ }) {
                             val countVoting = roundState.voteResult[voteNomination].toString()
                             Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
@@ -260,17 +267,24 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
+            modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium).background(Color.Transparent),
             horizontalArrangement = Arrangement.Center
         ) {
-            Card(modifier = Modifier.background(
-                Color.Transparent).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)).clickable {
-                voteResultsDialogVisible = true
-            },
-                elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
-               ) {
-                Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(Color.Transparent))
-            }
+         //   Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.Transparent),
+           //     modifier = Modifier.background(Color.Transparent).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
+             //       .padding(Dimensions.Padding.xsmall), //elevation = ButtonDefaults.buttonElevation(Dimensions.Elevation.small)
+           // ){
+             //   Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
+               // voteResultsDialogVisible = true
+            //}
+           Card(modifier = Modifier.fillMaxHeight().wrapContentWidth().border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)).padding(Dimensions.Padding.smedium).background(
+               Color.Transparent).clickable {
+               voteResultsDialogVisible = true
+           },
+              // elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
+              ) {
+               Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)))
+           }
         }
     } //END SCROLLABLE
 }
@@ -279,3 +293,10 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     enum class VotingState {
         INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
     }
+
+fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
+    clickable(indication = null,
+        interactionSource = remember { MutableInteractionSource() }) {
+        onClick()
+    }
+}
