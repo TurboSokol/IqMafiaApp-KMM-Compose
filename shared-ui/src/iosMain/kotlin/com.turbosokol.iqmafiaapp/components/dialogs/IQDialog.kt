@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.components
+package com.turbosokol.iqmafiaapp.components.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

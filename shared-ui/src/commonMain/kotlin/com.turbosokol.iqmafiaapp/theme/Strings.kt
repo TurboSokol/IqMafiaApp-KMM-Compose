@@ -26,8 +26,14 @@ object Strings {
     const val dayNamesHeader = "Names"
     const val dayFaultsHeader = "Faults"
     const val daySlotsHeader = "Slots"
-    const val voteCountDialogLabel = "How many people voted?"
-    const val voteResultDialogLabel = "Who is the vote leader?"
+    const val voteCountDialogLabel = "Who is the vote leader?"
+    const val endDayDialogLabel = "Who leave party?"
+
+    //iq vote dialog
+    const val confirmDayEndButton = "CONFIRM DAY END"
+    const val noOneLeaveButton = "NO ONE LEAVE"
+    const val tapByMistakeButton = "Tap By Mistake?"
+    const val noOneLeftAlert = "Please select someone to leave"
 
 
 }

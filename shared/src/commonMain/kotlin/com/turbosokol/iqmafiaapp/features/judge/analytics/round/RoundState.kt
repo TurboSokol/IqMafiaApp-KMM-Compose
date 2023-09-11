@@ -35,6 +35,6 @@ sealed class RoundAction : Action {
     data class UpdateVoteResults(val voteCandidates: Map<Int, Int>): RoundAction()
 
     //write in local DB
-    data class RoundCompleted(val votedPlayer: Int) : RoundAction()
+    data class RoundCompleted(val votedPlayer: List<Int>) : RoundAction()
 
 }

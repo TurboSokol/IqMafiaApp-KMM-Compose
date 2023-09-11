@@ -48,6 +48,10 @@ object Dimensions {
             val combinedItemTextBaseline = 12.dp
             val labelFontSize = 16.sp
         }
+
+        object PrimaryButton {
+            val elevation = 2.dp
+        }
     }
 
 }
