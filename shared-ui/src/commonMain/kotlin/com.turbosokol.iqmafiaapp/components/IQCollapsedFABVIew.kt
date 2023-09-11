@@ -10,9 +10,12 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.round
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -51,6 +55,7 @@ fun IQCollapsedSwitchFABView(
         FloatingActionButton(
             onClick = { isCollapsed = false },
             modifier = modifier,
+            shape = CircleShape,
             content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
             containerColor = if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
         )
