@@ -28,6 +28,7 @@ object Strings {
     const val daySlotsHeader = "Slots"
     const val voteCountDialogLabel = "Who is the vote leader?"
     const val endDayDialogLabel = "Who leave party?"
+    const val endDayButton = "End Vote"
 
     //iq vote dialog
     const val confirmDayEndButton = "CONFIRM DAY END"
