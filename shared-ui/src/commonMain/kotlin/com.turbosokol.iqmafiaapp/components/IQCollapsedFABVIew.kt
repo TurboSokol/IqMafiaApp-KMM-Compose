@@ -10,13 +10,13 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,12 +24,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.round
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -50,7 +50,7 @@ fun IQCollapsedSwitchFABView(
     AnimatedVisibility(
         visible = isCollapsed,
         exit = slideOutHor(),
-        modifier = modifier
+        modifier = modifier.background(color = Color.Transparent) //Color AROUND the Game button
     ) {
         FloatingActionButton(
             onClick = { isCollapsed = false },
@@ -68,7 +68,7 @@ fun IQCollapsedSwitchFABView(
     ) {
         ExtendedFloatingActionButton(
             onClick = { isCollapsed = true },
-            modifier = modifier,
+            modifier = Modifier.background(Color.Transparent), //Color Around of extending
             text = { Text(expandedText) },
             icon = {
                 Switch(checked = mToggled, onCheckedChange = {
@@ -78,10 +78,11 @@ fun IQCollapsedSwitchFABView(
                         delay(1200)
                         isCollapsed = true
                     }
-                })
+                }, colors = SwitchDefaults.colors(MaterialTheme.colorScheme.secondary)) //color of the Round Toggler
             },
-            containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
-        )
+            containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary, //Main color of
+            //contentColor = Color.Yellow   //color of Tournament Mode string
+            )
     }
 
 }
