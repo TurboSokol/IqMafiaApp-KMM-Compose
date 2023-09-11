@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.components
+package com.turbosokol.iqmafiaapp.components.dialogs
 
 import androidx.compose.runtime.Composable
 
