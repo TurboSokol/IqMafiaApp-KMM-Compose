@@ -37,7 +37,7 @@ object Dimensions {
     object CornerRadius {
         val small = 4.dp
         val medium = 8.dp
-        val large = 16.dp
+        val large = 12.dp
         val xlarge = 24.dp
     }
 

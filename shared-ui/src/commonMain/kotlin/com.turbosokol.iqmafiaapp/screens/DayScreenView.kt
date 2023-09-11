@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -84,7 +87,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
             //players info column
             Column(
-                modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
+                modifier = Modifier.background(
+                    color = MaterialTheme.colorScheme.secondary.copy(
+                        alpha = 0.1f
+                    )
+                )
                     .padding(Dimensions.Padding.xsmall)
             ) {
 
@@ -121,7 +128,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
+                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(
+                            alpha = 0.75f
+                        )
                         else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
@@ -178,7 +187,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         //VOTE CARD
         Card(
             modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)), elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
+                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)),
+            elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
         ) {
             Column(modifier = Modifier.background(Color.Transparent)) {
                 //NOMINATED PLAYERS
@@ -189,17 +199,28 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     roundState.voteCandidates.forEach { voteNominant ->
                         var votingState by remember { mutableStateOf(VotingState.INIT) }
 
-                        Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
+                        Card(
+                            modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(
+                                1f
+                            )
+                        ) {
                             TextButton(modifier = Modifier.border(
                                 BorderStroke(
                                     1.dp,
                                     MaterialTheme.colorScheme.outline
                                 )
-                            ).background(color = when(votingState) {
-                                VotingState.INIT -> MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f)
-                                VotingState.VOTE_IN_PROGRESS -> MaterialTheme.colorScheme.tertiary
-                                VotingState.VOTE_FINISHED -> MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.4f)
-                            }),
+                            ).background(
+                                color = when (votingState) {
+                                    VotingState.INIT -> MaterialTheme.colorScheme.secondary.copy(
+                                        alpha = 0.6f
+                                    )
+
+                                    VotingState.VOTE_IN_PROGRESS -> MaterialTheme.colorScheme.tertiary
+                                    VotingState.VOTE_FINISHED -> MaterialTheme.colorScheme.inversePrimary.copy(
+                                        alpha = 0.4f
+                                    )
+                                }
+                            ),
                                 onClick = {
                                     MainScope().launch {
                                         votingState = VotingState.VOTE_IN_PROGRESS
@@ -209,7 +230,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                         voteCountDialogVisible = true
                                     }
                                 }) {
-                                Text(text = voteNominant.toString(), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
+                                Text(
+                                    text = voteNominant.toString(),
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontWeight = FontWeight.ExtraBold
+                                )
                             }
                         }
 
@@ -217,25 +242,33 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
                 //VOTE COUNT
-                Row(modifier = Modifier.background(Color.Transparent),
-                horizontalArrangement = Arrangement.Start
+                Row(
+                    modifier = Modifier.background(Color.Transparent),
+                    horizontalArrangement = Arrangement.Start
                 ) {
-                roundState.voteCandidates.forEach { voteNomination ->
-                    Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
-                        TextButton(modifier = Modifier.border(
-                            BorderStroke(
-                                1.dp,
-                                MaterialTheme.colorScheme.outline
+                    roundState.voteCandidates.forEach { voteNomination ->
+                        Card(
+                            modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(
+                                1f
                             )
-                        ).background(Color.Transparent)
-                            .padding(15.dp),
-                            onClick = {/* no-op */ }) {
-                            val countVoting = roundState.voteResult[voteNomination].toString()
-                            Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
+                        ) {
+                            TextButton(modifier = Modifier.border(
+                                BorderStroke(
+                                    1.dp,
+                                    MaterialTheme.colorScheme.outline
+                                )
+                            ).background(Color.Transparent),
+                                onClick = {/* no-op */ }) {
+                                val countVoting = roundState.voteResult[voteNomination].toString()
+                                Text(
+                                    text = if (countVoting == "null") "-" else countVoting,
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    fontWeight = FontWeight.ExtraBold
+                                )
+                            }
                         }
                     }
                 }
-            }
             }
         } //END VOTE CARD
 
@@ -246,11 +279,17 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             label = Strings.voteCountDialogLabel,
             type = IQVoteDialogType.VOTE_RESULTS,
             onConfirm = { index ->
-                viewModel.execute(RoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to index)))
+                viewModel.execute(
+                    RoundAction.UpdateVoteResults(
+                        roundState.voteResult.plus(
+                            voteNominantSlot.value to index
+                        )
+                    )
+                )
                 voteCountDialogVisible = false
 
             },
-            onCancel = {voteCountDialogVisible = false}
+            onCancel = { voteCountDialogVisible = false }
         )
 
         IQVoteDialogView(
@@ -267,23 +306,30 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
 
         Row(
-            modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium).background(Color.Transparent),
+            modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center
         ) {
-           Card(modifier = Modifier.fillMaxHeight().wrapContentWidth()
-               .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline))
-               .padding(Dimensions.Padding.smedium).background(
-               Color.Transparent).clickable {
-               voteResultsDialogVisible = true
-           }, colors = CardDefaults.cardColors(Color.Transparent)
-             ) {
-               Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)))
-           }
+            Card(modifier = Modifier.fillMaxHeight()
+                .wrapContentWidth()
+                .background(Color.Transparent)
+                .padding(Dimensions.Padding.medium)
+                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline), RoundedCornerShape(Dimensions.CornerRadius.large))
+                .clickable { voteResultsDialogVisible = true },
+                elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
+                colors = CardDefaults.cardColors(Color.Transparent)
+            ) {
+                Text(
+                    text = "End Vote",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.ExtraBold,
+                    modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary).padding(Dimensions.Padding.smedium)
+                )
+            }
         }
     } //END SCROLLABLE
 }
 
 
-    enum class VotingState {
-        INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
-    }
+enum class VotingState {
+    INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
+}
