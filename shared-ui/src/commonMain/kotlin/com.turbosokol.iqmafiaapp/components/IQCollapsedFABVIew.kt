@@ -78,7 +78,9 @@ fun IQCollapsedSwitchFABView(
                         delay(1200)
                         isCollapsed = true
                     }
-                }, colors = SwitchDefaults.colors(MaterialTheme.colorScheme.secondary)) //color of the Round Toggler
+                }, colors = SwitchDefaults.colors(
+                    checkedTrackColor = Color.Yellow, uncheckedTrackColor = Color.White
+                )) //color of the Round Toggler
             },
             containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary, //Main color of
             //contentColor = Color.Yellow   //color of Tournament Mode string
