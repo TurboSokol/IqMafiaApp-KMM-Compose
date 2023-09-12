@@ -79,7 +79,8 @@ fun IQCollapsedSwitchFABView(
                         isCollapsed = true
                     }
                 }, colors = SwitchDefaults.colors(
-                    checkedTrackColor = Color.Yellow, uncheckedTrackColor = Color.White
+                    checkedTrackColor = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.6f), uncheckedTrackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                    uncheckedThumbColor = MaterialTheme.colorScheme.onBackground, checkedThumbColor = MaterialTheme.colorScheme.inversePrimary
                 )) //color of the Round Toggler
             },
             containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary, //Main color of
