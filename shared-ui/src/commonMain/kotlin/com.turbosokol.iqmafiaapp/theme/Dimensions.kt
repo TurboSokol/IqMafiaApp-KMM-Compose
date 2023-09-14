@@ -37,7 +37,7 @@ object Dimensions {
     object CornerRadius {
         val small = 4.dp
         val medium = 8.dp
-        val large = 16.dp
+        val large = 12.dp
         val xlarge = 24.dp
     }
 
@@ -47,6 +47,10 @@ object Dimensions {
             val itemHorizontalPadding = 1.dp
             val combinedItemTextBaseline = 12.dp
             val labelFontSize = 16.sp
+        }
+
+        object PrimaryButton {
+            val elevation = 2.dp
         }
     }
 

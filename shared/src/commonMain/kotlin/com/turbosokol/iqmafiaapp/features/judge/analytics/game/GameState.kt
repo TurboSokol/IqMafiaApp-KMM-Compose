@@ -49,7 +49,7 @@ sealed class GameAction : Action {
     //read gameId from WEB DB or local db
     data class StartGame(val gameId: Int, val judgeId: Int) : GameAction()
 
-    data class EndOfRound(val votedPlayer: Int): GameAction()
+    data class EndOfRound(val votedPlayer: List<Int>): GameAction()
 
     //make REST GET to recap gameID
     data class EndGame(

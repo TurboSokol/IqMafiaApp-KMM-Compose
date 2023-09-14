@@ -54,7 +54,7 @@ fun IQLoaderView(
     val typography = MaterialTheme.typography
     val scope = rememberCoroutineScope()
 
-    var isAnimating by remember { mutableStateOf(true) }
+    val isAnimating by remember { mutableStateOf(true) }
 
     Box(
         contentAlignment = Alignment.Center,

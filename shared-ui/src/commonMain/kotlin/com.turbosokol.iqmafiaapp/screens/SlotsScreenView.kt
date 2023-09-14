@@ -44,9 +44,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.turbosokol.iqmafiaapp.components.IQAlertDialogView
+import com.turbosokol.iqmafiaapp.components.dialogs.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.components.IQCollapsedSwitchFABView
-import com.turbosokol.iqmafiaapp.components.IQDialog
+import com.turbosokol.iqmafiaapp.components.dialogs.IQDialog
 import com.turbosokol.iqmafiaapp.components.IQLoaderView
 import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
 import com.turbosokol.iqmafiaapp.features.app.AppState

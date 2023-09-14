@@ -14,12 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -38,8 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
-import com.turbosokol.iqmafiaapp.components.IQVoteDialogType
-import com.turbosokol.iqmafiaapp.components.IQVoteDialogView
+import com.turbosokol.iqmafiaapp.components.dialogs.IQEndVoteDialogView
+import com.turbosokol.iqmafiaapp.components.dialogs.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
@@ -67,8 +67,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     val playersState = appState.getPlayersState()
     val roundState = appState.getRoundState()
 
-    var voteCountDialogVisible by remember { mutableStateOf(false) }
-    var voteResultsDialogVisible by remember { mutableStateOf(false) }
+    val voteCountDialogVisible = remember { mutableStateOf(false) }
+    val voteResultsDialogVisible = remember { mutableStateOf(false) }
     val voteNominantSlot = remember { mutableStateOf(-1) }
 
     //scrollable parent
@@ -206,7 +206,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                         delay(1500)
                                         votingState = VotingState.VOTE_FINISHED
                                         voteNominantSlot.value = voteNominant
-                                        voteCountDialogVisible = true
+                                        voteCountDialogVisible.value = true
                                     }
                                 }) {
                                 Text(text = voteNominant.toString(), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
@@ -217,8 +217,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
                 //VOTE COUNT
-                Row(modifier = Modifier.background(Color.Transparent),
-                horizontalArrangement = Arrangement.Start
+                Row(
+                    modifier = Modifier.background(Color.Transparent),
+                    horizontalArrangement = Arrangement.Start
                 ) {
                 roundState.voteCandidates.forEach { voteNomination ->
                     Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
@@ -227,9 +228,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 1.dp,
                                 MaterialTheme.colorScheme.outline
                             )
-                        ).background(Color.Transparent)
-                            .padding(15.dp),
-                            onClick = {/* no-op */ }) {
+                        ).background(Color.Transparent),
+                            onClick = { /* no-op */ }) {
                             val countVoting = roundState.voteResult[voteNomination].toString()
                             Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
                         }
@@ -242,27 +242,24 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         //VOTE COUNT DIALOG
         IQVoteDialogView(
             modifier = Modifier,
-            isVisible = voteCountDialogVisible,
-            label = Strings.voteCountDialogLabel,
-            type = IQVoteDialogType.VOTE_RESULTS,
-            onConfirm = { index ->
+            isVisible = voteCountDialogVisible.value,
+            onConfirm = { index: Int ->
                 viewModel.execute(RoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to index)))
-                voteCountDialogVisible = false
+                voteCountDialogVisible.value = false
 
             },
-            onCancel = {voteCountDialogVisible = false}
+            onCancel = { voteCountDialogVisible.value = false }
         )
 
-        IQVoteDialogView(
+        //END DAY DIALOG
+        IQEndVoteDialogView(
             modifier = Modifier,
-            isVisible = voteResultsDialogVisible,
-            label = Strings.voteResultDialogLabel,
-            type = IQVoteDialogType.ROUND_RESULTS,
-            onConfirm = { index ->
+            isVisible = voteResultsDialogVisible.value,
+            onConfirm = { index: List<Int> ->
                 viewModel.execute(RoundAction.RoundCompleted(index))
-                voteResultsDialogVisible = false
+                voteResultsDialogVisible.value = false
             },
-            onCancel = { voteResultsDialogVisible = false }
+            onCancel = { voteResultsDialogVisible.value = false }
         )
 
 
@@ -270,13 +267,21 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
             horizontalArrangement = Arrangement.Center
         ) {
-            Card(modifier = Modifier.background(
-                Color.Transparent).border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)).clickable {
-                voteResultsDialogVisible = true
-            },
-                elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
-               ) {
-                Text("End Vote", color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold, modifier = Modifier.background(Color.Transparent))
+             Card(modifier = Modifier.fillMaxHeight()
+                .wrapContentWidth()
+                .background(Color.Transparent)
+                .padding(Dimensions.Padding.medium)
+                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline), RoundedCornerShape(Dimensions.CornerRadius.large))
+                .clickable { voteResultsDialogVisible.value = true },
+                elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
+                colors = CardDefaults.cardColors(Color.Transparent)
+            ) {
+                Text(
+                    text = Strings.endDayButton,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.ExtraBold,
+                    modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary).padding(Dimensions.Padding.smedium)
+                )
             }
         }
     } //END SCROLLABLE
