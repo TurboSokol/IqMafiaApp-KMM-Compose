@@ -11,6 +11,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -67,8 +68,10 @@ fun IQCollapsedSwitchFABView(
         modifier = modifier
     ) {
         ExtendedFloatingActionButton(
+
             onClick = { isCollapsed = true },
-            modifier = Modifier.background(Color.Transparent), //Color Around of extending
+            modifier = modifier.background(Color.Transparent),
+            shape = CircleShape,
             text = { Text(expandedText) },
             icon = {
                 Switch(checked = mToggled, onCheckedChange = {
