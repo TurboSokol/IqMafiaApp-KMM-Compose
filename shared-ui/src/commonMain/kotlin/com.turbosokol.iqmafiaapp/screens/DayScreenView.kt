@@ -225,7 +225,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 MaterialTheme.colorScheme.outline
                             )
                         ).background(Color.Transparent),
-                            onClick = {/* no-op */}) {
+                            onClick = { /* no-op */ }) {
                             val countVoting = roundState.voteResult[voteNomination].toString()
                             Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
                         }
