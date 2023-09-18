@@ -18,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
@@ -34,6 +35,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun ScoreScreenView(viewModel: ReduxViewModel) {
  val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
  val appState by stateFlow.collectAsState(Dispatchers.Main)
+ val playersState = appState.getPlayersState()
  //Text(text = "Score\nTable Of Current Game\nTable of current user games", color = Color.Black)
 
   Column( //The first outside column
@@ -90,8 +92,17 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
         )
 
        }
-      }
-     }
+
+//        playersState.nickNames.forEachIndexed { playerIndex, name ->
+//          IQScoreRow(
+//           slot = playerIndex,
+//           colorSlot = if (playersState.characterCards.get(playerIndex) == )
+//          )
+       }
+    }
+
+
+
   }
 
 
