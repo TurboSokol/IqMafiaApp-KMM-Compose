@@ -19,12 +19,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
+import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+import org.jetbrains.skia.Color
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -93,17 +97,23 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
        }
 
-//        playersState.nickNames.forEachIndexed { playerIndex, name ->
-//          IQScoreRow(
-//           slot = playerIndex,
-//           colorSlot = if (playersState.characterCards.get(playerIndex) == )
-//          )
-       }
-    }
+        playersState.nickNames.forEachIndexed { playerIndex, name ->
+          IQScoreRow(
+           slot = playerIndex,
+           colorSlot =
+           when (playersState.characterCards[playerIndex])  {
+                  CharacterCardModel(CharacterCardType.RED) -> Color.RED
+                  CharacterCardType.DON -> Colors.darkGrey51
+                  CharacterCardType.RED -> Colors.red
+                  CharacterCardType.BLACK -> Colors.darkGrey51
+                   }
+          )}
+       }//End of the second column
+    }//End of the card
 
 
 
-  }
+  }//End of the first outside column
 
 
-}
+}//End of ScoreScreenView composable
