@@ -101,13 +101,17 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
           IQScoreRow(
            slot = playerIndex,
            colorSlot =
-           when (playersState.characterCards[playerIndex])  {
-                  CharacterCardModel(CharacterCardType.RED) -> Color.RED
-                  CharacterCardType.DON -> Colors.darkGrey51
-                  CharacterCardType.RED -> Colors.red
-                  CharacterCardType.BLACK -> Colors.darkGrey51
-                   }
-          )}
+           when (playersState.characterCards[playerIndex].type)  {
+               CharacterCardType.RED -> Colors.red
+               CharacterCardType.DON -> Colors.darkGrey51
+               CharacterCardType.SHERIFF -> Colors.red
+               CharacterCardType.BLACK -> Colors.darkGrey51
+               else -> {Color.MAGENTA} //If you see this color - app goes wrong
+           } as androidx.compose.ui.graphics.Color,
+           textName = playersState.nickNames[playerIndex],
+           cardType = playersState.characterCards[playerIndex].type,
+          )
+        }
        }//End of the second column
     }//End of the card
 
