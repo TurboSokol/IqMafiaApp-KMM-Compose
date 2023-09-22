@@ -43,5 +43,7 @@ object Strings {
     const val scoreCardType = "Crd"
     const val scoreCardWin = "Win"
     const val scoreCardRate = "Rate"
+    const val scoreDops = "Dops"
+    const val comment = "Comment"
 
 }

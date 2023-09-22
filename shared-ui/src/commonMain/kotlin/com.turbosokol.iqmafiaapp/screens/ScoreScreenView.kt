@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
@@ -28,7 +29,7 @@ import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
-import org.jetbrains.skia.Color
+//import org.jetbrains.skia.Color
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -75,43 +76,46 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
          )
 
          Text(
-          text = Strings.scoreCardType,
-          fontSize = Dimensions.TextSize.small,
-          textAlign = TextAlign.Center,
-          modifier = Modifier
-         )
-
-        Text(
-         text = Strings.scoreCardWin,
-         fontSize = Dimensions.TextSize.small,
-         textAlign = TextAlign.Center,
-         modifier = Modifier
-        )
-
-        Text(
          text = Strings.scoreCardRate,
          fontSize = Dimensions.TextSize.small,
          textAlign = TextAlign.Center,
          modifier = Modifier
+         )
+
+        Text(
+         text = Strings.scoreDops,
+         fontSize = Dimensions.TextSize.small,
+         textAlign = TextAlign.Center,
+         modifier = Modifier
         )
+
+       Text(
+           text = Strings.comment,
+           fontSize = Dimensions.TextSize.small,
+           textAlign = TextAlign.Center,
+           modifier = Modifier
+       )
 
        }
 
         playersState.nickNames.forEachIndexed { playerIndex, name ->
           IQScoreRow(
-           slot = playerIndex,
+           slot = playerIndex+1,
            colorSlot =
            when (playersState.characterCards[playerIndex].type)  {
                CharacterCardType.RED -> Colors.red
-               CharacterCardType.DON -> Colors.darkGrey51
-               CharacterCardType.SHERIFF -> Colors.red
+               CharacterCardType.DON -> Color.Gray
+               CharacterCardType.SHERIFF -> Color.Yellow
                CharacterCardType.BLACK -> Colors.darkGrey51
-               else -> {Color.MAGENTA} //If you see this color - app goes wrong
-           } as androidx.compose.ui.graphics.Color,
+               else -> {
+                   Color.Cyan} //If you see this color - app goes wrong
+           },
            textName = playersState.nickNames[playerIndex],
-           cardType = playersState.characterCards[playerIndex].type,
+           rate = 21.92,
+           dops = 11.94,
+           comment = "A comment",
+           modifier = Modifier
           )
-        }
        }//End of the second column
     }//End of the card
 
@@ -120,4 +124,5 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
   }//End of the first outside column
 
 
+}
 }//End of ScoreScreenView composable
