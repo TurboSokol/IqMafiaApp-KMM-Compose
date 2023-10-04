@@ -18,9 +18,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
-import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.theme.Colors
@@ -58,42 +57,38 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
        //headers
        Row(
         modifier = Modifier.fillMaxWidth()
-         .padding(start = Dimensions.Padding.medium, end = Dimensions.Padding.small),
+         .padding(/*start = Dimensions.Padding.medium,*/ end = Dimensions.Padding.small),
         horizontalArrangement = Arrangement.SpaceBetween
+
        ) {
          Text(
           text = Strings.scoreNumberSymbol,
           fontSize = Dimensions.TextSize.small,
-          textAlign = TextAlign.Center,
-          modifier = Modifier
+          modifier = Modifier.padding(start = 5.dp)
          )
 
          Text(
           text = Strings.scoreNamesHeader,
           fontSize = Dimensions.TextSize.small,
-          textAlign = TextAlign.Center,
           modifier = Modifier
          )
 
          Text(
          text = Strings.scoreCardRate,
          fontSize = Dimensions.TextSize.small,
-         textAlign = TextAlign.Center,
-         modifier = Modifier
+         modifier = Modifier.padding(start = 5.dp)
          )
 
         Text(
          text = Strings.scoreDops,
          fontSize = Dimensions.TextSize.small,
-         textAlign = TextAlign.Center,
-         modifier = Modifier
+         modifier = Modifier.padding(start = 0.dp)
         )
 
        Text(
            text = Strings.comment,
            fontSize = Dimensions.TextSize.small,
-           textAlign = TextAlign.Center,
-           modifier = Modifier
+           modifier = Modifier.padding(end = 25.dp)
        )
 
        }
