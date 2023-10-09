@@ -37,11 +37,11 @@ fun IQScoreRow(
             , verticalAlignment = Alignment.Top
         )
         {
-            Text(text = slot.toString(), modifier = modifier.background(color = colorSlot).fillMaxWidth(0.06f))
-            Text(text = textName, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).fillMaxWidth(0.34f))
-            Text(text = " $rate ", modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline))
-            Text(text = " $dops ", modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline))
-            Text(text = comment , modifier = modifier.fillMaxWidth(0.7f))//, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline))
+            Text(text = slot.toString(), modifier = modifier.background(color = colorSlot).fillMaxWidth(0.06f).weight(0.08f))
+            Text(text = textName, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.3f))
+            Text(text = " $rate ", modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.15f))
+            Text(text = " $dops ", modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.15f))
+            Text(text = comment , modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.32f))
         }
 
 
