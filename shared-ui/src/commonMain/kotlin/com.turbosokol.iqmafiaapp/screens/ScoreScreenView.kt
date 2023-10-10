@@ -152,13 +152,22 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
            colorSlot =
            when (playersState.characterCards[playerIndex].type)  {
                CharacterCardType.RED -> Colors.red
-               CharacterCardType.DON -> Color.Gray
+               CharacterCardType.DON -> Color.LightGray
                CharacterCardType.SHERIFF -> Color.Yellow
-               CharacterCardType.BLACK -> Colors.darkGrey51
+               CharacterCardType.BLACK -> Color.DarkGray
                else -> {
                    Color.Cyan} //If you see this color - app goes wrong
            },
            textName = name,
+           playerNameColor =
+           when (playersState.characterCards[playerIndex].type)  {
+               CharacterCardType.RED -> Color.White
+               CharacterCardType.DON -> Color.Black
+               CharacterCardType.SHERIFF -> Color.Black
+               CharacterCardType.BLACK -> Color.White
+               else -> {
+                   Color.Cyan} //If you see this color - app goes wrong
+           },
            rate = 21.92,
            dops = 11.94,
            comment = "A comment",
