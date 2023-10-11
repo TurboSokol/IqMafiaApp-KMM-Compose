@@ -10,10 +10,13 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -25,6 +28,7 @@ fun IQScoreRow(
 
     textName : String,
     playerNameColor : Color,
+    onNameChanged: (String) -> Unit,
 
     dops : Double,
 
@@ -33,6 +37,7 @@ fun IQScoreRow(
     comment : String
     )
 {
+    var textState = remember { mutableStateOf(TextFieldValue()) }
         Row(modifier = modifier.border(
             BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
             .fillMaxWidth()
@@ -41,7 +46,7 @@ fun IQScoreRow(
         )
         {
             Text(text = slot.toString(), modifier = modifier.fillMaxWidth(0.06f).weight(0.08f))
-            BasicTextField(value = textName, {},
+            BasicTextField(value = textName, onValueChange = {onNameChanged -> textState = onNameChanged },
                 modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.3f).background(color = colorSlot)
                 , textStyle = TextStyle(playerNameColor)
                  )
