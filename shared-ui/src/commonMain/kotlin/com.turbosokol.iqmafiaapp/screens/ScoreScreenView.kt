@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
@@ -171,7 +172,12 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
            rate = 21.92,
            dops = 11.94,
            comment = "A comment",
-           modifier = Modifier
+           modifier = Modifier,
+           onTextChanged = { changedText ->
+               val newNames  =  playersState.nickNames.toMutableList() //slotsState.tourPlayersNames.toMutableList()
+               newNames[playerIndex] = changedText
+               viewModel.execute(PlayersAction.UpdateNickNames(newNames))
+           },
           )
        }
 
