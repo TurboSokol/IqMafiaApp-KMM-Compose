@@ -51,7 +51,7 @@ fun IQScoreRow(
             BasicTextField(value = playerName, onValueChange = {
                     changedValue: String ->
                 playerName = changedValue
-                if (textName == changedValue) {
+                if (playerName == changedValue) {
                     onTextChanged(changedValue)
                 }
             },
