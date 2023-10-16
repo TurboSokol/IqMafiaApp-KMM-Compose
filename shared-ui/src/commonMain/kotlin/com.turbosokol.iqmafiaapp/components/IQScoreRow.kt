@@ -55,12 +55,12 @@ fun IQScoreRow(
                     onTextChanged(changedValue)
                 }
             },
-                modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.3f).background(color = colorSlot)
+                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.3f).background(color = colorSlot)
                 , textStyle = TextStyle(playerNameColor)
                  )
-            Text(text = " $rate ", modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.15f))
-            BasicTextField(value = " $dops ", {}, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.15f))
-            BasicTextField(value = comment , {}, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.32f))
+            Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
+            BasicTextField(value = " $dops ", {}, modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
+            BasicTextField(value = comment , {}, modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.32f))
         }
 
 
