@@ -170,7 +170,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                    Color.Cyan} //If you see this color - app goes wrong
            },
            rate = 21.92,
-           dops = 11.94,
+           dops = "11.94",
            comment = "A comment",
            modifier = Modifier,
            onTextChanged = { changedText ->
