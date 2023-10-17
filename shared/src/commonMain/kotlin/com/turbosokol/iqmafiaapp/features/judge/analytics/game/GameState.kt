@@ -22,7 +22,12 @@ data class GameState(
     //map to game_profile table
     val bestMove: List<Int>,
     //count of rounds in the game
-    val roundCount: Int
+    val roundCount: Int,
+    //summary points
+    val summaryPoints: List<Double>,
+    val dopPoints: List<Double>,
+    //only for team win points
+    val mainPoints: List<Double>
 ) : GeneralState {
     companion object {
         fun getInitState(): GameState = GameState(
@@ -35,7 +40,10 @@ data class GameState(
             playersKilled = emptyList(),
             playersVoted = emptyList(),
             bestMove = emptyList(),
-            roundCount = 0
+            roundCount = 0,
+            summaryPoints = emptyList(),
+            dopPoints = emptyList(),
+            mainPoints = emptyList()
         )
     }
 }
