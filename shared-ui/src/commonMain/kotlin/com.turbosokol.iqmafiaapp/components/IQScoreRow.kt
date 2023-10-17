@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -31,7 +33,7 @@ fun IQScoreRow(
     playerNameColor : Color,
     onTextChanged: (String) -> Unit,
 
-    dops : Double,
+    dops : String,
 
     rate : Double,
 
@@ -39,6 +41,7 @@ fun IQScoreRow(
     )
 {
     var playerName by remember { mutableStateOf(textName) }
+    var dopsState by remember { mutableStateOf(dops) }
 
         Row(modifier = modifier.border(
             BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
@@ -48,19 +51,29 @@ fun IQScoreRow(
         )
         {
             Text(text = slot.toString(), modifier = modifier.fillMaxWidth(0.06f).weight(0.08f))
+
             BasicTextField(value = playerName, onValueChange = {
                     changedValue: String ->
-                playerName = changedValue
-                if (textName == changedValue) {
+                        playerName = changedValue
+                if (playerName == changedValue) {
                     onTextChanged(changedValue)
                 }
             },
-                modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.3f).background(color = colorSlot)
+                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.3f).background(color = colorSlot)
                 , textStyle = TextStyle(playerNameColor)
                  )
-            Text(text = " $rate ", modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.15f))
-            BasicTextField(value = " $dops ", {}, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.15f))
-            BasicTextField(value = comment , {}, modifier = modifier.border(0.5.dp, MaterialTheme.colorScheme.outline).weight(0.32f))
+
+            Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
+
+            BasicTextField(value = "$dopsState", onValueChange =  {
+                  changedValue: String ->
+                    dopsState = changedValue
+                if (dopsState == changedValue) {onTextChanged(changedValue)}
+            }
+                , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
+
+            BasicTextField(value = comment , {}, modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.32f))
         }
 
 
