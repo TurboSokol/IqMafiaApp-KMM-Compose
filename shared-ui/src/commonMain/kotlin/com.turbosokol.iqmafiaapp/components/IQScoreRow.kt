@@ -34,7 +34,7 @@ fun IQScoreRow(
     onTextChanged: (String) -> Unit,
 
     dops : String,
-
+    onDopsChanged : (String) ->Unit,
     rate : Double,
 
     comment : String
@@ -65,10 +65,10 @@ fun IQScoreRow(
 
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
-            BasicTextField(value = "$dopsState", onValueChange =  {
+            BasicTextField(value = dopsState, onValueChange =  {
                   changedValue: String ->
                     dopsState = changedValue
-                if (dopsState == changedValue) {onTextChanged(changedValue)}
+                if (dopsState == changedValue) {onDopsChanged(changedValue)}
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
