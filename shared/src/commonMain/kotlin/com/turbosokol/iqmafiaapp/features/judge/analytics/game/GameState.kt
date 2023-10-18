@@ -42,7 +42,7 @@ data class GameState(
             bestMove = emptyList(),
             roundCount = 0,
             summaryPoints = emptyList(),
-            dopPoints = mapOf(1 to 0.0, 2 to 0.0) ,//listOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+            dopPoints = emptyList(),
             mainPoints = emptyList()
         )
     }
@@ -56,7 +56,7 @@ sealed class GameAction : Action {
 
     //read gameId from WEB DB or local db
     data class StartGame(val gameId: Int, val judgeId: Int) : GameAction()
-    data class UpdateDops(val dops: MutableList<Double>): GameAction()
+    data class UpdateDops(val dops: List<Double>): GameAction()
 
     data class EndOfRound(val votedPlayer: List<Int>): GameAction()
 

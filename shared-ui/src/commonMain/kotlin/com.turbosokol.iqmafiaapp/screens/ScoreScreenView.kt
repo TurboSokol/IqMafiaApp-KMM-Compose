@@ -182,8 +182,12 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                viewModel.execute(PlayersAction.UpdateNickNames(newNames))
            },
            onDopsChanged = { changedDops->
-               val newDops = GameState.getInitState().dopPoints.toMutableList()
-               newDops[playerIndex] = changedDops.toDouble()
+               val newDops = GameState.getInitState().dopPoints.mapIndexed{i, dops ->
+                    if (playerIndex == i) changedDops else dops
+               }
+
+//               val newDops = GameState.getInitState().dopPoints.toMutableList()
+//               newDops[playerIndex] = changedDops.toDouble()
                viewModel.execute(GameAction.UpdateDops(newDops))
            }
           )
