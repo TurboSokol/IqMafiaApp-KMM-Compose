@@ -68,7 +68,7 @@ fun IQScoreRow(
 
             BasicTextField(value = dopsState.toString(), onValueChange =  {
                   changedValue: String ->
-                if (changedValue.isEmpty() || changedValue.matches(expression) && changedValue.length <6)
+                if (changedValue.isEmpty() || changedValue.matches(expression) && changedValue.length <6 && changedValue.toDouble() < 1.0)
                 {
                     dopsState = changedValue.toDouble()}
 //                if (dopsState == changedValue.toDouble()) {onDopsChanged(changedValue)}

@@ -42,7 +42,7 @@ data class GameState(
             bestMove = emptyList(),
             roundCount = 0,
             summaryPoints = emptyList(),
-            dopPoints = listOf(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0),
+            dopPoints = listOf(0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3),
             mainPoints = emptyList()
         )
     }
