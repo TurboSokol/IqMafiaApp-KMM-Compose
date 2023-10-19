@@ -172,7 +172,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                    Color.Cyan} //If you see this color - app goes wrong
            },
            rate = 21.92,
-           dops = GameState.getInitState().dopPoints[playerIndex].toString(),
+           dops = GameState.getInitState().dopPoints[playerIndex],
            comment = "A comment",
            modifier = Modifier,
            onTextChanged = { changedText ->
@@ -183,7 +183,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
            },
            onDopsChanged = { changedDops->
                val newDops = GameState.getInitState().dopPoints.mapIndexed{i, dops ->
-                    if (playerIndex == i) changedDops else dops
+                    if (playerIndex == i) changedDops.toDouble() else dops
                }
 
 //               val newDops = GameState.getInitState().dopPoints.toMutableList()

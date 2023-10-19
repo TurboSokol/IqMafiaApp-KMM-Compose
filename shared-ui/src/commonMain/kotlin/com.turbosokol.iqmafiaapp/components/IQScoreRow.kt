@@ -33,7 +33,7 @@ fun IQScoreRow(
     playerNameColor : Color,
     onTextChanged: (String) -> Unit,
 
-    dops : String,
+    dops : Double,
     onDopsChanged : (String) ->Unit,
     rate : Double,
 
@@ -42,6 +42,7 @@ fun IQScoreRow(
 {
     var playerName by remember { mutableStateOf(textName) }
     var dopsState by remember { mutableStateOf(dops) }
+    val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
         Row(modifier = modifier.border(
             BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
@@ -65,10 +66,12 @@ fun IQScoreRow(
 
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
-            BasicTextField(value = dopsState, onValueChange =  {
+            BasicTextField(value = dopsState.toString(), onValueChange =  {
                   changedValue: String ->
-                    dopsState = changedValue
-                if (dopsState == changedValue) {onDopsChanged(changedValue)}
+                if (changedValue.isEmpty() || changedValue.matches(expression) && changedValue.length <6)
+                {
+                    dopsState = changedValue.toDouble()}
+//                if (dopsState == changedValue.toDouble()) {onDopsChanged(changedValue)}
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
