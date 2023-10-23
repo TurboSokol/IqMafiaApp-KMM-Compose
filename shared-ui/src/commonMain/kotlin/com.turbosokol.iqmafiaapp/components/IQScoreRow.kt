@@ -44,6 +44,7 @@ fun IQScoreRow(
     var dopsState by remember { mutableStateOf(dops) }
     val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
+
         Row(modifier = modifier.border(
             BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
             .fillMaxWidth()
@@ -66,15 +67,22 @@ fun IQScoreRow(
 
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
+            //DOPS BTF
             BasicTextField(value = dopsState.toString(), onValueChange =  {
                   changedValue: String ->
-                if (changedValue.isEmpty() || changedValue.matches(expression) && changedValue.length <6 && changedValue.toDouble() < 1.0)
-                {
-                    dopsState = changedValue.toDouble()}
+                if (changedValue.isEmpty() || changedValue.matches(expression)
+                    && changedValue.length <6 && changedValue.toDouble() < 1.0
+                    )
+                {dopsState = changedValue.toDouble() }
+
+                else if (changedValue.length <2) {dopsState = 0.0}
+
 //                if (dopsState == changedValue.toDouble()) {onDopsChanged(changedValue)}
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
+            //End of Dops BTF
+
 
             BasicTextField(value = comment , {}, modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.32f))
         }
