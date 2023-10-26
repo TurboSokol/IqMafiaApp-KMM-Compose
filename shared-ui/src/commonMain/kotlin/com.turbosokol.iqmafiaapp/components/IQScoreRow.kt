@@ -69,13 +69,16 @@ fun IQScoreRow(
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
             //DOPS BTF
-            BasicTextField(value = dopsState, onValueChange =  {
+            BasicTextField(value = dopsState, enabled = dopsState.length > 2 /*dopsState.length > 2*/,onValueChange =  {
                   changedValue: String ->
                 if (changedValue.isEmpty() || changedValue.matches(expression)
-                    && changedValue.length <6 && changedValue.toDouble() < 1.0
+                    && changedValue.length <5 && changedValue.toDouble() < 1.0
                     )
-               {dopsState = changedValue}
-                else if (changedValue.length <2) {dopsState = 0.toString()}
+               {
+                   dopsState = if (changedValue.length < 2) {
+                       0.0.toString()
+                   } else changedValue
+               }
 
 
 //                if (dopsState == changedValue.toDouble()) {onDopsChanged(changedValue)}
