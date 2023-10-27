@@ -18,8 +18,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -44,6 +46,15 @@ fun IQScoreRow(
     var dopsState by remember { mutableStateOf(dops) }
     val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
+    var textFieldValueState by remember {
+        mutableStateOf(
+            TextFieldValue(
+                text = dopsState,
+                selection = TextRange(3),
+                composition = TextRange(0,3)
+            )
+        )
+    }
 
 
         Row(modifier = modifier.border(
@@ -69,19 +80,14 @@ fun IQScoreRow(
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
             //DOPS BTF
-            BasicTextField(value = dopsState, enabled = dopsState.length > 2 /*dopsState.length > 2*/,onValueChange =  {
-                  changedValue: String ->
-                if (changedValue.isEmpty() || changedValue.matches(expression)
-                    && changedValue.length <5 && changedValue.toDouble() < 1.0
-                    )
-               {
-                   dopsState = if (changedValue.length < 2) {
-                       0.0.toString()
-                   } else changedValue
-               }
-
-
-//                if (dopsState == changedValue.toDouble()) {onDopsChanged(changedValue)}
+            BasicTextField(value = textFieldValueState.text,
+                onValueChange =  {
+                  changedValue ->
+//                if (changedValue.matches(expression) && (changedValue.length < 5) && (changedValue.toDouble() < 1.0))
+//               {
+                   dopsState = changedValue.toString()
+//               }
+//               else {dopsState = textFieldValueState.text}
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
