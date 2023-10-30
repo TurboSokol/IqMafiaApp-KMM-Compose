@@ -44,14 +44,14 @@ fun IQScoreRow(
 {
     var playerName by remember { mutableStateOf(textName) }
     var dopsState by remember { mutableStateOf(dops) }
-    var mySelection by remember { mutableStateOf(TextRange(2,3)) }
+    var mySelection by remember { mutableStateOf(TextRange(3)) }
     val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
     var textFieldValueState =
             TextFieldValue(
                 text = dopsState,
                 selection = mySelection,
-                composition = TextRange(0,3)
+                composition = TextRange(0,2)
             )
 
 
@@ -80,14 +80,19 @@ fun IQScoreRow(
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
             //DOPS BTF
-            BasicTextField(value = textFieldValueState.text,
+            BasicTextField(value = textFieldValueState,
                 onValueChange =  {
                   changedValue ->
-//                if (changedValue.matches(expression) && (changedValue.length < 5) && (changedValue.toDouble() < 1.0))
-//               {
-                   dopsState = changedValue.toString()
-//               }
-//               else {dopsState = textFieldValueState.text}
+//                    if (changedValue.toDouble() > 0.3 && changedValue.length > 2) dopsState = changedValue
+                     if (changedValue.text.length < 2) {
+                         mySelection = TextRange(2)
+                         dopsState = "0."
+                     }
+                    else {
+                        mySelection = TextRange(changedValue.text.length)
+                        dopsState = changedValue.text
+                     }
+
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))

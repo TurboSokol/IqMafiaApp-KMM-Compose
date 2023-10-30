@@ -172,7 +172,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                    Color.Cyan} //If you see this color - app goes wrong
            },
            rate = 21.92,
-           dops = GameState.getInitState().dopPoints[playerIndex].toString(),
+           dops =  GameState.getInitState().dopPoints[playerIndex].toString(),
            comment = "A comment",
            modifier = Modifier,
            onTextChanged = { changedText ->
