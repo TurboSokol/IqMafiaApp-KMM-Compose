@@ -44,17 +44,17 @@ fun IQScoreRow(
 {
     var playerName by remember { mutableStateOf(textName) }
     var dopsState by remember { mutableStateOf(dops) }
+    var mySelection by remember { mutableStateOf(TextRange(2,3)) }
     val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
-    var textFieldValueState by remember {
-        mutableStateOf(
+    var textFieldValueState =
             TextFieldValue(
                 text = dopsState,
-                selection = TextRange(3),
+                selection = mySelection,
                 composition = TextRange(0,3)
             )
-        )
-    }
+
+
 
 
         Row(modifier = modifier.border(
