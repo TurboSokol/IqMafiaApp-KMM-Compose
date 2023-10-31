@@ -83,10 +83,14 @@ fun IQScoreRow(
             BasicTextField(value = textFieldValueState,
                 onValueChange =  {
                   changedValue ->
-//                    if (changedValue.toDouble() > 0.3 && changedValue.length > 2) dopsState = changedValue
-                     if (changedValue.text.length < 2) {
-                         mySelection = TextRange(2)
-                         dopsState = "0."
+                     if (changedValue.text.length > 2
+                         && changedValue.text.contains("-")
+                         && changedValue.text.matches(expression)
+                         && changedValue.text.toDouble() <= 1.1
+                         && changedValue.text.toDouble() >= 0.5
+                         ) {
+                         mySelection = TextRange(3)
+                         dopsState = "fuck" //changedValue.text
                      }
                     else {
                         mySelection = TextRange(changedValue.text.length)
