@@ -82,20 +82,23 @@ fun IQScoreRow(
             //DOPS BTF
             BasicTextField(value = textFieldValueState,
                 onValueChange =  {
-                  changedValue ->
-                     if (changedValue.text.length > 2
-                         && changedValue.text.contains("-")
-                         && changedValue.text.matches(expression)
-                         && changedValue.text.toDouble() <= 1.1
-                         && changedValue.text.toDouble() >= 0.5
-                         ) {
-                         mySelection = TextRange(3)
-                         dopsState = "fuck" //changedValue.text
-                     }
-                    else {
-                        mySelection = TextRange(changedValue.text.length)
-                        dopsState = changedValue.text
-                     }
+                    changedValue ->
+                    if (changedValue.text.length == 2) mySelection = TextRange(1)
+                    else mySelection = TextRange(changedValue.text.length)
+//                     if (changedValue.text.length > 2
+////                         && changedValue.text.contains("-")
+////                         && changedValue.text.matches(expression)
+//                         && changedValue.text.toDouble() <= 1.1
+//                         && changedValue.text.toDouble() >= -0.5
+//                         ) {
+//
+//                         dopsState = changedValue.text
+//                     }
+//                    else {
+//                        mySelection = TextRange(changedValue.text.length)
+//                        dopsState = "fuck"  //changedValue.text
+//                     }
+                    dopsState = changedValue.text
 
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
