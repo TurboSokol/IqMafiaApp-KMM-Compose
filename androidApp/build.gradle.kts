@@ -56,6 +56,7 @@ dependencies {
     implementation("com.budiyev.android:code-scanner:2.1.0")
     implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
     implementation("org.burnoutcrew.composereorderable:reorderable:0.7.4")
+    implementation ("com.chillibits:composenumberpicker:1.1.0")
 
     //Network
     implementation("io.ktor:ktor-client-android:${Versions.ktor}")

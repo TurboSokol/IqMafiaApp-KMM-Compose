@@ -44,14 +44,14 @@ fun IQScoreRow(
 {
     var playerName by remember { mutableStateOf(textName) }
     var dopsState by remember { mutableStateOf(dops) }
-    var mySelection by remember { mutableStateOf(TextRange(3)) }
+    var mySelection by remember { mutableStateOf(TextRange(dopsState.length)) }
     val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
     var textFieldValueState =
             TextFieldValue(
                 text = dopsState,
                 selection = mySelection,
-                composition = TextRange(0,2)
+//                composition = TextRange(0,2)
             )
 
 
@@ -83,27 +83,7 @@ fun IQScoreRow(
             BasicTextField(value = textFieldValueState,
                 onValueChange =  {
                     changedValue ->
-                    if (changedValue.text.length == 2)
-                    {mySelection = TextRange(1)}
-                    if (/*changedValue.text.length == 3 && */changedValue.text.contains("-"))
-                    {mySelection = TextRange(2)
-                    dopsState = changedValue.text + "0."
-                    }
-                    else mySelection = TextRange(changedValue.text.length)
-//                     if (changedValue.text.length > 2
-////                         && changedValue.text.contains("-")
-////                         && changedValue.text.matches(expression)
-//                         && changedValue.text.toDouble() <= 1.1
-//                         && changedValue.text.toDouble() >= -0.5
-//                         ) {
-//
-//                         dopsState = changedValue.text
-//                     }
-//                    else {
-//                        mySelection = TextRange(changedValue.text.length)
-//                        dopsState = "fuck"  //changedValue.text
-//                     }
-                    dopsState = changedValue.text
+                   dopsState = changedValue.text
 
             }
                 , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)

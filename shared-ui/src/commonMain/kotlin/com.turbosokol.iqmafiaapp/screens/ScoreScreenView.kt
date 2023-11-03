@@ -193,8 +193,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
           )
        }
 
-
-
   }
 
 
