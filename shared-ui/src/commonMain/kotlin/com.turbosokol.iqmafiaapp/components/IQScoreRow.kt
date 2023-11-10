@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+
 
 @Composable
 fun IQScoreRow(
@@ -44,15 +43,17 @@ fun IQScoreRow(
 {
     var playerName by remember { mutableStateOf(textName) }
     var dopsState by remember { mutableStateOf(dops) }
-    var mySelection by remember { mutableStateOf(TextRange(dopsState.length)) }
+//    var mySelection by remember { mutableStateOf(TextRange(dopsState.length)) }
     val expression = Regex("[\\d,]*[.]?[\\d,]*")
 
     var textFieldValueState =
             TextFieldValue(
                 text = dopsState,
-                selection = mySelection,
-//                composition = TextRange(0,2)
+                selection = TextRange(dopsState.length+1),
+                composition = TextRange(0,2)
             )
+
+    var pickerValue by remember { mutableStateOf(1.toString()) }
 
 
 
@@ -79,15 +80,22 @@ fun IQScoreRow(
 
             Text(text = " $rate ", modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
 
-            //DOPS BTF
-            BasicTextField(value = textFieldValueState,
-                onValueChange =  {
-                    changedValue ->
-                   dopsState = changedValue.text
 
+            NumberPicker(
+                value = pickerValue,
+                range = 0..10
+            ) {
+                pickerValue = dopsState
             }
-                , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
+            //DOPS BTF
+//            BasicTextField(value = textFieldValueState,
+//                onValueChange =  {
+//                    changedValue ->
+//                   dopsState = changedValue.text
+//
+//            }
+//                , keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+//                , modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f))
             //End of Dops BTF
 
 
@@ -95,5 +103,9 @@ fun IQScoreRow(
         }
 
 
-
 }
+
+//@Composable
+//expect fun NumberPicker(value: String, range: IntRange, onValueChange: () -> Unit) {
+//    Text(value.toString())
+//}
