@@ -21,6 +21,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.turbosokol.iqmafiaapp.components.NumPicker.NumberPicker
 
 
 @Composable
@@ -82,11 +83,17 @@ fun IQScoreRow(
 
 
             NumberPicker(
-                value = pickerValue,
-                range = 0..10
-            ) {
-                pickerValue = dopsState
-            }
+                value = pickerValue.toInt(),
+                range = 0..10,
+                 onValueChange =
+                 {changedValue : Int ->
+                     dopsState = changedValue.toString()
+                 })
+//            ) {
+////                pickerValue = dopsState
+//
+//                dopsState = pickerValue
+//            }
             //DOPS BTF
 //            BasicTextField(value = textFieldValueState,
 //                onValueChange =  {
