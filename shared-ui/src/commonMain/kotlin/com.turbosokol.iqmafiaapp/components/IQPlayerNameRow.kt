@@ -33,7 +33,6 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
  *If it doesn’t work, I don’t know who create it.
  ***/
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IQPlayerNameRow(
     modifier: Modifier,
@@ -68,16 +67,16 @@ fun IQPlayerNameRow(
             )
         }
 
-        var playerName by remember { mutableStateOf(textName) }
+        val playerName = remember { mutableStateOf(textName) }
 
         OutlinedTextField(
-            value = playerName,
+            value = playerName.value,
             modifier = Modifier.weight(0.85f)
                 .background(MaterialTheme.colorScheme.onBackground)
                 .background(color = colorName),
             onValueChange = { changedValue: String ->
-                playerName = changedValue
-                if (playerName == changedValue) {
+                playerName.value = changedValue
+                if (playerName.value == changedValue) {
                     onTextChanged(changedValue)
                 }
             },

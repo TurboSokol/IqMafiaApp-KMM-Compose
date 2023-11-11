@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.sp
 
 object Dimensions {
     object Padding {
+        val micro = 2.dp
         val xsmall = 4.dp
         val small = 8.dp
         val smedium = 10.dp

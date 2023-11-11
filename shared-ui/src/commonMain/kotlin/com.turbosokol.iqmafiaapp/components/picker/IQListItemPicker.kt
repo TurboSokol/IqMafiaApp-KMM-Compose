@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.components.NumPicker
+package com.turbosokol.iqmafiaapp.components.picker
 
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -51,8 +51,8 @@ fun <T> ListItemPicker(
     textStyle: TextStyle = LocalTextStyle.current,
 ) {
     val minimumAlpha = 0.3f
-    val verticalMargin = 8.dp
-    val numbersColumnHeight = 80.dp
+    val verticalMargin = 2.dp
+    val numbersColumnHeight = 50.dp
     val halfNumbersColumnHeight = numbersColumnHeight / 2
     val halfNumbersColumnHeightPx = with(LocalDensity.current) { halfNumbersColumnHeight.toPx() }
 
@@ -72,7 +72,7 @@ fun <T> ListItemPicker(
 
     val indexOfElement = getItemIndexForOffset(list, value, animatedOffset.value, halfNumbersColumnHeightPx)
 
-    var dividersWidth by remember { mutableStateOf(0.dp) }
+    val dividersWidth = remember { mutableStateOf(0.dp) }
 
     Layout(
         modifier = modifier
@@ -110,7 +110,7 @@ fun <T> ListItemPicker(
         content = {
             Box(
                 modifier
-                    .width(dividersWidth)
+                    .width(dividersWidth.value)
                     .height(2.dp)
                     .background(color = dividersColor)
             )
@@ -149,7 +149,7 @@ fun <T> ListItemPicker(
             }
             Box(
                 modifier
-                    .width(dividersWidth)
+                    .width(dividersWidth.value)
                     .height(2.dp)
                     .background(color = dividersColor)
             )
@@ -162,14 +162,14 @@ fun <T> ListItemPicker(
             measurable.measure(constraints)
         }
 
-        dividersWidth = placeables
+        dividersWidth.value = placeables
             .drop(1)
             .first()
             .width
             .toDp()
 
         // Set the size of the layout as big as it can
-        layout(dividersWidth.toPx().toInt(), placeables
+        layout(dividersWidth.value.toPx().toInt(), placeables
             .sumOf {
                 it.height
             }

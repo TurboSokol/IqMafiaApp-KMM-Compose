@@ -99,8 +99,8 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
             collapsedText = Strings.slotsSwitchModeButtonSingeLabel,
             activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
             expandedText = Strings.slotsSwitchModeButtonLabel,
-            isToogled = slotsState.isTourMode,
-            onToogleClick = { viewModel.execute(SlotsScreenAction.SetIsTourMode) }
+            isToggled = slotsState.isTourMode,
+            onToggleClick = { viewModel.execute(SlotsScreenAction.SetIsTourMode) }
         )
     }
 }

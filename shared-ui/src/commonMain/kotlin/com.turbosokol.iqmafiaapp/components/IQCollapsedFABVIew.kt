@@ -11,7 +11,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
@@ -23,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
@@ -43,50 +41,50 @@ fun IQCollapsedSwitchFABView(
     collapsedText: String,
     activeCollapsedText: String,
     expandedText: String,
-    isToogled: Boolean,
-    onToogleClick: () -> Unit
+    isToggled: Boolean,
+    onToggleClick: () -> Unit
 ) {
-    var mToggled by remember { mutableStateOf(isToogled) }
-    var isCollapsed by remember { mutableStateOf(true) }
+    val mToggled = remember { mutableStateOf(isToggled) }
+    val isCollapsed = remember { mutableStateOf(true) }
     AnimatedVisibility(
-        visible = isCollapsed,
+        visible = isCollapsed.value,
         exit = slideOutHor(),
         modifier = modifier.background(color = Color.Transparent) //Color AROUND the Game button
     ) {
         FloatingActionButton(
-            onClick = { isCollapsed = false },
+            onClick = { isCollapsed.value = false },
             modifier = modifier,
             shape = CircleShape,
-            content = { Text( if(mToggled) activeCollapsedText else collapsedText) },
-            containerColor = if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
+            content = { Text( if(mToggled.value) activeCollapsedText else collapsedText) },
+            containerColor = if (mToggled.value) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary
         )
     }
 
     AnimatedVisibility(
-        visible = !isCollapsed,
+        visible = !isCollapsed.value,
         exit = slideOutHor() + fadeOut(),
         modifier = modifier
     ) {
         ExtendedFloatingActionButton(
 
-            onClick = { isCollapsed = true },
+            onClick = { isCollapsed.value = true },
             modifier = modifier.background(Color.Transparent),
             shape = CircleShape,
             text = { Text(expandedText) },
             icon = {
-                Switch(checked = mToggled, onCheckedChange = {
-                    onToogleClick()
-                    mToggled = !mToggled
+                Switch(checked = mToggled.value, onCheckedChange = {
+                    onToggleClick()
+                    mToggled.value = !mToggled.value
                     CoroutineScope(Dispatchers.Main).launch {
                         delay(1200)
-                        isCollapsed = true
+                        isCollapsed.value = true
                     }
                 }, colors = SwitchDefaults.colors(
                     checkedTrackColor = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.6f), uncheckedTrackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
                     uncheckedThumbColor = MaterialTheme.colorScheme.onBackground, checkedThumbColor = MaterialTheme.colorScheme.inversePrimary
                 )) //color of the Round Toggler
             },
-            containerColor =  if (mToggled) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary, //Main color of
+            containerColor =  if (mToggled.value) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.inversePrimary, //Main color of
             //contentColor = Color.Yellow   //color of Tournament Mode string
             )
     }

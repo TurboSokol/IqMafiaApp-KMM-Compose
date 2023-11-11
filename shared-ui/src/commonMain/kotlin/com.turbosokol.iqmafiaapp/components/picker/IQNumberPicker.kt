@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.components.NumPicker
+package com.turbosokol.iqmafiaapp.components.picker
 
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
@@ -10,13 +10,13 @@ import androidx.compose.ui.text.TextStyle
 @Composable
 fun NumberPicker(
     modifier: Modifier = Modifier,
-    label: (Int) -> String = {
+    label: (Double) -> String = {
         it.toString()
     },
-    value: Int,
-    onValueChange: (Int) -> Unit,
+    value: Double,
+    onValueChange: (Double) -> Unit,
     dividersColor: Color = MaterialTheme.colorScheme.primary,
-    range: Iterable<Int>,
+    range: List<Double>,
     textStyle: TextStyle = LocalTextStyle.current,
 ) {
     ListItemPicker(
@@ -25,7 +25,7 @@ fun NumberPicker(
         value = value,
         onValueChange = onValueChange,
         dividersColor = dividersColor,
-        list = range.toList(),
+        list = range,
         textStyle = textStyle
     )
 }
