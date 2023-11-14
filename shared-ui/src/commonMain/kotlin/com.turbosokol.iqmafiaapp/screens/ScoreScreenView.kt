@@ -19,7 +19,6 @@ import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
@@ -119,7 +118,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                             Color.Cyan
                         } //If you see this color - app goes wrong
                     },
-                    mainScore = gameState.mainPoints[playerIndex].toString(),
+                    mainScore = gameState.mainPoints[playerIndex],
                     onMainPointsChanged = { newPoints ->
                         viewModel.execute(GameAction.UpdateMainPoints(gameState.mainPoints.mapIndexed { index, points ->
                             if (index == playerIndex) newPoints else points

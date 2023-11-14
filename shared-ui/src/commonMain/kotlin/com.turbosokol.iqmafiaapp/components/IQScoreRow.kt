@@ -2,7 +2,6 @@ package com.turbosokol.iqmafiaapp.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -34,7 +33,7 @@ fun IQScoreRow(
     playerName: String,
     onPlayerNameChanged: (String) -> Unit,
     playerNameColor: Color,
-    mainScore: String,
+    mainScore: Int,
     onMainPointsChanged: (Int) -> Unit,
     dopPoints: Double,
     onDopsChanged: (Double) -> Unit,
@@ -85,18 +84,29 @@ fun IQScoreRow(
 
 
             //MAIN SCORE
-            Text(
-                text = mainScoreValue.value,
-                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f).padding(20.dp, 20.dp, 0.dp, 20.dp)
-                    .clickable(
-                enabled = true,
-                onClick = {
-                    if (mainScoreValue.value.toInt() == 0) {mainScoreValue.value = 1.toString()}
-                    else if (mainScoreValue.value.toInt() == 1) {mainScoreValue.value = 0.toString()}
-                    onMainPointsChanged(mainScoreValue.value.toInt())
-                }
+//            Text(
+//                text = mainScoreValue.value,
+//                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f).padding(20.dp, 20.dp, 0.dp, 20.dp)
+//                    .clickable(
+//                enabled = true,
+//                onClick = {
+//                    if (mainScoreValue.value.toInt() == 0) {mainScoreValue.value = 1.toString()}
+//                    else if (mainScoreValue.value.toInt() == 1) {mainScoreValue.value = 0.toString()}
+//                    onMainPointsChanged(mainScoreValue.value.toInt())
+//                }
+//
+//                    )
+//            )
 
-                    )
+            //MAIN SCORE PICKER
+            NumberPicker(
+                value = mainScoreValue.value,
+                range = listOf(0, 1),
+                onValueChange = { changedValue ->
+                    mainScoreValue.value = changedValue
+                    if (mainScoreValue.value == changedValue) onMainPointsChanged(mainScoreValue.value)
+                 
+   }
             )
 
 
@@ -124,7 +134,7 @@ fun IQScoreRow(
                     1.0,
                     1.1
                 ),
-                onValueChange = { changedValue: Double ->
+                onValueChange = { changedValue ->
                     dopsPickerValue.value = changedValue
                     if (dopsPickerValue.value == changedValue) onDopsChanged(changedValue)
                 }
