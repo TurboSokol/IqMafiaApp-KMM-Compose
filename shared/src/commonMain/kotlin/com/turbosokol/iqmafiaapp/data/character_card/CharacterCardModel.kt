@@ -9,6 +9,6 @@ data class CharacterCardModel(
     val type: CharacterCardType
 )
 
-enum class CharacterCardType {
+enum class CharacterCardType() {
     RED, SHERIFF, BLACK, DON
 }

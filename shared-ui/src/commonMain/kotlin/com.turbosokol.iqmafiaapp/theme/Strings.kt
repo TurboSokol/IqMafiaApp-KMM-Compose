@@ -37,4 +37,13 @@ object Strings {
     const val noOneLeftAlert = "Please select someone to leave"
 
 
+    //score
+    const val scoreNumberSymbol = "№"
+    const val scoreNamesHeader = "Names"
+    const val scoreCardType = "Crd"
+    const val scoreCardWin = "Win"
+    const val scoreCardRate = "Rate"
+    const val scoreDops = "Dops"
+    const val comment = "Comment"
+
 }

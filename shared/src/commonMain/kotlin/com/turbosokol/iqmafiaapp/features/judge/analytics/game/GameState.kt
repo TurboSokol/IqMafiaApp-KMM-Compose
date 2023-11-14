@@ -22,7 +22,13 @@ data class GameState(
     //map to game_profile table
     val bestMove: List<Int>,
     //count of rounds in the game
-    val roundCount: Int
+    val roundCount: Int,
+    //summary points
+    val summaryPoints: List<Double>,
+    val dopPoints: List<Double>,
+    //only for team win points
+    val mainPoints: List<Int>,
+    val comments: List<String>
 ) : GeneralState {
     companion object {
         fun getInitState(): GameState = GameState(
@@ -35,21 +41,40 @@ data class GameState(
             playersKilled = emptyList(),
             playersVoted = emptyList(),
             bestMove = emptyList(),
-            roundCount = 0
+            roundCount = 0,
+            summaryPoints = emptyList(),
+            dopPoints = listOf(0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3),
+            mainPoints = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            comments = listOf(
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here",
+                "Write comment here"
+            )
         )
     }
 }
 
 sealed class GameAction : Action {
     //clear state to InitState
-    object Init : GameAction()
+    data object Init : GameAction()
+    data object GetGameId : GameAction()
+    data class UpdateMainPoints(val mainPoints: List<Int>) : GameAction()
+    data class UpdateDopPoints(val dopPoints: List<Double>) : GameAction()
+    data class UpdateSummaryPoints(val summaryPoints: List<Double>) : GameAction()
+    data class UpdateComments(val comments: List<String>) : GameAction()
+    data class EndOfRound(val votedPlayer: List<Int>) : GameAction()
 
-    object GetGameId : GameAction()
 
     //read gameId from WEB DB or local db
     data class StartGame(val gameId: Int, val judgeId: Int) : GameAction()
 
-    data class EndOfRound(val votedPlayer: List<Int>): GameAction()
 
     //make REST GET to recap gameID
     data class EndGame(
@@ -58,7 +83,11 @@ sealed class GameAction : Action {
         val winnerTeam: WinnerTeamType?,
         val playersKilled: List<Int>,
         val playersVoted: List<Int>,
-        val bestMove: List<Int>
+        val bestMove: List<Int>,
+        val summaryPoints: List<Double>,
+        val dopPoints: List<Double>,
+        val mainPoints: List<Int>,
+        val comments: List<String>
     ) : GameAction()
 }
 
