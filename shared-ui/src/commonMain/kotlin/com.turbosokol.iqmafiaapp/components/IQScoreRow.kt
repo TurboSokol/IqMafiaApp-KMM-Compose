@@ -44,7 +44,8 @@ fun IQScoreRow(
 
     val playerNameValue = remember { mutableStateOf(playerName) }
     val mainScoreValue = remember { mutableStateOf(mainScore) }
-    val dopsPickerValue = remember { mutableStateOf(0.3) }
+    val dopsPickerValue = remember { mutableStateOf(dopPoints) }
+    val commentValue = remember { mutableStateOf(comment) }
 
 
     Card(
@@ -54,7 +55,7 @@ fun IQScoreRow(
         border = BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
     ) {
         Row(
-            modifier = modifier,
+            modifier = modifier.background(MaterialTheme.colorScheme.onBackground),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,7 +66,7 @@ fun IQScoreRow(
                 style = TextStyle(color = playerNameColor),
                 textAlign = TextAlign.Center,
                 modifier = modifier.height(70.dp).weight(0.07f).background(color = playerColor)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically).padding(0.dp, 20.dp)
             )
 
             //NAME
@@ -86,28 +87,23 @@ fun IQScoreRow(
             //MAIN SCORE
             Text(
                 text = mainScoreValue.value,
-                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f)
+                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f).padding(20.dp, 20.dp, 0.dp, 20.dp)
                     .clickable(
                 enabled = true,
                 onClick = {
                     if (mainScoreValue.value.toInt() == 0) {mainScoreValue.value = 1.toString()}
                     else if (mainScoreValue.value.toInt() == 1) {mainScoreValue.value = 0.toString()}
-//                    mainScoreValue.value = 1.toString()
+                    onMainPointsChanged(mainScoreValue.value.toInt())
                 }
-                    ),
+
+                    )
             )
-//                    TODO():: NO MORE THAN 1 length
-//                onValueChange = { changedValue ->
-//                    mainScoreValue.value = changedValue
-//                    if (changedValue.isNotBlank()) {
-//                        onMainPointsChanged(changedValue.toInt())
-//                    }
-//                }
+
 
 
             //DOPS PICKER
             NumberPicker(
-                modifier = Modifier,
+                modifier = Modifier.padding(0.dp, 0.dp, 25.dp, 0.dp),
                 value = dopsPickerValue.value,
                 range = listOf(
                     -0.5,
@@ -130,20 +126,36 @@ fun IQScoreRow(
                 ),
                 onValueChange = { changedValue: Double ->
                     dopsPickerValue.value = changedValue
-//                    onDopsChanged(changedValue)
+                    if (dopsPickerValue.value == changedValue) onDopsChanged(changedValue)
                 }
             )
 
             //COMMENT
             BasicTextField(
-                value = comment,
-                onValueChange = {},
+                value = commentValue.value, onValueChange = {
+                             changedValue: String ->
+                    commentValue.value = changedValue
+                    if (commentValue.value == changedValue) onCommentChanged(changedValue)
+                },
                 minLines = 2,
                 maxLines = 2,
                 modifier = Modifier.wrapContentHeight()/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/
-                    .weight(0.32f)
+                    .weight(0.32f).padding(0.dp, 0.dp, 5.dp, 0.dp)
             )
         }
     }
 
 }
+
+
+//NAME
+//BasicTextField(
+//modifier = Modifier.height(70.dp).weight(0.23f).background(color = playerColor).padding(0.dp, 20.dp)/*.align(CenterVertically)*/,
+//textStyle = TextStyle(color = playerNameColor),
+//value = playerNameValue.value, onValueChange = { changedValue: String ->
+//    playerNameValue.value = changedValue
+//    if (playerNameValue.value == changedValue) {
+//        onPlayerNameChanged(changedValue)
+//    }
+//}
+//)
