@@ -3,10 +3,10 @@ package com.turbosokol.iqmafiaapp.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -60,43 +61,42 @@ fun IQScoreRow(
         ) {
 
 
-            Text(
-                text = slot.toString(),
-                style = TextStyle(color = playerNameColor),
-                textAlign = TextAlign.Center,
-                modifier = modifier.height(70.dp).weight(0.07f).background(color = playerColor)
-                    .align(Alignment.CenterVertically).padding(0.dp, 20.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .height(Dimensions.Components.IQScoreRow.rowHeight)
+                    .weight(0.07f)
+                    .background(color = playerColor)
+            ) {
+                Text(
+                    modifier = Modifier.padding(start = Dimensions.Padding.smedium, top = Dimensions.Padding.xsmall),
+                    text = slot.toString(),
+                    style = TextStyle(color = playerNameColor),
+                    textAlign = TextAlign.Center
+                )
+            }
 
             //NAME
-            BasicTextField(
-                modifier = Modifier.height(70.dp).weight(0.23f).background(color = playerColor).padding(0.dp, 20.dp)/*.align(CenterVertically)*/,
-                textStyle = TextStyle(color = playerNameColor),
-                value = playerNameValue.value, onValueChange = { changedValue: String ->
-                    playerNameValue.value = changedValue
-                    if (playerNameValue.value == changedValue) {
-                        onPlayerNameChanged(changedValue)
+            Box(
+                modifier = Modifier
+                    .height(Dimensions.Components.IQScoreRow.rowHeight)
+                    .weight(0.23f)
+                    .background(color = playerColor)
+                    .padding(top = 0.dp, bottom = 0.dp, end = Dimensions.Padding.small)
+                    .align(CenterVertically),
+                contentAlignment = Alignment.Center
+            ) {
+                BasicTextField(
+                    modifier = Modifier,
+                    textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
+                    value = playerNameValue.value, onValueChange = { changedValue: String ->
+                        playerNameValue.value = changedValue
+                        if (playerNameValue.value == changedValue) {
+                            onPlayerNameChanged(changedValue)
+                        }
                     }
-                }
-            )
+                )
+            }
 
-            //SLOT
-
-
-            //MAIN SCORE
-//            Text(
-//                text = mainScoreValue.value,
-//                modifier = modifier/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/.weight(0.15f).padding(20.dp, 20.dp, 0.dp, 20.dp)
-//                    .clickable(
-//                enabled = true,
-//                onClick = {
-//                    if (mainScoreValue.value.toInt() == 0) {mainScoreValue.value = 1.toString()}
-//                    else if (mainScoreValue.value.toInt() == 1) {mainScoreValue.value = 0.toString()}
-//                    onMainPointsChanged(mainScoreValue.value.toInt())
-//                }
-//
-//                    )
-//            )
 
             //MAIN SCORE PICKER
             NumberPicker(
@@ -105,11 +105,9 @@ fun IQScoreRow(
                 onValueChange = { changedValue ->
                     mainScoreValue.value = changedValue
                     if (mainScoreValue.value == changedValue) onMainPointsChanged(mainScoreValue.value)
-                 
-   }
+
+                }
             )
-
-
 
             //DOPS PICKER
             NumberPicker(
@@ -142,30 +140,16 @@ fun IQScoreRow(
 
             //COMMENT
             BasicTextField(
-                value = commentValue.value, onValueChange = {
-                             changedValue: String ->
+                value = commentValue.value, onValueChange = { changedValue: String ->
                     commentValue.value = changedValue
                     if (commentValue.value == changedValue) onCommentChanged(changedValue)
                 },
-                minLines = 2,
-                maxLines = 2,
-                modifier = Modifier.wrapContentHeight()/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/
+                minLines = 1,
+                maxLines = 4,
+                modifier = Modifier.height(Dimensions.Components.IQScoreRow.rowHeight)/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/
                     .weight(0.32f).padding(0.dp, 0.dp, 5.dp, 0.dp)
             )
         }
     }
 
 }
-
-
-//NAME
-//BasicTextField(
-//modifier = Modifier.height(70.dp).weight(0.23f).background(color = playerColor).padding(0.dp, 20.dp)/*.align(CenterVertically)*/,
-//textStyle = TextStyle(color = playerNameColor),
-//value = playerNameValue.value, onValueChange = { changedValue: String ->
-//    playerNameValue.value = changedValue
-//    if (playerNameValue.value == changedValue) {
-//        onPlayerNameChanged(changedValue)
-//    }
-//}
-//)

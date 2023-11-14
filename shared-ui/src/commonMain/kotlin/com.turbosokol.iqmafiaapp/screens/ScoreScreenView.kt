@@ -14,7 +14,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
@@ -40,7 +39,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val playersState = appState.getPlayersState()
     val gameState = appState.getGameState()
-    //Text(text = "Score\nTable Of Current Game\nTable of current user games", color = Color.Black)
 
     Card(
         elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
@@ -48,6 +46,8 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
     ) {
         //players info column
         //headers
+
+//        TODO():: BUTTON SEND TO BACK END INTO HEADER
         Row(
             modifier = Modifier
                 .weight(1f)
@@ -57,32 +57,32 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
             Text(
                 text = Strings.scoreNumberSymbol,
                 fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.08f).padding(start = 5.dp)
+                modifier = Modifier.weight(0.08f)
             )
 
 
             Text(
                 text = Strings.scoreNamesHeader,
                 fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.3f).padding(start = 5.dp)
+                modifier = Modifier.weight(0.3f)
             )
 
             Text(
                 text = Strings.scoreCardRate,
                 fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.15f).padding(start = 5.dp)
+                modifier = Modifier.weight(0.15f)
             )
 
             Text(
                 text = Strings.scoreDops,
                 fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.15f).padding(start = 5.dp)
+                modifier = Modifier.weight(0.15f)
             )
 
             Text(
                 text = Strings.comment,
                 fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.32f).padding(start = 5.dp)
+                modifier = Modifier.weight(0.32f)
             )
 
 
@@ -98,9 +98,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         CharacterCardType.DON -> Color.LightGray
                         CharacterCardType.SHERIFF -> Color.Yellow
                         CharacterCardType.BLACK -> Color.DarkGray
-                        else -> {
-                            Color.Cyan
-                        }
+                        else -> Color.Cyan
                     },
                     playerName = name,
                     onPlayerNameChanged = { changedText ->
@@ -114,9 +112,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         CharacterCardType.DON -> Color.Black
                         CharacterCardType.SHERIFF -> Color.Black
                         CharacterCardType.BLACK -> Color.White
-                        else -> {
-                            Color.Cyan
-                        } //If you see this color - app goes wrong
+                        else -> Color.Cyan
                     },
                     mainScore = gameState.mainPoints[playerIndex],
                     onMainPointsChanged = { newPoints ->
@@ -139,9 +135,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                 )
             }
         }
-
-
-
     }
 
 

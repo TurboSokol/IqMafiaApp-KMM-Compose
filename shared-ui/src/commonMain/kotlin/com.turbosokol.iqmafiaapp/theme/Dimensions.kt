@@ -53,6 +53,10 @@ object Dimensions {
         object PrimaryButton {
             val elevation = 2.dp
         }
+
+        object IQScoreRow {
+            val rowHeight = 70.dp
+        }
     }
 
 }
