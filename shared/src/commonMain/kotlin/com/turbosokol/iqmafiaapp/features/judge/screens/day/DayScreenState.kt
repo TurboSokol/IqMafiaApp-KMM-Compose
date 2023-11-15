@@ -20,9 +20,6 @@ data class DayScreenState(
 
 ) : GeneralState {
     companion object {
-        // isVotingActive = listOf(false)
-        // isVotingActive.count = JudgeRoundState.voteCandidatesList.count
-        // when EACH candidates Voting starts voted index become to true for 2 second and after 2 secs again become to false
         fun getInitState(): DayScreenState = DayScreenState(
             playersFaults = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
             voteResults = -1

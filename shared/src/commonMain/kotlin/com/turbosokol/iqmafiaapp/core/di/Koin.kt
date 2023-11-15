@@ -31,6 +31,11 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenMiddlew
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenReducer
 import com.turbosokol.iqmafiaapp.features.navigation.NavigationMiddleware
 import com.turbosokol.iqmafiaapp.features.navigation.NavigationReducer
+import com.turbosokol.iqmafiaapp.repository.network.MainNetworkApi
+import com.turbosokol.iqmafiaapp.repository.network.MainNetworkApiImpl
+import com.turbosokol.iqmafiaapp.service.KtorWebService
+import com.turbosokol.iqmafiaapp.service.LogService
+import com.turbosokol.iqmafiaapp.service.LogServiceImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
@@ -45,7 +50,7 @@ import kotlin.time.ExperimentalTime
 @InternalSerializationApi
 fun initSharedKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
-    modules(storeModule)
+    modules(storeModule, apiModule, serviceModule)
 }
 
 @ExperimentalTime
@@ -99,4 +104,14 @@ val storeModule = module {
     single { GameReducer() }
     single { PlayersReducer() }
     single { RoundReducer() }
+}
+
+val apiModule = module {
+    factory<MainNetworkApi> { MainNetworkApiImpl(get()) }
+}
+
+@ExperimentalTime
+val serviceModule = module {
+    single<LogService> { LogServiceImpl() }
+    factory { KtorWebService(get()) }
 }

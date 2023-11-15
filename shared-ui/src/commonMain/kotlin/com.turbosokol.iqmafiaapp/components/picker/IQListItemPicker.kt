@@ -4,9 +4,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
-
-//class IQListItemPicker {
-//}
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
@@ -195,7 +192,7 @@ private fun Label(text: String, modifier: Modifier) {
     Text(
         modifier = modifier.pointerInput(Unit) {
             detectTapGestures(onLongPress = {
-                // FIXME: Empty to disable text selection
+
             })
         },
         text = text,

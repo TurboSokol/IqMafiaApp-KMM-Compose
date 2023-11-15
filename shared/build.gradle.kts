@@ -38,19 +38,18 @@ kotlin {
                 //NETWORK
                 implementation("io.ktor:ktor-client-core:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-json:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-websockets:${Versions.ktor}")
 
                 //DATABASE
                 implementation("com.squareup.sqldelight:runtime:${Versions.sqlDelight}")
-//                implementation("org.kodein.db:kodein-db:${Versions.kodeinDb}")
-//                implementation("org.kodein.db:kodein-db-serializer-kotlinx:${Versions.kodeinDb}")
 
                 //SERIALIZATION SETTINGS
                 implementation("com.russhwolf:multiplatform-settings:${Versions.russhwolf}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.json}")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 
