@@ -18,13 +18,13 @@ object Versions {
     const val koin = "3.4.1"
 
     //Network
-    const val ktor = "2.2.2"
+    const val ktor = "2.3.6"
+    const val json = "1.5.1"
 
     //Database
     const val sqlDelight = "1.5.5"
     const val firebaseCore = "21.1.0"
     const val firebaseFirestore = "24.2.1"
-    const val kodeinDb = "0.9.0-beta"
 
     //Lifecycle
     const val lifecycle = "2.6.1"

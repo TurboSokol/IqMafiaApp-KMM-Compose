@@ -35,6 +35,7 @@ server_id INTEGER,
 game_judge_id INTEGER NOT NULL, -- Ведущий
 type_end TEXT NOT NULL, -- Тип победы (Enum { обычная, сухая, ппк }),
 winner_team TEXT NOT NULL, -- Команда победителей (Enum { Red, Black, Draw }),
+played_at TEXT,
 created_at TEXT,
 updated_at TEXT
 );

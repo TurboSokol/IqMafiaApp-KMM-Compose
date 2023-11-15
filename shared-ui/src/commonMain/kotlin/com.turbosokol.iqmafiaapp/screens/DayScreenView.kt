@@ -1,5 +1,6 @@
 package com.turbosokol.iqmafiaapp.screens
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,12 +27,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQDayPlayersRow
+import com.turbosokol.iqmafiaapp.components.IQDayVoteCard
 import com.turbosokol.iqmafiaapp.components.dialogs.IQEndVoteDialogView
 import com.turbosokol.iqmafiaapp.components.dialogs.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
@@ -114,8 +119,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
-                        else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
+                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
+                        else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
@@ -168,119 +173,91 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             }
         } //END card with slots, nicks, faults
 
-        //VOTE CARD
-        Card(
-            modifier = Modifier.padding(top = Dimensions.Padding.medium)
-                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline)), elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
-        ) {
-            Column(modifier = Modifier.background(Color.Transparent)) {
-                //NOMINATED PLAYERS
-                Row(
-                    modifier = Modifier.background(Color.Transparent),
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    roundState.voteCandidates.forEach { voteNominant ->
-                        var votingState by remember { mutableStateOf(VotingState.INIT) }
-
-                        Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
-                            TextButton(modifier = Modifier.border(
-                                BorderStroke(
-                                    1.dp,
-                                    MaterialTheme.colorScheme.outline
-                                )
-                            ).background(color = when(votingState) {
-                                VotingState.INIT -> MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f)
-                                VotingState.VOTE_IN_PROGRESS -> MaterialTheme.colorScheme.tertiary
-                                VotingState.VOTE_FINISHED -> MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.4f)
-                            }),
-                                onClick = {
-                                    MainScope().launch {
-                                        votingState = VotingState.VOTE_IN_PROGRESS
-                                        delay(1500)
-                                        votingState = VotingState.VOTE_FINISHED
-                                        voteNominantSlot.value = voteNominant
-                                        voteCountDialogVisible.value = true
-                                    }
-                                }) {
-                                Text(text = voteNominant.toString(), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
-                            }
-                        }
-
-                    }
-                }
-
-                //VOTE COUNT
-                Row(
-                    modifier = Modifier.background(Color.Transparent),
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                roundState.voteCandidates.forEach { voteNomination ->
-                    Card(modifier = if (roundState.voteCandidates.size < 6) Modifier else Modifier.weight(1f)) {
-                        TextButton(modifier = Modifier.border(
-                            BorderStroke(
-                                1.dp,
-                                MaterialTheme.colorScheme.outline
-                            )
-                        ).background(Color.Transparent),
-                            onClick = { /* no-op */ }) {
-                            val countVoting = roundState.voteResult[voteNomination].toString()
-                            Text(text = if (countVoting == "null") "-" else countVoting, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.ExtraBold)
-                        }
-                    }
-                }
-            }
-            }
-        } //END VOTE CARD
-
-        //VOTE COUNT DIALOG
-        IQVoteDialogView(
-            modifier = Modifier,
-            isVisible = voteCountDialogVisible.value,
-            onConfirm = { index: Int ->
-                viewModel.execute(RoundAction.UpdateVoteResults(roundState.voteResult.plus(voteNominantSlot.value to index)))
-                voteCountDialogVisible.value = false
-
-            },
-            onCancel = { voteCountDialogVisible.value = false }
-        )
-
-        //END DAY DIALOG
-        IQEndVoteDialogView(
-            modifier = Modifier,
-            isVisible = voteResultsDialogVisible.value,
-            onConfirm = { index: List<Int> ->
-                viewModel.execute(RoundAction.RoundCompleted(index))
-                voteResultsDialogVisible.value = false
-            },
-            onCancel = { voteResultsDialogVisible.value = false }
-        )
-
-
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
-            horizontalArrangement = Arrangement.Center
-        ) {
-             Card(modifier = Modifier.fillMaxHeight()
-                .wrapContentWidth()
-                .background(Color.Transparent)
-                .padding(Dimensions.Padding.medium)
-                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outline), RoundedCornerShape(Dimensions.CornerRadius.large))
-                .clickable { voteResultsDialogVisible.value = true },
-                elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
-                colors = CardDefaults.cardColors(Color.Transparent)
-            ) {
-                Text(
-                    text = Strings.endDayButton,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary).padding(Dimensions.Padding.smedium)
-                )
-            }
+        AnimatedVisibility(visible = roundState.voteCandidates.isNotEmpty()) {
+            Text(
+                modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.small).align(CenterHorizontally),
+                text = Strings.voteHintLabel,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
         }
-    } //END SCROLLABLE
+
+        AnimatedVisibility(
+            visible = roundState.voteCandidates.isNotEmpty(),
+            modifier = Modifier.background(Color.Transparent)
+        ) {
+            IQDayVoteCard(
+                modifier = Modifier.padding(top = Dimensions.Padding.small),
+                isVisible = roundState.voteCandidates.isNotEmpty(),
+                voteCandidates = roundState.voteCandidates,
+                voteResult = roundState.voteResult,
+                onVoteClick = { voteNominant, voteDialogVisible ->
+                    voteNominantSlot.value = voteNominant
+                    voteCountDialogVisible.value = voteDialogVisible
+                }
+            )
+        }
+
+            //VOTE CARD
+
+
+            //VOTE COUNT DIALOG
+            IQVoteDialogView(
+                modifier = Modifier,
+                isVisible = voteCountDialogVisible.value,
+                onConfirm = { index: Int ->
+                    viewModel.execute(
+                        RoundAction.UpdateVoteResults(
+                            roundState.voteResult.plus(
+                                voteNominantSlot.value to index
+                            )
+                        )
+                    )
+                    voteCountDialogVisible.value = false
+
+                },
+                onCancel = { voteCountDialogVisible.value = false }
+            )
+
+            //END DAY DIALOG
+            IQEndVoteDialogView(
+                modifier = Modifier,
+                isVisible = voteResultsDialogVisible.value,
+                onConfirm = { index: List<Int> ->
+                    viewModel.execute(RoundAction.RoundCompleted(index))
+                    voteResultsDialogVisible.value = false
+                },
+                onCancel = { voteResultsDialogVisible.value = false }
+            )
+
+
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.medium),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Card(
+                    modifier = Modifier.fillMaxHeight()
+                        .wrapContentWidth()
+                        .background(Color.Transparent)
+                        .padding(Dimensions.Padding.medium)
+                        .border(
+                            BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                            RoundedCornerShape(Dimensions.CornerRadius.large)
+                        )
+                        .clickable { voteResultsDialogVisible.value = true },
+                    elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
+                    colors = CardDefaults.cardColors(Color.Transparent)
+                ) {
+                    Text(
+                        text = Strings.endDayButton,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontWeight = FontWeight.ExtraBold,
+                        modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary)
+                            .padding(Dimensions.Padding.smedium)
+                    )
+                }
+            }
+        } //END SCROLLABLE
 }
 
 
-    enum class VotingState {
-        INIT, VOTE_IN_PROGRESS, VOTE_FINISHED
-    }
