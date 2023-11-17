@@ -11,6 +11,6 @@ import com.turbosokol.iqmafiaapp.data.profile.PlayersProfileBEModel
  ***/
 
 interface MainNetworkApi {
- suspend fun getPlayersProfiles(): ApiResponse<Any>
+ suspend fun getPlayersProfiles(): ApiResponse<PlayersProfileBEModel>
  suspend fun putGameWithProfiles(gamePutRequestModel: GamePutRequestModel): ApiResponseEmpty
 }

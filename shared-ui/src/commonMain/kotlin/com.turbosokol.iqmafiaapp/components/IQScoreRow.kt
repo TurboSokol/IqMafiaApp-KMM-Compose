@@ -147,8 +147,9 @@ fun IQScoreRow(
                 minLines = 1,
                 maxLines = 4,
                 modifier = Modifier.height(Dimensions.Components.IQScoreRow.rowHeight)/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/
-                    .weight(0.32f).padding(0.dp, 0.dp, 5.dp, 0.dp)
-            )
+                    .weight(0.32f).padding(0.dp, 0.dp, 5.dp, 0.dp),
+                textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary,textAlign = TextAlign.Start)
+             )
         }
     }
 

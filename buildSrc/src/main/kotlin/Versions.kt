@@ -18,7 +18,7 @@ object Versions {
     const val koin = "3.4.1"
 
     //Network
-    const val ktor = "2.2.3"
+    const val ktor = "2.3.6"
     const val json = "1.5.1"
 
     //Database

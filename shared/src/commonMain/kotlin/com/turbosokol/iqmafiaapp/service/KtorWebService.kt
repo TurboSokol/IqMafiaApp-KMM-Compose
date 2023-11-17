@@ -35,11 +35,11 @@ class KtorWebService(
     val logService: LogService
 ) {
 
-    suspend fun makeJsonGet(
+    suspend inline fun <reified T : Any> makeJsonGet(
         endpoint: String,
         retry: Boolean = false,
         baseUrl: String = BASE_URL
-    ): ApiResponse<Any> {
+    ): ApiResponse<T> {
         val url = baseUrl + endpoint
 
         val client = getClient(logService) {
@@ -61,16 +61,15 @@ class KtorWebService(
                     }
 
                 logService.logTrace("GET '$url' SUCCESS")
-
-                return ApiResponse(true, data, null)
-//            } catch (e: WebClientException) {
-//                retryCount--
-//                if (retryCount < 0)
-//                    return ApiResponse(false, null, ErrorResponse("", e.statusCode.value))
-//            } catch (e: NoTransformationFoundException) {
-//                retryCount--
-//                if (retryCount < 0)
-//                    return ApiResponse(true, null, null)
+                return ApiResponse(true, data as T, null)
+            } catch (e: WebClientException) {
+                retryCount--
+                if (retryCount < 0)
+                    return ApiResponse(false, null, ErrorResponse("", e.statusCode.value))
+            } catch (e: NoTransformationFoundException) {
+                retryCount--
+                if (retryCount < 0)
+                    return ApiResponse(true, null, null)
             } catch (e: Exception) {
                 retryCount--
                 logService.logError("!!! GET '$url' FAILED: '${e.message}'")

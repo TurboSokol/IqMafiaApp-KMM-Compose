@@ -14,11 +14,11 @@ import com.turbosokol.iqmafiaapp.service.KtorWebService
 
 class MainNetworkApiImpl(private val client: KtorWebService) : MainNetworkApi {
     override suspend fun getPlayersProfiles(): ApiResponse<Any> {
-        return client.makeJsonGet(endpoint = "/api/profiles")
-//        if (!response.success) {
-//            response.errorResponse?.message = "getPlayersProfile failed"
-//        }
-//        return response
+        val response = client.makeJsonGet<Any>(endpoint = "/api/profiles")
+        if (!response.success) {
+            response.errorResponse?.message = "getPlayersProfile failed"
+        }
+        return response
     }
 
     override suspend fun putGameWithProfiles(gamePutRequestModel: GamePutRequestModel): ApiResponseEmpty {

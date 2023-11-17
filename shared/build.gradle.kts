@@ -49,6 +49,7 @@ kotlin {
 
                 //SERIALIZATION SETTINGS
                 implementation("com.russhwolf:multiplatform-settings:${Versions.russhwolf}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.json}")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
