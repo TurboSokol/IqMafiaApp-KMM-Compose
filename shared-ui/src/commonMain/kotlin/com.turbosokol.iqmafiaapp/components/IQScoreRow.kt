@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -148,7 +150,21 @@ fun IQScoreRow(
                 maxLines = 4,
                 modifier = Modifier.height(Dimensions.Components.IQScoreRow.rowHeight)/*.border(0.5.dp, MaterialTheme.colorScheme.outline)*/
                     .weight(0.32f).padding(0.dp, 0.dp, 5.dp, 0.dp),
-                textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary,textAlign = TextAlign.Start)
+                textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary,textAlign = TextAlign.Start),
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.onPrimary),
+                decorationBox = { innerTextField ->
+                    Row(
+                        Modifier
+                            .background(MaterialTheme.colorScheme.onBackground, RoundedCornerShape(percent = 30))
+                            .padding(16.dp),
+                    ) {
+
+                        if (comment.isEmpty()) {
+                            Text("Write a comment", fontSize = Dimensions.TextSize.ssmall)
+                        }
+                        innerTextField()
+                    }
+                },
              )
         }
     }

@@ -12,9 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
+import com.turbosokol.iqmafiaapp.components.picker.IQScoreSendButton
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
@@ -88,7 +90,8 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
         }
 
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+            IQScoreSendButton()
             playersState.nickNames.forEachIndexed { playerIndex, name ->
                 IQScoreRow(
                     modifier = Modifier,
@@ -134,6 +137,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     }
                 )
             }
+//            IQScoreSendButton()
         }
     }
 
