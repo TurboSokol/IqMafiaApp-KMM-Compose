@@ -85,7 +85,7 @@ val storeModule = module {
                 ScoreScreenMiddleware(),
                 AchievesScreenMiddleware(),
                 GameMiddleware(),
-                PlayersMiddleware(),
+                PlayersMiddleware(get()),
                 RoundMiddleware()
             )
         )

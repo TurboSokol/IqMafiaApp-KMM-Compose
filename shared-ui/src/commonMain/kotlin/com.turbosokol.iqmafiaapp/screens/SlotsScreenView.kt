@@ -31,6 +31,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -58,8 +59,12 @@ import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -143,14 +148,14 @@ fun SlotsSingleGameView(viewModel: ReduxViewModel) {
 
 
         TextButton(modifier = Modifier.fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
-            , onClick = {
-            if (slotsState.slotsList.lastIndex != slotsState.listIndex) {
-                viewModel.execute(SlotsScreenAction.ShowNext)
-            } else {
-                viewModel.execute(SlotsScreenAction.SetResetDialogVisible)
-            }
-        }) {
+            .background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)),
+            onClick = {
+                if (slotsState.slotsList.lastIndex != slotsState.listIndex) {
+                    viewModel.execute(SlotsScreenAction.ShowNext)
+                } else {
+                    viewModel.execute(SlotsScreenAction.SetResetDialogVisible)
+                }
+            }) {
             Text(
                 text = if (slotsState.isHidden) Strings.singleSlotsHiddenLabel else slotsState.slotsList[slotsState.listIndex].toString(),
                 fontSize = if (slotsState.isHidden) Dimensions.TextSize.huge else Dimensions.TextSize.xhuge,
@@ -168,7 +173,8 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val slotsState = appState.getSlotsState()
     val keyboard = LocalSoftwareKeyboardController.current
-
+    val coroutineScope = CoroutineScope(Dispatchers.Default + Job())
+    val isAnimated = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
@@ -186,7 +192,8 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
         Card(elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)) {
             Column {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
-                    IQPlayerNameRow(modifier = Modifier,
+                    IQPlayerNameRow(
+                        modifier = Modifier,
                         slot = index, textName = name, isInputEnabled = true,
                         colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
                         colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
@@ -201,19 +208,19 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
 
         Spacer(modifier = Modifier.height(1.dp))
 
-        var gamesCount by remember { mutableStateOf(slotsState.tourGamesCount.toString()) }
+        val gamesCount = remember { mutableStateOf(slotsState.tourGamesCount.toString()) }
 
         Row(
             modifier = Modifier.fillMaxWidth()
                 .padding(top = Dimensions.Padding.medium, bottom = 70.dp)
         ) {
             OutlinedTextField(modifier = Modifier.weight(0.8f),
-                value = gamesCount,
+                value = gamesCount.value,
                 onValueChange = { changedText ->
-                    gamesCount = changedText
+                    gamesCount.value = changedText
                     if (changedText.isNotBlank()) viewModel.execute(
                         SlotsScreenAction.SetTourGamesCount(
-                            gamesCount.toInt()
+                            gamesCount.value.toInt()
                         )
                     )
                 },
@@ -230,34 +237,36 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                 ),
                 trailingIcon = {
                     TextButton(modifier = Modifier, onClick = {
+//                        isAnimated.value = true
                         keyboard?.hide()
 
-                        if (slotsState.tourGamesCount <= 100) {
+                        if (slotsState.tourGamesCount in 1..50) {
                             viewModel.execute(SlotsScreenAction.SetTourSlotsList(emptyList()))
-                            CoroutineScope(Dispatchers.Default + Job()).launch {
-
-                                val shuffled = async { tournamentShuffleSlots(
-                                    slotsState.tourPlayersNames,
-                                    slotsState.tourGamesCount
-                                )}
-
-                                viewModel.execute(SlotsScreenAction.SetTourSlotsList(shuffled.await()))
-                            }
-
-                            }
-
-                        else {
-                            gamesCount = "100"
-                            SlotsScreenAction.SetTourGamesCount(100)
+                            viewModel.execute(SlotsScreenAction.SetTourSlotsList(
+                                tournamentShuffleSlots(
+                                slotsState.tourPlayersNames,
+                                slotsState.tourGamesCount
+                            )))
+//                            coroutineScope.launch {
+//                                listPlayers = tournamentShuffleSlots(
+//                                    slotsState.tourPlayersNames,
+//                                    slotsState.tourGamesCount
+//                                )
+//                            }.invokeOnCompletion {
+//                                viewModel.execute(SlotsScreenAction.SetTourSlotsList(listPlayers))
+//                                isAnimated.value = false
+//                            }
                         }
-
                     }) {
-                        Text(text = Strings.tourSlotsGenerateButton, color = MaterialTheme.colorScheme.tertiary)
+                        Text(
+                            text = Strings.tourSlotsGenerateButton,
+                            color = MaterialTheme.colorScheme.tertiary
+                        )
                     }
                 })
         }
 
-        if (slotsState.inProgress) {
+        if (isAnimated.value) {
             IQDialog(dismiss = { /* no-op */ }) {
                 IQLoaderView(
                     modifier = Modifier.padding(100.dp),
@@ -280,7 +289,10 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     Card(
                         modifier = Modifier.padding(top = Dimensions.Padding.medium)
                             .background(color = MaterialTheme.colorScheme.onBackground)
-                            .border(width = 1.dp, color = MaterialTheme.colorScheme.secondaryContainer),
+                            .border(
+                                width = 1.dp,
+                                color = MaterialTheme.colorScheme.secondaryContainer
+                            ),
                         elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)
                     ) {
                         Column {
@@ -313,15 +325,27 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                     }
                 }
 
-                Card(modifier = Modifier.align(Alignment.CenterHorizontally).padding(Dimensions.Padding.medium), elevation = CardDefaults.cardElevation(Dimensions.Elevation.small), border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline), shape = Shapes().medium) {
-                    TextButton( onClick = {
-                        viewModel.execute(
-                            SlotsScreenAction.SetResetDialogVisible
-                        )
-                    },
+                Card(
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                        .padding(Dimensions.Padding.medium),
+                    elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                    shape = Shapes().medium
+                ) {
+                    TextButton(
+                        onClick = {
+                            viewModel.execute(
+                                SlotsScreenAction.SetResetDialogVisible
+                            )
+                        },
                         shape = Shapes().medium
                     ) {
-                        Text(modifier = Modifier, text = Strings.resetDialogLabel, color = MaterialTheme.colorScheme.tertiary, fontSize = Dimensions.TextSize.smedium)
+                        Text(
+                            modifier = Modifier,
+                            text = Strings.resetDialogLabel,
+                            color = MaterialTheme.colorScheme.tertiary,
+                            fontSize = Dimensions.TextSize.smedium
+                        )
                     }
                 }
             }

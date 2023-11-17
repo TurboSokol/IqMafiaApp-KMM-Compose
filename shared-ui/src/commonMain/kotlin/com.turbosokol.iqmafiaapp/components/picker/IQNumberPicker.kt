@@ -10,9 +10,7 @@ import androidx.compose.ui.text.TextStyle
 @Composable
 fun <T> NumberPicker(
     modifier: Modifier = Modifier,
-    label: (T) -> String = {
-        it.toString()
-    },
+    label: (T) -> String = { it.toString() },
     value: T,
     onValueChange: (T) -> Unit,
     dividersColor: Color = MaterialTheme.colorScheme.primary,

@@ -1,4 +1,4 @@
-package com.turbosokol.iqmafiaapp.data.network
+package com.turbosokol.iqmafiaapp.data.core
 
 import kotlinx.serialization.Serializable
 

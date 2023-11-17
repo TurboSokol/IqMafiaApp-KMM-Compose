@@ -42,13 +42,13 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-websockets:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-auth:${Versions.ktor}")
 
                 //DATABASE
                 implementation("com.squareup.sqldelight:runtime:${Versions.sqlDelight}")
 
                 //SERIALIZATION SETTINGS
                 implementation("com.russhwolf:multiplatform-settings:${Versions.russhwolf}")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.json}")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
@@ -66,6 +66,7 @@ kotlin {
         val androidMain by getting {
             dependencies{
                 implementation("io.ktor:ktor-client-android:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-cio:${Versions.ktor}")
                 implementation("io.ktor:ktor-network-tls:${Versions.ktor}")
                 implementation("com.squareup.okhttp3:okhttp:4.10.0")
                 implementation("androidx.core:core:1.10.1")
