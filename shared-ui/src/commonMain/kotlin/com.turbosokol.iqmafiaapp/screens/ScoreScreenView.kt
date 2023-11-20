@@ -1,5 +1,6 @@
 package com.turbosokol.iqmafiaapp.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -42,56 +44,59 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
     val playersState = appState.getPlayersState()
     val gameState = appState.getGameState()
 
-    Card(
-        elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
-        modifier = Modifier.fillMaxWidth(1f)
-    ) {
-        //players info column
-        //headers
-
-//        TODO():: BUTTON SEND TO BACK END INTO HEADER
-        Row(
-            modifier = Modifier
-                .weight(1f)
-                .padding(Dimensions.Padding.small),
-
-        ) {
-            Text(
-                text = Strings.scoreNumberSymbol,
-                fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.08f)
-            )
 
 
-            Text(
-                text = Strings.scoreNamesHeader,
-                fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.3f)
-            )
-
-            Text(
-                text = Strings.scoreCardRate,
-                fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.15f)
-            )
-
-            Text(
-                text = Strings.scoreDops,
-                fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.15f)
-            )
-
-            Text(
-                text = Strings.comment,
-                fontSize = Dimensions.TextSize.small,
-                modifier = Modifier.weight(0.32f)
-            )
-
-
-        }
-
-        Column(modifier = Modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState()).background(MaterialTheme.colorScheme.onBackground),
+            horizontalAlignment = Alignment.CenterHorizontally) {
             IQScoreSendButton()
+            Card(
+                modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).fillMaxWidth(1f),
+                elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
+                ) {
+                //players info column
+                //headers
+                Row(
+                    modifier = Modifier
+//                        .weight(1f)
+                        .background(MaterialTheme.colorScheme.onBackground)
+                        .padding(Dimensions.Padding.small)
+
+//                        .height(300.dp),
+
+                    ) {
+                    Text(//№
+                        text = Strings.scoreNumberSymbol,
+                        fontSize = Dimensions.TextSize.small,
+                        modifier = Modifier.weight(0.1f)
+                    )
+
+
+                    Text(//NAME
+                        text = Strings.scoreNamesHeader,
+                        fontSize = Dimensions.TextSize.small,
+                        modifier = Modifier.weight(0.3f)
+                    )
+
+                    Text(//RATE
+                        text = Strings.scoreCardRate,
+                        fontSize = Dimensions.TextSize.small,
+                        modifier = Modifier.weight(0.15f)
+                    )
+
+                    Text(//DOPS
+                        text = Strings.scoreDops,
+                        fontSize = Dimensions.TextSize.small,
+                        modifier = Modifier.weight(0.3f)
+                    )
+
+                    Text(//COMMENT
+                        text = Strings.comment,
+                        fontSize = Dimensions.TextSize.small,
+                        modifier = Modifier.weight(0.3f)
+                    )
+
+
+                }
             playersState.nickNames.forEachIndexed { playerIndex, name ->
                 IQScoreRow(
                     modifier = Modifier,

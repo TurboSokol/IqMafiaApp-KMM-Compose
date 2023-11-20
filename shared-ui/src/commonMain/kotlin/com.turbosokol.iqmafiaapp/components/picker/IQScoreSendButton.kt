@@ -1,6 +1,7 @@
 package com.turbosokol.iqmafiaapp.components.picker
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -12,7 +13,8 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 @Composable
 fun IQScoreSendButton () {
-    Button(onClick = {}, modifier = Modifier, elevation = ButtonDefaults.buttonElevation(Dimensions.Elevation.xlarge)
+    Button(onClick = {}, modifier = Modifier.background(MaterialTheme.colorScheme.onBackground),
+        elevation = ButtonDefaults.buttonElevation(Dimensions.Elevation.xlarge)
     , border = BorderStroke(3.dp, color = MaterialTheme.colorScheme.tertiary)
     )
     {
