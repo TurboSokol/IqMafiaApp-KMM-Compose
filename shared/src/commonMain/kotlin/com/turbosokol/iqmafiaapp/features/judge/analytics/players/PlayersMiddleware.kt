@@ -29,7 +29,7 @@ class PlayersMiddleware(private val mainNetworkApi: MainNetworkApi) : Middleware
                 if (state.playersState.allProfilesFromBE.isEmpty()) {
                     val result = mainNetworkApi.getPlayersProfiles()
                     if (result.success) {
-//                        emit(PlayersAction.UpdateProfilesInfo(result.data?.toUIList() ?: emptyList()))
+                        emit(PlayersAction.UpdateProfilesInfo(result.data?.toUIList() ?: emptyList()))
                     }
                 }
             }
