@@ -1,12 +1,16 @@
 package com.turbosokol.iqmafiaapp.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -17,8 +21,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
-import com.turbosokol.iqmafiaapp.components.picker.IQScoreSendButton
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
@@ -48,7 +52,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
         Column(modifier = Modifier.verticalScroll(rememberScrollState()).background(MaterialTheme.colorScheme.onBackground),
             horizontalAlignment = Alignment.CenterHorizontally) {
-            IQScoreSendButton()
             Card(
                 modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).fillMaxWidth(1f),
                 elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
@@ -57,9 +60,8 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                 Row(
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.onBackground)
-                        .padding(Dimensions.Padding.small)
-
-
+                        .padding(horizontal = Dimensions.Padding.small, vertical = Dimensions.Padding.micro),
+                    verticalAlignment = Alignment.CenterVertically
                     ) {
                     Text(
                         text = Strings.scoreNumberSymbol,
@@ -83,14 +85,30 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     Text(
                         text = Strings.scoreDops,
                         fontSize = Dimensions.TextSize.small,
-                        modifier = Modifier.weight(0.3f)
+                        modifier = Modifier.weight(0.2f)
                     )
 
                     Text(
                         text = Strings.comment,
                         fontSize = Dimensions.TextSize.small,
-                        modifier = Modifier.weight(0.3f)
+                        modifier = Modifier.weight(0.2f)
                     )
+
+                    Button(modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).padding(start = Dimensions.Padding.xsmall),
+//                        elevation = ButtonDefaults.buttonElevation(Dimensions.Elevation.xlarge),
+//                        border = BorderStroke(width = 3.dp, color = MaterialTheme.colorScheme.tertiary),
+                        contentPadding = PaddingValues(
+                            start = 2.dp,
+                            top = 0.dp,
+                            end = 2.dp,
+                            bottom = 0.dp
+                        ),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
+                        onClick = {/* no-op */}
+                    )
+                    {
+                        Text(text = "Save")
+                    }
 
 
                 }
