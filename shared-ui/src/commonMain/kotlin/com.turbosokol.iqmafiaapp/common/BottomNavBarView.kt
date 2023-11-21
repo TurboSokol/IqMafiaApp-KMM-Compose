@@ -73,7 +73,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                     shape = RoundedCornerShape(topStart = Dimensions.CornerRadius.medium, topEnd = Dimensions.CornerRadius.medium),
                     tonalElevation = Dimensions.Elevation.medium
                 )  {
-                    NavigationBar(containerColor = MaterialTheme.colorScheme.primaryContainer, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.NavBar.barHeight)
+                    NavigationBar(containerColor = MaterialTheme.colorScheme.inversePrimary, windowInsets = WindowInsets(5, 15, 5, 1), modifier = Modifier.height(Dimensions.Components.NavBar.barHeight)
                     ) {
 
                         val tabsList = listOf<NavigationTabs>(

@@ -95,8 +95,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     )
 
                     Button(modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).padding(start = Dimensions.Padding.xsmall),
-//                        elevation = ButtonDefaults.buttonElevation(Dimensions.Elevation.xlarge),
-//                        border = BorderStroke(width = 3.dp, color = MaterialTheme.colorScheme.tertiary),
                         contentPadding = PaddingValues(
                             start = 2.dp,
                             top = 0.dp,
