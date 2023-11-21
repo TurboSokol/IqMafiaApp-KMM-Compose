@@ -20,6 +20,7 @@ object Dimensions {
 
     object TextSize {
         val xsmall = 8.sp
+        val ssmall = 12.sp
         val small = 14.sp
         val smedium = 18.sp
         val medium = 25.sp
