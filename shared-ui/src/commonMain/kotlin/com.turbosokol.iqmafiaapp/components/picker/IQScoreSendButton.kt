@@ -21,11 +21,4 @@ fun IQScoreSendButton () {
         Text("Send data to the cloud")
     }
 
-//    FloatingActionButton(
-//        onClick = {},
-////        modifier = modifier,
-//        content = { Text("Send Data") },
-//        shape = CircleShape,
-//        containerColor = MaterialTheme.colorScheme.tertiary
-//    )
 }

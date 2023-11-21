@@ -53,43 +53,40 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                 modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).fillMaxWidth(1f),
                 elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
                 ) {
-                //players info column
-                //headers
+
                 Row(
                     modifier = Modifier
-//                        .weight(1f)
                         .background(MaterialTheme.colorScheme.onBackground)
                         .padding(Dimensions.Padding.small)
 
-//                        .height(300.dp),
 
                     ) {
-                    Text(//№
+                    Text(
                         text = Strings.scoreNumberSymbol,
                         fontSize = Dimensions.TextSize.small,
                         modifier = Modifier.weight(0.1f)
                     )
 
 
-                    Text(//NAME
+                    Text(
                         text = Strings.scoreNamesHeader,
                         fontSize = Dimensions.TextSize.small,
                         modifier = Modifier.weight(0.3f)
                     )
 
-                    Text(//RATE
+                    Text(
                         text = Strings.scoreCardRate,
                         fontSize = Dimensions.TextSize.small,
                         modifier = Modifier.weight(0.15f)
                     )
 
-                    Text(//DOPS
+                    Text(
                         text = Strings.scoreDops,
                         fontSize = Dimensions.TextSize.small,
                         modifier = Modifier.weight(0.3f)
                     )
 
-                    Text(//COMMENT
+                    Text(
                         text = Strings.comment,
                         fontSize = Dimensions.TextSize.small,
                         modifier = Modifier.weight(0.3f)
@@ -111,7 +108,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     playerName = name,
                     onPlayerNameChanged = { changedText ->
                         val newNames =
-                            playersState.nickNames.toMutableList() //slotsState.tourPlayersNames.toMutableList()
+                            playersState.nickNames.toMutableList()
                         newNames[playerIndex] = changedText
                         viewModel.execute(PlayersAction.UpdateNickNames(newNames))
                     },
@@ -142,9 +139,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     }
                 )
             }
-//            IQScoreSendButton()
         }
     }
-
-
 }

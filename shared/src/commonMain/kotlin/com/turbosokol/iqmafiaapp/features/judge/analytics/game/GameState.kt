@@ -46,18 +46,6 @@ data class GameState(
             dopPoints = listOf(0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3),
             mainPoints = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
             comments = listOf("","","","","","","","","","")
-/*                    listOf(
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here",
-                "Write comment here"
-            )*/
         )
     }
 }
