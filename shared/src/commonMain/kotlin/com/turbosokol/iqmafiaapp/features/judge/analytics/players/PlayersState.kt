@@ -4,6 +4,7 @@ import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardModel
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
+import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -15,7 +16,8 @@ data class PlayersState(
     val profileIds: List<Int>,
     val userIds: List<Int>,
     val characterCards: List<CharacterCardModel>,
-    val voteNomination: List<Boolean>
+    val voteNomination: List<Boolean>,
+    val allProfilesFromBE: List<ProfileUIModel>
 ) : GeneralState {
     companion object {
 
@@ -47,7 +49,8 @@ data class PlayersState(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.SHERIFF),
             ),
-            voteNomination = listOf(false, false, false, false, false, false, false, false, false, false)
+            voteNomination = listOf(false, false, false, false, false, false, false, false, false, false),
+            allProfilesFromBE = listOf()
         )
 
     }
@@ -57,8 +60,10 @@ sealed class PlayersAction: Action {
     object Init: PlayersAction()
     data class UpdateNickNames(val nickNames: List<String>): PlayersAction()
 
+    data object GetProfilesFromBE: PlayersAction()
+
     //PROFILE IDs used for hold nickname, USER IDs used for hold auth info and admins permissions
-    data class UpdateProfilesInfo(val profileIds: List<Int>, val userIds: List<Int>): PlayersAction()
+    data class UpdateProfilesInfo(val allProfilesFromBE: List<ProfileUIModel>): PlayersAction()
     data class UpdateCharacterCards(val characterCards: List<CharacterCardModel>): PlayersAction()
 
     data class UpdateVoteNominations(val voteNomination: List<Boolean>): PlayersAction()

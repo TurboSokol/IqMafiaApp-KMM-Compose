@@ -1,8 +1,8 @@
 package com.turbosokol.iqmafiaapp.repository.network
 
 import com.turbosokol.iqmafiaapp.data.game.GamePutRequestModel
-import com.turbosokol.iqmafiaapp.data.network.ApiResponse
-import com.turbosokol.iqmafiaapp.data.network.ApiResponseEmpty
+import com.turbosokol.iqmafiaapp.data.core.ApiResponse
+import com.turbosokol.iqmafiaapp.data.core.ApiResponseEmpty
 import com.turbosokol.iqmafiaapp.data.profile.PlayersProfileBEModel
 
 /***

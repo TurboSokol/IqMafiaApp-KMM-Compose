@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import com.turbosokol.iqmafiaapp.components.IQBottomNavItemView
 import com.turbosokol.iqmafiaapp.features.app.AppState
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.AchievesScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenState
@@ -55,6 +56,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val navigationState: NavigationState = appState.getNavigationState()
+    viewModel.execute(PlayersAction.GetProfilesFromBE)
 
     val selectedTab = when (navigationState.currentScreenState) {
         is SlotsScreenState -> NavigationTabs.SLOTS

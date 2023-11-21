@@ -12,7 +12,7 @@ object Versions {
     const val legacySupport = "1.0.0"
 
     //Multithreading
-    const val coroutines = "1.6.4"
+    const val coroutines = "1.7.3"
 
     //DI
     const val koin = "3.4.1"

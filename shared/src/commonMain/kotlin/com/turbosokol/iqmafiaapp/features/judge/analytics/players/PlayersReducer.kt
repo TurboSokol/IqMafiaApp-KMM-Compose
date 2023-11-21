@@ -18,6 +18,10 @@ class PlayersReducer : Reducer<PlayersState> {
                 oldState.copy(nickNames = action.nickNames)
             }
 
+            is PlayersAction.UpdateProfilesInfo -> {
+                oldState.copy(allProfilesFromBE = action.allProfilesFromBE)
+            }
+
             is PlayersAction.UpdateCharacterCards -> {
                 oldState.copy(characterCards = action.characterCards)
             }
