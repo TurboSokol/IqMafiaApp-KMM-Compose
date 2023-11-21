@@ -5,7 +5,6 @@ import com.turbosokol.iqmafiaapp.data.core.ApiResponse
 import com.turbosokol.iqmafiaapp.data.core.ApiResponseEmpty
 import com.turbosokol.iqmafiaapp.data.profile.PlayersProfileBEModel
 import com.turbosokol.iqmafiaapp.service.KtorWebService
-//import com.turbosokol.iqmafiaapp.service.KtorWebService
 
 /***
  *If this code runs it was created by Evgenii Sokol.
@@ -13,8 +12,8 @@ import com.turbosokol.iqmafiaapp.service.KtorWebService
  ***/
 
 class MainNetworkApiImpl(private val client: KtorWebService) : MainNetworkApi {
-    override suspend fun getPlayersProfiles(): ApiResponse<Any> {
-        val response = client.makeJsonGet<Any>(endpoint = "/api/profiles")
+    override suspend fun getPlayersProfiles(): ApiResponse<PlayersProfileBEModel> {
+        val response = client.makeJsonGet<PlayersProfileBEModel>(endpoint = "/api/profiles")
         if (!response.success) {
             response.errorResponse?.message = "getPlayersProfile failed"
         }
