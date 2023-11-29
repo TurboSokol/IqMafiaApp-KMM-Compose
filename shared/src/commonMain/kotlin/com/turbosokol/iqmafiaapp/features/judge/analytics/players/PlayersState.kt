@@ -60,6 +60,7 @@ sealed class PlayersAction: Action {
     object Init: PlayersAction()
     data class UpdateNickNames(val nickNames: List<String>): PlayersAction()
 
+    //get all profiles from BACK END
     data object GetProfilesFromBE: PlayersAction()
 
     //PROFILE IDs used for hold nickname, USER IDs used for hold auth info and admins permissions

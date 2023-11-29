@@ -13,6 +13,7 @@ import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.put
@@ -29,11 +30,13 @@ import kotlin.time.ExperimentalTime
  ***/
 
 const val BASE_URL = "https://iq.vd-create.ru"
-const val BASE_URL_TEST = "https://meowfacts.herokuapp.com/"
-const val BEARER  = "S(^&sad*%ASD7as6d5%AS^(%D"
+const val BEARER = "S(^&sad*%ASD7as6d5%AS^(%D"
+
 class KtorWebService(
     val logService: LogService
 ) {
+
+    val client = getClient(logService)
 
     suspend inline fun <reified T : Any> makeJsonGet(
         endpoint: String,
@@ -41,38 +44,31 @@ class KtorWebService(
         baseUrl: String = BASE_URL
     ): ApiResponse<T> {
         val url = baseUrl + endpoint
-
-        val client = getClient(logService) {
-            throw WebClientException(it)
-        }
-
         var retryCount = if (retry) 1 else 0
         while (retryCount >= 0) {
             try {
                 val data = client.get {
-                        url {
-                            host = BASE_URL_TEST
-//                            path(endpoint)
-                        }
-//                        headers {
-//                            append("Authorization", "Bearer ${com.turbosokol.iqmafiaapp.service.BEARER}")
-//                            customHeaders(this)
-//                        }
+                    url {
+                        host = url
+                        path(endpoint)
                     }
+
+                    bearerAuth(BEARER)
+                }
 
                 logService.logTrace("GET '$url' SUCCESS")
                 return ApiResponse(true, data as T, null)
-            } catch (e: WebClientException) {
-                retryCount--
-                if (retryCount < 0)
-                    return ApiResponse(false, null, ErrorResponse("", e.statusCode.value))
-            } catch (e: NoTransformationFoundException) {
-                retryCount--
-                if (retryCount < 0)
-                    return ApiResponse(true, null, null)
+//            } catch (e: WebClientException) {
+//                retryCount--
+//                if (retryCount < 0)
+//                    return ApiResponse(false, null, ErrorResponse("", e.statusCode.value))
+//            } catch (e: NoTransformationFoundException) {
+//                retryCount--
+//                if (retryCount < 0)
+//                    return ApiResponse(true, null, null)
             } catch (e: Exception) {
                 retryCount--
-                logService.logError("!!! GET '$url' FAILED: '${e.message}'")
+                logService.logError("!!! GET '$url' FAILED: '${e.toString()}'")
             }
         }
         return ApiResponse(false, null, ErrorResponse("", 0))
@@ -88,23 +84,11 @@ class KtorWebService(
     ): ApiResponse<TResponse> {
         val url = baseUrl + endpoint
 
-        val client = getClient(logService) {
-            throw WebClientException(it)
-        }
-
         var retryCount = if (retry) 1 else 0
         while (retryCount >= 0) {
             try {
                 val data = client.post(url) {
 
-                    headers
-//                    headers {
-//                        append("Authorization", "Bearer $authorizationHeader")
-//                        customHeaders(this)
-//                    }
-//                    contentType(ContentType.Application.Json)
-//                    body = request
-//                }
                 }
 
                 logService.logTrace("POST '$url' SUCCESS")
@@ -134,17 +118,7 @@ class KtorWebService(
     ): ApiResponse<TResponse> {
         val url = baseUrl + endpoint
         try {
-            val client = getClient(logService) {
-                throw WebClientException(it)
-            }
             val data = client.put(url)
-//                headers {
-//                    append("Authorization", "Bearer $authorizationHeader")
-//                    customHeaders(this)
-//                }
-//                contentType(ContentType.Application.Json)
-//                body = request
-
 
             logService.logTrace("PUT '$url' SUCCESS")
             return ApiResponse(true, data as TResponse, null)
@@ -161,32 +135,22 @@ class KtorWebService(
     @OptIn(ExperimentalSerializationApi::class, ExperimentalTime::class)
     @PublishedApi
     internal fun getClient(
-        logService: LogService,
-        httpResponse: (HttpStatusCode) -> Unit
+        logService: LogService
     ): HttpClient {
         return httpClient() {
             install(ContentNegotiation) {
                 kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
             }
-            install(Auth) {
-                bearer {
-                    loadTokens {
-                        BearerTokens(BEARER, "")
-                    }
-                }
-            }
+//            install(Auth) {
+//                bearer {
+//                    loadTokens {
+//                        BearerTokens(BEARER, "")
+//                    }
+//                }
+//            }
             install(Logging) {
                 level = LogLevel.ALL
                 logger = WebClientLogger(logService)
-            }
-            HttpResponseValidator {
-                handleResponseException { exception ->
-                    val exceptionResponse = (exception as? ClientRequestException)?.response
-
-                    exceptionResponse?.status?.let { statusCode ->
-                        httpResponse(statusCode)
-                    }
-                }
             }
         }
     }

@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlayersProfileBEModel(
-    @SerialName("data")
+//    @SerialName("data")
     val data: List<ProfileData>?
 ) {
     @Serializable
