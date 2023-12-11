@@ -9,8 +9,8 @@ object ProfileMapper {
     fun PlayersProfileBEModel.toUIList(): List<ProfileUIModel> {
         return this.data?.map { profileData ->
             ProfileUIModel(
-                userId = profileData.userId,
-                nickName = profileData.nickName
+                id = profileData.id?: 0,
+                nickName = profileData.nickName?: "null"
             )
         }?: emptyList()
     }

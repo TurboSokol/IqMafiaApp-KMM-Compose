@@ -68,9 +68,11 @@ kotlin {
             dependencies{
                 implementation("io.ktor:ktor-client-android:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-cio:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
                 implementation("io.ktor:ktor-network-tls:${Versions.ktor}")
-                implementation("com.squareup.okhttp3:okhttp:4.10.0")
-                implementation("androidx.core:core:1.10.1")
+                implementation("io.ktor:ktor-server-content-negotiation:${Versions.ktor}")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}")
+                implementation("androidx.core:core:${Versions.androidx}")
                 implementation("androidx.compose.ui:ui:${Versions.compose}")
                 implementation("com.squareup.sqldelight:android-driver:${Versions.sqlDelight}")
             }

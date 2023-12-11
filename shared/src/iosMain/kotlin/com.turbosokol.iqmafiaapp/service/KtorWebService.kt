@@ -8,7 +8,7 @@ import io.ktor.client.HttpClientConfig
  *If it doesn’t work, I don’t know who created it.
  ***/
 
-actual fun httpClient(config: HttpClientConfig<*>.() -> Unit) = HttpClient() {
+actual fun httpClient(logService: LogService, config: HttpClientConfig<*>.() -> Unit) = HttpClient() {
     config(this)
 //    engine {
 //        configureRequest {

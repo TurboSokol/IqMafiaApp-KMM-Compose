@@ -1,15 +1,18 @@
 object Versions {
     //Core
     const val versionCode = 1
-    const val targetSdk = 33
-    const val minSdk = 26
     const val iOSDeploymentTarget = "15"
-    const val gradle = "8.0.2"
+    const val gradle = "8.2.0-beta06"
     const val kotlin = "1.9.0"
-    const val appCompat = "1.6.1"
     const val detekt = "1.21.0-RC1"
     const val russhwolf = "0.9"
     const val legacySupport = "1.0.0"
+
+    //Android
+    const val androidx = "1.12.0"
+    const val targetSdk = 34
+    const val minSdk = 26
+    const val appCompat = "1.6.1"
 
     //Multithreading
     const val coroutines = "1.7.3"
@@ -18,7 +21,7 @@ object Versions {
     const val koin = "3.4.1"
 
     //Network
-    const val ktor = "2.3.6"
+    const val ktor = "2.3.7"
     const val json = "1.5.1"
 
     //Database
