@@ -8,8 +8,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,12 +38,12 @@ import kotlinx.coroutines.flow.StateFlow
 fun CardsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val cardsState: CardsScreenState = appState.getCardsState()
+    val cardsState: MutableState<CardsScreenState> = remember { mutableStateOf(appState.getCardsState()) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         IQAlertDialogView(
             modifier = Modifier.align(Alignment.Center).matchParentSize(),
-            isVisible = cardsState.isResetDialogVisible,
+            isVisible = cardsState.value.isResetDialogVisible,
             label = "Are you sure you want to reset?",
             onConfirm = {
                 viewModel.execute(CardsScreenAction.SetResetDialogVisible)
@@ -53,10 +56,10 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color =
-            if (cardsState.isHidden) {
+            if (cardsState.value.isHidden) {
                 MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
             } else {
-                when(cardsState.cardsList[cardsState.listIndex].type) {
+                when(cardsState.value.cardsList[cardsState.value.listIndex].type) {
                     CharacterCardType.SHERIFF -> Colors.red
                     CharacterCardType.DON -> Colors.darkGrey51
                     CharacterCardType.RED -> Colors.red
@@ -64,27 +67,27 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                 }
             })
             ,onClick = {
-                if (cardsState.listIndex == cardsState.cardsList.lastIndex && cardsState.isHidden) {
+                if (cardsState.value.listIndex == cardsState.value.cardsList.lastIndex && cardsState.value.isHidden) {
                     viewModel.execute(CardsScreenAction.SetResetDialogVisible)
                 } else {
                     viewModel.execute(CardsScreenAction.ShowNext)
             }
         }) {
             Text(
-                text = if (cardsState.isHidden) {
+                text = if (cardsState.value.isHidden) {
                     Strings.getCard
                 } else {
-                    when (cardsState.cardsList[cardsState.listIndex].type) {
+                    when (cardsState.value.cardsList[cardsState.value.listIndex].type) {
                         CharacterCardType.DON -> "D"
                         CharacterCardType.SHERIFF -> "S"
                         else -> ""
                     }
                 },
-                fontSize = if (cardsState.isHidden) Dimensions.TextSize.huge
+                fontSize = if (cardsState.value.isHidden) Dimensions.TextSize.huge
                 else Dimensions.TextSize.xhuge,
                 fontWeight = FontWeight.Bold,
-                color = if (!cardsState.isHidden) {
-                    when (cardsState.cardsList[cardsState.listIndex].type) {
+                color = if (!cardsState.value.isHidden) {
+                    when (cardsState.value.cardsList[cardsState.value.listIndex].type) {
                         CharacterCardType.SHERIFF -> Colors.darkGrey51
                         CharacterCardType.DON -> Colors.red
                         else -> Color.Transparent

@@ -5,22 +5,17 @@ import com.turbosokol.iqmafiaapp.data.core.ErrorResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.NoTransformationFoundException
-import io.ktor.client.plugins.ClientRequestException
-import io.ktor.client.plugins.HttpResponseValidator
-import io.ktor.client.plugins.auth.Auth
-import io.ktor.client.plugins.auth.providers.BearerTokens
-import io.ktor.client.plugins.auth.providers.bearer
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.call.body
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
+import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.put
+import io.ktor.client.request.url
 import io.ktor.http.HeadersBuilder
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.authority
-import io.ktor.http.path
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlin.time.ExperimentalTime
 
@@ -38,7 +33,7 @@ class KtorWebService(
 
     val client = getClient(logService)
 
-    suspend inline fun <reified T : Any> makeJsonGet(
+    suspend inline fun <reified T> makeJsonGet(
         endpoint: String,
         retry: Boolean = false,
         baseUrl: String = BASE_URL
@@ -47,28 +42,24 @@ class KtorWebService(
         var retryCount = if (retry) 1 else 0
         while (retryCount >= 0) {
             try {
-                val data = client.get {
-                    url {
-                        host = url
-                        path(endpoint)
-                    }
-
-                    bearerAuth(BEARER)
+                val response = client.get {
+                    url(baseUrl + endpoint)
+                    header(HttpHeaders.Authorization, "Bearer $BEARER")
                 }
 
                 logService.logTrace("GET '$url' SUCCESS")
-                return ApiResponse(true, data as T, null)
-//            } catch (e: WebClientException) {
-//                retryCount--
-//                if (retryCount < 0)
-//                    return ApiResponse(false, null, ErrorResponse("", e.statusCode.value))
-//            } catch (e: NoTransformationFoundException) {
-//                retryCount--
-//                if (retryCount < 0)
-//                    return ApiResponse(true, null, null)
+                return ApiResponse(true, response.body<T>(), null)
+            } catch (e: WebClientException) {
+                retryCount--
+                if (retryCount < 0)
+                    return ApiResponse(false, null, ErrorResponse("", e.statusCode.value))
+            } catch (e: NoTransformationFoundException) {
+                retryCount--
+                if (retryCount < 0)
+                    return ApiResponse(true, null, null)
             } catch (e: Exception) {
                 retryCount--
-                logService.logError("!!! GET '$url' FAILED: '${e.toString()}'")
+                logService.logError("!!! GET $url FAILED: '${e.toString()}'")
             }
         }
         return ApiResponse(false, null, ErrorResponse("", 0))
@@ -137,17 +128,7 @@ class KtorWebService(
     internal fun getClient(
         logService: LogService
     ): HttpClient {
-        return httpClient() {
-            install(ContentNegotiation) {
-                kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
-            }
-//            install(Auth) {
-//                bearer {
-//                    loadTokens {
-//                        BearerTokens(BEARER, "")
-//                    }
-//                }
-//            }
+        return httpClient(logService) {
             install(Logging) {
                 level = LogLevel.ALL
                 logger = WebClientLogger(logService)
@@ -158,4 +139,4 @@ class KtorWebService(
 
 class WebClientException(val statusCode: HttpStatusCode) : Exception()
 
-expect fun httpClient(config: HttpClientConfig<*>.() -> Unit): HttpClient
+expect fun httpClient(logService: LogService, config: HttpClientConfig<*>.() -> Unit): HttpClient

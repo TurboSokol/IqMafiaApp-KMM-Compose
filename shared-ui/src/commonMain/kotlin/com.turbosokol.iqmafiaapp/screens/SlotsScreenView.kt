@@ -26,13 +26,12 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -45,11 +44,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.turbosokol.iqmafiaapp.components.dialogs.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.components.IQCollapsedSwitchFABView
-import com.turbosokol.iqmafiaapp.components.dialogs.IQDialog
 import com.turbosokol.iqmafiaapp.components.IQLoaderView
 import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
+import com.turbosokol.iqmafiaapp.components.dialogs.IQAlertDialogView
+import com.turbosokol.iqmafiaapp.components.dialogs.IQDialog
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
@@ -59,14 +58,8 @@ import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -78,22 +71,23 @@ import kotlinx.coroutines.launch
 fun SlotsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val slotsState: SlotsScreenState = appState.getSlotsState()
+    val slotsState: MutableState<SlotsScreenState> = remember { mutableStateOf(appState.getSlotsState()) }
 
     Box(modifier = Modifier.fillMaxSize()) {
+
         IQAlertDialogView(
             modifier = Modifier.align(Alignment.Center)
                 .matchParentSize(),
-            isVisible = slotsState.isResetDialogVisible,
+            isVisible = slotsState.value.isResetDialogVisible,
             label = "Are you sure you want to reset?",
             onConfirm = {
                 viewModel.execute(SlotsScreenAction.SetResetDialogVisible)
-                viewModel.execute(SlotsScreenAction.Init(slotsState.isTourMode))
+                viewModel.execute(SlotsScreenAction.Init(slotsState.value.isTourMode))
             },
             onCancel = { viewModel.execute(SlotsScreenAction.SetResetDialogVisible) }
         )
 
-        if (slotsState.isTourMode) {
+        if (slotsState.value.isTourMode) {
             SlotsTourView(viewModel)
         } else {
             SlotsSingleGameView(viewModel)
@@ -104,7 +98,7 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
             collapsedText = Strings.slotsSwitchModeButtonSingeLabel,
             activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
             expandedText = Strings.slotsSwitchModeButtonLabel,
-            isToggled = slotsState.isTourMode,
+            isToggled = slotsState.value.isTourMode,
             onToggleClick = { viewModel.execute(SlotsScreenAction.SetIsTourMode) }
         )
     }
@@ -173,7 +167,6 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val slotsState = appState.getSlotsState()
     val keyboard = LocalSoftwareKeyboardController.current
-    val coroutineScope = CoroutineScope(Dispatchers.Default + Job())
     val isAnimated = remember { mutableStateOf(false) }
 
     Column(

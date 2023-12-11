@@ -6,6 +6,6 @@ package com.turbosokol.iqmafiaapp.data.profile
  ***/
 
 data class ProfileUIModel(
-    val userId: Int,
+    val id: Int,
     val nickName: String
 )

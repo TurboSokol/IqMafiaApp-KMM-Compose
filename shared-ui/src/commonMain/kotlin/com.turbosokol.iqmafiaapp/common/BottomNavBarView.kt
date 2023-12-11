@@ -10,7 +10,6 @@ import androidx.compose.material.icons.outlined.Chair
 import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material.icons.outlined.NightsStay
 import androidx.compose.material.icons.outlined.WbSunny
-import androidx.compose.material.icons.outlined.WorkspacePremium
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -21,11 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
 import com.turbosokol.iqmafiaapp.components.IQBottomNavItemView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.achievement.AchievesScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.cards.CardsScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenState
 import com.turbosokol.iqmafiaapp.features.judge.screens.night.NightScreenState
@@ -34,7 +31,6 @@ import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
 import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationAction
 import com.turbosokol.iqmafiaapp.features.navigation.redux.NavigationState
 import com.turbosokol.iqmafiaapp.icons.PlayingCardsIcon
-import com.turbosokol.iqmafiaapp.screens.AchieveScreenView
 import com.turbosokol.iqmafiaapp.screens.CardsScreenView
 import com.turbosokol.iqmafiaapp.screens.DayScreenView
 import com.turbosokol.iqmafiaapp.screens.NightScreenView
@@ -61,7 +57,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
     val selectedTab = when (navigationState.currentScreenState) {
         is SlotsScreenState -> NavigationTabs.SLOTS
         is CardsScreenState -> NavigationTabs.CARDS
-        is AchievesScreenState -> NavigationTabs.ACHIEVEMENT
+//        is AchievesScreenState -> NavigationTabs.ACHIEVEMENT
         is DayScreenState -> NavigationTabs.DAY
         is NightScreenState -> NavigationTabs.NIGHT
         is ScoreScreenState -> NavigationTabs.SCORE
@@ -81,7 +77,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                         val tabsList = listOf<NavigationTabs>(
                             NavigationTabs.SLOTS,
                             NavigationTabs.CARDS,
-                            NavigationTabs.ACHIEVEMENT,
+//                            NavigationTabs.ACHIEVEMENT,
                             NavigationTabs.DAY,
                             NavigationTabs.NIGHT,
                             NavigationTabs.SCORE
@@ -91,7 +87,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                             val (title, icon, action) = when (tab) {
                                 NavigationTabs.SLOTS -> Triple("Slots", Icons.Outlined.Chair, NavigationAction.SlotsScreen(appState.getSlotsState()))
                                 NavigationTabs.CARDS -> Triple("Cards", Icons.Outlined.PlayingCardsIcon, NavigationAction.CardsScreen(appState.getCardsState()))
-                                NavigationTabs.ACHIEVEMENT -> Triple("Dops", Icons.Outlined.WorkspacePremium, NavigationAction.AchievementScreen(appState.getAchievementScreenState()))
+//                                NavigationTabs.ACHIEVEMENT -> Triple("Dops", Icons.Outlined.WorkspacePremium, NavigationAction.AchievementScreen(appState.getAchievementScreenState()))
                                 NavigationTabs.DAY -> Triple("Day", Icons.Outlined.WbSunny, NavigationAction.DayScreen(appState.getDayState()))
                                 NavigationTabs.NIGHT -> Triple("Night", Icons.Outlined.NightsStay, NavigationAction.NightsScreen(appState.getNightState()))
                                 NavigationTabs.SCORE -> Triple("Score", Icons.Outlined.Insights, NavigationAction.ScoreScreen(appState.getScoreState()))
@@ -117,7 +113,7 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
                 when (selectedTab) {
                     NavigationTabs.SLOTS -> SlotsScreenView(viewModel)
                     NavigationTabs.CARDS -> CardsScreenView(viewModel)
-                    NavigationTabs.ACHIEVEMENT -> AchieveScreenView(viewModel)
+//                    NavigationTabs.ACHIEVEMENT -> AchieveScreenView(viewModel)
                     NavigationTabs.DAY -> DayScreenView(viewModel)
                     NavigationTabs.NIGHT -> NightScreenView(viewModel)
                     NavigationTabs.SCORE -> ScoreScreenView(viewModel)
@@ -129,5 +125,10 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
 }
 
 enum class NavigationTabs {
-    SLOTS, CARDS, ACHIEVEMENT, DAY, NIGHT, SCORE
+    SLOTS,
+    CARDS,
+//    ACHIEVEMENT,
+    DAY,
+    NIGHT,
+    SCORE
 }

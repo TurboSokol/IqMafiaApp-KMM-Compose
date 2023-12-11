@@ -20,18 +20,15 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,16 +38,16 @@ import com.turbosokol.iqmafiaapp.components.dialogs.IQEndVoteDialogView
 import com.turbosokol.iqmafiaapp.components.dialogs.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
+import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenAction
+import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -61,9 +58,9 @@ import kotlinx.coroutines.launch
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val dayState = appState.getDayState()
-    val playersState = appState.getPlayersState()
-    val roundState = appState.getRoundState()
+    val dayState: MutableState<DayScreenState> = remember { mutableStateOf(appState.getDayState()) }
+    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
+    val roundState: MutableState<RoundState> = remember { mutableStateOf(appState.getRoundState()) }
 
     val voteCountDialogVisible = remember { mutableStateOf(false) }
     val voteResultsDialogVisible = remember { mutableStateOf(false) }
@@ -115,18 +112,18 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
 
-                playersState.nickNames.forEachIndexed { playerIndex, name ->
+                playersState.value.nickNames.forEachIndexed { playerIndex, name ->
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
+                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
                         else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
                                 RoundAction.UpdateVoteOrder(
-                                    roundState.voteCandidates.toMutableList().apply {
-                                        if (playersState.voteNomination[playerIndex]) {
+                                    roundState.value.voteCandidates.toMutableList().apply {
+                                        if (playersState.value.voteNomination[playerIndex]) {
                                             removeAll { it == playerIndex + 1 }
                                         } else {
                                             add(playerIndex + 1)
@@ -138,8 +135,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             //vote indicator
                             viewModel.execute(
                                 PlayersAction.UpdateVoteNominations(
-                                    playersState.voteNomination.mapIndexed { index, oldNomination ->
-                                        if (index == playerIndex) !playersState.voteNomination[playerIndex] else oldNomination
+                                    playersState.value.voteNomination.mapIndexed { index, oldNomination ->
+                                        if (index == playerIndex) !playersState.value.voteNomination[playerIndex] else oldNomination
                                     }
                                 )
                             )
@@ -148,23 +145,23 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         textName = name, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
-                                dayState.playersFaults.mapIndexed { index, oldFault ->
+                                dayState.value.playersFaults.mapIndexed { index, oldFault ->
                                     if (index == playerIndex) {
-                                        if (oldFault < 4) dayState.playersFaults[playerIndex] + 1 else 0
+                                        if (oldFault < 4) dayState.value.playersFaults[playerIndex] + 1 else 0
                                     } else oldFault
                                 }
                             ))
                         },
-                        colorFault = when (dayState.playersFaults[playerIndex]) {
+                        colorFault = when (dayState.value.playersFaults[playerIndex]) {
                             3 -> MaterialTheme.colorScheme.inversePrimary
                             4 -> MaterialTheme.colorScheme.tertiary
                             else -> MaterialTheme.colorScheme.secondary
                         },
-                        textFault = dayState.playersFaults[playerIndex].toString()
+                        textFault = dayState.value.playersFaults[playerIndex].toString()
                     ) { changedText ->
                         viewModel.execute(
                             PlayersAction.UpdateNickNames(
-                                playersState.nickNames.mapIndexed { index, nick ->
+                                playersState.value.nickNames.mapIndexed { index, nick ->
                                     if (index == playerIndex) changedText else nick
                                 })
                         )
@@ -173,7 +170,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             }
         } //END card with slots, nicks, faults
 
-        AnimatedVisibility(visible = roundState.voteCandidates.isNotEmpty()) {
+        AnimatedVisibility(visible = roundState.value.voteCandidates.isNotEmpty()) {
             Text(
                 modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.small).align(CenterHorizontally),
                 text = Strings.voteHintLabel,
@@ -183,14 +180,14 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         }
 
         AnimatedVisibility(
-            visible = roundState.voteCandidates.isNotEmpty(),
+            visible = roundState.value.voteCandidates.isNotEmpty(),
             modifier = Modifier.background(Color.Transparent)
         ) {
             IQDayVoteCard(
                 modifier = Modifier.padding(top = Dimensions.Padding.small),
-                isVisible = roundState.voteCandidates.isNotEmpty(),
-                voteCandidates = roundState.voteCandidates,
-                voteResult = roundState.voteResult,
+                isVisible = roundState.value.voteCandidates.isNotEmpty(),
+                voteCandidates = roundState.value.voteCandidates,
+                voteResult = roundState.value.voteResult,
                 onVoteClick = { voteNominant, voteDialogVisible ->
                     voteNominantSlot.value = voteNominant
                     voteCountDialogVisible.value = voteDialogVisible
@@ -208,7 +205,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 onConfirm = { index: Int ->
                     viewModel.execute(
                         RoundAction.UpdateVoteResults(
-                            roundState.voteResult.plus(
+                            roundState.value.voteResult.plus(
                                 voteNominantSlot.value to index
                             )
                         )

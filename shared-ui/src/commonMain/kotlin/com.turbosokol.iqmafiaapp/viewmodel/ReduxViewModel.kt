@@ -4,13 +4,19 @@ import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.Effect
 import com.turbosokol.iqmafiaapp.core.redux.Store
 import com.turbosokol.iqmafiaapp.features.app.AppState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import org.brightify.hyperdrive.multiplatformx.BaseViewModel
 
 class ReduxViewModel(
-    //Store - интерфейс, который принимает три интерфейса.
     val store: Store<AppState, Action, Effect>
-): BaseViewModel() { //Base - для кроссплатформы
+): BaseViewModel() {
     fun execute(action: Action) {
-        store.dispatch(action)
+        CoroutineScope(Dispatchers.IO + Job()).launch {
+            store.dispatch(action)
+        }
     }
 }
