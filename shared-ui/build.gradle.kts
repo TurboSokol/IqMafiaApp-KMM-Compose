@@ -121,6 +121,10 @@ android {
         targetSdk = Versions.targetSdk
     }
 }
+dependencies {
+    implementation("androidx.media3:media3-common:1.2.0")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
+}
 
 
 compose {

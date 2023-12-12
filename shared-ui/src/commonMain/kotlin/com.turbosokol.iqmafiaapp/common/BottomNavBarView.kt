@@ -42,6 +42,8 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 
+
+
 /***
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
@@ -63,6 +65,10 @@ fun BottomNavBarView(viewModel: ReduxViewModel) {
         is ScoreScreenState -> NavigationTabs.SCORE
         else -> NavigationTabs.DAY
     }
+
+    val profilesBeTest = appState.getPlayersState().allProfilesFromBE
+//    Log.i("allprofiles", profilesBeTest)
+
 
     IqMafiaAppTheme {
         Scaffold(
