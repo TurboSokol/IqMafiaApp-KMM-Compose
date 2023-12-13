@@ -162,6 +162,8 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     }
                 )
             }
+//            playersState.value.allProfilesFromBE.forEach {
+//                    profileUIModel -> Text(text = profileUIModel.nickName, color = MaterialTheme.colorScheme.onPrimary)  }
         }
     }
 }

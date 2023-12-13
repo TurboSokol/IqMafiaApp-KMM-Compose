@@ -124,6 +124,8 @@ android {
 dependencies {
     implementation("androidx.media3:media3-common:1.2.0")
     implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.material3:material3-android:1.2.0-alpha12")
 }
 
 

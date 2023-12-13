@@ -142,7 +142,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             )
                         },
                         colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-                        textName = name, isNameInputEnabled = true,
+                        textName = name, isNameInputEnabled = true,   //NAME IS HERE!!!!
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
                                 dayState.value.playersFaults.mapIndexed { index, oldFault ->
