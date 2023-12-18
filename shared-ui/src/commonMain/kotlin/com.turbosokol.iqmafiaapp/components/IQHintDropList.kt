@@ -1,27 +1,28 @@
 package com.turbosokol.iqmafiaapp.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
@@ -29,16 +30,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.toSize
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
@@ -46,31 +47,18 @@ import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 
-/***
- *If this code runs it created by Evgenii Sokol.
- *If it doesn’t work, I don’t know who create it.
- ***/
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun IQPlayerNameRow(
-    modifier: Modifier,
-    slot: Int,
-    textName: String,
-    isInputEnabled: Boolean,
-    colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
-    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-    onSlotClick: (() -> Unit?)? = null,
-    onTextChanged: (String) -> Unit,
-    viewModel : ReduxViewModel
-) {
+fun AutoComplete(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
 
     val allNames = mutableListOf<String>()
     playersState.value.allProfilesFromBE.forEach {
-            profileUIModel ->   allNames.add(profileUIModel.nickName)
-    }
+    profileUIModel ->   allNames.add(profileUIModel.nickName)
+  }
 
     var expanded by remember {
         mutableStateOf(false)
@@ -80,58 +68,42 @@ fun IQPlayerNameRow(
         mutableStateOf(Size.Zero)
     }
 
-    Row(
-        modifier = modifier
-            .border(0.5.dp, MaterialTheme.colorScheme.outline)
-            .background(color = MaterialTheme.colorScheme.onBackground)
-            .background(color = colorSlot)
-    ) {
-        TextButton(
-            onClick = {
-                if (onSlotClick != null) {
-                    onSlotClick()
-                }
-            },
-            modifier = Modifier.align(Alignment.CenterVertically).wrapContentWidth(),
-            enabled = onSlotClick != null
-        ) {
-            Text(
-                text = (slot + 1).toString(), textAlign = TextAlign.Center,
-                fontSize = Dimensions.TextSize.smedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        }
 
-        val playerName = remember { mutableStateOf(textName) }
+    Column(modifier = Modifier.fillMaxWidth()) {
 
-        Row() {
-            OutlinedTextField(
-                value = playerName.value,
-                modifier = Modifier.weight(0.85f)
-                    .background(MaterialTheme.colorScheme.onBackground)
-                    .background(color = colorName),
-                onValueChange = { changedValue: String ->
-                    playerName.value = changedValue
-                    if (playerName.value == changedValue) {
-                        onTextChanged(changedValue)
-                        expanded = true
-                    }
+        Row(modifier = Modifier.fillMaxWidth()) {
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(Dimensions.Components.TextField.height)
+                    .border(
+                        width = 1.8.dp,
+                        color = Color.Black,
+                        shape = RoundedCornerShape(15.dp)
+                    )
+                    .onGloballyPositioned { coordinates ->
+                        textFieldSize = coordinates.size.toSize()
+                    },
+                value = category,
+                onValueChange = {
+                    category = it
+                    expanded = true
                 },
-
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
-                    keyboardType = KeyboardType.Text
+                    colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    cursorColor = Color.Black
                 ),
-                textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
+                textStyle = TextStyle(
+                    color = Color.Black,
+                    fontSize = 16.sp
+                ),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
                 singleLine = true,
-                readOnly = !isInputEnabled,
-                shape = MaterialTheme.shapes.large,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent,
-                ),
-
                 trailingIcon = {
                     IconButton(onClick = { expanded = !expanded }) {
                         Icon(
@@ -142,12 +114,10 @@ fun IQPlayerNameRow(
                         )
                     }
                 }
-
             )
         }
 
-    }
-
+}
     AnimatedVisibility(visible = expanded) {
         Card(
             modifier = Modifier
@@ -162,7 +132,7 @@ fun IQPlayerNameRow(
 
                 if (category.isNotEmpty()) {
                     items(
-                        allNames.filter {
+                        animals.filter {
                             it.lowercase()
                                 .contains(category.lowercase()) || it.lowercase()
                                 .contains("others")
@@ -176,7 +146,7 @@ fun IQPlayerNameRow(
                     }
                 } else {
                     items(
-                        allNames.sorted()
+                        animals.sorted()
                     ) {
                         ItemsCategory(title = it) { title ->
                             category = title
@@ -189,6 +159,24 @@ fun IQPlayerNameRow(
         }
     }
 
+
+    @Composable
+    fun ItemsCategory(
+        title: String,
+        onSelect: (String) -> Unit
+    ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    onSelect(title)
+                }
+                .padding(10.dp)
+        ) {
+            Text(text = title, fontSize = 16.sp)
+        }
+
+
+    }
 }
-
-
