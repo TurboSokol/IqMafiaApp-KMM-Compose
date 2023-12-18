@@ -40,6 +40,7 @@ fun IQDayPlayersRow(
         BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
     )) {
         IQPlayerNameRow(modifier = Modifier.weight(0.85f), slot, textName, isNameInputEnabled, colorSlot, colorName, onSlotClick, onNameChanged)
+        IQDropdownMenu()
         TextButton(
             onClick = { onFaultClick() },
             modifier = Modifier.align(Alignment.CenterVertically).wrapContentWidth().weight(0.15f),
