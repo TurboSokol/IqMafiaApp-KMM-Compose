@@ -66,6 +66,10 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     val voteResultsDialogVisible = remember { mutableStateOf(false) }
     val voteNominantSlot = remember { mutableStateOf(-1) }
 
+    val allNames: List<String> = playersState.value.allProfilesFromBE.map { profile ->
+        profile.nickName
+    }
+
     //scrollable parent
     Column(
         modifier = Modifier.fillMaxSize()
@@ -142,7 +146,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             )
                         },
                         colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-                        textName = name, isNameInputEnabled = true,   //NAME IS HERE!!!!
+                        textName = name, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
                                 dayState.value.playersFaults.mapIndexed { index, oldFault ->
@@ -157,15 +161,16 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             4 -> MaterialTheme.colorScheme.tertiary
                             else -> MaterialTheme.colorScheme.secondary
                         },
-                        textFault = dayState.value.playersFaults[playerIndex].toString()
-                    ) { changedText ->
+                        textFault = dayState.value.playersFaults[playerIndex].toString(),
+                        PlayerFromBEList = allNames.toList(),
+                        onNameChanged =    { changedText ->
                         viewModel.execute(
                             PlayersAction.UpdateNickNames(
                                 playersState.value.nickNames.mapIndexed { index, nick ->
                                     if (index == playerIndex) changedText else nick
                                 })
                         )
-                    }
+                    })
                 }
             }
         } //END card with slots, nicks, faults

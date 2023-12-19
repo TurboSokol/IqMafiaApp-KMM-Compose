@@ -50,15 +50,14 @@ import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
 import com.turbosokol.iqmafiaapp.components.dialogs.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.components.dialogs.IQDialog
 import com.turbosokol.iqmafiaapp.features.app.AppState
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenAction
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 
 /***
@@ -169,6 +168,12 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
     val keyboard = LocalSoftwareKeyboardController.current
     val isAnimated = remember { mutableStateOf(false) }
 
+    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
+
+    val allNames: List<String> = playersState.value.allProfilesFromBE.map { profile ->
+        profile.nickName
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.05f))
@@ -189,12 +194,14 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         modifier = Modifier,
                         slot = index, textName = name, isInputEnabled = true,
                         colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
-                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
-                    ) { changedText ->
+                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+                        onTextChanged =  { changedText ->
                         val newNames = slotsState.tourPlayersNames.toMutableList()
                         newNames[index] = changedText
                         viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
-                    }
+                    },
+                        PlayerFromBEList = allNames.toList()
+                        )
                 }
             }
         }
@@ -306,13 +313,15 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                     modifier = Modifier,
                                     slot = index,
                                     textName = name,
-                                    isInputEnabled = false
-                                ) { changedText ->
+                                    isInputEnabled = false,
+                                onTextChanged =  { changedText ->
                                     val newNames = slotsState.tourPlayersNames.toMutableList()
                                     newNames.removeAt(index)
                                     newNames.add(index, changedText)
                                     viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
-                                }
+                                },
+                                    PlayerFromBEList = allNames.toList()
+                                    )
                             }
                         }
                     }

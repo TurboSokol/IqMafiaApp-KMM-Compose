@@ -1,37 +1,20 @@
 package com.turbosokol.iqmafiaapp.components
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.KeyboardArrowDown
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -39,12 +22,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.turbosokol.iqmafiaapp.features.app.AppState
-import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
-import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.StateFlow
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -61,25 +39,26 @@ fun IQPlayerNameRow(
     colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit,
-    viewModel : ReduxViewModel
+    PlayerFromBEList : List<String>
+//    viewModel : ReduxViewModel
 ) {
-    val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
-    val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
-
-    val allNames = mutableListOf<String>()
-    playersState.value.allProfilesFromBE.forEach {
-            profileUIModel ->   allNames.add(profileUIModel.nickName)
-    }
-
-    var expanded by remember {
-        mutableStateOf(false)
-    }
-
-    var textFieldSize by remember {
-        mutableStateOf(Size.Zero)
-    }
-
+//    val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
+//    val appState by stateFlow.collectAsState(Dispatchers.Main)
+//    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
+//
+//    val allNames = mutableListOf<String>()
+//    playersState.value.allProfilesFromBE.forEach {
+//            profileUIModel ->   allNames.add(profileUIModel.nickName)
+//    }
+//
+//    var expanded by remember {
+//        mutableStateOf(false)
+//    }
+//
+//    var textFieldSize by remember {
+//        mutableStateOf(Size.Zero)
+//    }
+//
     Row(
         modifier = modifier
             .border(0.5.dp, MaterialTheme.colorScheme.outline)
@@ -105,7 +84,7 @@ fun IQPlayerNameRow(
 
         val playerName = remember { mutableStateOf(textName) }
 
-        Row() {
+//        Row() {
             OutlinedTextField(
                 value = playerName.value,
                 modifier = Modifier.weight(0.85f)
@@ -115,7 +94,7 @@ fun IQPlayerNameRow(
                     playerName.value = changedValue
                     if (playerName.value == changedValue) {
                         onTextChanged(changedValue)
-                        expanded = true
+//                        expanded = true
                     }
                 },
 
@@ -132,63 +111,63 @@ fun IQPlayerNameRow(
                     unfocusedBorderColor = Color.Transparent,
                 ),
 
-                trailingIcon = {
-                    IconButton(onClick = { expanded = !expanded }) {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            imageVector = Icons.Rounded.KeyboardArrowDown,
-                            contentDescription = "arrow",
-                            tint = Color.Black
-                        )
-                    }
-                }
+//                trailingIcon = {
+//                    IconButton(onClick = { expanded = !expanded }) {
+//                        Icon(
+//                            modifier = Modifier.size(24.dp),
+//                            imageVector = Icons.Rounded.KeyboardArrowDown,
+//                            contentDescription = "arrow",
+//                            tint = Color.Black
+//                        )
+//                    }
+//                }
 
             )
         }
 
     }
 
-    AnimatedVisibility(visible = expanded) {
-        Card(
-            modifier = Modifier
-                .padding(horizontal = 5.dp)
-                .width(textFieldSize.width.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-
-            LazyColumn(
-                modifier = Modifier.heightIn(max = 150.dp),
-            ) {
-
-                if (category.isNotEmpty()) {
-                    items(
-                        allNames.filter {
-                            it.lowercase()
-                                .contains(category.lowercase()) || it.lowercase()
-                                .contains("others")
-                        }
-                            .sorted()
-                    ) {
-                        ItemsCategory(title = it) { title ->
-                            category = title
-                            expanded = false
-                        }
-                    }
-                } else {
-                    items(
-                        allNames.sorted()
-                    ) {
-                        ItemsCategory(title = it) { title ->
-                            category = title
-                            expanded = false
-                        }
-                    }
-                }
-
-            }
-        }
-    }
-
-}
+//    AnimatedVisibility(visible = expanded) {
+//        Card(
+//            modifier = Modifier
+//                .padding(horizontal = 5.dp)
+//                .width(textFieldSize.width.dp),
+//            shape = RoundedCornerShape(10.dp)
+//        ) {
+//
+//            LazyColumn(
+//                modifier = Modifier.heightIn(max = 150.dp),
+//            ) {
+//
+//                if (category.isNotEmpty()) {
+//                    items(
+//                        allNames.filter {
+//                            it.lowercase()
+//                                .contains(category.lowercase()) || it.lowercase()
+//                                .contains("others")
+//                        }
+//                            .sorted()
+//                    ) {
+//                        ItemsCategory(title = it) { title ->
+//                            category = title
+//                            expanded = false
+//                        }
+//                    }
+//                } else {
+//                    items(
+//                        allNames.sorted()
+//                    ) {
+//                        ItemsCategory(title = it) { title ->
+//                            category = title
+//                            expanded = false
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
+//
+//}
 
 
