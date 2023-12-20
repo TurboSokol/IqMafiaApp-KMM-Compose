@@ -32,8 +32,7 @@ data class PlayersState(
                 ProfileUIModel(nickName = "Player9"),
                 ProfileUIModel(nickName = "Player10")
                 ),
-//            profileIds = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-//            userIds = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+
             characterCards = listOf(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
@@ -55,17 +54,16 @@ data class PlayersState(
 
 sealed class PlayersAction: Action {
     object Init: PlayersAction()
-    data class UpdateNickNames(val nickNames: List<String>): PlayersAction()
 
     //get all profiles from BACK END
     data object GetProfilesFromBE: PlayersAction()
 
     //PROFILE IDs used for hold nickname, USER IDs used for hold auth info and admins permissions
-    data class UpdateProfilesInfo(val allProfilesFromBE: List<ProfileUIModel>): PlayersAction()
+    data class UpdateAllProfiles(val allProfilesFromBE: List<ProfileUIModel>): PlayersAction()
     data class UpdateCharacterCards(val characterCards: List<CharacterCardModel>): PlayersAction()
 
     data class UpdateVoteNominations(val voteNomination: List<Boolean>): PlayersAction()
 
-    object ProfileUIModel : PlayersAction()
+    data class UpdateProfiles(val profiles: List<ProfileUIModel>): PlayersAction()
 
 }

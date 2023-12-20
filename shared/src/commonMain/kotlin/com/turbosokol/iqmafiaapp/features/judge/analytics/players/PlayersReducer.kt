@@ -14,11 +14,11 @@ class PlayersReducer : Reducer<PlayersState> {
                 PlayersState.getInitState()
             }
 
-            is PlayersAction.UpdateNickNames -> {
-                oldState.copy(nickNames = action.nickNames)
+            is PlayersAction.UpdateProfiles -> {
+                oldState.copy(profiles = action.profiles)
             }
 
-            is PlayersAction.UpdateProfilesInfo -> {
+            is PlayersAction.UpdateAllProfiles -> {
                 oldState.copy(allProfilesFromBE = action.allProfilesFromBE)
             }
 

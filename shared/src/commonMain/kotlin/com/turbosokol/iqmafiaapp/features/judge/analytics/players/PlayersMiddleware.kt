@@ -24,17 +24,17 @@ class PlayersMiddleware(private val mainNetworkApi: MainNetworkApi) : Middleware
     ): Flow<Action> {
         return when (action) {
             is PlayersAction.Init -> emptyFlow()
-            is PlayersAction.UpdateNickNames -> emptyFlow()
+            is PlayersAction.UpdateProfiles -> emptyFlow()
             is PlayersAction.GetProfilesFromBE -> flow {
                 if (state.playersState.allProfilesFromBE.isEmpty()) {
                     val result = mainNetworkApi.getPlayersProfiles()
                     if (result.success) {
-                        emit(PlayersAction.UpdateProfilesInfo(result.data?.toUIList() ?: emptyList()))
+                        emit(PlayersAction.UpdateAllProfiles(result.data?.toUIList() ?: emptyList()))
                     }
                 }
             }
 
-            is PlayersAction.UpdateProfilesInfo -> emptyFlow()
+            is PlayersAction.UpdateAllProfiles -> emptyFlow()
             is PlayersAction.UpdateCharacterCards -> emptyFlow()
             is PlayersAction.UpdateVoteNominations -> emptyFlow()
             else -> emptyFlow()

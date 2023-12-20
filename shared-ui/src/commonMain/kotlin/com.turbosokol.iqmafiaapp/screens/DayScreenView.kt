@@ -116,7 +116,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
 
-                playersState.value.nickNames.forEachIndexed { playerIndex, name ->
+                playersState.value.profiles.forEachIndexed { playerIndex, profile ->
 
                     IQDayPlayersRow(
                         slot = playerIndex,
@@ -146,7 +146,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             )
                         },
                         colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-                        textName = name, isNameInputEnabled = true,
+                        textName = profile.nickName, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
                                 dayState.value.playersFaults.mapIndexed { index, oldFault ->
@@ -165,8 +165,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         PlayerFromBEList = allNames.toList(),
                         onNameChanged =    { changedText ->
                         viewModel.execute(
-                            PlayersAction.UpdateNickNames(
-                                playersState.value.nickNames.mapIndexed { index, nick ->
+                            PlayersAction.UpdateProfiles(//List<ProfileUIModel>)
+                                             
+
+                                playersState.value.profiles.mapIndexed { index, profilres ->
+                                //if dropdown hint choosen - take id to UI profile 
                                     if (index == playerIndex) changedText else nick
                                 })
                         )
