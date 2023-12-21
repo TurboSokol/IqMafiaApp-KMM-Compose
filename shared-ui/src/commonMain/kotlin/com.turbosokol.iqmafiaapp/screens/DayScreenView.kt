@@ -165,13 +165,13 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         PlayerFromBEList = allNames.toList(),
                         onNameChanged =    { changedText ->
                         viewModel.execute(
-                            PlayersAction.UpdateProfiles(//List<ProfileUIModel>)
-                                             
 
+                            PlayersAction.UpdateProfiles(//List<ProfileUIModel>)
                                 playersState.value.profiles.mapIndexed { index, profilres ->
-                                //if dropdown hint choosen - take id to UI profile 
+                                //if dropdown hint choosen - take id to UI profile
                                     if (index == playerIndex) changedText else nick
                                 })
+
                         )
                     })
                 }
