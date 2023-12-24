@@ -25,6 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
+import com.turbosokol.iqmafiaapp.core.redux.Action
+import com.turbosokol.iqmafiaapp.core.redux.Effect
+import com.turbosokol.iqmafiaapp.core.redux.Store
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
@@ -117,23 +120,23 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
 
             }
-            playersState.value.nickNames.forEachIndexed { playerIndex, name ->
+            playersState.value.profiles.forEachIndexed { profileIndex, profile ->
                 IQScoreRow(
                     modifier = Modifier,
-                    slot = playerIndex + 1,
-                    playerColor = when (playersState.value.characterCards[playerIndex].type) {
+                    slot = profileIndex + 1,
+                    playerColor = when (playersState.value.characterCards[profileIndex].type) {
                         CharacterCardType.RED -> Colors.red
                         CharacterCardType.DON -> Color.LightGray
                         CharacterCardType.SHERIFF -> Color.Yellow
                         CharacterCardType.BLACK -> Color.DarkGray
                         else -> Color.Cyan
                     },
-                    playerName = name,
+                    playerName = profile.nickName,
                     onPlayerNameChanged = { changedText ->
                         val newNames =
-                            playersState.value.nickNames.toMutableList()
-                        newNames[playerIndex] = changedText
-                        viewModel.execute(PlayersAction.UpdateNickNames(newNames))
+                            playersState.value.profiles.toMutableList()
+                        newNames[profileIndex].nickName = changedText
+                        viewModel.execute(PlayersAction.UpdateProfiles(newNames))
                     },
                     playerNameColor = when (playersState.value.characterCards[playerIndex].type) {
                         CharacterCardType.RED -> Color.White
@@ -165,5 +168,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 //            playersState.value.allProfilesFromBE.forEach {
 //                    profileUIModel -> Text(text = profileUIModel.nickName, color = MaterialTheme.colorScheme.onPrimary)  }
         }
+//        AchieveScreenView(ReduxViewModel())
     }
 }
