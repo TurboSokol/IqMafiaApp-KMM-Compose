@@ -132,11 +132,17 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         else -> Color.Cyan
                     },
                     playerName = profile.nickName,
-                    onPlayerNameChanged = { changedText ->
-                        val newNames =
-                            playersState.value.profiles.toMutableList()
-                        newNames[profileIndex].nickName = changedText
-                        viewModel.execute(PlayersAction.UpdateProfiles(newNames))
+                    onPlayerNameChanged = { changedText -> //Need to change ALL Profile Here
+                        viewModel.execute(
+                            PlayersAction.UpdateProfiles(
+                                playersState.value.profiles.mapIndexed { profileIndex, profile ->
+                                val newNames = playersState.value.profiles.toMutableList()
+                                if (profileIndex == playersState.value.profiles[profileIndex]) changedText else profile.nickName
+                                newNames[profileIndex].nickName = changedText
+                            })
+
+
+                        )
                     },
                     playerNameColor = when (playersState.value.characterCards[playerIndex].type) {
                         CharacterCardType.RED -> Color.White
