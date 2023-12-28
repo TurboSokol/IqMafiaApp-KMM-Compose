@@ -1,6 +1,7 @@
 package com.turbosokol.iqmafiaapp.components
 
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
@@ -19,9 +20,9 @@ actual fun IQDropdownMenu(
     properties: PopupProperties,
     content: @Composable() ColumnScope.() -> Unit
 ) {
-    IQDropdownMenu(
-        isExpanded = isExpanded,
-        dismiss = dismiss,
+    DropdownMenu(
+        expanded = isExpanded,
+        onDismissRequest = dismiss,
         modifier = modifier,
         offset = offset,
         properties = properties,

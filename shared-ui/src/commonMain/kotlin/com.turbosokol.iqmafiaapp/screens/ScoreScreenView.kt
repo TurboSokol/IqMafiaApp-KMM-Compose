@@ -132,41 +132,42 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         else -> Color.Cyan
                     },
                     playerName = profile.nickName,
-                    onPlayerNameChanged = { changedText -> //Need to change ALL Profile Here
-                        viewModel.execute(
-                            PlayersAction.UpdateProfiles(
-                                playersState.value.profiles.mapIndexed { profileIndex, profile ->
-                                val newNames = playersState.value.profiles.toMutableList()
-                                if (profileIndex == playersState.value.profiles[profileIndex]) changedText else profile.nickName
-                                newNames[profileIndex].nickName = changedText
-                            })
-
-
-                        )
+                    onPlayerNameChanged = { changedText ->
+                                          
+                                          
+                                          //Need to change ALL Profile Here
+//                        viewModel.execute(
+//                            PlayersAction.UpdateProfiles(
+//                                playersState.value.profiles.mapIndexed { profileIndex, profile ->
+//                                val newNames = playersState.value.profiles.toMutableList()
+//                                if (profileIndex == playersState.value.profiles[profileIndex]) changedText else profile.nickName
+//                                newNames[profileIndex].nickName = changedText
+//                            })
+//                        )
                     },
-                    playerNameColor = when (playersState.value.characterCards[playerIndex].type) {
+                    playerNameColor = when (playersState.value.characterCards[profileIndex].type) {
                         CharacterCardType.RED -> Color.White
                         CharacterCardType.DON -> Color.Black
                         CharacterCardType.SHERIFF -> Color.Black
                         CharacterCardType.BLACK -> Color.White
                         else -> Color.Cyan
                     },
-                    mainScore = gameState.value.mainPoints[playerIndex],
+                    mainScore = gameState.value.mainPoints[profileIndex],
                     onMainPointsChanged = { newPoints ->
                         viewModel.execute(GameAction.UpdateMainPoints(gameState.value.mainPoints.mapIndexed { index, points ->
-                            if (index == playerIndex) newPoints else points
+                            if (index == profileIndex) newPoints else points
                         }))
                     },
-                    dopPoints = gameState.value.dopPoints[playerIndex],
+                    dopPoints = gameState.value.dopPoints[profileIndex],
                     onDopsChanged = { changedDops ->
                         viewModel.execute(GameAction.UpdateDopPoints(gameState.value.dopPoints.mapIndexed { index, dops ->
-                            if (playerIndex == index) changedDops else dops
+                            if (profileIndex == index) changedDops else dops
                         }))
                     },
-                    comment = gameState.value.comments[playerIndex],
+                    comment = gameState.value.comments[profileIndex],
                     onCommentChanged = { newComment ->
                         viewModel.execute(GameAction.UpdateComments(gameState.value.comments.mapIndexed { index, comment ->
-                            if (playerIndex == index) newComment else comment
+                            if (profileIndex == index) newComment else comment
                         }))
                     }
                 )
