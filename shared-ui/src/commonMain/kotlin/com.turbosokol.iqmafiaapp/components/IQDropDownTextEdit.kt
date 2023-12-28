@@ -1,5 +1,6 @@
 package com.turbosokol.iqmafiaapp.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Card
@@ -7,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
@@ -28,16 +30,23 @@ fun IQDropDownTextEdit(
             value = mutableProfile.value.nickName,
             onValueChange = { text ->
                 mutableProfile.value = ProfileUIModel(nickName = text)
-                matchingList.value = allProfilesFromBE.filter {
-                    it.nickName.contains(mutableProfile.value.nickName)}
-                if(matchingList.value.isNotEmpty()) {expandedState.value = true}
+                if (text.isNotEmpty()) {
+                    matchingList.value = allProfilesFromBE.filter {
+                        it.nickName.contains(mutableProfile.value.nickName, ignoreCase = true)}
+                } else { matchingList.value = emptyList() }
+                expandedState.value = matchingList.value.isNotEmpty()
+
             }
         )
         IQDropdownMenu(
             isExpanded = expandedState.value,
             content = {
                 matchingList.value.forEach { prof ->
-                    Text(text = prof.nickName)
+                    Text(modifier = Modifier.clickable {
+                        mutableProfile.value = prof
+                        expandedState.value = false
+                        onProfileChanged(mutableProfile.value)
+                    }, text = prof.nickName)
                 }
 
             },
