@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.picker.NumberPicker
+import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 
@@ -41,7 +42,11 @@ fun IQScoreRow(
     dopPoints: Double,
     onDopsChanged: (Double) -> Unit,
     comment: String,
-    onCommentChanged: (String) -> Unit
+    onCommentChanged: (String) -> Unit,
+
+    allProfilesFromBE: List<ProfileUIModel>,
+    profile: ProfileUIModel,
+    onProfileChanged: (ProfileUIModel) -> Unit
 ) {
 
     val playerNameValue = remember { mutableStateOf(playerName) }
@@ -90,16 +95,24 @@ fun IQScoreRow(
                     .align(CenterVertically),
                 contentAlignment = Alignment.Center
             ) {
-                BasicTextField(
-                    modifier = Modifier,
-                    textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
-                    value = playerNameValue.value, onValueChange = { changedValue: String ->
-                        playerNameValue.value = changedValue
-                        if (playerNameValue.value == changedValue) {
-                            onPlayerNameChanged(changedValue)
-                        }
-                    }
+
+                IQDropDownTextEdit(
+                    allProfilesFromBE = allProfilesFromBE,
+                    onProfileChanged = onProfileChanged,
+                    profile = profile,
+                    playerNameColor = playerNameColor,
+                    playerColor = playerColor,
                 )
+//                BasicTextField(
+//                    modifier = Modifier,
+//                    textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
+//                    value = playerNameValue.value, onValueChange = { changedValue: String ->
+//                        playerNameValue.value = changedValue
+//                        if (playerNameValue.value == changedValue) {
+//                            onPlayerNameChanged(changedValue)
+//                        }
+//                    }
+//                )
             }
 
 

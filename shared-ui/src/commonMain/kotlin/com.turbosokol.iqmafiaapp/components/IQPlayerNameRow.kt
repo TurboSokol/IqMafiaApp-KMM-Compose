@@ -40,7 +40,6 @@ fun IQPlayerNameRow(
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit,
     PlayerFromBEList : List<String>
-//    viewModel : ReduxViewModel
 ) {
 //    val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
 //    val appState by stateFlow.collectAsState(Dispatchers.Main)

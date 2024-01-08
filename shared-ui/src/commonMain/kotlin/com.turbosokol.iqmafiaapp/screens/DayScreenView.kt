@@ -83,7 +83,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
             //players info column
             Column(
-                modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
+                modifier = Modifier.background(
+                    color = MaterialTheme.colorScheme.secondary.copy(
+                        alpha = 0.1f
+                    )
+                )
                     .padding(Dimensions.Padding.xsmall)
             ) {
 
@@ -120,7 +124,9 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
+                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(
+                            alpha = 0.75f
+                        )
                         else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
@@ -163,44 +169,43 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         },
                         textFault = dayState.value.playersFaults[playerIndex].toString(),
                         PlayerFromBEList = allNames.toList(),
-                        onNameChanged =    { changedText ->
-//                        viewModel.execute(
-//                            PlayersAction.UpdateProfiles(//List<ProfileUIModel>) //Need to change ALL Profile Here
-//                                playersState.value.profiles.mapIndexed { playerIndex, profile ->
-//                                //if dropdown hint choosen - take id to UI profile
-//                                    if (index == playerIndex) changedText else nick
-//                                })
-//
-//                        )
-                    })
+                        onNameChanged = { changedText ->
+                            //Need to change ALL Profile Here
+                            playersState.value.profiles.mapIndexed { playerIndex, profile ->
+                                //if dropdown hint choosen - take id to UI profile
+                                if (playersState.value.profiles.indexOf(profile) == playerIndex) changedText else profile.nickName
+                            }
+                            viewModel.execute(PlayersAction.UpdateProfiles(playersState.value.profiles))
+                        }
+                    )//IQDPR end
                 }
+            } //END card with slots, nicks, faults
+
+            AnimatedVisibility(visible = roundState.value.voteCandidates.isNotEmpty()) {
+                Text(
+                    modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.small)
+                        .align(CenterHorizontally),
+                    text = Strings.voteHintLabel,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
             }
-        } //END card with slots, nicks, faults
 
-        AnimatedVisibility(visible = roundState.value.voteCandidates.isNotEmpty()) {
-            Text(
-                modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.small).align(CenterHorizontally),
-                text = Strings.voteHintLabel,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        }
-
-        AnimatedVisibility(
-            visible = roundState.value.voteCandidates.isNotEmpty(),
-            modifier = Modifier.background(Color.Transparent)
-        ) {
-            IQDayVoteCard(
-                modifier = Modifier.padding(top = Dimensions.Padding.small),
-                isVisible = roundState.value.voteCandidates.isNotEmpty(),
-                voteCandidates = roundState.value.voteCandidates,
-                voteResult = roundState.value.voteResult,
-                onVoteClick = { voteNominant, voteDialogVisible ->
-                    voteNominantSlot.value = voteNominant
-                    voteCountDialogVisible.value = voteDialogVisible
-                }
-            )
-        }
+            AnimatedVisibility(
+                visible = roundState.value.voteCandidates.isNotEmpty(),
+                modifier = Modifier.background(Color.Transparent)
+            ) {
+                IQDayVoteCard(
+                    modifier = Modifier.padding(top = Dimensions.Padding.small),
+                    isVisible = roundState.value.voteCandidates.isNotEmpty(),
+                    voteCandidates = roundState.value.voteCandidates,
+                    voteResult = roundState.value.voteResult,
+                    onVoteClick = { voteNominant, voteDialogVisible ->
+                        voteNominantSlot.value = voteNominant
+                        voteCountDialogVisible.value = voteDialogVisible
+                    }
+                )
+            }
 
             //VOTE CARD
 
@@ -262,6 +267,6 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
             }
         } //END SCROLLABLE
-}
+    }}
 
 

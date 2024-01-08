@@ -132,10 +132,9 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         else -> Color.Cyan
                     },
                     playerName = profile.nickName,
-                    onPlayerNameChanged = { changedText ->
-                                          
-                                          
-                                          //Need to change ALL Profile Here
+                    onPlayerNameChanged = {
+//                        changedNickName ->
+//                       //Need to change ALL Profile Here
 //                        viewModel.execute(
 //                            PlayersAction.UpdateProfiles(
 //                                playersState.value.profiles.mapIndexed { profileIndex, profile ->
@@ -169,6 +168,21 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         viewModel.execute(GameAction.UpdateComments(gameState.value.comments.mapIndexed { index, comment ->
                             if (profileIndex == index) newComment else comment
                         }))
+                    },
+                    allProfilesFromBE = playersState.value.allProfilesFromBE,
+                    profile = playersState.value.profiles[profileIndex],
+                    onProfileChanged = {
+                        changedProfile ->
+                        //playersState.value.profiles.forEachIndexed { profileIndex, profile -> !from the top
+                        viewModel.execute(
+                            PlayersAction.UpdateProfiles(playersState.value.profiles.mapIndexed
+                            { newProfileIndex, newProfile ->
+                                if (newProfileIndex == profileIndex) changedProfile else newProfile
+                            })
+                        )
+
+
+
                     }
                 )
             }
