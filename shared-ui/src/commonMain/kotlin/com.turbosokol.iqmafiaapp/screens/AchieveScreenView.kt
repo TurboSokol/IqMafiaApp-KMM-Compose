@@ -9,12 +9,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.turbosokol.iqmafiaapp.components.IQDropDownTextEdit
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
-import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
@@ -40,6 +40,7 @@ fun AchieveScreenView(viewModel: ReduxViewModel) {
 
         playersState.value.profiles.forEachIndexed { ind, profil ->
            IQDropDownTextEdit(
+            modifier = Modifier,
             allProfilesFromBE = playersState.value.allProfilesFromBE,
             profile = profil,
             onProfileChanged = {},
@@ -50,13 +51,13 @@ fun AchieveScreenView(viewModel: ReduxViewModel) {
                 CharacterCardType.BLACK -> Color.White
                 else -> Color.Cyan
             },
-            playerColor =  when (playersState.value.characterCards[ind].type) {
-            CharacterCardType.RED -> Colors.red
-            CharacterCardType.DON -> Color.LightGray
-            CharacterCardType.SHERIFF -> Color.Yellow
-            CharacterCardType.BLACK -> Color.DarkGray
-            else -> Color.Cyan
-        }
+//            playerColor =  when (playersState.value.characterCards[ind].type) {
+//            CharacterCardType.RED -> Colors.red
+//            CharacterCardType.DON -> Color.LightGray
+//            CharacterCardType.SHERIFF -> Color.Yellow
+//            CharacterCardType.BLACK -> Color.DarkGray
+//            else -> Color.Cyan
+//        }
            )
         }
 

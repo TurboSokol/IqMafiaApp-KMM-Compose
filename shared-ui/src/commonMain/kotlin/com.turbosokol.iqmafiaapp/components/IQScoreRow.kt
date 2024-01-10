@@ -33,9 +33,9 @@ import com.turbosokol.iqmafiaapp.theme.Strings
 fun IQScoreRow(
     modifier: Modifier,
     slot: Int,
-    playerColor: Color,
+//    playerColor: Color,
     playerName: String,
-    onPlayerNameChanged: (String) -> Unit,
+//    onPlayerNameChanged: (String) -> Unit,
     playerNameColor: Color,
     mainScore: Int,
     onMainPointsChanged: (Int) -> Unit,
@@ -56,7 +56,7 @@ fun IQScoreRow(
 
 
     Card(
-        modifier = Modifier.background(MaterialTheme.colorScheme.onBackground)
+        modifier = Modifier/*.background(MaterialTheme.colorScheme.onBackground)*/
             .padding(Dimensions.Padding.micro),
         elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
         border = BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
@@ -69,13 +69,13 @@ fun IQScoreRow(
 
 
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .height(Dimensions.Components.IQScoreRow.rowHeight)
                     .weight(0.07f)
-                    .background(color = playerColor)
+//                    .background(color = playerColor)
             ) {
                 Text(
-                    modifier = Modifier.padding(
+                    modifier = modifier.padding(
                         start = Dimensions.Padding.smedium,
                         top = Dimensions.Padding.xsmall
                     ),
@@ -87,21 +87,22 @@ fun IQScoreRow(
 
             //NAME
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .height(Dimensions.Components.IQScoreRow.rowHeight)
                     .weight(0.23f)
-                    .background(color = playerColor)
+//                    .background(color = playerColor)
                     .padding(top = 0.dp, bottom = 0.dp, end = Dimensions.Padding.small)
                     .align(CenterVertically),
                 contentAlignment = Alignment.Center
             ) {
 
                 IQDropDownTextEdit(
+                    modifier = modifier,
                     allProfilesFromBE = allProfilesFromBE,
                     onProfileChanged = onProfileChanged,
                     profile = profile,
                     playerNameColor = playerNameColor,
-                    playerColor = playerColor,
+//                    playerColor = playerColor,
                 )
 //                BasicTextField(
 //                    modifier = Modifier,

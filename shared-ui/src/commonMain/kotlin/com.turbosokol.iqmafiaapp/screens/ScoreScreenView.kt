@@ -25,9 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
-import com.turbosokol.iqmafiaapp.core.redux.Action
-import com.turbosokol.iqmafiaapp.core.redux.Effect
-import com.turbosokol.iqmafiaapp.core.redux.Store
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
@@ -122,28 +119,25 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
             }
             playersState.value.profiles.forEachIndexed { profileIndex, profile ->
                 IQScoreRow(
-                    modifier = Modifier,
-                    slot = profileIndex + 1,
-                    playerColor = when (playersState.value.characterCards[profileIndex].type) {
+                    modifier = Modifier.background(color =
+                    when (playersState.value.characterCards[profileIndex].type) {
                         CharacterCardType.RED -> Colors.red
                         CharacterCardType.DON -> Color.LightGray
                         CharacterCardType.SHERIFF -> Color.Yellow
                         CharacterCardType.BLACK -> Color.DarkGray
                         else -> Color.Cyan
-                    },
+                    }
+                    ),
+                    slot = profileIndex + 1,
+//                    playerColor = when (playersState.value.characterCards[profileIndex].type) {
+//                        CharacterCardType.RED -> Colors.red
+//                        CharacterCardType.DON -> Color.LightGray
+//                        CharacterCardType.SHERIFF -> Color.Yellow
+//                        CharacterCardType.BLACK -> Color.DarkGray
+//                        else -> Color.Cyan
+//                    },
                     playerName = profile.nickName,
-                    onPlayerNameChanged = {
-//                        changedNickName ->
-//                       //Need to change ALL Profile Here
-//                        viewModel.execute(
-//                            PlayersAction.UpdateProfiles(
-//                                playersState.value.profiles.mapIndexed { profileIndex, profile ->
-//                                val newNames = playersState.value.profiles.toMutableList()
-//                                if (profileIndex == playersState.value.profiles[profileIndex]) changedText else profile.nickName
-//                                newNames[profileIndex].nickName = changedText
-//                            })
-//                        )
-                    },
+//                    onPlayerNameChanged = {},
                     playerNameColor = when (playersState.value.characterCards[profileIndex].type) {
                         CharacterCardType.RED -> Color.White
                         CharacterCardType.DON -> Color.Black

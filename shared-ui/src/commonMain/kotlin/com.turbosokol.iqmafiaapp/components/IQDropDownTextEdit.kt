@@ -1,12 +1,8 @@
 package com.turbosokol.iqmafiaapp.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -22,11 +18,12 @@ import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
 
 @Composable
 fun IQDropDownTextEdit(
+    modifier : Modifier,
     allProfilesFromBE: List<ProfileUIModel>,
     profile: ProfileUIModel,
     onProfileChanged: (ProfileUIModel) -> Unit,
     playerNameColor: Color,
-    playerColor: Color
+
 ) {
     val mutableProfile = remember { mutableStateOf(profile) }
     val expandedState = remember { mutableStateOf(false) }
@@ -34,7 +31,7 @@ fun IQDropDownTextEdit(
 //         Column() {
     Card {
         BasicTextField(
-            modifier = Modifier.background(color = playerColor),
+            modifier = modifier/*.background(color = playerColor)*/,
             textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
             value = mutableProfile.value.nickName,
             onValueChange = { text ->
