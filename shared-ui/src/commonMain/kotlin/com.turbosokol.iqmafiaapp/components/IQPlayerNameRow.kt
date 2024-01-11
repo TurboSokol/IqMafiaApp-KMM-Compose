@@ -39,25 +39,9 @@ fun IQPlayerNameRow(
     colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     onTextChanged: (String) -> Unit,
-    PlayerFromBEList : List<String>
+    playerFromBEList : List<String>
 ) {
-//    val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
-//    val appState by stateFlow.collectAsState(Dispatchers.Main)
-//    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
-//
-//    val allNames = mutableListOf<String>()
-//    playersState.value.allProfilesFromBE.forEach {
-//            profileUIModel ->   allNames.add(profileUIModel.nickName)
-//    }
-//
-//    var expanded by remember {
-//        mutableStateOf(false)
-//    }
-//
-//    var textFieldSize by remember {
-//        mutableStateOf(Size.Zero)
-//    }
-//
+
     Row(
         modifier = modifier
             .border(0.5.dp, MaterialTheme.colorScheme.outline)
@@ -93,7 +77,6 @@ fun IQPlayerNameRow(
                     playerName.value = changedValue
                     if (playerName.value == changedValue) {
                         onTextChanged(changedValue)
-//                        expanded = true
                     }
                 },
 
@@ -109,64 +92,9 @@ fun IQPlayerNameRow(
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
                 ),
-
-//                trailingIcon = {
-//                    IconButton(onClick = { expanded = !expanded }) {
-//                        Icon(
-//                            modifier = Modifier.size(24.dp),
-//                            imageVector = Icons.Rounded.KeyboardArrowDown,
-//                            contentDescription = "arrow",
-//                            tint = Color.Black
-//                        )
-//                    }
-//                }
-
             )
         }
 
     }
-
-//    AnimatedVisibility(visible = expanded) {
-//        Card(
-//            modifier = Modifier
-//                .padding(horizontal = 5.dp)
-//                .width(textFieldSize.width.dp),
-//            shape = RoundedCornerShape(10.dp)
-//        ) {
-//
-//            LazyColumn(
-//                modifier = Modifier.heightIn(max = 150.dp),
-//            ) {
-//
-//                if (category.isNotEmpty()) {
-//                    items(
-//                        allNames.filter {
-//                            it.lowercase()
-//                                .contains(category.lowercase()) || it.lowercase()
-//                                .contains("others")
-//                        }
-//                            .sorted()
-//                    ) {
-//                        ItemsCategory(title = it) { title ->
-//                            category = title
-//                            expanded = false
-//                        }
-//                    }
-//                } else {
-//                    items(
-//                        allNames.sorted()
-//                    ) {
-//                        ItemsCategory(title = it) { title ->
-//                            category = title
-//                            expanded = false
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
-//    }
-//
-//}
 
 

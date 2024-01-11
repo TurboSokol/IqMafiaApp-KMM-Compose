@@ -33,11 +33,6 @@ fun AchieveScreenView(viewModel: ReduxViewModel) {
 
 
     Column {
-        
-//        playersState.value.allProfilesFromBE.forEach { profile ->
-//            Text(text = profile.nickName, color = MaterialTheme.colorScheme.onPrimary)
-//        }
-
         playersState.value.profiles.forEachIndexed { ind, profil ->
            IQDropDownTextEdit(
             modifier = Modifier,
@@ -51,13 +46,6 @@ fun AchieveScreenView(viewModel: ReduxViewModel) {
                 CharacterCardType.BLACK -> Color.White
                 else -> Color.Cyan
             },
-//            playerColor =  when (playersState.value.characterCards[ind].type) {
-//            CharacterCardType.RED -> Colors.red
-//            CharacterCardType.DON -> Color.LightGray
-//            CharacterCardType.SHERIFF -> Color.Yellow
-//            CharacterCardType.BLACK -> Color.DarkGray
-//            else -> Color.Cyan
-//        }
            )
         }
 

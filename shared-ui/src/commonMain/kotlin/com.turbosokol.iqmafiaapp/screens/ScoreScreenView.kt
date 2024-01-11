@@ -119,7 +119,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
             }
             playersState.value.profiles.forEachIndexed { profileIndex, profile ->
                 IQScoreRow(
-                    modifier = Modifier.background(color =
+                    modifier = Modifier.background(color = //Here is the colors of player names bg
                     when (playersState.value.characterCards[profileIndex].type) {
                         CharacterCardType.RED -> Colors.red
                         CharacterCardType.DON -> Color.LightGray
@@ -129,15 +129,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     }
                     ),
                     slot = profileIndex + 1,
-//                    playerColor = when (playersState.value.characterCards[profileIndex].type) {
-//                        CharacterCardType.RED -> Colors.red
-//                        CharacterCardType.DON -> Color.LightGray
-//                        CharacterCardType.SHERIFF -> Color.Yellow
-//                        CharacterCardType.BLACK -> Color.DarkGray
-//                        else -> Color.Cyan
-//                    },
                     playerName = profile.nickName,
-//                    onPlayerNameChanged = {},
                     playerNameColor = when (playersState.value.characterCards[profileIndex].type) {
                         CharacterCardType.RED -> Color.White
                         CharacterCardType.DON -> Color.Black
@@ -167,7 +159,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     profile = playersState.value.profiles[profileIndex],
                     onProfileChanged = {
                         changedProfile ->
-                        //playersState.value.profiles.forEachIndexed { profileIndex, profile -> !from the top
                         viewModel.execute(
                             PlayersAction.UpdateProfiles(playersState.value.profiles.mapIndexed
                             { newProfileIndex, newProfile ->
@@ -180,9 +171,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     }
                 )
             }
-//            playersState.value.allProfilesFromBE.forEach {
-//                    profileUIModel -> Text(text = profileUIModel.nickName, color = MaterialTheme.colorScheme.onPrimary)  }
         }
-//        AchieveScreenView(ReduxViewModel())
     }
 }

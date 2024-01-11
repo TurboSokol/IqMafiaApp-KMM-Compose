@@ -33,9 +33,7 @@ import com.turbosokol.iqmafiaapp.theme.Strings
 fun IQScoreRow(
     modifier: Modifier,
     slot: Int,
-//    playerColor: Color,
     playerName: String,
-//    onPlayerNameChanged: (String) -> Unit,
     playerNameColor: Color,
     mainScore: Int,
     onMainPointsChanged: (Int) -> Unit,
@@ -90,7 +88,6 @@ fun IQScoreRow(
                 modifier = modifier
                     .height(Dimensions.Components.IQScoreRow.rowHeight)
                     .weight(0.23f)
-//                    .background(color = playerColor)
                     .padding(top = 0.dp, bottom = 0.dp, end = Dimensions.Padding.small)
                     .align(CenterVertically),
                 contentAlignment = Alignment.Center
@@ -102,18 +99,7 @@ fun IQScoreRow(
                     onProfileChanged = onProfileChanged,
                     profile = profile,
                     playerNameColor = playerNameColor,
-//                    playerColor = playerColor,
                 )
-//                BasicTextField(
-//                    modifier = Modifier,
-//                    textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
-//                    value = playerNameValue.value, onValueChange = { changedValue: String ->
-//                        playerNameValue.value = changedValue
-//                        if (playerNameValue.value == changedValue) {
-//                            onPlayerNameChanged(changedValue)
-//                        }
-//                    }
-//                )
             }
 
 

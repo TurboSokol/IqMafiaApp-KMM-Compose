@@ -31,7 +31,7 @@ fun IQDropDownTextEdit(
 //         Column() {
     Card {
         BasicTextField(
-            modifier = modifier/*.background(color = playerColor)*/,
+            modifier = modifier,
             textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
             value = mutableProfile.value.nickName,
             onValueChange = { text ->
