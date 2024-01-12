@@ -200,7 +200,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                         newNames[index] = changedText
                         viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
                     },
-                        PlayerFromBEList = allNames.toList()
+                        playerFromBEList = allNames.toList()
                         )
                 }
             }
@@ -320,7 +320,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                     newNames.add(index, changedText)
                                     viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
                                 },
-                                    PlayerFromBEList = allNames.toList()
+                                    playerFromBEList = allNames.toList()
                                     )
                             }
                         }
