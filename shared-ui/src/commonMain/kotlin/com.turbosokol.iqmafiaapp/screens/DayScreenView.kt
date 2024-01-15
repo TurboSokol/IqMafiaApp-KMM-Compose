@@ -81,11 +81,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
             //players info column
             Column(
-                modifier = Modifier.background(
-                    color = MaterialTheme.colorScheme.secondary.copy(
-                        alpha = 0.1f
-                    )
-                )
+                modifier = Modifier.background(color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
                     .padding(Dimensions.Padding.xsmall)
             ) {
 
@@ -122,9 +118,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 Box(){
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(
-                                        alpha = 0.75f)
-                        else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
+                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
+                        else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
@@ -148,7 +143,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                                 )
                             )
                         },
-                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+//                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
                         textName = profile.nickName, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
@@ -266,6 +261,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                     )
                 }
             }
+            }
         } //END SCROLLABLE
-    }}
+    }
+//}
 

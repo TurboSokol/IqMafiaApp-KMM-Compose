@@ -40,9 +40,9 @@ fun IQDayPlayersRow(
     onProfileChanged: (ProfileUIModel) -> Unit,
     allProfilesFromBE: List<ProfileUIModel>
 ) {
-    Row(modifier = Modifier.background(color = colorFault).border(
-        BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
-    )) {
+    Row(
+        modifier = Modifier.background(color = colorFault).border(BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
+    ) {
         IQPlayerNameRow(modifier = Modifier.weight(0.85f),
             slot = slot, textName = textName, isInputEnabled = isNameInputEnabled,
             colorSlot = colorSlot, onSlotClick = onSlotClick,allProfilesFromBE = allProfilesFromBE,

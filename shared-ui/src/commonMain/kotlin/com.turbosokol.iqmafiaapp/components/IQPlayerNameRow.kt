@@ -38,7 +38,7 @@ fun IQPlayerNameRow(
     textName: String,
     isInputEnabled: Boolean, //When? Why?
     colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
-//    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     //Params for IQDDTE:
     playerNameColor: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
@@ -49,17 +49,16 @@ fun IQPlayerNameRow(
 
     Row(
         modifier = modifier
-            .border(0.5.dp, MaterialTheme.colorScheme.outline)
             .background(color = MaterialTheme.colorScheme.onBackground)
-            .background(color = colorSlot)
+
     ) {
         TextButton(
+            modifier = Modifier.align(Alignment.CenterVertically).wrapContentWidth().background(color = colorSlot).border(0.5.dp, MaterialTheme.colorScheme.outline),
             onClick = {
                 if (onSlotClick != null) {
                     onSlotClick()
                 }
             },
-            modifier = Modifier.align(Alignment.CenterVertically).wrapContentWidth(),
             enabled = onSlotClick != null
         ) {
             Text(
@@ -72,14 +71,14 @@ fun IQPlayerNameRow(
 
         val playerName = remember { mutableStateOf(textName) }
 
-Box(){
+
         IQDropDownTextEdit(
             modifier = modifier,
             allProfilesFromBE = allProfilesFromBE,
             onProfileChanged = onProfileChanged,
             profile = profile,
             playerNameColor = playerNameColor,
-        )}
+        )
 
 //        Row() {
 //            OutlinedTextField(
