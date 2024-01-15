@@ -190,18 +190,18 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
         Card(elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)) {
             Column {
                 slotsState.tourPlayersNames.forEachIndexed { index, name ->
-                    IQPlayerNameRow(
-                        modifier = Modifier,
-                        slot = index, textName = name, isInputEnabled = true,
-                        colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
-                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-                        onTextChanged =  { changedText ->
-                        val newNames = slotsState.tourPlayersNames.toMutableList()
-                        newNames[index] = changedText
-                        viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
-                    },
-                        playerFromBEList = allNames.toList()
-                        )
+//                    IQPlayerNameRow(
+//                        modifier = Modifier,
+//                        slot = index, textName = name, isInputEnabled = true,
+//                        colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
+//                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+//                        onTextChanged =  { changedText ->
+//                        val newNames = slotsState.tourPlayersNames.toMutableList()
+//                        newNames[index] = changedText
+//                        viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
+//                    },
+//                        playerFromBEList = allNames.toList()
+//                        )
                 }
             }
         }
@@ -314,13 +314,15 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                     slot = index,
                                     textName = name,
                                     isInputEnabled = false,
-                                onTextChanged =  { changedText ->
+
+                                    onProfileChanged =  { changedProfile ->
                                     val newNames = slotsState.tourPlayersNames.toMutableList()
                                     newNames.removeAt(index)
-                                    newNames.add(index, changedText)
+                                    newNames.add(index, changedProfile.nickName)
                                     viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
                                 },
-                                    playerFromBEList = allNames.toList()
+                                    allProfilesFromBE = playersState.value.allProfilesFromBE,
+                                    profile = playersState.value.profiles[index],
                                     )
                             }
                         }

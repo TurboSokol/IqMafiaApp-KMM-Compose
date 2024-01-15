@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -58,6 +59,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
+
     val dayState: MutableState<DayScreenState> = remember { mutableStateOf(appState.getDayState()) }
     val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
     val roundState: MutableState<RoundState> = remember { mutableStateOf(appState.getRoundState()) }
@@ -65,10 +67,6 @@ fun DayScreenView(viewModel: ReduxViewModel) {
     val voteCountDialogVisible = remember { mutableStateOf(false) }
     val voteResultsDialogVisible = remember { mutableStateOf(false) }
     val voteNominantSlot = remember { mutableStateOf(-1) }
-
-    val allNames: List<String> = playersState.value.allProfilesFromBE.map { profile ->
-        profile.nickName
-    }
 
     //scrollable parent
     Column(
@@ -121,12 +119,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
 
                 playersState.value.profiles.forEachIndexed { playerIndex, profile ->
-
+                Box(){
                     IQDayPlayersRow(
                         slot = playerIndex,
                         colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(
-                            alpha = 0.75f
-                        )
+                                        alpha = 0.75f)
                         else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
@@ -168,17 +165,20 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             else -> MaterialTheme.colorScheme.secondary
                         },
                         textFault = dayState.value.playersFaults[playerIndex].toString(),
-                        PlayerFromBEList = allNames.toList(),
-                        onNameChanged = { changedText ->
-                            //Need to change ALL Profile Here
-                            playersState.value.profiles.mapIndexed { playerIndex, profile ->
-                                //if dropdown hint choosen - take id to UI profile
-                                if (playersState.value.profiles.indexOf(profile) == playerIndex) changedText else profile.nickName
-                            }
-                            viewModel.execute(PlayersAction.UpdateProfiles(playersState.value.profiles))
+                        allProfilesFromBE = playersState.value.allProfilesFromBE,
+                        profile = playersState.value.profiles[playerIndex],
+                        onProfileChanged = {
+                                changedProfile ->
+                            viewModel.execute(
+                                PlayersAction.UpdateProfiles(playersState.value.profiles.mapIndexed
+                                { newProfileIndex, newProfile ->
+                                    if (newProfileIndex == playerIndex) changedProfile else newProfile
+                                })
+                            )
                         }
                     )//IQDPR end
                 }
+            }
             } //END card with slots, nicks, faults
 
             AnimatedVisibility(visible = roundState.value.voteCandidates.isNotEmpty()) {
@@ -268,5 +268,4 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             }
         } //END SCROLLABLE
     }}
-
 

@@ -2,6 +2,7 @@ package com.turbosokol.iqmafiaapp.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 /***
@@ -34,12 +36,15 @@ fun IQPlayerNameRow(
     modifier: Modifier,
     slot: Int,
     textName: String,
-    isInputEnabled: Boolean,
+    isInputEnabled: Boolean, //When? Why?
     colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
-    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+//    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
-    onTextChanged: (String) -> Unit,
-    playerFromBEList : List<String>
+    //Params for IQDDTE:
+    playerNameColor: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
+    allProfilesFromBE: List<ProfileUIModel>,
+    profile: ProfileUIModel,
+    onProfileChanged: (ProfileUIModel) -> Unit
 ) {
 
     Row(
@@ -67,33 +72,42 @@ fun IQPlayerNameRow(
 
         val playerName = remember { mutableStateOf(textName) }
 
-//        Row() {
-            OutlinedTextField(
-                value = playerName.value,
-                modifier = Modifier.weight(0.85f)
-                    .background(MaterialTheme.colorScheme.onBackground)
-                    .background(color = colorName),
-                onValueChange = { changedValue: String ->
-                    playerName.value = changedValue
-                    if (playerName.value == changedValue) {
-                        onTextChanged(changedValue)
-                    }
-                },
+Box(){
+        IQDropDownTextEdit(
+            modifier = modifier,
+            allProfilesFromBE = allProfilesFromBE,
+            onProfileChanged = onProfileChanged,
+            profile = profile,
+            playerNameColor = playerNameColor,
+        )}
 
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
-                    keyboardType = KeyboardType.Text
-                ),
-                textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
-                singleLine = true,
-                readOnly = !isInputEnabled,
-                shape = MaterialTheme.shapes.large,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent,
-                ),
-            )
-        }
+//        Row() {
+//            OutlinedTextField(
+//                value = playerName.value,
+//                modifier = Modifier.weight(0.85f)
+//                    .background(MaterialTheme.colorScheme.onBackground)
+//                    .background(color = colorName),
+//                onValueChange = { changedValue: String ->
+//                    playerName.value = changedValue
+//                    if (playerName.value == changedValue) {
+//                        onTextChanged(changedValue)
+//                    }
+//                },
+//
+//                keyboardOptions = KeyboardOptions.Default.copy(
+//                    imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
+//                    keyboardType = KeyboardType.Text
+//                ),
+//                textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
+//                singleLine = true,
+//                readOnly = !isInputEnabled,
+//                shape = MaterialTheme.shapes.large,
+//                colors = OutlinedTextFieldDefaults.colors(
+//                    focusedBorderColor = Color.Transparent,
+//                    unfocusedBorderColor = Color.Transparent,
+//                ),
+//            )
+        }// End of ROW
 
     }
 

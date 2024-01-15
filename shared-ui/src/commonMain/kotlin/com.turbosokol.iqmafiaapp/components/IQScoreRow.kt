@@ -47,14 +47,13 @@ fun IQScoreRow(
     onProfileChanged: (ProfileUIModel) -> Unit
 ) {
 
-    val playerNameValue = remember { mutableStateOf(playerName) }
     val mainScoreValue = remember { mutableStateOf(mainScore) }
     val dopsPickerValue = remember { mutableStateOf(dopPoints) }
     val commentValue = remember { mutableStateOf(comment) }
 
 
     Card(
-        modifier = Modifier/*.background(MaterialTheme.colorScheme.onBackground)*/
+        modifier = Modifier
             .padding(Dimensions.Padding.micro),
         elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
         border = BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
