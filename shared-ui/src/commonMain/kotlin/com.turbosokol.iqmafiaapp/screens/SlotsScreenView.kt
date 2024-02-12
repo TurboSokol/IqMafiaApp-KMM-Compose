@@ -247,15 +247,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                 slotsState.tourPlayersNames,
                                 slotsState.tourGamesCount
                             )))
-//                            coroutineScope.launch {
-//                                listPlayers = tournamentShuffleSlots(
-//                                    slotsState.tourPlayersNames,
-//                                    slotsState.tourGamesCount
-//                                )
-//                            }.invokeOnCompletion {
-//                                viewModel.execute(SlotsScreenAction.SetTourSlotsList(listPlayers))
-//                                isAnimated.value = false
-//                            }
+
                         }
                     }) {
                         Text(

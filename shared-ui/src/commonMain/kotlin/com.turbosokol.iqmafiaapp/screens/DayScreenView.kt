@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -114,21 +113,21 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
 
-                playersState.value.profiles.forEachIndexed { playerIndex, profile ->
-                Box(){
+                playersState.value.profiles.forEachIndexed { profileIndex, profile ->
+//                Box(){
                     IQDayPlayersRow(
-                        slot = playerIndex,
-                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
+                        slot = profileIndex,
+                        colorSlot = if (playersState.value.voteNomination[profileIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
                         else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
                                 RoundAction.UpdateVoteOrder(
                                     roundState.value.voteCandidates.toMutableList().apply {
-                                        if (playersState.value.voteNomination[playerIndex]) {
-                                            removeAll { it == playerIndex + 1 }
+                                        if (playersState.value.voteNomination[profileIndex]) {
+                                            removeAll { it == profileIndex + 1 }
                                         } else {
-                                            add(playerIndex + 1)
+                                            add(profileIndex + 1)
                                         }
                                     }
                                 )
@@ -138,7 +137,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             viewModel.execute(
                                 PlayersAction.UpdateVoteNominations(
                                     playersState.value.voteNomination.mapIndexed { index, oldNomination ->
-                                        if (index == playerIndex) !playersState.value.voteNomination[playerIndex] else oldNomination
+                                        if (index == profileIndex) !playersState.value.voteNomination[profileIndex] else oldNomination
                                     }
                                 )
                             )
@@ -148,26 +147,26 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
                                 dayState.value.playersFaults.mapIndexed { index, oldFault ->
-                                    if (index == playerIndex) {
-                                        if (oldFault < 4) dayState.value.playersFaults[playerIndex] + 1 else 0
+                                    if (index == profileIndex) {
+                                        if (oldFault < 4) dayState.value.playersFaults[profileIndex] + 1 else 0
                                     } else oldFault
                                 }
                             ))
                         },
-                        colorFault = when (dayState.value.playersFaults[playerIndex]) {
+                        colorFault = when (dayState.value.playersFaults[profileIndex]) {
                             3 -> MaterialTheme.colorScheme.inversePrimary
                             4 -> MaterialTheme.colorScheme.tertiary
                             else -> MaterialTheme.colorScheme.secondary
                         },
-                        textFault = dayState.value.playersFaults[playerIndex].toString(),
+                        textFault = dayState.value.playersFaults[profileIndex].toString(),
                         allProfilesFromBE = playersState.value.allProfilesFromBE,
-                        profile = playersState.value.profiles[playerIndex],
+                        profile = playersState.value.profiles[profileIndex],
                         onProfileChanged = {
                                 changedProfile ->
                             viewModel.execute(
                                 PlayersAction.UpdateProfiles(playersState.value.profiles.mapIndexed
                                 { newProfileIndex, newProfile ->
-                                    if (newProfileIndex == playerIndex) changedProfile else newProfile
+                                    if (newProfileIndex == profileIndex) changedProfile else newProfile
                                 })
                             )
                         }
@@ -263,6 +262,6 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             }
             }
         } //END SCROLLABLE
-    }
+
 //}
 
