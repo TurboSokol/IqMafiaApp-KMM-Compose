@@ -26,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -58,12 +59,12 @@ import kotlinx.coroutines.flow.StateFlow
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val dayState: MutableState<DayScreenState> = remember { mutableStateOf(appState.getDayState()) }
-    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
-    val roundState: MutableState<RoundState> = remember { mutableStateOf(appState.getRoundState()) }
+    val dayState = appState.getDayState()
+    val playersState = appState.getPlayersState()
+    val roundState = appState.getRoundState()
 
-    val voteCountDialogVisible = remember { mutableStateOf(false) }
-    val voteResultsDialogVisible = remember { mutableStateOf(false) }
+    var voteCountDialogVisible by remember { mutableStateOf(false) }
+    var voteResultsDialogVisible by remember { mutableStateOf(false) }
     val voteNominantSlot = remember { mutableStateOf(-1) }
 
     //scrollable parent
@@ -112,18 +113,18 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
 
-                playersState.value.nickNames.forEachIndexed { playerIndex, name ->
+                playersState.nickNames.forEachIndexed { playerIndex, name ->
 
                     IQDayPlayersRow(
                         slot = playerIndex,
-                        colorSlot = if (playersState.value.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
+                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
                         else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
                                 RoundAction.UpdateVoteOrder(
-                                    roundState.value.voteCandidates.toMutableList().apply {
-                                        if (playersState.value.voteNomination[playerIndex]) {
+                                    roundState.voteCandidates.toMutableList().apply {
+                                        if (playersState.voteNomination[playerIndex]) {
                                             removeAll { it == playerIndex + 1 }
                                         } else {
                                             add(playerIndex + 1)
@@ -135,8 +136,8 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             //vote indicator
                             viewModel.execute(
                                 PlayersAction.UpdateVoteNominations(
-                                    playersState.value.voteNomination.mapIndexed { index, oldNomination ->
-                                        if (index == playerIndex) !playersState.value.voteNomination[playerIndex] else oldNomination
+                                    playersState.voteNomination.mapIndexed { index, oldNomination ->
+                                        if (index == playerIndex) !playersState.voteNomination[playerIndex] else oldNomination
                                     }
                                 )
                             )
@@ -145,23 +146,23 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                         textName = name, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
-                                dayState.value.playersFaults.mapIndexed { index, oldFault ->
+                                dayState.playersFaults.mapIndexed { index, oldFault ->
                                     if (index == playerIndex) {
-                                        if (oldFault < 4) dayState.value.playersFaults[playerIndex] + 1 else 0
+                                        if (oldFault < 4) dayState.playersFaults[playerIndex] + 1 else 0
                                     } else oldFault
                                 }
                             ))
                         },
-                        colorFault = when (dayState.value.playersFaults[playerIndex]) {
+                        colorFault = when (dayState.playersFaults[playerIndex]) {
                             3 -> MaterialTheme.colorScheme.inversePrimary
                             4 -> MaterialTheme.colorScheme.tertiary
                             else -> MaterialTheme.colorScheme.secondary
                         },
-                        textFault = dayState.value.playersFaults[playerIndex].toString()
+                        textFault = dayState.playersFaults[playerIndex].toString()
                     ) { changedText ->
                         viewModel.execute(
                             PlayersAction.UpdateNickNames(
-                                playersState.value.nickNames.mapIndexed { index, nick ->
+                                playersState.nickNames.mapIndexed { index, nick ->
                                     if (index == playerIndex) changedText else nick
                                 })
                         )
@@ -170,7 +171,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             }
         } //END card with slots, nicks, faults
 
-        AnimatedVisibility(visible = roundState.value.voteCandidates.isNotEmpty()) {
+        AnimatedVisibility(visible = roundState.voteCandidates.isNotEmpty()) {
             Text(
                 modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.small).align(CenterHorizontally),
                 text = Strings.voteHintLabel,
@@ -180,17 +181,17 @@ fun DayScreenView(viewModel: ReduxViewModel) {
         }
 
         AnimatedVisibility(
-            visible = roundState.value.voteCandidates.isNotEmpty(),
+            visible = roundState.voteCandidates.isNotEmpty(),
             modifier = Modifier.background(Color.Transparent)
         ) {
             IQDayVoteCard(
                 modifier = Modifier.padding(top = Dimensions.Padding.small),
-                isVisible = roundState.value.voteCandidates.isNotEmpty(),
-                voteCandidates = roundState.value.voteCandidates,
-                voteResult = roundState.value.voteResult,
+                isVisible = roundState.voteCandidates.isNotEmpty(),
+                voteCandidates = roundState.voteCandidates,
+                voteResult = roundState.voteResult,
                 onVoteClick = { voteNominant, voteDialogVisible ->
                     voteNominantSlot.value = voteNominant
-                    voteCountDialogVisible.value = voteDialogVisible
+                    voteCountDialogVisible = voteDialogVisible
                 }
             )
         }
@@ -201,30 +202,30 @@ fun DayScreenView(viewModel: ReduxViewModel) {
             //VOTE COUNT DIALOG
             IQVoteDialogView(
                 modifier = Modifier,
-                isVisible = voteCountDialogVisible.value,
+                isVisible = voteCountDialogVisible,
                 onConfirm = { index: Int ->
                     viewModel.execute(
                         RoundAction.UpdateVoteResults(
-                            roundState.value.voteResult.plus(
+                            roundState.voteResult.plus(
                                 voteNominantSlot.value to index
                             )
                         )
                     )
-                    voteCountDialogVisible.value = false
+                    voteCountDialogVisible = false
 
                 },
-                onCancel = { voteCountDialogVisible.value = false }
+                onCancel = { voteCountDialogVisible = false }
             )
 
             //END DAY DIALOG
             IQEndVoteDialogView(
                 modifier = Modifier,
-                isVisible = voteResultsDialogVisible.value,
+                isVisible = voteResultsDialogVisible,
                 onConfirm = { index: List<Int> ->
                     viewModel.execute(RoundAction.RoundCompleted(index))
-                    voteResultsDialogVisible.value = false
+                    voteResultsDialogVisible = false
                 },
-                onCancel = { voteResultsDialogVisible.value = false }
+                onCancel = { voteResultsDialogVisible = false }
             )
 
 
@@ -241,7 +242,7 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                             RoundedCornerShape(Dimensions.CornerRadius.large)
                         )
-                        .clickable { voteResultsDialogVisible.value = true },
+                        .clickable { voteResultsDialogVisible = true },
                     elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium),
                     colors = CardDefaults.cardColors(Color.Transparent)
                 ) {

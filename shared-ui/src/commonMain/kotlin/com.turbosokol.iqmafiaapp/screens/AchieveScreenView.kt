@@ -24,12 +24,12 @@ import kotlinx.coroutines.flow.StateFlow
 fun AchieveScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
+    val playersState = appState.getPlayersState()
     Text(text = "Achievement\nList of players balls and game moves", color = MaterialTheme.colorScheme.onBackground)
 
 
     Column {
-        playersState.value.allProfilesFromBE.forEach { profile ->
+        playersState.allProfilesFromBE.forEach { profile ->
             Text(text = profile.nickName, color = MaterialTheme.colorScheme.onPrimary)
         }
     }

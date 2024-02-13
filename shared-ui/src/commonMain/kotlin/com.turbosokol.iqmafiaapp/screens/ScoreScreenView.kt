@@ -47,8 +47,8 @@ import kotlinx.coroutines.flow.StateFlow
 fun ScoreScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
-    val gameState: MutableState<GameState> = remember { mutableStateOf(appState.getGameState()) }
+    val playersState = appState.getPlayersState()
+    val gameState = appState.getGameState()
 
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
@@ -117,11 +117,11 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
 
             }
-            playersState.value.nickNames.forEachIndexed { playerIndex, name ->
+            playersState.nickNames.forEachIndexed { playerIndex, name ->
                 IQScoreRow(
                     modifier = Modifier,
                     slot = playerIndex + 1,
-                    playerColor = when (playersState.value.characterCards[playerIndex].type) {
+                    playerColor = when (playersState.characterCards[playerIndex].type) {
                         CharacterCardType.RED -> Colors.red
                         CharacterCardType.DON -> Color.LightGray
                         CharacterCardType.SHERIFF -> Color.Yellow
@@ -131,32 +131,32 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     playerName = name,
                     onPlayerNameChanged = { changedText ->
                         val newNames =
-                            playersState.value.nickNames.toMutableList()
+                            playersState.nickNames.toMutableList()
                         newNames[playerIndex] = changedText
                         viewModel.execute(PlayersAction.UpdateNickNames(newNames))
                     },
-                    playerNameColor = when (playersState.value.characterCards[playerIndex].type) {
+                    playerNameColor = when (playersState.characterCards[playerIndex].type) {
                         CharacterCardType.RED -> Color.White
                         CharacterCardType.DON -> Color.Black
                         CharacterCardType.SHERIFF -> Color.Black
                         CharacterCardType.BLACK -> Color.White
                         else -> Color.Cyan
                     },
-                    mainScore = gameState.value.mainPoints[playerIndex],
+                    mainScore = gameState.mainPoints[playerIndex],
                     onMainPointsChanged = { newPoints ->
-                        viewModel.execute(GameAction.UpdateMainPoints(gameState.value.mainPoints.mapIndexed { index, points ->
+                        viewModel.execute(GameAction.UpdateMainPoints(gameState.mainPoints.mapIndexed { index, points ->
                             if (index == playerIndex) newPoints else points
                         }))
                     },
-                    dopPoints = gameState.value.dopPoints[playerIndex],
+                    dopPoints = gameState.dopPoints[playerIndex],
                     onDopsChanged = { changedDops ->
-                        viewModel.execute(GameAction.UpdateDopPoints(gameState.value.dopPoints.mapIndexed { index, dops ->
+                        viewModel.execute(GameAction.UpdateDopPoints(gameState.dopPoints.mapIndexed { index, dops ->
                             if (playerIndex == index) changedDops else dops
                         }))
                     },
-                    comment = gameState.value.comments[playerIndex],
+                    comment = gameState.comments[playerIndex],
                     onCommentChanged = { newComment ->
-                        viewModel.execute(GameAction.UpdateComments(gameState.value.comments.mapIndexed { index, comment ->
+                        viewModel.execute(GameAction.UpdateComments(gameState.comments.mapIndexed { index, comment ->
                             if (playerIndex == index) newComment else comment
                         }))
                     }

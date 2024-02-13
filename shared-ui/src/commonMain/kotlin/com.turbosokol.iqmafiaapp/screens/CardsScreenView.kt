@@ -38,12 +38,12 @@ import kotlinx.coroutines.flow.StateFlow
 fun CardsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val cardsState: MutableState<CardsScreenState> = remember { mutableStateOf(appState.getCardsState()) }
+    val cardsState = appState.getCardsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
         IQAlertDialogView(
             modifier = Modifier.align(Alignment.Center).matchParentSize(),
-            isVisible = cardsState.value.isResetDialogVisible,
+            isVisible = cardsState.isResetDialogVisible,
             label = "Are you sure you want to reset?",
             onConfirm = {
                 viewModel.execute(CardsScreenAction.SetResetDialogVisible)
@@ -56,10 +56,10 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
     Column(modifier = Modifier.fillMaxSize()) {
         TextButton(modifier = Modifier.fillMaxSize()
             .background(color =
-            if (cardsState.value.isHidden) {
+            if (cardsState.isHidden) {
                 MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
             } else {
-                when(cardsState.value.cardsList[cardsState.value.listIndex].type) {
+                when(cardsState.cardsList[cardsState.listIndex].type) {
                     CharacterCardType.SHERIFF -> Colors.red
                     CharacterCardType.DON -> Colors.darkGrey51
                     CharacterCardType.RED -> Colors.red
@@ -67,27 +67,27 @@ fun CardsScreenView(viewModel: ReduxViewModel) {
                 }
             })
             ,onClick = {
-                if (cardsState.value.listIndex == cardsState.value.cardsList.lastIndex && cardsState.value.isHidden) {
+                if (cardsState.listIndex == cardsState.cardsList.lastIndex && cardsState.isHidden) {
                     viewModel.execute(CardsScreenAction.SetResetDialogVisible)
                 } else {
                     viewModel.execute(CardsScreenAction.ShowNext)
             }
         }) {
             Text(
-                text = if (cardsState.value.isHidden) {
+                text = if (cardsState.isHidden) {
                     Strings.getCard
                 } else {
-                    when (cardsState.value.cardsList[cardsState.value.listIndex].type) {
+                    when (cardsState.cardsList[cardsState.listIndex].type) {
                         CharacterCardType.DON -> "D"
                         CharacterCardType.SHERIFF -> "S"
                         else -> ""
                     }
                 },
-                fontSize = if (cardsState.value.isHidden) Dimensions.TextSize.huge
+                fontSize = if (cardsState.isHidden) Dimensions.TextSize.huge
                 else Dimensions.TextSize.xhuge,
                 fontWeight = FontWeight.Bold,
-                color = if (!cardsState.value.isHidden) {
-                    when (cardsState.value.cardsList[cardsState.value.listIndex].type) {
+                color = if (!cardsState.isHidden) {
+                    when (cardsState.cardsList[cardsState.listIndex].type) {
                         CharacterCardType.SHERIFF -> Colors.darkGrey51
                         CharacterCardType.DON -> Colors.red
                         else -> Color.Transparent
