@@ -70,23 +70,23 @@ import kotlinx.coroutines.flow.StateFlow
 fun SlotsScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val slotsState: MutableState<SlotsScreenState> = remember { mutableStateOf(appState.getSlotsState()) }
+    val slotsState = appState.getSlotsState()
 
     Box(modifier = Modifier.fillMaxSize()) {
 
         IQAlertDialogView(
             modifier = Modifier.align(Alignment.Center)
                 .matchParentSize(),
-            isVisible = slotsState.value.isResetDialogVisible,
+            isVisible = slotsState.isResetDialogVisible,
             label = "Are you sure you want to reset?",
             onConfirm = {
                 viewModel.execute(SlotsScreenAction.SetResetDialogVisible)
-                viewModel.execute(SlotsScreenAction.Init(slotsState.value.isTourMode))
+                viewModel.execute(SlotsScreenAction.Init(slotsState.isTourMode))
             },
             onCancel = { viewModel.execute(SlotsScreenAction.SetResetDialogVisible) }
         )
 
-        if (slotsState.value.isTourMode) {
+        if (slotsState.isTourMode) {
             SlotsTourView(viewModel)
         } else {
             SlotsSingleGameView(viewModel)
@@ -97,7 +97,7 @@ fun SlotsScreenView(viewModel: ReduxViewModel) {
             collapsedText = Strings.slotsSwitchModeButtonSingeLabel,
             activeCollapsedText = Strings.slotsSwitchModeButtonTourLabel,
             expandedText = Strings.slotsSwitchModeButtonLabel,
-            isToggled = slotsState.value.isTourMode,
+            isToggled = slotsState.isTourMode,
             onToggleClick = { viewModel.execute(SlotsScreenAction.SetIsTourMode) }
         )
     }

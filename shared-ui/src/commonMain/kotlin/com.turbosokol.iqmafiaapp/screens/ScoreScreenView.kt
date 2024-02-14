@@ -47,8 +47,8 @@ import kotlinx.coroutines.flow.StateFlow
 fun ScoreScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
-    val gameState: MutableState<GameState> = remember { mutableStateOf(appState.getGameState()) }
+    val playersState = appState.getPlayersState()
+    val gameState = appState.getGameState()
 
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
@@ -117,50 +117,49 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
 
             }
-            playersState.value.profiles.forEachIndexed { profileIndex, profile ->
+            playersState.profiles.forEachIndexed { profileIndex, profile ->
                 IQScoreRow(
-                    modifier = Modifier.background(color = //Here is the colors of player names bg
-                    when (playersState.value.characterCards[profileIndex].type) {
-                        CharacterCardType.RED -> Colors.red
-                        CharacterCardType.DON -> Color.LightGray
-                        CharacterCardType.SHERIFF -> Color.Yellow
-                        CharacterCardType.BLACK -> Color.DarkGray
-                        else -> Color.Cyan
-                    }
-                    ),
+                    modifier = Modifier
+                        .background(color = when (playersState.characterCards[profileIndex].type) {
+                            CharacterCardType.RED -> Colors.red
+                            CharacterCardType.DON -> Color.LightGray
+                            CharacterCardType.SHERIFF -> Color.Yellow
+                            CharacterCardType.BLACK -> Color.DarkGray
+                            else -> Color.Cyan
+                        }),
                     slot = profileIndex + 1,
                     playerName = profile.nickName,
-                    playerNameColor = when (playersState.value.characterCards[profileIndex].type) {
-                        CharacterCardType.RED -> Color.White
-                        CharacterCardType.DON -> Color.Black
-                        CharacterCardType.SHERIFF -> Color.Black
-                        CharacterCardType.BLACK -> Color.White
-                        else -> Color.Cyan
-                    },
-                    mainScore = gameState.value.mainPoints[profileIndex],
-                    onMainPointsChanged = { newPoints ->
-                        viewModel.execute(GameAction.UpdateMainPoints(gameState.value.mainPoints.mapIndexed { index, points ->
+                    playerNameColor = when (playersState.characterCards[profileIndex].type) {
+                                CharacterCardType.RED -> Color.White
+                                CharacterCardType.DON -> Color.Black
+                                CharacterCardType.SHERIFF -> Color.Black
+                                CharacterCardType.BLACK -> Color.White
+                                else -> Color.Cyan
+                            },
+                    mainScore = gameState.mainPoints[profileIndex],
+                            onMainPointsChanged = { newPoints ->
+                        viewModel.execute(GameAction.UpdateMainPoints(gameState.mainPoints.mapIndexed { index, points ->
                             if (index == profileIndex) newPoints else points
-                        }))
-                    },
-                    dopPoints = gameState.value.dopPoints[profileIndex],
-                    onDopsChanged = { changedDops ->
-                        viewModel.execute(GameAction.UpdateDopPoints(gameState.value.dopPoints.mapIndexed { index, dops ->
+                                }))
+                            },
+                    dopPoints = gameState.dopPoints[profileIndex],
+                            onDopsChanged = { changedDops ->
+                        viewModel.execute(GameAction.UpdateDopPoints(gameState.dopPoints.mapIndexed { index, dops ->
                             if (profileIndex == index) changedDops else dops
-                        }))
-                    },
-                    comment = gameState.value.comments[profileIndex],
-                    onCommentChanged = { newComment ->
-                        viewModel.execute(GameAction.UpdateComments(gameState.value.comments.mapIndexed { index, comment ->
+                                }))
+                            },
+                    comment = gameState.comments[profileIndex],
+                            onCommentChanged = { newComment ->
+                        viewModel.execute(GameAction.UpdateComments(gameState.comments.mapIndexed { index, comment ->
                             if (profileIndex == index) newComment else comment
-                        }))
+                                }))
                     },
-                    allProfilesFromBE = playersState.value.allProfilesFromBE,
-                    profile = playersState.value.profiles[profileIndex],
+                    allProfilesFromBE = playersState.allProfilesFromBE,
+                    profile = playersState.profiles[profileIndex],
                     onProfileChanged = {
                         changedProfile ->
                         viewModel.execute(
-                            PlayersAction.UpdateProfiles(playersState.value.profiles.mapIndexed
+                            PlayersAction.UpdateProfiles(playersState.profiles.mapIndexed
                             { newProfileIndex, newProfile ->
                                 if (newProfileIndex == profileIndex) changedProfile else newProfile
                             })
@@ -168,8 +167,8 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
 
 
-                    }
-                )
+                            }
+                        )
             }
         }
     }

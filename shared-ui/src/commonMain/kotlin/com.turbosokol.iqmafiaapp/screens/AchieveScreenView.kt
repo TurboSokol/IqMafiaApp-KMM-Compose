@@ -28,18 +28,18 @@ import kotlinx.coroutines.flow.StateFlow
 fun AchieveScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
-    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
+    val playersState = appState.getPlayersState()
     Text(text = "Achievement\nList of players balls and game moves", color = MaterialTheme.colorScheme.onBackground)
 
 
     Column {
-        playersState.value.profiles.forEachIndexed { ind, profil ->
+        playersState.profiles.forEachIndexed { ind, profil ->
            IQDropDownTextEdit(
             modifier = Modifier,
-            allProfilesFromBE = playersState.value.allProfilesFromBE,
+            allProfilesFromBE = playersState.allProfilesFromBE,
             profile = profil,
             onProfileChanged = {},
-            playerNameColor = when (playersState.value.characterCards[ind].type) {
+            playerNameColor = when (playersState.characterCards[ind].type) {
                 CharacterCardType.RED -> Color.White
                 CharacterCardType.DON -> Color.Black
                 CharacterCardType.SHERIFF -> Color.Black
