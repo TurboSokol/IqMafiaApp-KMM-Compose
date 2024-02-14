@@ -115,11 +115,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
 
 
                 playersState.profiles.forEachIndexed { profileIndex, profile ->
-//                Box(){
+
                     IQDayPlayersRow(
                         slot = profileIndex,
-                        colorSlot = if (playersState.voteNomination[profileIndex]) MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f)
-                        else MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f),
+                        colorSlot = if (playersState.voteNomination[profileIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
+                        else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
@@ -138,14 +138,11 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             viewModel.execute(
                                 PlayersAction.UpdateVoteNominations(
                                     playersState.voteNomination.mapIndexed { index, oldNomination ->
-                                        if (index == profileIndex) !playersState.value.voteNomination[profileIndex] else oldNomination
+                                        if (index == profileIndex) !playersState.voteNomination[profileIndex] else oldNomination
                                     }
                                 )
                             )
                         },
-
-                        //TODO(REMOVE IF UNUSED)
-//                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
                         textName = profile.nickName, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
