@@ -58,6 +58,10 @@ object Dimensions {
         object IQScoreRow {
             val rowHeight = 70.dp
         }
+
+        object TextField {
+            val height = 55.dp
+        }
     }
 
 }

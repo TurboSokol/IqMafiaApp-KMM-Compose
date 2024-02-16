@@ -21,7 +21,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,11 +38,8 @@ import com.turbosokol.iqmafiaapp.components.dialogs.IQEndVoteDialogView
 import com.turbosokol.iqmafiaapp.components.dialogs.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -59,6 +55,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun DayScreenView(viewModel: ReduxViewModel) {
     val stateFlow: StateFlow<AppState> = viewModel.store.observeState()
     val appState by stateFlow.collectAsState(Dispatchers.Main)
+
     val dayState = appState.getDayState()
     val playersState = appState.getPlayersState()
     val roundState = appState.getRoundState()
@@ -113,21 +110,21 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                 }
 
 
-                playersState.nickNames.forEachIndexed { playerIndex, name ->
+                playersState.profiles.forEachIndexed { profileIndex, profile ->
 
                     IQDayPlayersRow(
-                        slot = playerIndex,
-                        colorSlot = if (playersState.voteNomination[playerIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
+                        slot = profileIndex,
+                        colorSlot = if (playersState.voteNomination[profileIndex]) MaterialTheme.colorScheme.tertiary.copy(alpha = 0.75f)
                         else MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.75f),
                         onSlotClick = {
                             //vote order for judge
                             viewModel.execute(
                                 RoundAction.UpdateVoteOrder(
                                     roundState.voteCandidates.toMutableList().apply {
-                                        if (playersState.voteNomination[playerIndex]) {
-                                            removeAll { it == playerIndex + 1 }
+                                        if (playersState.voteNomination[profileIndex]) {
+                                            removeAll { it == profileIndex + 1 }
                                         } else {
-                                            add(playerIndex + 1)
+                                            add(profileIndex + 1)
                                         }
                                     }
                                 )
@@ -137,64 +134,70 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             viewModel.execute(
                                 PlayersAction.UpdateVoteNominations(
                                     playersState.voteNomination.mapIndexed { index, oldNomination ->
-                                        if (index == playerIndex) !playersState.voteNomination[playerIndex] else oldNomination
+                                        if (index == profileIndex) !playersState.voteNomination[profileIndex] else oldNomination
                                     }
                                 )
                             )
                         },
-                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-                        textName = name, isNameInputEnabled = true,
+                        textName = profile.nickName, isNameInputEnabled = true,
                         onFaultClick = {
                             viewModel.execute(DayScreenAction.UpdateFaults(
                                 dayState.playersFaults.mapIndexed { index, oldFault ->
-                                    if (index == playerIndex) {
-                                        if (oldFault < 4) dayState.playersFaults[playerIndex] + 1 else 0
+                                    if (index == profileIndex) {
+                                        if (oldFault < 4) dayState.playersFaults[profileIndex] + 1 else 0
                                     } else oldFault
                                 }
                             ))
                         },
-                        colorFault = when (dayState.playersFaults[playerIndex]) {
+                        colorFault = when (dayState.playersFaults[profileIndex]) {
                             3 -> MaterialTheme.colorScheme.inversePrimary
                             4 -> MaterialTheme.colorScheme.tertiary
                             else -> MaterialTheme.colorScheme.secondary
                         },
-                        textFault = dayState.playersFaults[playerIndex].toString()
-                    ) { changedText ->
-                        viewModel.execute(
-                            PlayersAction.UpdateNickNames(
-                                playersState.nickNames.mapIndexed { index, nick ->
-                                    if (index == playerIndex) changedText else nick
+                        textFault = dayState.playersFaults[profileIndex].toString(),
+                        allProfilesFromBE = playersState.allProfilesFromBE,
+                        profile = playersState.profiles[profileIndex],
+                        onProfileChanged = {
+                                changedProfile ->
+                            viewModel.execute(
+                                PlayersAction.UpdateProfiles(playersState.profiles.mapIndexed
+                                { newProfileIndex, newProfile ->
+                                    if (newProfileIndex == profileIndex) changedProfile else newProfile
                                 })
-                        )
-                    }
+                            )
+                        }
+                    )
+
                 }
             }
-        } //END card with slots, nicks, faults
-
-        AnimatedVisibility(visible = roundState.voteCandidates.isNotEmpty()) {
-            Text(
-                modifier = Modifier.fillMaxWidth().padding(top = Dimensions.Padding.small).align(CenterHorizontally),
-                text = Strings.voteHintLabel,
-                textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
         }
 
-        AnimatedVisibility(
-            visible = roundState.voteCandidates.isNotEmpty(),
-            modifier = Modifier.background(Color.Transparent)
-        ) {
-            IQDayVoteCard(
-                modifier = Modifier.padding(top = Dimensions.Padding.small),
-                isVisible = roundState.voteCandidates.isNotEmpty(),
-                voteCandidates = roundState.voteCandidates,
-                voteResult = roundState.voteResult,
-                onVoteClick = { voteNominant, voteDialogVisible ->
-                    voteNominantSlot.value = voteNominant
-                    voteCountDialogVisible = voteDialogVisible
-                }
-            )
-        }
+            AnimatedVisibility(visible = roundState.voteCandidates.isNotEmpty()) {
+                Text(
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = Dimensions.Padding.small)
+                        .align(CenterHorizontally),
+                    text = Strings.voteHintLabel,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            }
+
+            AnimatedVisibility(
+                visible = roundState.voteCandidates.isNotEmpty(),
+                modifier = Modifier.background(Color.Transparent)
+            ) {
+                IQDayVoteCard(
+                    modifier = Modifier.padding(top = Dimensions.Padding.small),
+                    isVisible = roundState.voteCandidates.isNotEmpty(),
+                    voteCandidates = roundState.voteCandidates,
+                    voteResult = roundState.voteResult,
+                    onVoteClick = { voteNominant, voteDialogVisible ->
+                        voteNominantSlot.value = voteNominant
+                        voteCountDialogVisible = voteDialogVisible
+                    }
+                )
+            }
 
             //VOTE CARD
 

@@ -12,9 +12,7 @@ import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
  ***/
 
 data class PlayersState(
-    val nickNames: List<String>,
-    val profileIds: List<Int>,
-    val userIds: List<Int>,
+    val profiles: List<ProfileUIModel>,
     val characterCards: List<CharacterCardModel>,
     val voteNomination: List<Boolean>,
     val allProfilesFromBE: List<ProfileUIModel>
@@ -23,20 +21,18 @@ data class PlayersState(
 
         // by default we have 10 red players, player slot = list.index+1
         fun getInitState(): PlayersState = PlayersState(
-            nickNames = listOf(
-                "Player 1",
-                "Player 2",
-                "Player 3",
-                "Player 4",
-                "Player 5",
-                "Player 6",
-                "Player 7",
-                "Player 8",
-                "Player 9",
-                "Player 10"
-            ),
-            profileIds = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-            userIds = listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            profiles = listOf(ProfileUIModel(nickName = "Player1"),
+                ProfileUIModel(nickName = "Player2"),
+                ProfileUIModel(nickName = "Player3"),
+                ProfileUIModel(nickName = "Player4"),
+                ProfileUIModel(nickName = "Player5"),
+                ProfileUIModel(nickName = "Player6"),
+                ProfileUIModel(nickName = "Player7"),
+                ProfileUIModel(nickName = "Player8"),
+                ProfileUIModel(nickName = "Player9"),
+                ProfileUIModel(nickName = "Player10")
+                ),
+
             characterCards = listOf(
                 CharacterCardModel(type = CharacterCardType.RED),
                 CharacterCardModel(type = CharacterCardType.RED),
@@ -58,15 +54,16 @@ data class PlayersState(
 
 sealed class PlayersAction: Action {
     object Init: PlayersAction()
-    data class UpdateNickNames(val nickNames: List<String>): PlayersAction()
 
     //get all profiles from BACK END
     data object GetProfilesFromBE: PlayersAction()
 
     //PROFILE IDs used for hold nickname, USER IDs used for hold auth info and admins permissions
-    data class UpdateProfilesInfo(val allProfilesFromBE: List<ProfileUIModel>): PlayersAction()
+    data class UpdateAllProfiles(val allProfilesFromBE: List<ProfileUIModel>): PlayersAction()
     data class UpdateCharacterCards(val characterCards: List<CharacterCardModel>): PlayersAction()
 
     data class UpdateVoteNominations(val voteNomination: List<Boolean>): PlayersAction()
+
+    data class UpdateProfiles(val profiles: List<ProfileUIModel>): PlayersAction()
 
 }

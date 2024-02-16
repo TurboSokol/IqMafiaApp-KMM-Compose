@@ -95,6 +95,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation("androidx.compose.material3:material3:1.1.2")
             }
         }
         val androidUnitTest by getting {
@@ -123,9 +124,8 @@ android {
 }
 
 
+
+
 compose {
-    android {
-//        useAndroidX = true
-//        androidxVersion = "1.3.0"
-    }
+
 }

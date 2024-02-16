@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 
 /***
@@ -30,16 +31,22 @@ fun IQDayPlayersRow(
     colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
     textName: String,
     isNameInputEnabled: Boolean,
-    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     colorFault: Color,
     textFault: String,
     onFaultClick: () -> Unit,
-    onNameChanged: (String) -> Unit
+
+    profile: ProfileUIModel,
+    onProfileChanged: (ProfileUIModel) -> Unit,
+    allProfilesFromBE: List<ProfileUIModel>
 ) {
-    Row(modifier = Modifier.background(color = colorFault).border(
-        BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
-    )) {
-        IQPlayerNameRow(modifier = Modifier.weight(0.85f), slot, textName, isNameInputEnabled, colorSlot, colorName, onSlotClick, onNameChanged)
+    Row(
+        modifier = Modifier.background(color = colorFault).border(BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline))
+    ) {
+        IQPlayerNameRow(modifier = Modifier.weight(0.85f),
+            slot = slot, textName = textName, isInputEnabled = isNameInputEnabled,
+            colorSlot = colorSlot, onSlotClick = onSlotClick,allProfilesFromBE = allProfilesFromBE,
+        onProfileChanged = onProfileChanged, profile = profile)
+
         TextButton(
             onClick = { onFaultClick() },
             modifier = Modifier.align(Alignment.CenterVertically).wrapContentWidth().weight(0.15f),

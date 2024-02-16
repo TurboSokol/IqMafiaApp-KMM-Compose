@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.picker.NumberPicker
+import com.turbosokol.iqmafiaapp.data.profile.ProfileUIModel
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 
@@ -32,26 +33,27 @@ import com.turbosokol.iqmafiaapp.theme.Strings
 fun IQScoreRow(
     modifier: Modifier,
     slot: Int,
-    playerColor: Color,
     playerName: String,
-    onPlayerNameChanged: (String) -> Unit,
     playerNameColor: Color,
     mainScore: Int,
     onMainPointsChanged: (Int) -> Unit,
     dopPoints: Double,
     onDopsChanged: (Double) -> Unit,
     comment: String,
-    onCommentChanged: (String) -> Unit
+    onCommentChanged: (String) -> Unit,
+
+    allProfilesFromBE: List<ProfileUIModel>,
+    profile: ProfileUIModel,
+    onProfileChanged: (ProfileUIModel) -> Unit
 ) {
 
-    val playerNameValue = remember { mutableStateOf(playerName) }
     val mainScoreValue = remember { mutableStateOf(mainScore) }
     val dopsPickerValue = remember { mutableStateOf(dopPoints) }
     val commentValue = remember { mutableStateOf(comment) }
 
 
     Card(
-        modifier = Modifier.background(MaterialTheme.colorScheme.onBackground)
+        modifier = Modifier
             .padding(Dimensions.Padding.micro),
         elevation = CardDefaults.cardElevation(Dimensions.Elevation.small),
         border = BorderStroke(0.5.dp, color = MaterialTheme.colorScheme.outline)
@@ -64,13 +66,13 @@ fun IQScoreRow(
 
 
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .height(Dimensions.Components.IQScoreRow.rowHeight)
                     .weight(0.07f)
-                    .background(color = playerColor)
+//                    .background(color = playerColor)
             ) {
                 Text(
-                    modifier = Modifier.padding(
+                    modifier = modifier.padding(
                         start = Dimensions.Padding.smedium,
                         top = Dimensions.Padding.xsmall
                     ),
@@ -82,23 +84,20 @@ fun IQScoreRow(
 
             //NAME
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .height(Dimensions.Components.IQScoreRow.rowHeight)
                     .weight(0.23f)
-                    .background(color = playerColor)
                     .padding(top = 0.dp, bottom = 0.dp, end = Dimensions.Padding.small)
                     .align(CenterVertically),
                 contentAlignment = Alignment.Center
             ) {
-                BasicTextField(
-                    modifier = Modifier,
-                    textStyle = TextStyle(color = playerNameColor, textAlign = TextAlign.Start),
-                    value = playerNameValue.value, onValueChange = { changedValue: String ->
-                        playerNameValue.value = changedValue
-                        if (playerNameValue.value == changedValue) {
-                            onPlayerNameChanged(changedValue)
-                        }
-                    }
+
+                IQDropDownTextEdit(
+                    modifier = modifier,
+                    allProfilesFromBE = allProfilesFromBE,
+                    onProfileChanged = onProfileChanged,
+                    profile = profile,
+                    playerNameColor = playerNameColor,
                 )
             }
 

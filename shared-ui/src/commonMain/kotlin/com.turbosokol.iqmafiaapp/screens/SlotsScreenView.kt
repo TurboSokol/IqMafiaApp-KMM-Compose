@@ -50,15 +50,13 @@ import com.turbosokol.iqmafiaapp.components.IQPlayerNameRow
 import com.turbosokol.iqmafiaapp.components.dialogs.IQAlertDialogView
 import com.turbosokol.iqmafiaapp.components.dialogs.IQDialog
 import com.turbosokol.iqmafiaapp.features.app.AppState
+import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
 
 /***
@@ -169,6 +167,12 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
     val keyboard = LocalSoftwareKeyboardController.current
     val isAnimated = remember { mutableStateOf(false) }
 
+    val playersState: MutableState<PlayersState> = remember { mutableStateOf(appState.getPlayersState()) }
+
+    val allNames: List<String> = playersState.value.allProfilesFromBE.map { profile ->
+        profile.nickName
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.05f))
@@ -181,23 +185,6 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)
         )
-
-        Card(elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)) {
-            Column {
-                slotsState.tourPlayersNames.forEachIndexed { index, name ->
-                    IQPlayerNameRow(
-                        modifier = Modifier,
-                        slot = index, textName = name, isInputEnabled = true,
-                        colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
-                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f)
-                    ) { changedText ->
-                        val newNames = slotsState.tourPlayersNames.toMutableList()
-                        newNames[index] = changedText
-                        viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
-                    }
-                }
-            }
-        }
 
         Spacer(modifier = Modifier.height(1.dp))
 
@@ -240,15 +227,7 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                 slotsState.tourPlayersNames,
                                 slotsState.tourGamesCount
                             )))
-//                            coroutineScope.launch {
-//                                listPlayers = tournamentShuffleSlots(
-//                                    slotsState.tourPlayersNames,
-//                                    slotsState.tourGamesCount
-//                                )
-//                            }.invokeOnCompletion {
-//                                viewModel.execute(SlotsScreenAction.SetTourSlotsList(listPlayers))
-//                                isAnimated.value = false
-//                            }
+
                         }
                     }) {
                         Text(
@@ -306,13 +285,17 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
                                     modifier = Modifier,
                                     slot = index,
                                     textName = name,
-                                    isInputEnabled = false
-                                ) { changedText ->
+                                    isInputEnabled = false,
+
+                                    onProfileChanged =  { changedProfile ->
                                     val newNames = slotsState.tourPlayersNames.toMutableList()
                                     newNames.removeAt(index)
-                                    newNames.add(index, changedText)
+                                    newNames.add(index, changedProfile.nickName)
                                     viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
-                                }
+                                },
+                                    allProfilesFromBE = playersState.value.allProfilesFromBE,
+                                    profile = playersState.value.profiles[index],
+                                    )
                             }
                         }
                     }

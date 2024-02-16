@@ -2,7 +2,7 @@ object Versions {
     //Core
     const val versionCode = 1
     const val iOSDeploymentTarget = "15"
-    const val gradle = "8.2.0-beta06"
+    const val gradle = "8.2.2"
     const val kotlin = "1.9.0"
     const val detekt = "1.21.0-RC1"
     const val russhwolf = "0.9"

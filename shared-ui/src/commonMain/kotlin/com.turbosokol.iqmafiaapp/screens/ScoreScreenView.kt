@@ -117,50 +117,58 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
 
             }
-            playersState.nickNames.forEachIndexed { playerIndex, name ->
+            playersState.profiles.forEachIndexed { profileIndex, profile ->
                 IQScoreRow(
-                    modifier = Modifier,
-                    slot = playerIndex + 1,
-                    playerColor = when (playersState.characterCards[playerIndex].type) {
-                        CharacterCardType.RED -> Colors.red
-                        CharacterCardType.DON -> Color.LightGray
-                        CharacterCardType.SHERIFF -> Color.Yellow
-                        CharacterCardType.BLACK -> Color.DarkGray
-                        else -> Color.Cyan
-                    },
-                    playerName = name,
-                    onPlayerNameChanged = { changedText ->
-                        val newNames =
-                            playersState.nickNames.toMutableList()
-                        newNames[playerIndex] = changedText
-                        viewModel.execute(PlayersAction.UpdateNickNames(newNames))
-                    },
-                    playerNameColor = when (playersState.characterCards[playerIndex].type) {
-                        CharacterCardType.RED -> Color.White
-                        CharacterCardType.DON -> Color.Black
-                        CharacterCardType.SHERIFF -> Color.Black
-                        CharacterCardType.BLACK -> Color.White
-                        else -> Color.Cyan
-                    },
-                    mainScore = gameState.mainPoints[playerIndex],
-                    onMainPointsChanged = { newPoints ->
+                    modifier = Modifier
+                        .background(color = when (playersState.characterCards[profileIndex].type) {
+                            CharacterCardType.RED -> Colors.red
+                            CharacterCardType.DON -> Color.LightGray
+                            CharacterCardType.SHERIFF -> Color.Yellow
+                            CharacterCardType.BLACK -> Color.DarkGray
+                            else -> Color.Cyan
+                        }),
+                    slot = profileIndex + 1,
+                    playerName = profile.nickName,
+                    playerNameColor = when (playersState.characterCards[profileIndex].type) {
+                                CharacterCardType.RED -> Color.White
+                                CharacterCardType.DON -> Color.Black
+                                CharacterCardType.SHERIFF -> Color.Black
+                                CharacterCardType.BLACK -> Color.White
+                                else -> Color.Cyan
+                            },
+                    mainScore = gameState.mainPoints[profileIndex],
+                            onMainPointsChanged = { newPoints ->
                         viewModel.execute(GameAction.UpdateMainPoints(gameState.mainPoints.mapIndexed { index, points ->
-                            if (index == playerIndex) newPoints else points
-                        }))
-                    },
-                    dopPoints = gameState.dopPoints[playerIndex],
-                    onDopsChanged = { changedDops ->
+                            if (index == profileIndex) newPoints else points
+                                }))
+                            },
+                    dopPoints = gameState.dopPoints[profileIndex],
+                            onDopsChanged = { changedDops ->
                         viewModel.execute(GameAction.UpdateDopPoints(gameState.dopPoints.mapIndexed { index, dops ->
-                            if (playerIndex == index) changedDops else dops
-                        }))
-                    },
-                    comment = gameState.comments[playerIndex],
-                    onCommentChanged = { newComment ->
+                            if (profileIndex == index) changedDops else dops
+                                }))
+                            },
+                    comment = gameState.comments[profileIndex],
+                            onCommentChanged = { newComment ->
                         viewModel.execute(GameAction.UpdateComments(gameState.comments.mapIndexed { index, comment ->
-                            if (playerIndex == index) newComment else comment
-                        }))
-                    }
-                )
+                            if (profileIndex == index) newComment else comment
+                                }))
+                    },
+                    allProfilesFromBE = playersState.allProfilesFromBE,
+                    profile = playersState.profiles[profileIndex],
+                    onProfileChanged = {
+                        changedProfile ->
+                        viewModel.execute(
+                            PlayersAction.UpdateProfiles(playersState.profiles.mapIndexed
+                            { newProfileIndex, newProfile ->
+                                if (newProfileIndex == profileIndex) changedProfile else newProfile
+                            })
+                        )
+
+
+
+                            }
+                        )
             }
         }
     }

@@ -9,6 +9,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import com.turbosokol.iqmafiaapp.components.IQDropDownTextEdit
+import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -29,9 +33,22 @@ fun AchieveScreenView(viewModel: ReduxViewModel) {
 
 
     Column {
-        playersState.allProfilesFromBE.forEach { profile ->
-            Text(text = profile.nickName, color = MaterialTheme.colorScheme.onPrimary)
+        playersState.profiles.forEachIndexed { ind, profil ->
+           IQDropDownTextEdit(
+            modifier = Modifier,
+            allProfilesFromBE = playersState.allProfilesFromBE,
+            profile = profil,
+            onProfileChanged = {},
+            playerNameColor = when (playersState.characterCards[ind].type) {
+                CharacterCardType.RED -> Color.White
+                CharacterCardType.DON -> Color.Black
+                CharacterCardType.SHERIFF -> Color.Black
+                CharacterCardType.BLACK -> Color.White
+                else -> Color.Cyan
+            },
+           )
         }
+
     }
 
 
