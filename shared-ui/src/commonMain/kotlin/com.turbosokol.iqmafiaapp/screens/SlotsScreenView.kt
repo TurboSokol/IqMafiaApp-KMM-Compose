@@ -52,7 +52,6 @@ import com.turbosokol.iqmafiaapp.components.dialogs.IQDialog
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.slots.SlotsScreenState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.util.tournamentShuffleSlots
@@ -186,25 +185,6 @@ fun SlotsTourView(viewModel: ReduxViewModel) {
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth().padding(bottom = Dimensions.Padding.medium)
         )
-
-        Card(elevation = CardDefaults.cardElevation(Dimensions.Elevation.medium)) {
-            Column {
-                slotsState.tourPlayersNames.forEachIndexed { index, name ->
-//                    IQPlayerNameRow(
-//                        modifier = Modifier,
-//                        slot = index, textName = name, isInputEnabled = true,
-//                        colorSlot = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.7f),
-//                        colorName = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
-//                        onTextChanged =  { changedText ->
-//                        val newNames = slotsState.tourPlayersNames.toMutableList()
-//                        newNames[index] = changedText
-//                        viewModel.execute(SlotsScreenAction.SetTourPlayers(newNames))
-//                    },
-//                        playerFromBEList = allNames.toList()
-//                        )
-                }
-            }
-        }
 
         Spacer(modifier = Modifier.height(1.dp))
 

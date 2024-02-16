@@ -96,7 +96,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("androidx.compose.material3:material3:1.1.2")
-//                implementation("androidx.compose.material3:material3-android:1.2.0-beta01")
             }
         }
         val androidUnitTest by getting {

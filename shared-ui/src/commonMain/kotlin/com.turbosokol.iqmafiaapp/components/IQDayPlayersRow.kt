@@ -31,7 +31,6 @@ fun IQDayPlayersRow(
     colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
     textName: String,
     isNameInputEnabled: Boolean,
-//    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     colorFault: Color,
     textFault: String,
     onFaultClick: () -> Unit,

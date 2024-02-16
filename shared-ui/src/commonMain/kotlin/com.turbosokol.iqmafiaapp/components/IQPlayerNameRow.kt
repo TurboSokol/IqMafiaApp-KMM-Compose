@@ -29,9 +29,8 @@ fun IQPlayerNameRow(
     modifier: Modifier,
     slot: Int,
     textName: String,
-    isInputEnabled: Boolean, //When? Why?
+    isInputEnabled: Boolean,
     colorSlot: Color = MaterialTheme.colorScheme.inversePrimary.copy(alpha = 0.65f),
-//    colorName: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
     onSlotClick: (() -> Unit?)? = null,
     //Params for IQDDTE:
     playerNameColor: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f),
@@ -72,34 +71,7 @@ fun IQPlayerNameRow(
             profile = profile,
             playerNameColor = playerNameColor,
         )
-
-//        Row() {
-//            OutlinedTextField(
-//                value = playerName.value,
-//                modifier = Modifier.weight(0.85f)
-//                    .background(MaterialTheme.colorScheme.onBackground)
-//                    .background(color = colorName),
-//                onValueChange = { changedValue: String ->
-//                    playerName.value = changedValue
-//                    if (playerName.value == changedValue) {
-//                        onTextChanged(changedValue)
-//                    }
-//                },
-//
-//                keyboardOptions = KeyboardOptions.Default.copy(
-//                    imeAction = if (slot == 9) ImeAction.Done else ImeAction.Next,
-//                    keyboardType = KeyboardType.Text
-//                ),
-//                textStyle = TextStyle(fontSize = Dimensions.TextSize.smedium),
-//                singleLine = true,
-//                readOnly = !isInputEnabled,
-//                shape = MaterialTheme.shapes.large,
-//                colors = OutlinedTextFieldDefaults.colors(
-//                    focusedBorderColor = Color.Transparent,
-//                    unfocusedBorderColor = Color.Transparent,
-//                ),
-//            )
-        }// End of ROW
+        }
 
     }
 

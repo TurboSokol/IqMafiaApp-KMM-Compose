@@ -21,7 +21,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,11 +38,8 @@ import com.turbosokol.iqmafiaapp.components.dialogs.IQEndVoteDialogView
 import com.turbosokol.iqmafiaapp.components.dialogs.IQVoteDialogView
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.round.RoundState
 import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenAction
-import com.turbosokol.iqmafiaapp.features.judge.screens.day.DayScreenState
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
@@ -171,10 +167,10 @@ fun DayScreenView(viewModel: ReduxViewModel) {
                             )
                         }
                     )
-                //TODO(REMANE) //IQDPR end
+
                 }
             }
-        } //END card with slots, nicks, faults
+        }
 
             AnimatedVisibility(visible = roundState.voteCandidates.isNotEmpty()) {
                 Text(
