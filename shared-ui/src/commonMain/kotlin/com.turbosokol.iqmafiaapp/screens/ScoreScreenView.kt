@@ -15,28 +15,26 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.Calendar
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
+import com.turbosokol.iqmafiaapp.data.game.GamePutRequestModel
 import com.turbosokol.iqmafiaapp.features.app.AppState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.game.GameState
 import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersAction
-import com.turbosokol.iqmafiaapp.features.judge.analytics.players.PlayersState
 import com.turbosokol.iqmafiaapp.theme.Colors
 import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
+
 
 /***
  *If this code runs it created by Evgenii Sokol.
@@ -172,4 +170,26 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
             }
         }
     }
+
+    val GameBEModel = GamePutRequestModel.SendGameBEModel(
+        gameJudgeId = 76,
+        typeEnd = "default",
+        winnerTeam = "red",
+       playedAt = Calendar.keyCode.toString()
+    )
+
+    val profilesBEModel = mutableListOf<GamePutRequestModel.SendProfilesBEModel>()
+    playersState.profiles.forEachIndexed { profileIndex, profile ->
+            profilesBEModel.add(
+                GamePutRequestModel.SendProfilesBEModel(
+                    profileId = profile.id,
+                    characterCard = playersState.characterCards[profileIndex].type.toString(),
+                    score = gameState.mainPoints[profileIndex],
+                    scoreBonus = "16.4".toFloat(),
+                    slot = profileIndex + 1,
+                    bestMove = listOf(5, 3)
+                )
+            )
+    }
+    viewModel.execute(GameAction.GamePutRequestModel(GameBEModel,profilesBEModel))
 }
