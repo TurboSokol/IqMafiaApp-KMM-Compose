@@ -20,7 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.key.Key.Companion.Calendar
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
@@ -47,6 +46,27 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val playersState = appState.getPlayersState()
     val gameState = appState.getGameState()
+
+    val gameBEModel = GamePutRequestModel.SendGameBEModel(
+        gameJudgeId = 76,
+        typeEnd = gameState.typeEnd.toString(),
+        winnerTeam = gameState.winnerTeam.toString(),
+        playedAt = "12.12.24"
+    )
+
+    val profilesBEModel = mutableListOf<GamePutRequestModel.SendProfilesBEModel>()
+    playersState.profiles.forEachIndexed { profileIndex, profile ->
+        profilesBEModel.add(
+            GamePutRequestModel.SendProfilesBEModel(
+                profileId = profile.id,
+                characterCard = playersState.characterCards[profileIndex].type.toString(),
+                score = gameState.mainPoints[profileIndex],
+                scoreBonus = gameState.dopPoints[profileIndex].toFloat(),
+                slot = profileIndex + 1,
+                bestMove = listOf(5, 3)
+            )
+        )
+    }
 
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
@@ -107,7 +127,7 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                         bottom = 0.dp
                     ),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
-                    onClick = {/* no-op */ }
+                    onClick = {viewModel.execute(GameAction.GamePutRequestModel(gameBEModel,profilesBEModel)) }
                 )
                 {
                     Text(text = "Save")
@@ -171,25 +191,6 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
         }
     }
 
-    val GameBEModel = GamePutRequestModel.SendGameBEModel(
-        gameJudgeId = 76,
-        typeEnd = "default",
-        winnerTeam = "red",
-       playedAt = Calendar.keyCode.toString()
-    )
 
-    val profilesBEModel = mutableListOf<GamePutRequestModel.SendProfilesBEModel>()
-    playersState.profiles.forEachIndexed { profileIndex, profile ->
-            profilesBEModel.add(
-                GamePutRequestModel.SendProfilesBEModel(
-                    profileId = profile.id,
-                    characterCard = playersState.characterCards[profileIndex].type.toString(),
-                    score = gameState.mainPoints[profileIndex],
-                    scoreBonus = "16.4".toFloat(),
-                    slot = profileIndex + 1,
-                    bestMove = listOf(5, 3)
-                )
-            )
-    }
-    viewModel.execute(GameAction.GamePutRequestModel(GameBEModel,profilesBEModel))
+
 }
