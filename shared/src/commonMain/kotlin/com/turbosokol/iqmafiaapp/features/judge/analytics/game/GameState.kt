@@ -2,7 +2,8 @@ package com.turbosokol.iqmafiaapp.features.judge.analytics.game
 
 import com.turbosokol.iqmafiaapp.core.redux.Action
 import com.turbosokol.iqmafiaapp.core.redux.GeneralState
-
+import com.turbosokol.iqmafiaapp.data.game.GamePutRequestModel.SendGameBEModel
+import com.turbosokol.iqmafiaapp.data.game.GamePutRequestModel.SendProfilesBEModel
 /***
  *If this code runs it created by Evgenii Sokol.
  *If it doesn’t work, I don’t know who create it.
@@ -59,7 +60,7 @@ sealed class GameAction : Action {
     data class UpdateSummaryPoints(val summaryPoints: List<Double>) : GameAction()
     data class UpdateComments(val comments: List<String>) : GameAction()
     data class EndOfRound(val votedPlayer: List<Int>) : GameAction()
-
+    data class GamePutRequestModel(val game: SendGameBEModel, val profiles: List<SendProfilesBEModel>) : GameAction()
 
     //read gameId from WEB DB or local db
     data class StartGame(val gameId: Int, val judgeId: Int) : GameAction()
