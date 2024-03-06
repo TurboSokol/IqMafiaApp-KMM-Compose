@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -15,11 +17,17 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.turbosokol.iqmafiaapp.components.IQScoreRow
 import com.turbosokol.iqmafiaapp.data.character_card.CharacterCardType
@@ -32,6 +40,7 @@ import com.turbosokol.iqmafiaapp.theme.Dimensions
 import com.turbosokol.iqmafiaapp.theme.Strings
 import com.turbosokol.iqmafiaapp.viewmodel.ReduxViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 
 
@@ -46,6 +55,8 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
     val appState by stateFlow.collectAsState(Dispatchers.Main)
     val playersState = appState.getPlayersState()
     val gameState = appState.getGameState()
+
+//    var submitButtonState by remember { mutableStateOf(SSButtonState.IDLE) }
 
     val gameBEModel = GamePutRequestModel.SendGameBEModel(
         gameJudgeId = 76,
@@ -118,20 +129,22 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
                     modifier = Modifier.weight(0.2f)
                 )
 
-                Button(modifier = Modifier.background(MaterialTheme.colorScheme.onBackground)
-                    .padding(start = Dimensions.Padding.xsmall),
-                    contentPadding = PaddingValues(
-                        start = 2.dp,
-                        top = 0.dp,
-                        end = 2.dp,
-                        bottom = 0.dp
-                    ),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
-                    onClick = {viewModel.execute(GameAction.GamePutRequestModel(gameBEModel,profilesBEModel)) }
-                )
-                {
-                    Text(text = "Save")
-                }
+                AnimatedButton { viewModel.execute(GameAction.GamePutRequestModel(gameBEModel,profilesBEModel)) }
+
+//                Button(modifier = Modifier.background(MaterialTheme.colorScheme.onBackground)
+//                    .padding(start = Dimensions.Padding.xsmall),
+//                    contentPadding = PaddingValues(
+//                        start = 2.dp,
+//                        top = 0.dp,
+//                        end = 2.dp,
+//                        bottom = 0.dp
+//                    ),
+//                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
+//                    onClick = {viewModel.execute(GameAction.GamePutRequestModel(gameBEModel,profilesBEModel)) }
+//                )
+//                {
+//                    Text(text = "Save")
+//                }
 
 
             }
@@ -194,3 +207,41 @@ fun ScoreScreenView(viewModel: ReduxViewModel) {
 
 
 }
+
+
+@Composable
+fun AnimatedButton(onClick: () -> Unit) {
+    var isButtonClicked by remember { mutableStateOf(false) }
+
+    Button(
+        modifier = Modifier.background(MaterialTheme.colorScheme.onBackground)
+                    .padding(start = Dimensions.Padding.xsmall)
+                    .size(50.dp)
+            .clip(RoundedCornerShape(8.dp))
+                .graphicsLayer {
+                scaleX = if (isButtonClicked) 1.5f else 1f
+                scaleY = if (isButtonClicked) 1.5f else 1f
+                alpha = if (isButtonClicked) 0.5f else 1f
+            },
+                    contentPadding = PaddingValues(
+                        start = 2.dp,
+                        top = 0.dp,
+                        end = 2.dp,
+                        bottom = 0.dp),
+         onClick = {
+            isButtonClicked = true
+            onClick()
+        },
+        content = {
+            Text(text = "Save")
+        },
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary),
+    )
+    LaunchedEffect(isButtonClicked) {
+        if (isButtonClicked) {
+            delay(2000)
+            isButtonClicked = false
+        }
+    }
+}
+
