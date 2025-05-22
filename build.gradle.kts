@@ -45,6 +45,7 @@ allprojects {
 
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
         maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
+
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
