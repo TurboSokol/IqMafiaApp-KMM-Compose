@@ -1,95 +1,77 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    kotlin("android")
-    id("org.jetbrains.compose") version Versions.compose
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose)
 }
 
 dependencies {
     implementation(project(":shared"))
     implementation(project(":shared-ui"))
-    implementation(project(":shared"))
 
+    //UI - Compose
+    implementation(libs.bundles.compose.ui)
+    implementation(libs.bundles.compose.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
-    //UI
-    implementation("com.google.android.material:material:${Versions.material}")
-    implementation("androidx.compose.material3:material3:${Versions.composeMaterial3}")
-
-    implementation("androidx.appcompat:appcompat:${Versions.appCompat}")
-    implementation("androidx.activity:activity-compose:${Versions.activityCompose}")
-    implementation("androidx.compose.ui:ui:${Versions.compose}")
-    implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.compose}")
-    implementation("androidx.compose.ui:ui-util:${Versions.compose}")
-    implementation("androidx.constraintlayout:constraintlayout-compose:${Versions.constraintLayoutCompose}")
-
-
-    implementation ("androidx.legacy:legacy-support-v4:${Versions.legacySupport}")
-
-//    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha06") //for Splash Screen
+    //UI - Android
+    implementation(libs.androidx.appcompat)
+    implementation(libs.legacy.support)
 
     //Lifecycle
-    implementation ("androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleExtensions}")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycle}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}")
+    implementation(libs.bundles.androidx.lifecycle)
+    implementation(libs.androidx.lifecycle.extensions)
 
     //ViewModel
-    api("org.brightify.hyperdrive:multiplatformx-api:${Versions.hyperdrive}")
+    api(libs.hyperdrive)
 
     //Concurrency
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
+    implementation(libs.kotlinx.coroutines.android)
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.6.0")
-    implementation("com.google.accompanist:accompanist-navigation-animation:0.21.4-beta")
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.accompanist.navigation.animation)
 
     //Components
-    implementation("com.google.accompanist:accompanist-pager:0.20.0")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.18.0")
-    implementation("com.google.accompanist:accompanist-insets:${Versions.accompanist}")
-    implementation("com.google.accompanist:accompanist-insets-ui:${Versions.accompanist}")
-    implementation("com.google.accompanist:accompanist-systemuicontroller:${Versions.accompanist}")
-    implementation("com.google.accompanist:accompanist-permissions:${Versions.accompanist}")
-    implementation("com.google.accompanist:accompanist-swiperefresh:${Versions.accompanist}")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
-    implementation("org.burnoutcrew.composereorderable:reorderable:0.7.4")
-    implementation ("com.chargemap.compose:numberpicker:1.0.3")
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.bundles.accompanist.ui)
+    implementation(libs.lottie.compose)
+    
+    //External Components
+    implementation(libs.mpandroidchart)
+    implementation(libs.reorderable)
+    implementation(libs.numberpicker)
 
     //Network
-    implementation("io.ktor:ktor-client-android:${Versions.ktor}")
+    implementation(libs.ktor.client.android)
 
     //DI
-    implementation("io.insert-koin:koin-core:${Versions.koin}")
-    implementation("io.insert-koin:koin-android:${Versions.koin}")
-    implementation("io.insert-koin:koin-androidx-compose:${Versions.koin}")
+    implementation(libs.bundles.koin)
 
     //Core
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation(libs.androidx.core)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
 
     //Testing
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Versions.compose}")
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 }
 
 android {
     namespace = "com.turbosokol.iqmafiaapp"
 
-    compileSdk = Versions.targetSdk
+    compileSdk = libs.versions.targetSdk.get().toInt()
     defaultConfig {
 
         applicationId = "com.turbosokol.iqmafiaapp.android"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        minSdk = Versions.minSdk
-        targetSdk = Versions.targetSdk
-        versionCode = Versions.versionCode
-        versionName = Versions.versionCode.toString()
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionCode.get()
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -102,20 +84,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "21"
     }
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packaging {
         resources {

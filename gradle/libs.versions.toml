@@ -1,0 +1,180 @@
+[versions]
+# Core
+versionCode = "1"
+iosDeploymentTarget = "15"
+gradle = "8.5.2"
+kotlin = "2.0.21"
+detekt = "1.21.0-RC1"
+russhwolf = "0.9"
+legacySupport = "1.0.0"
+
+# Android
+androidx = "1.15.0"
+targetSdk = "35"
+minSdk = "26"
+appCompat = "1.7.0"
+
+# Multithreading
+coroutines = "1.8.1"
+
+# DI
+koin = "4.0.0"
+
+# Network
+ktor = "3.0.1"
+json = "1.7.3"
+datetime = "0.6.1"
+
+# Database
+sqlDelight = "1.5.5"
+firebaseCore = "21.1.0"
+firebaseFirestore = "24.2.1"
+
+# Lifecycle
+lifecycle = "2.8.7"
+lifecycleExtensions = "2.2.0"
+
+# UI
+constraintLayoutCompose = "1.0.1"
+compose = "1.7.1"
+composeCompiler = "2.0.21"
+material = "1.7.5"
+activityCompose = "1.9.3"
+accompanist = "0.32.0"
+lottie = "6.6.0"
+uiTooling = "1.7.1"
+composeMaterial3 = "1.3.1"
+
+# ViewModel
+hyperdrive = "0.1.139"
+multiplatfomSettings = "0.9"
+
+# Test
+test = "1.4.0"
+mockk = "1.12.2"
+jUnit = "4.13.2"
+
+# Additional versions for navigation and external libraries
+navigation = "2.8.4"
+accompanistNavigation = "0.32.0"
+accompanistPager = "0.32.0"
+accompanistPagerIndicators = "0.32.0"
+mpandroidchart = "v3.1.0"
+reorderable = "0.7.4"
+numberpicker = "1.0.3"
+
+[libraries]
+# Core
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+legacy-support = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupport" }
+
+# Android
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+
+# Multithreading
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-ios = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-ios", version.ref = "coroutines" }
+
+# DI
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+
+# Network
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
+ktor-network-tls = { module = "io.ktor:ktor-network-tls", version.ref = "ktor" }
+ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "json" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
+
+# Database
+sqldelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
+sqldelight-android-driver = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqldelight-native-driver = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
+firebase-core = { module = "com.google.firebase:firebase-core", version.ref = "firebaseCore" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
+
+# Settings
+multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "russhwolf" }
+multiplatform-settings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "russhwolf" }
+
+# Lifecycle
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycleExtensions" }
+
+# UI - Compose
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiTooling" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "material" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial3" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintLayoutCompose" }
+
+# UI - Accompanist
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+# Note: accompanist-insets and accompanist-insets-ui are deprecated - inset handling is now built into Compose
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
+accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigation" }
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
+
+# UI - Other
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+
+# Navigation
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
+# ViewModel
+hyperdrive = { module = "org.brightify.hyperdrive:multiplatformx-api", version.ref = "hyperdrive" }
+
+# External Libraries
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+reorderable = { module = "org.burnoutcrew.composereorderable:reorderable", version.ref = "reorderable" }
+numberpicker = { module = "com.chargemap.compose:numberpicker", version.ref = "numberpicker" }
+
+# Test
+androidx-test-core = { module = "androidx.test:core", version.ref = "test" }
+androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "test" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+junit = { module = "junit:junit", version.ref = "jUnit" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "gradle" }
+android-library = { id = "com.android.library", version.ref = "gradle" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+sqldelight = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
+
+[bundles]
+ktor-common = ["ktor-client-core", "ktor-client-content-negotiation", "ktor-client-logging", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"]
+ktor-android = ["ktor-client-android", "ktor-client-cio", "ktor-client-okhttp", "ktor-network-tls"]
+ktor-ios = ["ktor-client-ios"]
+compose-ui = ["androidx-compose-ui", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview"]
+compose-material = ["androidx-compose-material", "androidx-compose-material3"]
+androidx-lifecycle = ["androidx-lifecycle-runtime", "androidx-lifecycle-viewmodel", "androidx-lifecycle-viewmodel-compose"]
+accompanist-ui = ["accompanist-permissions", "accompanist-systemuicontroller", "accompanist-swiperefresh"]
+koin = ["koin-core", "koin-android", "koin-compose"]

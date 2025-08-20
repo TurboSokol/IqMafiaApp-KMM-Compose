@@ -1,24 +1,30 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    kotlin("plugin.serialization")
-    id("com.android.library")
-    id("com.squareup.sqldelight")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.sqldelight)
 }
 
 version = "1.0"
 
 kotlin {
-    androidTarget()
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "21"
+            }
+        }
+    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
 
     cocoapods {
-        version = Versions.gradle
+        version = libs.versions.gradle.get()
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = Versions.iOSDeploymentTarget
+        ios.deploymentTarget = libs.versions.iosDeploymentTarget.get()
         podfile = project.file("../iosApp/Podfile")
         framework {
             baseName = "shared"
@@ -30,29 +36,22 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 //COROUTINES
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
+                api(libs.kotlinx.coroutines.core)
 
                 //DI
-                api("io.insert-koin:koin-core:${Versions.koin}")
+                api(libs.koin.core)
 
                 //NETWORK
-                implementation("io.ktor:ktor-client-core:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-json:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-content-negotiation:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-logging:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-websockets:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-auth:${Versions.ktor}")
+                implementation(libs.bundles.ktor.common)
+                implementation(libs.ktor.client.websockets)
+                implementation(libs.ktor.client.auth)
 
                 //DATABASE
-                implementation("com.squareup.sqldelight:runtime:${Versions.sqlDelight}")
+                implementation(libs.sqldelight.runtime)
 
                 //SERIALIZATION SETTINGS
-                implementation("com.russhwolf:multiplatform-settings:${Versions.russhwolf}")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.json}")
-
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation(libs.multiplatform.settings)
+                implementation(libs.kotlinx.datetime)
 
             }
         }
@@ -66,82 +65,70 @@ kotlin {
 
         val androidMain by getting {
             dependencies{
-                implementation("io.ktor:ktor-client-android:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-cio:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
-                implementation("io.ktor:ktor-network-tls:${Versions.ktor}")
-                implementation("io.ktor:ktor-server-content-negotiation:${Versions.ktor}")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}")
-                implementation("androidx.core:core:${Versions.androidx}")
-                implementation("androidx.compose.ui:ui:${Versions.compose}")
-                implementation("com.squareup.sqldelight:android-driver:${Versions.sqlDelight}")
+                implementation(libs.bundles.ktor.android)
+                implementation(libs.ktor.server.content.negotiation)
+                implementation(libs.androidx.core)
+                implementation(libs.androidx.compose.ui)
+                implementation(libs.sqldelight.android.driver)
             }
         }
 
         val androidUnitTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:${Versions.jUnit}")
-//                implementation("org.mockito:mockito-core:${Versions.mockito}")
-//                implementation("org.mockito.kotlin:mockito-kotlin:${Versions.mockito}")
-//                implementation("io.mockk:mockk:${Versions.mockk}")
-//                implementation("io.insert-koin:koin-core:${Versions.koin}")
-//                implementation("io.insert-koin:koin-test-junit4:${Versions.koin}")
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}")
-//                implementation("org.kodein.db:kodein-db-inmemory:${Versions.kodein}")
-                implementation("com.russhwolf:multiplatform-settings-test:${Versions.russhwolf}")
+                implementation(libs.junit)
+//                implementation(libs.mockk)
+//                implementation(libs.koin.core)
+                implementation(libs.multiplatform.settings.test)
             }
         }
 
         val iosX64Main by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+                implementation(libs.bundles.ktor.ios)
+                implementation(libs.sqldelight.native.driver)
             }
         }
 
         val iosArm64Main by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+                implementation(libs.bundles.ktor.ios)
+                implementation(libs.sqldelight.native.driver)
             }
         }
 
         val iosSimulatorArm64Main by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
+                implementation(libs.bundles.ktor.ios)
+                implementation(libs.sqldelight.native.driver)
             }
         }
 
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
-        }
+        // iOS source sets are now handled by the default hierarchy template
+        // No explicit dependsOn calls needed
     }
 
-    //Allow code comments visibility in Swift
+    // Allow code comments visibility in Swift
     targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        compilations["main"].kotlinOptions.freeCompilerArgs += "-Xexport-kdoc"
+        binaries.all {
+            freeCompilerArgs += "-Xexport-kdoc"
+        }
     }
 
 }
 
 android {
     namespace = "com.turbosokol.iqmafiaapp"
-    compileSdk = Versions.targetSdk
+    compileSdk = libs.versions.targetSdk.get().toInt()
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = Versions.minSdk
-        targetSdk = Versions.targetSdk
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

@@ -1,9 +1,9 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization")
-    kotlin("native.cocoapods")
-    id("com.android.library")
-    id("org.jetbrains.compose") version Versions.compose
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose)
 }
 
 version = "1.0"
@@ -11,19 +11,15 @@ version = "1.0"
 android {
     namespace = "com.turbosokol.iqmafiaapp"
 
-    compileSdk = Versions.targetSdk
+    compileSdk = libs.versions.targetSdk.get().toInt()
 
     defaultConfig {
-        minSdk = Versions.minSdk
-        targetSdk = Versions.targetSdk
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     version = "1.0"
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
-    }
 
     buildFeatures {
         compose = true
@@ -44,7 +40,13 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "21"
+            }
+        }
+    }
     ios()
     iosSimulatorArm64()
 
@@ -53,20 +55,7 @@ kotlin {
             dependencies {
                 implementation(project(":shared"))
 
-//                api(libs.kermit)
-//                api(libs.kermit.crashlytics)
-//                api(libs.kotlinx.coroutines.core)
-//                api(libs.kotlinx.datetime)
-//                api(libs.multiplatformSettings.core)
-//                // this enforces new version of atomicfu, the older version from other libraries crashes iOS build
-//                api(libs.atomicFu)
-//                api(libs.uuid)
-//
-//                implementation(libs.bundles.ktor.common)
-//                implementation(libs.bundles.sqldelight.common)
-//
-//                implementation(libs.stately.common)
-
+                // Compose Multiplatform
                 api(compose.animation)
                 api(compose.foundation)
                 api(compose.ui)
@@ -74,15 +63,16 @@ kotlin {
                 api(compose.materialIconsExtended)
                 api(compose.material3)
 
+                // UI Components
+                // Note: lottie-compose moved to androidMain since it's Android-specific
 
-                implementation("com.airbnb.android:lottie-compose:${Versions.lottie}")
-
-                api("io.insert-koin:koin-core:${Versions.koin}")
-                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
+                // Core
+                api(libs.koin.core)
+                api(libs.kotlinx.coroutines.core)
 
                 //Shared ViewModel
-                api("org.brightify.hyperdrive:multiplatformx-api:${Versions.hyperdrive}")
-                api("com.russhwolf:multiplatform-settings:${Versions.multiplatfomSettings}")
+                api(libs.hyperdrive)
+                api(libs.multiplatform.settings)
 
             }
         }
@@ -95,7 +85,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("androidx.compose.material3:material3:1.1.2")
+                implementation(libs.androidx.compose.material3)
+                // UI Components (Android-specific)
+                implementation(libs.lottie.compose)
             }
         }
         val androidUnitTest by getting {
@@ -109,17 +101,21 @@ kotlin {
         }
         val iosTest by getting {}
 
-        sourceSets["iosSimulatorArm64Main"].dependsOn(iosMain)
-        sourceSets["iosSimulatorArm64Test"].dependsOn(iosTest)
+        // iOS source sets dependencies are now handled by the default hierarchy template
     }
 }
 
 android {
     namespace = "com.turbosokol.sharedui"
-    compileSdk = Versions.targetSdk
+    compileSdk = libs.versions.targetSdk.get().toInt()
     defaultConfig {
-        minSdk = Versions.minSdk
-        targetSdk = Versions.targetSdk
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+    }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

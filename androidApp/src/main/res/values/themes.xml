@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!-- Simple theme for Compose app -->
+    <style name="Theme.Material3.DayNight.NoActionBar" parent="android:Theme.Material.NoActionBar">
+        <!-- Basic colors -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        
+        <!-- Window settings for Compose -->
+        <item name="android:windowBackground">@color/colorWhite</item>
+    </style>
+</resources>

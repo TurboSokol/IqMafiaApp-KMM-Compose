@@ -1,28 +1,20 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
-        classpath("com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}")
-        classpath("com.android.tools.build:gradle:${Versions.gradle}")
-    }
-}
-
 plugins {
-    id("io.gitlab.arturbosch.detekt") version Versions.detekt
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.cocoapods) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.compose) apply false
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.sqldelight) apply false
 }
 
 detekt {
-    toolVersion = Versions.detekt
+    toolVersion = libs.versions.detekt.get()
     config = files("config/detekt/detekt.yml")
     source = files(
-        "${rootProject.rootDir}/LociAndroidApp/src/main/java",
-        "${rootProject.rootDir}/LociIosApp/LociIosApp",
         "${rootProject.rootDir}/shared/src"
     )
     baseline = file("${rootProject.projectDir}/config/baseline.xml")
@@ -50,7 +42,7 @@ allprojects {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
+            jvmTarget = JavaVersion.VERSION_21.toString()
         }
     }
 }

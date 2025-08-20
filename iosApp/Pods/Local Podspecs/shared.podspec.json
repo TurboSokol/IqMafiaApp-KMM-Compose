@@ -1,6 +1,6 @@
 {
   "name": "shared",
-  "version": "8.2.2",
+  "version": "8.5.2",
   "homepage": "Link to the Shared Module homepage",
   "source": {
     "http": ""
@@ -12,6 +12,9 @@
   "libraries": "c++",
   "platforms": {
     "ios": "15"
+  },
+  "xcconfig": {
+    "ENABLE_USER_SCRIPT_SANDBOXING": "NO"
   },
   "pod_target_xcconfig": {
     "KOTLIN_PROJECT_PATH": ":shared",
