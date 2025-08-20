@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
 version = "1.0"
@@ -49,6 +50,19 @@ kotlin {
     }
     ios()
     iosSimulatorArm64()
+    
+    cocoapods {
+        version = "1.0"
+        summary = "Shared UI module for IQ Mafia App"
+        homepage = "Link to the Shared UI Module homepage"
+        ios.deploymentTarget = libs.versions.iosDeploymentTarget.get()
+        podfile = project.file("../iosApp/Podfile")
+        framework {
+            baseName = "shared_ui"
+            isStatic = true
+        }
+        extraSpecAttributes["resources"] = "['build/compose/ios/shared_ui/compose-resources']"
+    }
 
     sourceSets {
         val commonMain by getting {

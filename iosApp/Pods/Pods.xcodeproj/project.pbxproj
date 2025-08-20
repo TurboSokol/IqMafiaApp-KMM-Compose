@@ -6,28 +6,71 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		8777C9F6889E59EFFD631D80AEE9048B /* shared */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = B999BD58A146737F72CA68509B0BCE77 /* Build configuration list for PBXAggregateTarget "shared" */;
-			buildPhases = (
-				11F372A9E68C08375C21A8D47B3CDB02 /* [CP-User] Build shared */,
-				35C7D8836447FEC746DA683E14000153 /* [CP] Copy dSYMs */,
-			);
-			dependencies = (
-			);
-			name = shared;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
+		022204085BC46FF7B20D92618C06E974 /* AuthState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 9B8F5ECBA4C2F9F6CE3ECA98E8A1D8CA /* AuthState.kt */; };
+		08E720E1941D7F2072D4D0A0A1D772BC /* AchievesScreenState.kt in Sources */ = {isa = PBXBuildFile; fileRef = C2EC06FFFA4BED290826F2131AC99310 /* AchievesScreenState.kt */; };
+		0AA8CDFEDEAFBFF862B29928C3332B94 /* NightScreenState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 75D98EC3C8B832963BA62AD8A91D6F44 /* NightScreenState.kt */; };
+		108DB2289277DA5A2CD99F27B93D941C /* GameState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 9F011AD05F291939075546901A9ABC44 /* GameState.kt */; };
+		13903AAB952C88A47AB903CF04B0B98D /* ScoreScreenMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 3123A9234EFF880CD6B58D4D73CDD956 /* ScoreScreenMiddleware.kt */; };
+		1BC951F793C06FEFC2C54C9B8425AA71 /* AccountReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = F1DC7442ECF831EA1A63786BA6091888 /* AccountReducer.kt */; };
+		200E0CE1758D7879129556F3FFF8AA01 /* ApiResponse.kt in Sources */ = {isa = PBXBuildFile; fileRef = 23E0363C2B5F37AEEAC3399EAB324602 /* ApiResponse.kt */; };
+		20637D4EF5B83AB6ADC60AA5CF4AE388 /* PlayersMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 78451246CFD2FD07F4E907FBB03C7C12 /* PlayersMiddleware.kt */; };
+		2289ABF4E1618997110E3E659218A56F /* RoundMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 803CC5B62BE2ACC90B48C9285FB55BB8 /* RoundMiddleware.kt */; };
 		257154E09B9237CEB10C2082223FAF15 /* Pods-iosApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 54DC7F9924F99FEE67A9AD3BEE09A10C /* Pods-iosApp-dummy.m */; };
+		261918FEA9C871BB128F99253BC7AA1F /* SlotsScreenReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6D908C5DF3F61C84D9A299D3DDA3FB4A /* SlotsScreenReducer.kt */; };
+		2CC371C22224832FF168FD8484FD2E1B /* Middleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 55882C3169F0ECBBF52E16205F10ED9D /* Middleware.kt */; };
+		2CDB68590D9C1F39ADC9863113D6E9E7 /* SlotsScreenState.kt in Sources */ = {isa = PBXBuildFile; fileRef = AC76A92C3BCC8E9B67A2AE1D312A8CFD /* SlotsScreenState.kt */; };
+		2F3585F0990C2FE9E82DEE7BBFD860E7 /* NavigationMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = F94DC2BD93718E59F1753AABDFA48797 /* NavigationMiddleware.kt */; };
+		2FAC674258B559E746C86F9CE8F599F8 /* AccountMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = A431E0BE7AD481AC7349188A6C1F0112 /* AccountMiddleware.kt */; };
+		323BCC1B5B1008F9E2042D2FCB1E3271 /* MainNetworkApiImpl.kt in Sources */ = {isa = PBXBuildFile; fileRef = 045989A509408A9CABAC9BB0EAF6CA08 /* MainNetworkApiImpl.kt */; };
+		37B0FAF16351F72635170C2CB11CFE49 /* shared-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F818D9D8CAB41B253AFBF85AAE767 /* shared-dummy.m */; };
+		3E9B0FA0DC15F7ED74F3656FAA6FF588 /* RoundReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 7D563708E1E0F37D867824918770FBD4 /* RoundReducer.kt */; };
+		45F7E3914BC9B53BD93C594C61AEA5FC /* CardsScreenState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 0205E3DC70282BB912E8DB2F8AA1955A /* CardsScreenState.kt */; };
+		46B910F1D971F48A2B4E4AFDDA2F7C9C /* ScoreScreenState.kt in Sources */ = {isa = PBXBuildFile; fileRef = B08469CFC966F0D7BF0BD8BD8482E7F9 /* ScoreScreenState.kt */; };
+		49C99F0C50393BAC194E68B6915201C9 /* AuthMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B10012EE30452E4560E525C780653 /* AuthMiddleware.kt */; };
+		4AC6B27F6651ED88E6A756E1A5BC3F92 /* DayScreenMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 9DB32E028A9D8AFEF631CBA19076548A /* DayScreenMiddleware.kt */; };
+		4BDF887B9E0942AAC0E1C5F769461DFE /* Store.kt in Sources */ = {isa = PBXBuildFile; fileRef = 61680E652D42CBDFD001C4F8BAC6B59A /* Store.kt */; };
+		55CDF6AC4A8972D88E25AAB0EFCC0FD6 /* CardsScreenMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = B2ED719B2F04F65015BBEA34DF22D872 /* CardsScreenMiddleware.kt */; };
 		6AB46BC38D2BD358AE12FE81032D78FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		6BFE86BFD7953EB7CEF601AF22EE560B /* RoundState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 7F4D792B0EA10A420AE01AC936D0D74F /* RoundState.kt */; };
+		6D4298A41944DAF8CA2A901E58FA9146 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		6EFE9EC768E092C875CCDB2D471F04CA /* AuthReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 1F9167097E477E6247954C0C1FC0EF49 /* AuthReducer.kt */; };
+		7229BA2286077DD95BF3FDC9D44B3E42 /* Reducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 9D4DE93DD3F2ACC6838CEB29B92D63CE /* Reducer.kt */; };
+		79FC831CB1B58857399358E079F9DC08 /* AccountState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 682A9B6BEEA1D032C7A19EDB6382A054 /* AccountState.kt */; };
+		7AB444F2B81095F9AFE0805B2C6C77B6 /* Koin.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8600BF8FA2403B10E0843AEF7298E589 /* Koin.kt */; };
+		87D1CB4A373DF34335BF74431BCF49B6 /* AppReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 0A320795B32D39AC9CBB7D076842C927 /* AppReducer.kt */; };
+		8A34DC88654B10E55F8653927F707E97 /* MainNetworkApi.kt in Sources */ = {isa = PBXBuildFile; fileRef = 48521E306C78AEA9DC706C5383642E46 /* MainNetworkApi.kt */; };
+		8C3C19567664AD65B58B9AB674FB6A32 /* GamePutRequestModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 56B754A545D3FBF0078DF9F0C7A83FC6 /* GamePutRequestModel.kt */; };
+		8C9779B6BD8E6A9B615E77EB0D1FCCF9 /* AppState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 324912E041C5789FCE489FD612948072 /* AppState.kt */; };
+		9076BF7D6716C2C7D1F1802943A411D7 /* shared-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2015F5AB46AEDBBD32F004A154B439FA /* shared-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		959B7ECFB3C575C02CF85E11A50943E1 /* CardsScreenReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = F4D2609BD5295A0293D86FB61241FC0A /* CardsScreenReducer.kt */; };
+		964DF9AD50FB5925A082B547040F6B84 /* KtorWebService.kt in Sources */ = {isa = PBXBuildFile; fileRef = 77960F1FBAAEA165DFF9F4171D5F3A1B /* KtorWebService.kt */; };
+		A717EB535D93EA80C3B64EF429EA49B4 /* CharacterCardModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 238128A1A2D585447EA6A44EECA41454 /* CharacterCardModel.kt */; };
+		A8E79B6B7F18732E540AEC73C7459039 /* AchievementModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8E38D1B1117FC9BBCE0032A6CC4941CE /* AchievementModel.kt */; };
+		A96DCBDB5CF16089A35B551544799C90 /* NavigationReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 57B087B62CB3F2C983DB00AE4B93A0E6 /* NavigationReducer.kt */; };
+		A9C51134F0041CCA5FF77039AFF29B92 /* DayScreenReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8401AA67EEE54BB3F9A0FF8CD837ED8C /* DayScreenReducer.kt */; };
+		ABD8D514529AB2279C872507BCB0612A /* AchievesScreenMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 5CA18ECA3578847D115560BA040ABC55 /* AchievesScreenMiddleware.kt */; };
+		AF8160FA7696E030B4E4B4AFB3EAE987 /* AchievesScreenReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDCFECDAC2200805D7DDE1C01A3A2A /* AchievesScreenReducer.kt */; };
+		B55D609B6299807104FC31424D61EDF8 /* NightScreenReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 127EDE0FC7310D6959627993ABBAF6B9 /* NightScreenReducer.kt */; };
+		B678348B5A7D34AAED8D41B0AE3421AC /* ScoreScreenReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = 7F8FCDA6A61ADA4A2C5A69CADBE20837 /* ScoreScreenReducer.kt */; };
+		BB7CC9F33959BE57BAF7DFE597590FDA /* ProfileUIModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = ECA743230C7867EEF7076DE2C50B7BB6 /* ProfileUIModel.kt */; };
+		C1891347CC223DFC342A243FA9E67C7B /* GameReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = A834276EB8402A768087D8FCD3ACB5DA /* GameReducer.kt */; };
+		C5FADD04AF0713BB248FF2ED60751CB0 /* LogService.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6D62045B20A89E1A1D047704A8A68FDC /* LogService.kt */; };
+		C65DE0E2B635539F57EBCE2200DC2807 /* AppMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 6459128161347F7EAE47D4BD3A213EC7 /* AppMiddleware.kt */; };
+		D7E25A42664FD4775F164084ECD96CA9 /* NightScreenMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 4E61A6A02993AAF0421CCC034453304F /* NightScreenMiddleware.kt */; };
+		D8FA2A70F0C05AF0B47BE4802792FE04 /* SlotsScreenMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 1786294586FF7F2D8DE91E0C1E6C8FED /* SlotsScreenMiddleware.kt */; };
+		DA6B2929F6C443C9A34C45CB94C13EE4 /* DayScreenState.kt in Sources */ = {isa = PBXBuildFile; fileRef = 84202143D37B735A05B6CD3814F4C341 /* DayScreenState.kt */; };
 		DB7080CC4B15882B5B9B0C338E7D3C8A /* Pods-iosApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F87A626222A8D9B26448A9FEB04FD0DF /* Pods-iosApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DD4984A1940304FDEB35225F55917955 /* PlayersState.kt in Sources */ = {isa = PBXBuildFile; fileRef = D1544908D3CD1C47142974293EB5B4A4 /* PlayersState.kt */; };
+		DFAD4F362A4BE3091B67764FD2D0C08D /* NavigationState.kt in Sources */ = {isa = PBXBuildFile; fileRef = DB86C6F497F7ED02AE13AD85A9742350 /* NavigationState.kt */; };
+		E131BD3444E0F6D8CA0496927C8A30FD /* PlayersProfileBEModel.kt in Sources */ = {isa = PBXBuildFile; fileRef = 842352B2B581A70EFB1F19BCA765A62F /* PlayersProfileBEModel.kt */; };
+		E7121EB981C69826850160BA0BC038E9 /* GameMiddleware.kt in Sources */ = {isa = PBXBuildFile; fileRef = 8C736283359717EC01382E6BC7F70AFB /* GameMiddleware.kt */; };
+		E8C56BF718FECEB331B0A2AC93BD0715 /* ProfileMapper.kt in Sources */ = {isa = PBXBuildFile; fileRef = 0F540C284EEC97BD2D653692ACEDC8C6 /* ProfileMapper.kt */; };
+		FC0B54D3B8278B5C03F5FDFD35914800 /* PlayersReducer.kt in Sources */ = {isa = PBXBuildFile; fileRef = CE6D1EA9AA2D07001BE4BF10F90AFE67 /* PlayersReducer.kt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D331C70AA6F0D4C9648E4B9A15A0F68D /* PBXContainerItemProxy */ = {
+		E1A83F000DDF12B5A1245916F3BBBA23 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -37,23 +80,84 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		009069A386B0A5A8DB76D61AE1586630 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		0187F135D5F61750CD24C3E04B6E8B64 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
+		0205E3DC70282BB912E8DB2F8AA1955A /* CardsScreenState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = CardsScreenState.kt; sourceTree = "<group>"; };
+		045989A509408A9CABAC9BB0EAF6CA08 /* MainNetworkApiImpl.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = MainNetworkApiImpl.kt; sourceTree = "<group>"; };
+		0A320795B32D39AC9CBB7D076842C927 /* AppReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AppReducer.kt; sourceTree = "<group>"; };
+		0E5F818D9D8CAB41B253AFBF85AAE767 /* shared-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "shared-dummy.m"; sourceTree = "<group>"; };
+		0F540C284EEC97BD2D653692ACEDC8C6 /* ProfileMapper.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ProfileMapper.kt; sourceTree = "<group>"; };
+		0F9A65105C95A3B01847D01D8D0329A8 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
+		127EDE0FC7310D6959627993ABBAF6B9 /* NightScreenReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NightScreenReducer.kt; sourceTree = "<group>"; };
+		1786294586FF7F2D8DE91E0C1E6C8FED /* SlotsScreenMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = SlotsScreenMiddleware.kt; sourceTree = "<group>"; };
+		1F9167097E477E6247954C0C1FC0EF49 /* AuthReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AuthReducer.kt; sourceTree = "<group>"; };
+		2015F5AB46AEDBBD32F004A154B439FA /* shared-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-umbrella.h"; sourceTree = "<group>"; };
+		238128A1A2D585447EA6A44EECA41454 /* CharacterCardModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = CharacterCardModel.kt; sourceTree = "<group>"; };
+		23E0363C2B5F37AEEAC3399EAB324602 /* ApiResponse.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ApiResponse.kt; sourceTree = "<group>"; };
+		3123A9234EFF880CD6B58D4D73CDD956 /* ScoreScreenMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ScoreScreenMiddleware.kt; sourceTree = "<group>"; };
+		324912E041C5789FCE489FD612948072 /* AppState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AppState.kt; sourceTree = "<group>"; };
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		4212BB5B5D1ABF0C1190FA43BF6E3835 /* shared */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = shared; path = shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48521E306C78AEA9DC706C5383642E46 /* MainNetworkApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = MainNetworkApi.kt; sourceTree = "<group>"; };
+		4E61A6A02993AAF0421CCC034453304F /* NightScreenMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NightScreenMiddleware.kt; sourceTree = "<group>"; };
 		54DC7F9924F99FEE67A9AD3BEE09A10C /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
+		55882C3169F0ECBBF52E16205F10ED9D /* Middleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = Middleware.kt; sourceTree = "<group>"; };
+		56B754A545D3FBF0078DF9F0C7A83FC6 /* GamePutRequestModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = GamePutRequestModel.kt; sourceTree = "<group>"; };
+		57B087B62CB3F2C983DB00AE4B93A0E6 /* NavigationReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NavigationReducer.kt; sourceTree = "<group>"; };
+		5A6FFFE3554222C26785820B536A0A1D /* KtorWebService.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = KtorWebService.kt; sourceTree = "<group>"; };
 		5AC974169B09D4545F741E9A2147610E /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
-		70D6E483B23F0B0627D6EE7BD5E32B58 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
-		734A7EB7736A65B8A61B7858DBED0A43 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5CA18ECA3578847D115560BA040ABC55 /* AchievesScreenMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AchievesScreenMiddleware.kt; sourceTree = "<group>"; };
+		61680E652D42CBDFD001C4F8BAC6B59A /* Store.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = Store.kt; sourceTree = "<group>"; };
+		6459128161347F7EAE47D4BD3A213EC7 /* AppMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AppMiddleware.kt; sourceTree = "<group>"; };
+		682A9B6BEEA1D032C7A19EDB6382A054 /* AccountState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AccountState.kt; sourceTree = "<group>"; };
+		6D62045B20A89E1A1D047704A8A68FDC /* LogService.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = LogService.kt; sourceTree = "<group>"; };
+		6D908C5DF3F61C84D9A299D3DDA3FB4A /* SlotsScreenReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = SlotsScreenReducer.kt; sourceTree = "<group>"; };
+		6DDDCFECDAC2200805D7DDE1C01A3A2A /* AchievesScreenReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AchievesScreenReducer.kt; sourceTree = "<group>"; };
+		75D98EC3C8B832963BA62AD8A91D6F44 /* NightScreenState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NightScreenState.kt; sourceTree = "<group>"; };
+		77960F1FBAAEA165DFF9F4171D5F3A1B /* KtorWebService.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = KtorWebService.kt; sourceTree = "<group>"; };
+		78451246CFD2FD07F4E907FBB03C7C12 /* PlayersMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = PlayersMiddleware.kt; sourceTree = "<group>"; };
+		7B5B10012EE30452E4560E525C780653 /* AuthMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AuthMiddleware.kt; sourceTree = "<group>"; };
+		7D563708E1E0F37D867824918770FBD4 /* RoundReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = RoundReducer.kt; sourceTree = "<group>"; };
+		7EE55B947288268F9CE1942F4FA007F3 /* LogService.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = LogService.kt; sourceTree = "<group>"; };
+		7F4D792B0EA10A420AE01AC936D0D74F /* RoundState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = RoundState.kt; sourceTree = "<group>"; };
+		7F8FCDA6A61ADA4A2C5A69CADBE20837 /* ScoreScreenReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ScoreScreenReducer.kt; sourceTree = "<group>"; };
+		803CC5B62BE2ACC90B48C9285FB55BB8 /* RoundMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = RoundMiddleware.kt; sourceTree = "<group>"; };
+		81629BDA4A872152239FCAB6E27D7099 /* ApiResponse.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ApiResponse.kt; sourceTree = "<group>"; };
+		8401AA67EEE54BB3F9A0FF8CD837ED8C /* DayScreenReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = DayScreenReducer.kt; sourceTree = "<group>"; };
+		84202143D37B735A05B6CD3814F4C341 /* DayScreenState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = DayScreenState.kt; sourceTree = "<group>"; };
+		842352B2B581A70EFB1F19BCA765A62F /* PlayersProfileBEModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = PlayersProfileBEModel.kt; sourceTree = "<group>"; };
+		8600BF8FA2403B10E0843AEF7298E589 /* Koin.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = Koin.kt; sourceTree = "<group>"; };
+		89FF30457666A8D60973F401C7115FEB /* shared-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "shared-Info.plist"; sourceTree = "<group>"; };
 		8B524AABE529FB8A2D151B05321336E0 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
+		8C736283359717EC01382E6BC7F70AFB /* GameMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = GameMiddleware.kt; sourceTree = "<group>"; };
+		8E38D1B1117FC9BBCE0032A6CC4941CE /* AchievementModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AchievementModel.kt; sourceTree = "<group>"; };
+		8E4F340BD755DED1C87F2461EF528D85 /* shared.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = shared.modulemap; sourceTree = "<group>"; };
+		9B8F5ECBA4C2F9F6CE3ECA98E8A1D8CA /* AuthState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AuthState.kt; sourceTree = "<group>"; };
 		9BB0B8B698D4C35D4F9A07EF70910170 /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		9D4DE93DD3F2ACC6838CEB29B92D63CE /* Reducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = Reducer.kt; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9DB32E028A9D8AFEF631CBA19076548A /* DayScreenMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = DayScreenMiddleware.kt; sourceTree = "<group>"; };
+		9F011AD05F291939075546901A9ABC44 /* GameState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = GameState.kt; sourceTree = "<group>"; };
 		9F1FFC8B10F4D7D4F37606E8959B3F29 /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9FECCB5AFF87D121F15BA01E683C7932 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		A431E0BE7AD481AC7349188A6C1F0112 /* AccountMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AccountMiddleware.kt; sourceTree = "<group>"; };
+		A834276EB8402A768087D8FCD3ACB5DA /* GameReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = GameReducer.kt; sourceTree = "<group>"; };
+		AC76A92C3BCC8E9B67A2AE1D312A8CFD /* SlotsScreenState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = SlotsScreenState.kt; sourceTree = "<group>"; };
+		B08469CFC966F0D7BF0BD8BD8482E7F9 /* ScoreScreenState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ScoreScreenState.kt; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods-iosApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-iosApp"; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E23ED8A03974E9F66764D2E6B0853DA2 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
-		E65A04D83A11443156A141A6DC9578F0 /* shared-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "shared-copy-dsyms.sh"; sourceTree = "<group>"; };
+		B2ED719B2F04F65015BBEA34DF22D872 /* CardsScreenMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = CardsScreenMiddleware.kt; sourceTree = "<group>"; };
+		C2EC06FFFA4BED290826F2131AC99310 /* AchievesScreenState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AchievesScreenState.kt; sourceTree = "<group>"; };
+		CE6D1EA9AA2D07001BE4BF10F90AFE67 /* PlayersReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = PlayersReducer.kt; sourceTree = "<group>"; };
+		D1544908D3CD1C47142974293EB5B4A4 /* PlayersState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = PlayersState.kt; sourceTree = "<group>"; };
+		DB86C6F497F7ED02AE13AD85A9742350 /* NavigationState.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NavigationState.kt; sourceTree = "<group>"; };
+		DDB0BCB9ABB12C33E32ADAA47E84A916 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ECA743230C7867EEF7076DE2C50B7BB6 /* ProfileUIModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = ProfileUIModel.kt; sourceTree = "<group>"; };
+		EFA0FA39399D01DA34EBF90C142BB2B0 /* shared-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-prefix.pch"; sourceTree = "<group>"; };
+		F1DC7442ECF831EA1A63786BA6091888 /* AccountReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = AccountReducer.kt; sourceTree = "<group>"; };
+		F4D2609BD5295A0293D86FB61241FC0A /* CardsScreenReducer.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = CardsScreenReducer.kt; sourceTree = "<group>"; };
+		F54262AA972CCD045DD053F7206E66B8 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		F87A626222A8D9B26448A9FEB04FD0DF /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
+		F94DC2BD93718E59F1753AABDFA48797 /* NavigationMiddleware.kt */ = {isa = PBXFileReference; includeInIndex = 1; path = NavigationMiddleware.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,9 +169,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2285CAF7EB339414CAA70E11493521FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D4298A41944DAF8CA2A901E58FA9146 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01CEE6EF09C06B8F3519F4704381FA5A /* night */ = {
+			isa = PBXGroup;
+			children = (
+				4E61A6A02993AAF0421CCC034453304F /* NightScreenMiddleware.kt */,
+				127EDE0FC7310D6959627993ABBAF6B9 /* NightScreenReducer.kt */,
+				75D98EC3C8B832963BA62AD8A91D6F44 /* NightScreenState.kt */,
+			);
+			name = night;
+			path = night;
+			sourceTree = "<group>";
+		};
+		094C92D54E40C06FC3395AAA1CE43789 /* achievement */ = {
+			isa = PBXGroup;
+			children = (
+				5CA18ECA3578847D115560BA040ABC55 /* AchievesScreenMiddleware.kt */,
+				6DDDCFECDAC2200805D7DDE1C01A3A2A /* AchievesScreenReducer.kt */,
+				C2EC06FFFA4BED290826F2131AC99310 /* AchievesScreenState.kt */,
+			);
+			name = achievement;
+			path = achievement;
+			sourceTree = "<group>";
+		};
+		09857BA9E2CE797DDA14BE64E3DDE0A4 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				78A54369A41F7AAB39D1A69023B87529 /* commonMain */,
+				E3EAD52BFE1A4B8E194A535BC2FF048B /* iosMain */,
+				53D17F370B757FF39598EC3BDCF35C1D /* Pod */,
+				67ED360CA421FEE4022EC44CF1818089 /* Support Files */,
+			);
+			name = shared;
+			path = ../../shared;
+			sourceTree = "<group>";
+		};
 		11C970DEAE48C6D0282DFE54684F53F1 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,28 +222,84 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		1F86AA6785DF34AFD5A71790761717DE /* Products */ = {
+		11CCCD7C1D9D2F40555D91E08E69847C /* network */ = {
 			isa = PBXGroup;
 			children = (
-				B097DD7534E741D5C41838011D755842 /* Pods-iosApp */,
+				23E0363C2B5F37AEEAC3399EAB324602 /* ApiResponse.kt */,
 			);
-			name = Products;
+			name = network;
+			path = network;
 			sourceTree = "<group>";
 		};
-		301E7E01BDCE486E3B1785C9B8188C70 /* Frameworks */ = {
+		1239BC84FBB7F03452C582D32DAE16DB /* slots */ = {
 			isa = PBXGroup;
 			children = (
-				70D6E483B23F0B0627D6EE7BD5E32B58 /* shared.framework */,
+				1786294586FF7F2D8DE91E0C1E6C8FED /* SlotsScreenMiddleware.kt */,
+				6D908C5DF3F61C84D9A299D3DDA3FB4A /* SlotsScreenReducer.kt */,
+				AC76A92C3BCC8E9B67A2AE1D312A8CFD /* SlotsScreenState.kt */,
 			);
-			name = Frameworks;
+			name = slots;
+			path = slots;
 			sourceTree = "<group>";
 		};
-		313FE5FE915A4A924C55AAC02A910D61 /* Development Pods */ = {
+		15DC1E49E1E4AA8AB79D149D9F1110DA /* network */ = {
 			isa = PBXGroup;
 			children = (
-				D8A02EC6C8DF3366897E8E9AFF0F6E82 /* shared */,
+				48521E306C78AEA9DC706C5383642E46 /* MainNetworkApi.kt */,
+				045989A509408A9CABAC9BB0EAF6CA08 /* MainNetworkApiImpl.kt */,
 			);
-			name = "Development Pods";
+			name = network;
+			path = network;
+			sourceTree = "<group>";
+		};
+		275535082F6AD80B0787D7FCA71D23FB /* score */ = {
+			isa = PBXGroup;
+			children = (
+				3123A9234EFF880CD6B58D4D73CDD956 /* ScoreScreenMiddleware.kt */,
+				7F8FCDA6A61ADA4A2C5A69CADBE20837 /* ScoreScreenReducer.kt */,
+				B08469CFC966F0D7BF0BD8BD8482E7F9 /* ScoreScreenState.kt */,
+			);
+			name = score;
+			path = score;
+			sourceTree = "<group>";
+		};
+		287CD201A1F4DE1E10B17DB6CF209D95 /* achievement */ = {
+			isa = PBXGroup;
+			children = (
+				8E38D1B1117FC9BBCE0032A6CC4941CE /* AchievementModel.kt */,
+			);
+			name = achievement;
+			path = achievement;
+			sourceTree = "<group>";
+		};
+		32A5BC3B0755814D876383EF3C2CE670 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				65173FAE877B74F31BB78A2566389ECE /* di */,
+				B8CA41800F1F12C33FC6E3BC364A70CF /* redux */,
+			);
+			name = core;
+			path = core;
+			sourceTree = "<group>";
+		};
+		33CA4622C7911932D35567DA0C492672 /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				8CA10E57F07DED96F3D244E8B12F3FCE /* com */,
+			);
+			name = kotlin;
+			path = kotlin;
+			sourceTree = "<group>";
+		};
+		428CEE5231F394659519EC74FB2D5A02 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				6459128161347F7EAE47D4BD3A213EC7 /* AppMiddleware.kt */,
+				0A320795B32D39AC9CBB7D076842C927 /* AppReducer.kt */,
+				324912E041C5789FCE489FD612948072 /* AppState.kt */,
+			);
+			name = app;
+			path = app;
 			sourceTree = "<group>";
 		};
 		52A898E555C2DBD7D25A7E44754C3FC6 /* Pods-iosApp */ = {
@@ -117,32 +319,274 @@
 			path = "Target Support Files/Pods-iosApp";
 			sourceTree = "<group>";
 		};
-		58DAE3B502B145BFD26ADEF120E929E9 /* Pod */ = {
+		52BACAEF85821904A12404708D0EFD52 /* service */ = {
 			isa = PBXGroup;
 			children = (
-				734A7EB7736A65B8A61B7858DBED0A43 /* shared.podspec */,
+				5A6FFFE3554222C26785820B536A0A1D /* KtorWebService.kt */,
+				7EE55B947288268F9CE1942F4FA007F3 /* LogService.kt */,
+			);
+			name = service;
+			path = service;
+			sourceTree = "<group>";
+		};
+		53D17F370B757FF39598EC3BDCF35C1D /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				DDB0BCB9ABB12C33E32ADAA47E84A916 /* shared.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		956A655F6D8CFE14847D80D0455A890F /* Support Files */ = {
+		58AAD176B64323B9974E5B70EC8B12DC /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E65A04D83A11443156A141A6DC9578F0 /* shared-copy-dsyms.sh */,
-				009069A386B0A5A8DB76D61AE1586630 /* shared.debug.xcconfig */,
-				E23ED8A03974E9F66764D2E6B0853DA2 /* shared.release.xcconfig */,
+				09857BA9E2CE797DDA14BE64E3DDE0A4 /* shared */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		609BD26BDD1272499800BD4C4A257D68 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				81629BDA4A872152239FCAB6E27D7099 /* ApiResponse.kt */,
+			);
+			name = core;
+			path = core;
+			sourceTree = "<group>";
+		};
+		64C7D6ED626D0CFDC077FBE7EFD20AB8 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				287CD201A1F4DE1E10B17DB6CF209D95 /* achievement */,
+				F16CA3654F97DE24C3E583CCADD80B5E /* character_card */,
+				609BD26BDD1272499800BD4C4A257D68 /* core */,
+				9A1D959E6E42BEC4879C24C1F59892CD /* game */,
+				11CCCD7C1D9D2F40555D91E08E69847C /* network */,
+				E2C5C521CBD4CA61FD959C26D27D2919 /* profile */,
+			);
+			name = data;
+			path = data;
+			sourceTree = "<group>";
+		};
+		65173FAE877B74F31BB78A2566389ECE /* di */ = {
+			isa = PBXGroup;
+			children = (
+				8600BF8FA2403B10E0843AEF7298E589 /* Koin.kt */,
+			);
+			name = di;
+			path = di;
+			sourceTree = "<group>";
+		};
+		67ED360CA421FEE4022EC44CF1818089 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				8E4F340BD755DED1C87F2461EF528D85 /* shared.modulemap */,
+				0E5F818D9D8CAB41B253AFBF85AAE767 /* shared-dummy.m */,
+				89FF30457666A8D60973F401C7115FEB /* shared-Info.plist */,
+				EFA0FA39399D01DA34EBF90C142BB2B0 /* shared-prefix.pch */,
+				2015F5AB46AEDBBD32F004A154B439FA /* shared-umbrella.h */,
+				F54262AA972CCD045DD053F7206E66B8 /* shared.debug.xcconfig */,
+				0F9A65105C95A3B01847D01D8D0329A8 /* shared.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../iosApp/Pods/Target Support Files/shared";
+			sourceTree = "<group>";
+		};
+		69CBA2E393577705B56AD93071314558 /* players */ = {
+			isa = PBXGroup;
+			children = (
+				78451246CFD2FD07F4E907FBB03C7C12 /* PlayersMiddleware.kt */,
+				CE6D1EA9AA2D07001BE4BF10F90AFE67 /* PlayersReducer.kt */,
+				D1544908D3CD1C47142974293EB5B4A4 /* PlayersState.kt */,
+			);
+			name = players;
+			path = players;
+			sourceTree = "<group>";
+		};
+		78A54369A41F7AAB39D1A69023B87529 /* commonMain */ = {
+			isa = PBXGroup;
+			children = (
+				33CA4622C7911932D35567DA0C492672 /* kotlin */,
+			);
+			name = commonMain;
+			path = src/commonMain;
+			sourceTree = "<group>";
+		};
+		80063C6744BA7FF92AEAF304229D1CF7 /* analytics */ = {
+			isa = PBXGroup;
+			children = (
+				E1E1117CEE3C22B16BB219B3308CAD9F /* game */,
+				69CBA2E393577705B56AD93071314558 /* players */,
+				9C586F470FED52F086BA8115BDE80EF9 /* round */,
+			);
+			name = analytics;
+			path = analytics;
+			sourceTree = "<group>";
+		};
+		83AAD65937548D1096AFE533C257A1C4 /* account */ = {
+			isa = PBXGroup;
+			children = (
+				A431E0BE7AD481AC7349188A6C1F0112 /* AccountMiddleware.kt */,
+				F1DC7442ECF831EA1A63786BA6091888 /* AccountReducer.kt */,
+				682A9B6BEEA1D032C7A19EDB6382A054 /* AccountState.kt */,
+			);
+			name = account;
+			path = account;
+			sourceTree = "<group>";
+		};
+		856486962B62689648978192DACF9F81 /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				F94DC2BD93718E59F1753AABDFA48797 /* NavigationMiddleware.kt */,
+				57B087B62CB3F2C983DB00AE4B93A0E6 /* NavigationReducer.kt */,
+				DB86C6F497F7ED02AE13AD85A9742350 /* NavigationState.kt */,
+			);
+			name = navigation;
+			path = navigation;
+			sourceTree = "<group>";
+		};
+		8CA10E57F07DED96F3D244E8B12F3FCE /* com */ = {
+			isa = PBXGroup;
+			children = (
+				ADE3E96BB8369A9ACF38A7B4E6D78FCF /* turbosokol */,
+			);
+			name = com;
+			path = com;
+			sourceTree = "<group>";
+		};
+		8F20D01EAB4FAED1845F78F6ADE2C7ED /* features */ = {
+			isa = PBXGroup;
+			children = (
+				83AAD65937548D1096AFE533C257A1C4 /* account */,
+				428CEE5231F394659519EC74FB2D5A02 /* app */,
+				EBEB4A1BA602700E0177B8DB13FC7998 /* auth */,
+				F99494128CF5A23A3AA8143D753CB713 /* judge */,
+				856486962B62689648978192DACF9F81 /* navigation */,
+			);
+			name = features;
+			path = features;
+			sourceTree = "<group>";
+		};
+		955A757B5CCD8E8CD0BFED0CAAF62082 /* screens */ = {
+			isa = PBXGroup;
+			children = (
+				094C92D54E40C06FC3395AAA1CE43789 /* achievement */,
+				D70ADB072B20E415D86AA0935E3EF94D /* cards */,
+				FC8F36657A75D2D7F13AFA15F6D40915 /* day */,
+				01CEE6EF09C06B8F3519F4704381FA5A /* night */,
+				275535082F6AD80B0787D7FCA71D23FB /* score */,
+				1239BC84FBB7F03452C582D32DAE16DB /* slots */,
+			);
+			name = screens;
+			path = screens;
+			sourceTree = "<group>";
+		};
+		9750C540B49D83EC2E65B23C19E6E6A1 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				77960F1FBAAEA165DFF9F4171D5F3A1B /* KtorWebService.kt */,
+				6D62045B20A89E1A1D047704A8A68FDC /* LogService.kt */,
+			);
+			name = service;
+			path = service;
+			sourceTree = "<group>";
+		};
+		991FC17EA1FBC8D8092896602DA2E711 /* com.turbosokol.iqmafiaapp */ = {
+			isa = PBXGroup;
+			children = (
+				9750C540B49D83EC2E65B23C19E6E6A1 /* service */,
+			);
+			name = com.turbosokol.iqmafiaapp;
+			path = com.turbosokol.iqmafiaapp;
+			sourceTree = "<group>";
+		};
+		9A1D959E6E42BEC4879C24C1F59892CD /* game */ = {
+			isa = PBXGroup;
+			children = (
+				56B754A545D3FBF0078DF9F0C7A83FC6 /* GamePutRequestModel.kt */,
+			);
+			name = game;
+			path = game;
+			sourceTree = "<group>";
+		};
+		9C586F470FED52F086BA8115BDE80EF9 /* round */ = {
+			isa = PBXGroup;
+			children = (
+				803CC5B62BE2ACC90B48C9285FB55BB8 /* RoundMiddleware.kt */,
+				7D563708E1E0F37D867824918770FBD4 /* RoundReducer.kt */,
+				7F4D792B0EA10A420AE01AC936D0D74F /* RoundState.kt */,
+			);
+			name = round;
+			path = round;
+			sourceTree = "<group>";
+		};
+		ADE3E96BB8369A9ACF38A7B4E6D78FCF /* turbosokol */ = {
+			isa = PBXGroup;
+			children = (
+				B21606845BA18C5E06D1E755A85B447E /* iqmafiaapp */,
+			);
+			name = turbosokol;
+			path = turbosokol;
+			sourceTree = "<group>";
+		};
+		B21606845BA18C5E06D1E755A85B447E /* iqmafiaapp */ = {
+			isa = PBXGroup;
+			children = (
+				32A5BC3B0755814D876383EF3C2CE670 /* core */,
+				64C7D6ED626D0CFDC077FBE7EFD20AB8 /* data */,
+				8F20D01EAB4FAED1845F78F6ADE2C7ED /* features */,
+				C92F81C3C42A86447FF991931EF0298B /* repository */,
+				52BACAEF85821904A12404708D0EFD52 /* service */,
+			);
+			name = iqmafiaapp;
+			path = iqmafiaapp;
+			sourceTree = "<group>";
+		};
+		B6B4695582DB16E9A4F175A8F705CF2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B097DD7534E741D5C41838011D755842 /* Pods-iosApp */,
+				4212BB5B5D1ABF0C1190FA43BF6E3835 /* shared */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B8CA41800F1F12C33FC6E3BC364A70CF /* redux */ = {
+			isa = PBXGroup;
+			children = (
+				55882C3169F0ECBBF52E16205F10ED9D /* Middleware.kt */,
+				9D4DE93DD3F2ACC6838CEB29B92D63CE /* Reducer.kt */,
+				61680E652D42CBDFD001C4F8BAC6B59A /* Store.kt */,
+			);
+			name = redux;
+			path = redux;
+			sourceTree = "<group>";
+		};
+		C92F81C3C42A86447FF991931EF0298B /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				15DC1E49E1E4AA8AB79D149D9F1110DA /* network */,
+			);
+			name = repository;
+			path = repository;
+			sourceTree = "<group>";
+		};
+		CDEFF2A0CE211B0CCE7D40BA3271B6FC /* kotlin */ = {
+			isa = PBXGroup;
+			children = (
+				991FC17EA1FBC8D8092896602DA2E711 /* com.turbosokol.iqmafiaapp */,
+			);
+			name = kotlin;
+			path = kotlin;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				313FE5FE915A4A924C55AAC02A910D61 /* Development Pods */,
+				58AAD176B64323B9974E5B70EC8B12DC /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				1F86AA6785DF34AFD5A71790761717DE /* Products */,
+				B6B4695582DB16E9A4F175A8F705CF2F /* Products */,
 				11C970DEAE48C6D0282DFE54684F53F1 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -155,15 +599,46 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D8A02EC6C8DF3366897E8E9AFF0F6E82 /* shared */ = {
+		D70ADB072B20E415D86AA0935E3EF94D /* cards */ = {
 			isa = PBXGroup;
 			children = (
-				301E7E01BDCE486E3B1785C9B8188C70 /* Frameworks */,
-				58DAE3B502B145BFD26ADEF120E929E9 /* Pod */,
-				956A655F6D8CFE14847D80D0455A890F /* Support Files */,
+				B2ED719B2F04F65015BBEA34DF22D872 /* CardsScreenMiddleware.kt */,
+				F4D2609BD5295A0293D86FB61241FC0A /* CardsScreenReducer.kt */,
+				0205E3DC70282BB912E8DB2F8AA1955A /* CardsScreenState.kt */,
 			);
-			name = shared;
-			path = ../../shared;
+			name = cards;
+			path = cards;
+			sourceTree = "<group>";
+		};
+		E1E1117CEE3C22B16BB219B3308CAD9F /* game */ = {
+			isa = PBXGroup;
+			children = (
+				8C736283359717EC01382E6BC7F70AFB /* GameMiddleware.kt */,
+				A834276EB8402A768087D8FCD3ACB5DA /* GameReducer.kt */,
+				9F011AD05F291939075546901A9ABC44 /* GameState.kt */,
+			);
+			name = game;
+			path = game;
+			sourceTree = "<group>";
+		};
+		E2C5C521CBD4CA61FD959C26D27D2919 /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				842352B2B581A70EFB1F19BCA765A62F /* PlayersProfileBEModel.kt */,
+				0F540C284EEC97BD2D653692ACEDC8C6 /* ProfileMapper.kt */,
+				ECA743230C7867EEF7076DE2C50B7BB6 /* ProfileUIModel.kt */,
+			);
+			name = profile;
+			path = profile;
+			sourceTree = "<group>";
+		};
+		E3EAD52BFE1A4B8E194A535BC2FF048B /* iosMain */ = {
+			isa = PBXGroup;
+			children = (
+				CDEFF2A0CE211B0CCE7D40BA3271B6FC /* kotlin */,
+			);
+			name = iosMain;
+			path = src/iosMain;
 			sourceTree = "<group>";
 		};
 		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
@@ -172,6 +647,47 @@
 				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		EBEB4A1BA602700E0177B8DB13FC7998 /* auth */ = {
+			isa = PBXGroup;
+			children = (
+				7B5B10012EE30452E4560E525C780653 /* AuthMiddleware.kt */,
+				1F9167097E477E6247954C0C1FC0EF49 /* AuthReducer.kt */,
+				9B8F5ECBA4C2F9F6CE3ECA98E8A1D8CA /* AuthState.kt */,
+			);
+			name = auth;
+			path = auth;
+			sourceTree = "<group>";
+		};
+		F16CA3654F97DE24C3E583CCADD80B5E /* character_card */ = {
+			isa = PBXGroup;
+			children = (
+				238128A1A2D585447EA6A44EECA41454 /* CharacterCardModel.kt */,
+			);
+			name = character_card;
+			path = character_card;
+			sourceTree = "<group>";
+		};
+		F99494128CF5A23A3AA8143D753CB713 /* judge */ = {
+			isa = PBXGroup;
+			children = (
+				80063C6744BA7FF92AEAF304229D1CF7 /* analytics */,
+				955A757B5CCD8E8CD0BFED0CAAF62082 /* screens */,
+			);
+			name = judge;
+			path = judge;
+			sourceTree = "<group>";
+		};
+		FC8F36657A75D2D7F13AFA15F6D40915 /* day */ = {
+			isa = PBXGroup;
+			children = (
+				9DB32E028A9D8AFEF631CBA19076548A /* DayScreenMiddleware.kt */,
+				8401AA67EEE54BB3F9A0FF8CD837ED8C /* DayScreenReducer.kt */,
+				84202143D37B735A05B6CD3814F4C341 /* DayScreenState.kt */,
+			);
+			name = day;
+			path = day;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,9 +701,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CFD30069E64FC99CF19EBFBF92BC816F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9076BF7D6716C2C7D1F1802943A411D7 /* shared-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8777C9F6889E59EFFD631D80AEE9048B /* shared */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D818E8B3371999B8006E9B9EE64F82DA /* Build configuration list for PBXNativeTarget "shared" */;
+			buildPhases = (
+				CFD30069E64FC99CF19EBFBF92BC816F /* Headers */,
+				1D19454B5E5E278686D3599A34D81F7F /* [CP-User] Build shared */,
+				6C1A17EC006CB3017977B1710C909B76 /* Sources */,
+				2285CAF7EB339414CAA70E11493521FD /* Frameworks */,
+				78D74A0FA76D8EBD50CB1E95C3E66312 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = shared;
+			productName = shared;
+			productReference = 4212BB5B5D1ABF0C1190FA43BF6E3835 /* shared */;
+			productType = "com.apple.product-type.framework";
+		};
 		ED39C638569286489CD697A6C8964146 /* Pods-iosApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 62DF320FFA8E27CD12F88C10C664679B /* Build configuration list for PBXNativeTarget "Pods-iosApp" */;
@@ -200,7 +743,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				A4F25415050C2032C8990233E1863696 /* PBXTargetDependency */,
+				761B416F81FE58CDC4EC769053971F3F /* PBXTargetDependency */,
 			);
 			name = "Pods-iosApp";
 			productName = Pods_iosApp;
@@ -227,7 +770,7 @@
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 1F86AA6785DF34AFD5A71790761717DE /* Products */;
+			productRefGroup = B6B4695582DB16E9A4F175A8F705CF2F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -238,6 +781,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		78D74A0FA76D8EBD50CB1E95C3E66312 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EEC5CBD908EE7B8E76D7203E84A6B91B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,7 +798,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11F372A9E68C08375C21A8D47B3CDB02 /* [CP-User] Build shared */ = {
+		1D19454B5E5E278686D3599A34D81F7F /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,26 +808,74 @@
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n                  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
-		35C7D8836447FEC746DA683E14000153 /* [CP] Copy dSYMs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms-input-files.xcfilelist",
-			);
-			name = "[CP] Copy dSYMs";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6C1A17EC006CB3017977B1710C909B76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FAC674258B559E746C86F9CE8F599F8 /* AccountMiddleware.kt in Sources */,
+				1BC951F793C06FEFC2C54C9B8425AA71 /* AccountReducer.kt in Sources */,
+				79FC831CB1B58857399358E079F9DC08 /* AccountState.kt in Sources */,
+				A8E79B6B7F18732E540AEC73C7459039 /* AchievementModel.kt in Sources */,
+				ABD8D514529AB2279C872507BCB0612A /* AchievesScreenMiddleware.kt in Sources */,
+				AF8160FA7696E030B4E4B4AFB3EAE987 /* AchievesScreenReducer.kt in Sources */,
+				08E720E1941D7F2072D4D0A0A1D772BC /* AchievesScreenState.kt in Sources */,
+				200E0CE1758D7879129556F3FFF8AA01 /* ApiResponse.kt in Sources */,
+				200E0CE1758D7879129556F3FFF8AA01 /* ApiResponse.kt in Sources */,
+				C65DE0E2B635539F57EBCE2200DC2807 /* AppMiddleware.kt in Sources */,
+				87D1CB4A373DF34335BF74431BCF49B6 /* AppReducer.kt in Sources */,
+				8C9779B6BD8E6A9B615E77EB0D1FCCF9 /* AppState.kt in Sources */,
+				49C99F0C50393BAC194E68B6915201C9 /* AuthMiddleware.kt in Sources */,
+				6EFE9EC768E092C875CCDB2D471F04CA /* AuthReducer.kt in Sources */,
+				022204085BC46FF7B20D92618C06E974 /* AuthState.kt in Sources */,
+				55CDF6AC4A8972D88E25AAB0EFCC0FD6 /* CardsScreenMiddleware.kt in Sources */,
+				959B7ECFB3C575C02CF85E11A50943E1 /* CardsScreenReducer.kt in Sources */,
+				45F7E3914BC9B53BD93C594C61AEA5FC /* CardsScreenState.kt in Sources */,
+				A717EB535D93EA80C3B64EF429EA49B4 /* CharacterCardModel.kt in Sources */,
+				4AC6B27F6651ED88E6A756E1A5BC3F92 /* DayScreenMiddleware.kt in Sources */,
+				A9C51134F0041CCA5FF77039AFF29B92 /* DayScreenReducer.kt in Sources */,
+				DA6B2929F6C443C9A34C45CB94C13EE4 /* DayScreenState.kt in Sources */,
+				E7121EB981C69826850160BA0BC038E9 /* GameMiddleware.kt in Sources */,
+				8C3C19567664AD65B58B9AB674FB6A32 /* GamePutRequestModel.kt in Sources */,
+				C1891347CC223DFC342A243FA9E67C7B /* GameReducer.kt in Sources */,
+				108DB2289277DA5A2CD99F27B93D941C /* GameState.kt in Sources */,
+				7AB444F2B81095F9AFE0805B2C6C77B6 /* Koin.kt in Sources */,
+				964DF9AD50FB5925A082B547040F6B84 /* KtorWebService.kt in Sources */,
+				964DF9AD50FB5925A082B547040F6B84 /* KtorWebService.kt in Sources */,
+				C5FADD04AF0713BB248FF2ED60751CB0 /* LogService.kt in Sources */,
+				C5FADD04AF0713BB248FF2ED60751CB0 /* LogService.kt in Sources */,
+				8A34DC88654B10E55F8653927F707E97 /* MainNetworkApi.kt in Sources */,
+				323BCC1B5B1008F9E2042D2FCB1E3271 /* MainNetworkApiImpl.kt in Sources */,
+				2CC371C22224832FF168FD8484FD2E1B /* Middleware.kt in Sources */,
+				2F3585F0990C2FE9E82DEE7BBFD860E7 /* NavigationMiddleware.kt in Sources */,
+				A96DCBDB5CF16089A35B551544799C90 /* NavigationReducer.kt in Sources */,
+				DFAD4F362A4BE3091B67764FD2D0C08D /* NavigationState.kt in Sources */,
+				D7E25A42664FD4775F164084ECD96CA9 /* NightScreenMiddleware.kt in Sources */,
+				B55D609B6299807104FC31424D61EDF8 /* NightScreenReducer.kt in Sources */,
+				0AA8CDFEDEAFBFF862B29928C3332B94 /* NightScreenState.kt in Sources */,
+				20637D4EF5B83AB6ADC60AA5CF4AE388 /* PlayersMiddleware.kt in Sources */,
+				E131BD3444E0F6D8CA0496927C8A30FD /* PlayersProfileBEModel.kt in Sources */,
+				FC0B54D3B8278B5C03F5FDFD35914800 /* PlayersReducer.kt in Sources */,
+				DD4984A1940304FDEB35225F55917955 /* PlayersState.kt in Sources */,
+				E8C56BF718FECEB331B0A2AC93BD0715 /* ProfileMapper.kt in Sources */,
+				BB7CC9F33959BE57BAF7DFE597590FDA /* ProfileUIModel.kt in Sources */,
+				7229BA2286077DD95BF3FDC9D44B3E42 /* Reducer.kt in Sources */,
+				2289ABF4E1618997110E3E659218A56F /* RoundMiddleware.kt in Sources */,
+				3E9B0FA0DC15F7ED74F3656FAA6FF588 /* RoundReducer.kt in Sources */,
+				6BFE86BFD7953EB7CEF601AF22EE560B /* RoundState.kt in Sources */,
+				13903AAB952C88A47AB903CF04B0B98D /* ScoreScreenMiddleware.kt in Sources */,
+				B678348B5A7D34AAED8D41B0AE3421AC /* ScoreScreenReducer.kt in Sources */,
+				46B910F1D971F48A2B4E4AFDDA2F7C9C /* ScoreScreenState.kt in Sources */,
+				37B0FAF16351F72635170C2CB11CFE49 /* shared-dummy.m in Sources */,
+				D8FA2A70F0C05AF0B47BE4802792FE04 /* SlotsScreenMiddleware.kt in Sources */,
+				261918FEA9C871BB128F99253BC7AA1F /* SlotsScreenReducer.kt in Sources */,
+				2CDB68590D9C1F39ADC9863113D6E9E7 /* SlotsScreenState.kt in Sources */,
+				4BDF887B9E0942AAC0E1C5F769461DFE /* Store.kt in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		86E3A7BADD85E883E0804E5C0F7C20B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -289,78 +887,92 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A4F25415050C2032C8990233E1863696 /* PBXTargetDependency */ = {
+		761B416F81FE58CDC4EC769053971F3F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
 			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = D331C70AA6F0D4C9648E4B9A15A0F68D /* PBXContainerItemProxy */;
+			targetProxy = E1A83F000DDF12B5A1245916F3BBBA23 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */ = {
+		16F74B64B16A264CAFBEAFE71930AA70 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F54262AA972CCD045DD053F7206E66B8 /* shared.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/shared/shared-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/shared/shared-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				MODULEMAP_FILE = "Target Support Files/shared/shared.modulemap";
+				PRODUCT_NAME = shared;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
-		A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */ = {
+		33C65D32DE2A408350DD191848252196 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				INFOPLIST_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -413,7 +1025,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -426,64 +1038,69 @@
 			};
 			name = Debug;
 		};
-		BF3BA8F2FB4740C056E9847805178C3B /* Debug */ = {
+		9553C89E183877A5CB2F3C6801BEC129 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 009069A386B0A5A8DB76D61AE1586630 /* shared.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
-				LD_RUNPATH_SEARCH_PATHS = (
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
-					"@executable_path/Frameworks",
 				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
 			};
-			name = Debug;
+			name = Release;
 		};
-		E459FA27F8D43624930C1E96B58C484A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F64BADB16C311E9D09DAD0116F684F4 /* Pods-iosApp.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				INFOPLIST_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		F684119BCC22FA7D00A1CE92B2502F14 /* Release */ = {
+		EE27DCC93809D6F1A966953A7DC239D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FECCB5AFF87D121F15BA01E683C7932 /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
@@ -501,7 +1118,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-iosApp/Pods-iosApp-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -523,22 +1140,41 @@
 			};
 			name = Release;
 		};
-		F7BB1B337A5BCB399E38FFF5A6ED010C /* Release */ = {
+		F848222D292A98F25D856EB166362CB8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E23ED8A03974E9F66764D2E6B0853DA2 /* shared.release.xcconfig */;
+			baseConfigurationReference = 0F9A65105C95A3B01847D01D8D0329A8 /* shared.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				ENABLE_USER_SCRIPT_SANDBOXING = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 15;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/shared/shared-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/shared/shared-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "Target Support Files/shared/shared.modulemap";
+				PRODUCT_NAME = shared;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -548,8 +1184,8 @@
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */,
-				593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */,
+				90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */,
+				9553C89E183877A5CB2F3C6801BEC129 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -557,17 +1193,17 @@
 		62DF320FFA8E27CD12F88C10C664679B /* Build configuration list for PBXNativeTarget "Pods-iosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E459FA27F8D43624930C1E96B58C484A /* Debug */,
-				F684119BCC22FA7D00A1CE92B2502F14 /* Release */,
+				33C65D32DE2A408350DD191848252196 /* Debug */,
+				EE27DCC93809D6F1A966953A7DC239D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B999BD58A146737F72CA68509B0BCE77 /* Build configuration list for PBXAggregateTarget "shared" */ = {
+		D818E8B3371999B8006E9B9EE64F82DA /* Build configuration list for PBXNativeTarget "shared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BF3BA8F2FB4740C056E9847805178C3B /* Debug */,
-				F7BB1B337A5BCB399E38FFF5A6ED010C /* Release */,
+				16F74B64B16A264CAFBEAFE71930AA70 /* Debug */,
+				F848222D292A98F25D856EB166362CB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

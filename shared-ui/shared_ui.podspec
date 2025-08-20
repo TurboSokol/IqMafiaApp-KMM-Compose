@@ -1,15 +1,14 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'shared_ui'
     spec.version                  = '1.0'
-    spec.homepage                 = ''
+    spec.homepage                 = 'https://github.com/turbosokol/iqmafiaapp'
     spec.source                   = { :http=> ''}
-    spec.authors                  = ''
-    spec.license                  = ''
-    spec.summary                  = ''
+    spec.authors                  = 'turbosokol'
+    spec.license                  = 'MIT'
+    spec.summary                  = 'Shared UI module for IQ Mafia App'
     spec.vendored_frameworks      = 'build/cocoapods/framework/shared_ui.framework'
     spec.libraries                = 'c++'
-                
-                
+    spec.ios.deployment_target    = '15'
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':shared-ui',

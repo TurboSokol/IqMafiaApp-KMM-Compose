@@ -2,25 +2,28 @@ Pod::Spec.new do |spec|
     spec.name                     = 'shared'
     spec.version                  = '8.5.2'
     spec.homepage                 = 'Link to the Shared Module homepage'
-    spec.source                   = { :http=> ''}
-    spec.authors                  = ''
-    spec.license                  = ''
+    spec.source                   = { :git => 'https://github.com/turbosokol/iqmafiaapp.git', :tag => spec.version.to_s }
+    spec.authors                  = 'turbosokol'
+    spec.license                  = 'MIT'
     spec.summary                  = 'Some description for the Shared Module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
+    # Framework will be built during Xcode build process
+    # spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
+    spec.source_files = 'src/commonMain/**/*.kt', 'src/iosMain/**/*.kt'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target    = '15'
+    spec.ios.deployment_target    = '15.0'
                 
                 
-    if !Dir.exist?('build/cocoapods/framework/shared.framework') || Dir.empty?('build/cocoapods/framework/shared.framework')
-        raise "
-
-        Kotlin framework 'shared' doesn't exist yet, so a proper Xcode project can't be generated.
-        'pod install' should be executed after running ':generateDummyFramework' Gradle task:
-
-            ./gradlew :shared:generateDummyFramework
-
-        Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
-    end
+    # Framework will be built during Xcode build process
+    # if !Dir.exist?('build/cocoapods/framework/shared.framework') || Dir.empty?('build/cocoapods/framework/shared.framework')
+    #     raise "
+    # 
+    #     Kotlin framework 'shared' doesn't exist yet, so a proper Xcode project can't be generated.
+    #     'pod install' should be executed after running ':generateDummyFramework' Gradle task:
+    # 
+    #         ./gradlew :shared:generateDummyFramework
+    # 
+    #     Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
+    # end
                 
     spec.xcconfig = {
         'ENABLE_USER_SCRIPT_SANDBOXING' => 'NO',
